@@ -1338,6 +1338,32 @@ let state = {
   currentDay: 0
 };
 
+// ─── API helper ─────────────────────────────────────────
+async function api(path, opts = {}) {
+  const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+  if (state.user?.token) headers['Authorization'] = 'Bearer ' + state.user.token;
+  const res = await fetch(API_BASE + path, { ...opts, headers });
+  // 401 = sessão expirada (single session: logou em outro device)
+  if (res.status === 401) {
+    alert('⚠️ Sua sessão expirou — alguém logou nessa conta em outro dispositivo, ou tu ficou muito tempo fora.\n\nVamos te enviar pra tela de login.');
+    logout();
+    throw new Error('Sessão expirada');
+  }
+  // 403 = conta cancelada
+  if (res.status === 403) {
+    const data = await res.json().catch(() => ({}));
+    if (data?.code !== 'PHASE_LOCKED' && data?.code !== 'RECALC_USED' && data?.code !== 'LOCKED_BY_PHASE') {
+      // Outras 403 (tipo conta cancelada) → desloga
+      alert('⛔ ' + (data?.error || 'Acesso negado.'));
+      logout();
+      throw new Error(data?.error || 'Forbidden');
+    }
+    // Se for erro de regra de negócio (recalc bloqueado, fase bloqueada), retorna pro caller tratar
+    return { _error: data?.error || 'Bloqueado', _code: data?.code, _status: 403 };
+  }
+  return res.json();
+}
+
 // Load saved state
 function loadState() {
   try {
@@ -1450,14 +1476,26 @@ async function doFirstAccess() {
   }
 }
 
-function afterLogin() {
-  // Se o protocolo salvo é de OUTRO user, descarta protocolo + histórico
+async function afterLogin() {
+  // Se protocolo local é de OUTRO user, descarta
   if (state.protocol && state.protocol._owner && state.protocol._owner !== state.user.email) {
     state.protocol = null;
     state.history = [];
     saveState();
   }
-  // Se já tem protocolo calculado pro user atual, vai direto pro dashboard
+
+  // Tenta buscar protocolo do SERVIDOR (fonte de verdade — funciona em qualquer device)
+  try {
+    const r = await api('/api/protocol/get');
+    if (r && r.ok && r.exists && r.protocol) {
+      state.protocol = { ...r.protocol, _owner: state.user.email };
+      saveState();
+    }
+  } catch (e) {
+    console.warn('Falha ao buscar protocolo do servidor, usando local:', e);
+  }
+
+  // Decide rota
   if (state.protocol) {
     initDashboard();
   } else {
@@ -1466,6 +1504,7 @@ function afterLogin() {
 }
 
 function logout() {
+  stopVerifyHeartbeat();
   // Mantém protocolo no localStorage (vinculado ao email) — só limpa sessão
   state.user = null;
   state.oScreen = 1;
@@ -1577,7 +1616,7 @@ function validateActivity() { if (!onboard.activity) { alert('Selecione o nível
 function validateBF() { if (onboard.bf === null) { alert('Selecione o corpo parecido.'); return; } oNext(); }
 function validateGoal() { if (!onboard.goal) { alert('Selecione o objetivo.'); return; } oNext(); }
 
-function calculate() {
+async function calculate() {
   if (!onboard.goal) { alert('Selecione o objetivo.'); return; }
   if (!onboard.days) { alert('Selecione quantos dias vai treinar.'); return; }
 
@@ -1642,19 +1681,44 @@ function calculate() {
   }
   alertEl.classList.toggle('visible', showAlert);
 
-  // Preserva contagem de recalc se já existia (caso seja recalc, foi incrementado em restartOnboarding)
+  // Salva no SERVIDOR (que valida regras de recalc + retorna protocolo final com server-controlled fields)
   const prev = state.protocol || {};
   const now = new Date().toISOString();
-  state.protocol = {
-    ...onboard, tmb, maintenance, target, diet, workout, protein, carb, fat,
-    treinoPhase: '1.0', dietaPhase: '1.0', dietBase: diet,
-    _owner: state.user?.email || '',
-    recalcCount: prev.recalcCount || 0,
-    lockedFromRecalc: false,
-    createdAt: prev.createdAt || now,
-    phaseStartedAt: { treino: now, dieta: now }
+  const candidate = {
+    ...onboard, tmb, maintenance, target, diet, workout, protein, carb, fat
   };
-  const isRecalc = (prev.recalcCount || 0) >= 1;
+
+  try {
+    const r = await api('/api/protocol/save', {
+      method: 'POST',
+      body: JSON.stringify(candidate)
+    });
+    if (r._error) {
+      alert('⛔ ' + r._error);
+      // Volta pro dashboard se já tinha protocolo
+      if (state.protocol) initDashboard();
+      return;
+    }
+    if (!r.ok) {
+      alert('Erro: ' + (r.error || 'falha desconhecida'));
+      return;
+    }
+    state.protocol = { ...r.protocol, _owner: state.user.email };
+  } catch (e) {
+    console.error('save protocol fail:', e);
+    // Fallback offline (mantém local)
+    state.protocol = {
+      ...candidate,
+      treinoPhase: '1.0', dietaPhase: '1.0', dietBase: diet,
+      _owner: state.user?.email || '',
+      recalcCount: prev.recalcCount || 0,
+      lockedFromRecalc: false,
+      createdAt: prev.createdAt || now,
+      phaseStartedAt: { treino: now, dieta: now }
+    };
+  }
+
+  const isRecalc = (state.protocol.recalcCount || 0) >= 1;
   pushHistory(isRecalc ? 'Recálculo · Treino 1.0 · Dieta 1.0' : 'Cálculo inicial · Treino 1.0 · Dieta 1.0', state.protocol);
   saveState();
   oNext();
@@ -1716,6 +1780,19 @@ async function initDashboard() {
   updatePhaseBadge();
   await loadData();
   showTab('treino');
+  startVerifyHeartbeat();
+}
+
+// Heartbeat: verifica a cada 10 min se sessão ainda vale + status da conta
+let _verifyTimer = null;
+function startVerifyHeartbeat() {
+  if (_verifyTimer) return;
+  _verifyTimer = setInterval(() => {
+    api('/api/auth/verify').catch(() => {}); // a função api() já desloga em 401/403
+  }, 10 * 60 * 1000);
+}
+function stopVerifyHeartbeat() {
+  if (_verifyTimer) { clearInterval(_verifyTimer); _verifyTimer = null; }
 }
 
 function showTab(tab) {
@@ -2506,61 +2583,44 @@ function updatePhasePreview() {
   btn.style.opacity = 1;
 }
 
-function confirmPhaseUpgrade() {
+async function confirmPhaseUpgrade() {
   const p = state.protocol;
   if (!p || !phaseUpgrade.targetPhase || !phaseUpgrade.kind) return;
   const target = phaseUpgrade.targetPhase;
   const kind = phaseUpgrade.kind;
 
-  // Trava 4 meses (anti-piracy)
-  const info = getPhaseUnlockInfo(kind);
-  if (!info.unlocked) {
-    alert(`⛔ FASE BLOQUEADA\n\nFaltam ${info.daysLeft} dias pra desbloquear a Fase ${target} ${kind === 'treino' ? 'do treino' : 'da dieta'}.\n\nO método precisa de 4 meses pra cada fase mostrar resultado. Continua firme.`);
-    return;
-  }
-
-  const now = new Date().toISOString();
-  const phaseStartedAt = { ...(p.phaseStartedAt || { treino: now, dieta: now }) };
-
+  // Servidor é a fonte de verdade — manda o pedido e ele valida (4 meses, transição, etc)
+  const body = { kind, targetPhase: target };
   if (kind === 'treino') {
     if (!phaseUpgrade.newDays) return;
-    const sex = p.sex === 'Mulher' ? ' FEM' : '';
-    const newDays = phaseUpgrade.newDays;
-    const newWorkout = `TREINO${sex} ${newDays}X ${target}`;
-    phaseStartedAt.treino = now;
-    state.protocol = {
-      ...p,
-      treinoPhase: target,
-      days: newDays,
-      workout: newWorkout,
-      phaseStartedAt,
-      lockedFromRecalc: true
-    };
-    pushHistory(`Avanço TREINO · Fase ${target} · ${newDays}x/sem`, state.protocol);
-  } else if (kind === 'dieta') {
-    const phaseStep = target === '2.0' ? 1 : 2;
-    const dietBase = p.dietBase || p.diet;
-    const newDiet = adjustDietForPhase(dietBase, p.goal, phaseStep);
-    const newKcal = DIET_KCAL[newDiet.replace(/^DIETA\s+/, '')] || p.target;
-    const proteinPerKg = p.goal === 'Emagrecer' ? 2.0 : (p.goal === 'Recompor' ? 1.8 : 1.6);
-    const protein = Math.round(p.weight * proteinPerKg);
-    const fat = Math.round((newKcal * 0.25) / 9);
-    const carb = Math.round((newKcal - protein * 4 - fat * 9) / 4);
-    phaseStartedAt.dieta = now;
-    state.protocol = {
-      ...p,
-      dietaPhase: target,
-      diet: newDiet,
-      target: newKcal,
-      protein, carb, fat,
-      phaseStartedAt,
-      lockedFromRecalc: true
-    };
-    pushHistory(`Avanço DIETA · Fase ${target} · ${newDiet} (${newKcal} kcal)`, state.protocol);
+    body.newDays = phaseUpgrade.newDays;
   }
-  saveState();
-  state.currentDay = 0;
-  initDashboard();
+
+  try {
+    const r = await api('/api/protocol/advance-phase', {
+      method: 'POST',
+      body: JSON.stringify(body)
+    });
+    if (r._error) {
+      alert('⛔ ' + r._error);
+      return;
+    }
+    if (!r.ok) {
+      alert('Erro: ' + (r.error || 'falha desconhecida'));
+      return;
+    }
+    state.protocol = { ...r.protocol, _owner: state.user.email };
+    const label = kind === 'treino'
+      ? `Avanço TREINO · Fase ${target} · ${state.protocol.days}x/sem`
+      : `Avanço DIETA · Fase ${target} · ${state.protocol.diet} (${state.protocol.target} kcal)`;
+    pushHistory(label, state.protocol);
+    saveState();
+    state.currentDay = 0;
+    initDashboard();
+  } catch (e) {
+    console.error('advance-phase fail:', e);
+    alert('Erro de conexão. Tenta de novo.');
+  }
 }
 
 // ─── Histórico ───
