@@ -640,7 +640,7 @@
 // ═══════════════════════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════════════════════
-const API_BASE = 'https://crm-app-eight-flame.vercel.app'; // ajustar quando backend pronto
+const API_BASE = 'https://shape-de-elite-api.vercel.app';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://jolly-clafoutis-410e3f.netlify.app/'; // calc externa pra aba CALCULADORA
 const SUPL_PDF_URL = 'https://drive.google.com/file/d/1ajraxUzEZPe_vjGFyxtoV1waHuCw6SWI/preview';
@@ -700,7 +700,7 @@ async function doLogin() {
   msg.textContent = 'Verificando...';
   if (!email || !pwd) { msg.textContent = 'Preenche e-mail e senha.'; return; }
   try {
-    const res = await fetch(API_BASE + '/api/shape/auth/login', {
+    const res = await fetch(API_BASE + '/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password: pwd })
@@ -731,7 +731,7 @@ async function doFirstAccess() {
   if (pwd !== pwd2) { msg.textContent = 'As senhas não conferem.'; return; }
   msg.textContent = 'Criando senha...';
   try {
-    const res = await fetch(API_BASE + '/api/shape/auth/register', {
+    const res = await fetch(API_BASE + '/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password: pwd })
