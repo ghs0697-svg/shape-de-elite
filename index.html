@@ -894,6 +894,7 @@ const SUPL_PDF_URL = 'https://drive.google.com/file/d/1ajraxUzEZPe_vjGFyxtoV1waH
 let state = {
   user: null, // { email, token, name? }
   protocol: null, // resultado da calc { sex, age, weight, height, activity, activityFactor, bf, bfAdjust, goal, goalAdjust, days, tmb, maintenance, target, diet, workout, protein, carb, fat }
+  history: [], // [{date, kind: 'inicial'|'fase 2.0'|'fase 3.0'|'recalculo', snapshot: {...}}]
   oScreen: 1, // tela atual do onboarding
   treinoData: null,
   dietaData: null,
@@ -908,12 +909,13 @@ function loadState() {
     if (s) {
       const parsed = JSON.parse(s);
       Object.assign(state, parsed);
+      if (!Array.isArray(state.history)) state.history = [];
     }
   } catch(e) { console.warn('loadState fail:', e); }
 }
 function saveState() {
   try {
-    const { treinoData, dietaData, videoMap, ...persist } = state;
+    const { treinoData, dietaData, videoMap, suplData, ...persist } = state;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(persist));
   } catch(e) { console.warn('saveState fail:', e); }
 }
@@ -995,9 +997,10 @@ async function doFirstAccess() {
 }
 
 function afterLogin() {
-  // Se o protocolo salvo é de OUTRO user, descarta
+  // Se o protocolo salvo é de OUTRO user, descarta protocolo + histórico
   if (state.protocol && state.protocol._owner && state.protocol._owner !== state.user.email) {
     state.protocol = null;
+    state.history = [];
     saveState();
   }
   // Se já tem protocolo calculado pro user atual, vai direto pro dashboard
@@ -1183,6 +1186,7 @@ function calculate() {
   alertEl.classList.toggle('visible', showAlert);
 
   state.protocol = { ...onboard, tmb, maintenance, target, diet, workout, protein, carb, fat, phase: '1.0', dietBase: diet, _owner: state.user?.email || '' };
+  pushHistory('Cálculo inicial · Fase 1.0', state.protocol);
   saveState();
   oNext();
 }
@@ -1405,9 +1409,38 @@ function confirmPhaseUpgrade() {
     target: newKcal,
     protein, carb, fat
   };
+  pushHistory(`Avanço pra Fase ${target}`, state.protocol);
   saveState();
   state.currentDay = 0;
   initDashboard();
+}
+
+// ─── Histórico ───
+function pushHistory(kind, snapshot) {
+  if (!Array.isArray(state.history)) state.history = [];
+  state.history.push({
+    date: new Date().toISOString(),
+    kind,
+    snapshot: {
+      phase: snapshot.phase,
+      sex: snapshot.sex,
+      age: snapshot.age,
+      weight: snapshot.weight,
+      height: snapshot.height,
+      activity: snapshot.activity,
+      bf: snapshot.bf,
+      goal: snapshot.goal,
+      days: snapshot.days,
+      tmb: snapshot.tmb,
+      maintenance: snapshot.maintenance,
+      target: snapshot.target,
+      diet: snapshot.diet,
+      workout: snapshot.workout,
+      protein: snapshot.protein,
+      carb: snapshot.carb,
+      fat: snapshot.fat
+    }
+  });
 }
 
 function updatePhaseBadge() {
@@ -1578,11 +1611,43 @@ function renderSupl() {
 
 function renderCalc() {
   const c = document.getElementById('tab-calc');
+  const hist = Array.isArray(state.history) ? state.history : [];
+  const histHtml = hist.length ? hist.slice().reverse().map(h => {
+    const s = h.snapshot;
+    const date = new Date(h.date).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    return `
+      <details class="result-card" style="cursor:pointer;">
+        <summary style="font-weight:700;font-size:13px;color:var(--red);letter-spacing:.5px;">
+          ${h.kind} <span style="color:var(--text-muted);font-weight:500;font-size:11px;">· ${date}</span>
+        </summary>
+        <div class="small mt-2" style="line-height:1.6;color:var(--text);">
+          <strong>${s.sex} · ${s.age} anos · ${s.weight}kg · ${s.height}cm</strong><br>
+          ${s.activity} · ${s.bf} · ${s.goal}<br>
+          <span style="color:var(--red);font-weight:700;">${s.workout}</span> · ${s.diet}<br>
+          ${s.target} kcal · P ${s.protein}g · C ${s.carb}g · G ${s.fat}g
+        </div>
+      </details>
+    `;
+  }).join('') : '<div class="empty"><p>Nenhum cálculo no histórico ainda.</p></div>';
+
   c.innerHTML = `
-    <h2>Refazer cálculo</h2>
-    <p class="hint">Recalcula teu protocolo. Útil quando teu peso muda significativamente ou tu troca de objetivo.</p>
-    <button class="btn" onclick="restartOnboarding(true)">🧮 Refazer calculadora</button>
-    <button class="btn secondary" onclick="window.open('${CALC_URL}', '_blank')">Abrir calculadora externa</button>
+    <h2>Calculadora</h2>
+
+    <div class="result-card" style="background:var(--red-tint);border-color:var(--red);">
+      <h3 style="color:var(--gold);">🔄 REFAZER PROTOCOLO OFICIAL</h3>
+      <p class="small mt-2" style="color:var(--text);line-height:1.5;">Use isso quando teu peso ou objetivo mudou bastante e tu quer <strong>recalcular oficialmente</strong> teu protocolo no app. Vai sobrescrever o atual e te jogar de volta na Fase 1.0.</p>
+      <button class="btn" onclick="restartOnboarding(true)" style="margin-top:12px;">🧮 Recalcular protocolo</button>
+    </div>
+
+    <div class="result-card">
+      <h3>🧮 CALCULADORA AVULSA</h3>
+      <p class="small mt-2" style="line-height:1.5;">Abre uma calculadora externa pra <strong>simular um novo cálculo</strong> sem mexer no teu protocolo atual. Útil pra ver "e se eu mudasse de objetivo / peso / atividade".</p>
+      <div class="small mt-2" style="background:var(--bg);border-radius:6px;padding:10px 12px;color:var(--gold);font-weight:600;">⚠️ Esta calculadora NÃO altera teu protocolo. Só simula.</div>
+      <button class="btn secondary" onclick="window.open('${CALC_URL}', '_blank')" style="margin-top:12px;">Abrir calculadora avulsa</button>
+    </div>
+
+    <h3 style="margin-top:24px;margin-bottom:10px;color:var(--text-dim);font-size:13px;letter-spacing:.5px;">📋 HISTÓRICO DE PROTOCOLOS (${hist.length})</h3>
+    ${histHtml}
   `;
 }
 
