@@ -370,6 +370,83 @@
     flex-wrap: wrap;
   }
 
+  /* ── Suplementos cards ── */
+  .supl-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+  .supl-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .supl-icone {
+    font-size: 32px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--red-tint);
+    border: 2px solid var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .supl-nome {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    line-height: 1.2;
+  }
+  .supl-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .supl-meta-item {
+    background: var(--bg);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .supl-meta-item .label {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .supl-meta-item .val {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--red);
+    line-height: 1.3;
+  }
+  .supl-section {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+  }
+  .supl-section:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+  .supl-section-title {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1.2px;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .supl-section-body {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
   /* ── Calculadora embed ── */
   .calc-iframe {
     width: 100%;
@@ -943,14 +1020,16 @@ function restartOnboarding(fromSettings) {
 // ═══════════════════════════════════════════════════════════
 async function loadData() {
   if (!state.treinoData) {
-    const [treinos, dietas, videos] = await Promise.all([
+    const [treinos, dietas, videos, suplementos] = await Promise.all([
       fetch('data/treinos.json').then(r => r.json()),
       fetch('data/dietas.json').then(r => r.json()),
-      fetch('data/exercise-videos.json').then(r => r.json())
+      fetch('data/exercise-videos.json').then(r => r.json()),
+      fetch('data/suplementos.json').then(r => r.json())
     ]);
     state.treinoData = treinos;
     state.dietaData = dietas;
     state.videoMap = videos;
+    state.suplData = suplementos;
   }
 }
 
@@ -1091,12 +1170,57 @@ function renderDieta() {
 // SUPLEMENTOS / CALC TABS
 // ═══════════════════════════════════════════════════════════
 function renderSupl() {
+  const s = state.suplData;
+  const goal = state.protocol?.goal || 'todos';
   const c = document.getElementById('tab-supl');
+  if (!s) { c.innerHTML = '<div class="empty"><p>Carregando suplementos...</p></div>'; return; }
+
+  // Filtra: mostra "todos" + os do objetivo do aluno
+  const potes = s.potes.filter(p => p.objetivo === 'todos' || p.objetivo === goal);
+
+  const potesHtml = potes.map(p => `
+    <div class="supl-card">
+      <div class="supl-head">
+        <div class="supl-icone">${p.icone}</div>
+        <div class="supl-nome">${p.nome}</div>
+      </div>
+      <div class="supl-meta">
+        <div class="supl-meta-item">
+          <div class="label">DOSE</div>
+          <div class="val">${p.dose}</div>
+        </div>
+        <div class="supl-meta-item">
+          <div class="label">QUANDO</div>
+          <div class="val">${p.quando}</div>
+        </div>
+      </div>
+      <div class="supl-section">
+        <div class="supl-section-title">🎯 MISSÃO</div>
+        <div class="supl-section-body">${p.missao}</div>
+      </div>
+      ${p.dose_detalhe ? `
+      <div class="supl-section">
+        <div class="supl-section-title">📋 DETALHES DA DOSE</div>
+        <div class="supl-section-body">${p.dose_detalhe}</div>
+      </div>` : ''}
+      ${p.cuidados ? `
+      <div class="supl-section">
+        <div class="supl-section-title">⚠️ CUIDADOS</div>
+        <div class="supl-section-body">${p.cuidados}</div>
+      </div>` : ''}
+    </div>
+  `).join('');
+
   c.innerHTML = `
-    <h2>Suplementos</h2>
-    <p class="hint">Lista de suplementos recomendados pelo Método GH com dose e horário.</p>
-    <iframe class="pdf-frame" src="${SUPL_PDF_URL}" allow="autoplay" loading="lazy"></iframe>
-    <a class="btn secondary" href="${SUPL_PDF_URL.replace('/preview','/view')}" target="_blank" rel="noopener" style="text-decoration:none;text-align:center;margin-top:8px;">Abrir em tela cheia</a>
+    <h2>${s.titulo}</h2>
+    <p class="hint">${s.subtitulo}</p>
+    <div class="result-card" style="background:var(--red-tint);border-color:var(--red);">
+      <div class="small" style="color:var(--text);line-height:1.6;">${s.intro}</div>
+    </div>
+    ${potesHtml}
+    <div class="result-card" style="background:var(--surface-2);text-align:center;">
+      <div class="small" style="color:var(--text-dim);font-weight:600;letter-spacing:.3px;">${s.rodape}</div>
+    </div>
   `;
 }
 
