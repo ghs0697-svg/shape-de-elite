@@ -576,6 +576,60 @@
     line-height: 1.5;
   }
 
+  /* ── Parceiros / Acessórios ── */
+  .partner-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .partner-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
+  .partner-name { color: var(--red); font-weight: 700; font-size: 14px; flex: 1; min-width: 60%; }
+  .partner-discount { background: #1f3a1f; color: #4caf50; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.4px; white-space: nowrap; }
+  .partner-desc { color: var(--text-dim); font-size: 12px; line-height: 1.4; margin: 2px 0 8px; }
+  .partner-msg-tip { color: var(--text-muted); font-size: 10px; font-style: italic; margin-bottom: 6px; line-height: 1.4; }
+  .partner-link {
+    display: inline-block;
+    padding: 8px 14px;
+    background: var(--red);
+    color: white;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: opacity .15s;
+  }
+  .partner-link:active { opacity: 0.75; }
+  .partner-link:hover { background: var(--red-hover); }
+  .partner-link.whatsapp { background: #25d366; color: #fff; }
+  .partner-link.whatsapp:hover { background: #1da851; }
+
+  /* ── Floating Suporte WhatsApp ── */
+  .float-support {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + var(--safe-bottom));
+    background: #25d366;
+    color: white;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, .4);
+    z-index: 50;
+    font-size: 28px;
+    transition: transform .15s;
+    text-decoration: none;
+  }
+  .float-support:hover { transform: scale(1.08); }
+  .float-support:active { transform: scale(.95); }
+
   /* ── Calculadora embed ── */
   .calc-iframe {
     width: 100%;
@@ -816,15 +870,21 @@
     <button class="tab-btn active" data-tab="treino" onclick="showTab('treino')">TREINO</button>
     <button class="tab-btn" data-tab="dieta" onclick="showTab('dieta')">DIETA</button>
     <button class="tab-btn" data-tab="supl" onclick="showTab('supl')">SUPLEMENTOS</button>
+    <button class="tab-btn" data-tab="acess" onclick="showTab('acess')">ACESSÓRIOS</button>
+    <button class="tab-btn" data-tab="parc" onclick="showTab('parc')">PARCEIROS</button>
     <button class="tab-btn" data-tab="calc" onclick="showTab('calc')">CALCULADORA</button>
   </div>
 
   <div id="tab-treino" class="tab-content"></div>
   <div id="tab-dieta" class="tab-content hidden"></div>
   <div id="tab-supl" class="tab-content hidden"></div>
+  <div id="tab-acess" class="tab-content hidden"></div>
+  <div id="tab-parc" class="tab-content hidden"></div>
   <div id="tab-calc" class="tab-content hidden"></div>
 
   <div class="footer">SHAPE DE ELITE · MÉTODO GH · @gh.scheuermann</div>
+
+  <a class="float-support" href="https://wa.me/555599717530?text=Ol%C3%A1%2C%20sou%20aluno%20do%20Shape%20de%20Elite%20e%20preciso%20de%20suporte." target="_blank" rel="noopener" title="Suporte WhatsApp" aria-label="Suporte WhatsApp">💬</a>
 </div>
 
 <!-- ════════════════ PHASE UPGRADE ════════════════ -->
@@ -1230,7 +1290,139 @@ function showTab(tab) {
   if (tab === 'treino') renderTreino();
   else if (tab === 'dieta') renderDieta();
   else if (tab === 'supl') renderSupl();
+  else if (tab === 'acess') renderAcessorios();
+  else if (tab === 'parc') renderParceiros();
   else if (tab === 'calc') renderCalc();
+}
+
+// ═══════════════════════════════════════════════════════════
+// ACESSÓRIOS RENDER
+// ═══════════════════════════════════════════════════════════
+function renderAcessorios() {
+  const c = document.getElementById('tab-acess');
+  c.innerHTML = `
+    <h2>🏋️ Acessórios recomendados</h2>
+    <p class="hint">Equipamentos que fazem diferença no teu treino. Links de afiliado/Shopee.</p>
+
+    <h3 style="margin-top:18px;margin-bottom:8px;color:var(--text-dim);font-size:12px;letter-spacing:.5px;">💪 PEGADA & SUPORTE</h3>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Strap (luva grip)</span><span class="partner-discount">YANGFIT</span></div>
+      <div class="partner-desc">Pra puxadas, remadas e levantamento terra. Aumenta a pegada.</div>
+      <a class="partner-link" href="https://www.yangfit.com.br/luva-strap-hand-grip-para-cross-training-e-musculacao?variant_id=651" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Strap 8 (alta performance)</span><span class="partner-discount">YANGFIT</span></div>
+      <div class="partner-desc">Strap profissional pra cargas pesadas — stiff, terra, remada.</div>
+      <a class="partner-link" href="https://www.yangfit.com.br/strap-8-grip-alta-perfomance-para-musculacao-stiff-yangfit" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Cinturão de musculação</span><span class="partner-discount">YANGFIT</span></div>
+      <div class="partner-desc">Couro sintético — proteção lombar em agachamento, terra, desenvolvimento pesado.</div>
+      <a class="partner-link" href="https://www.yangfit.com.br/cinturao-musculacao-cross-training-couro-sintetico?variant_id=211" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Munhequeira</span><span class="partner-discount">YANGFIT</span></div>
+      <div class="partner-desc">Faixa de pulso pra desenvolvimento, supino e elevação lateral pesada.</div>
+      <a class="partner-link" href="https://www.yangfit.com.br/munhequeira-profissional-cross-training-powerlifting-lpo-pulso?variant_id=545" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Joelheira de contenção</span><span class="partner-discount">YANGFIT</span></div>
+      <div class="partner-desc">Neoprene 7mm — estabilidade no joelho em agachamento e leg press.</div>
+      <a class="partner-link" href="https://www.yangfit.com.br/joelheira-compressao-neoprene-7mm-para-lpo-cross-training-par?variant_id=305" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Faixa de joelho</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
+      <div class="partner-desc">Faixa elástica de pressão — alternativa econômica à joelheira.</div>
+      <a class="partner-link" href="https://s.shopee.com.br/7KtXeHgEgZ?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Luva aderente</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
+      <div class="partner-desc">Pegada extra com palma de borracha — útil pra exercícios de cabo.</div>
+      <a class="partner-link" href="https://s.shopee.com.br/5flJfN50qn?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+
+    <h3 style="margin-top:24px;margin-bottom:8px;color:var(--text-dim);font-size:12px;letter-spacing:.5px;">🎯 FAIXAS ELÁSTICAS</h3>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Kit Mini-band (4 intensidades)</span><span class="partner-discount">YANGFIT</span></div>
+      <div class="partner-desc">Pacote completo de 4 mini-bands de tecido — leve até extra-forte. Glúteos, ombros, aquecimento.</div>
+      <a class="partner-link" href="https://www.yangfit.com.br/kit-mini-band-tecido-4-intensidades-faixa-elastica-circular" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Mini-band leve (iniciante)</span><span class="partner-discount">YANGFIT</span></div>
+      <div class="partner-desc">Pra começar — ativação de glúteo médio sem sobrecarga.</div>
+      <a class="partner-link" href="https://www.yangfit.com.br/mini-band-de-tecido-faixa-elastica-circular-intensidade-leve" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Mini-band extra-forte (avançada)</span><span class="partner-discount">YANGFIT</span></div>
+      <div class="partner-desc">Resistência máxima — pra quem já tem condicionamento.</div>
+      <a class="partner-link" href="https://www.yangfit.com.br/mini-band-de-tecido-faixa-elastica-circular-intensidade-extra-forte" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Kit Super-band</span><span class="partner-discount">YANGFIT</span></div>
+      <div class="partner-desc">4 elásticos extensores — exercícios em casa, alongamento, mobilidade.</div>
+      <a class="partner-link" href="https://www.yangfit.com.br/kit-super-band-4-intensidades-elastico-extensor-borracha-treino" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+
+    <h3 style="margin-top:24px;margin-bottom:8px;color:var(--text-dim);font-size:12px;letter-spacing:.5px;">⚖️ DIETA</h3>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Balança de precisão</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
+      <div class="partner-desc">Balança digital — pesar carne crua, arroz, suplementos. Fundamental pra ser preciso na dieta.</div>
+      <a class="partner-link" href="https://s.shopee.com.br/W3DVo4Iae?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+    <div class="partner-card">
+      <div class="partner-card-head"><span class="partner-name">Colher de precisão</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
+      <div class="partner-desc">Doseadora — pesar suplementos, manteiga, azeite, pasta de amendoim.</div>
+      <a class="partner-link" href="https://s.shopee.com.br/1LcKVMvIfI?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════
+// PARCEIROS RENDER
+// ═══════════════════════════════════════════════════════════
+function renderParceiros() {
+  const c = document.getElementById('tab-parc');
+  c.innerHTML = `
+    <h2>🤝 Parceiros do Método</h2>
+    <p class="hint">Marcas e profissionais com descontos exclusivos pra alunos do Método GH.</p>
+
+    <div class="partner-card">
+      <div class="partner-card-head">
+        <span class="partner-name">👕 AlphaCo</span>
+        <span class="partner-discount">5% OFF</span>
+      </div>
+      <div class="partner-desc">Linha de roupas esportivas. Desconto aplicado automaticamente no checkout.</div>
+      <a class="partner-link" href="https://usealphaco.com.br/discount/GH" target="_blank" rel="noopener">Acessar com desconto →</a>
+    </div>
+
+    <div class="partner-card">
+      <div class="partner-card-head">
+        <span class="partner-name">🏋️ YangFit</span>
+        <span class="partner-discount">10% OFF</span>
+      </div>
+      <div class="partner-desc">Equipamentos e acessórios de musculação. Desconto via link de afiliado.</div>
+      <a class="partner-link" href="https://yangfit.com.br/?utm_source=instagram&utm_medium=GH&utm_campaign=afiliado&utm_content=parceiro%3D7865" target="_blank" rel="noopener">Acessar com desconto →</a>
+    </div>
+
+    <div class="partner-card">
+      <div class="partner-card-head">
+        <span class="partner-name">💉 Biotech (Aquiles)</span>
+        <span class="partner-discount">DESCONTO</span>
+      </div>
+      <div class="partner-desc">Ergogênicos e peptídeos. Atendimento direto no WhatsApp pra desconto exclusivo.</div>
+      <a class="partner-link whatsapp" href="https://w.app/m4akut" target="_blank" rel="noopener">Falar no WhatsApp →</a>
+    </div>
+
+    <div class="partner-card">
+      <div class="partner-card-head">
+        <span class="partner-name">💊 Arte e Ciência (Renato)</span>
+        <span class="partner-discount">DESCONTO</span>
+      </div>
+      <div class="partner-desc">Farmácia de manipulação. GH usa há mais de 7 anos.</div>
+      <div class="partner-msg-tip">Ao clicar, abre o WhatsApp com a mensagem padrão "Olá, sou aluno do Shape de Elite. Vim por indicação do GH." — só revisa e envia.</div>
+      <a class="partner-link whatsapp" href="https://api.whatsapp.com/send?phone=5516997693445&text=${encodeURIComponent('Olá, sou aluno do Shape de Elite. Vim por indicação do GH.')}" target="_blank" rel="noopener">Falar no WhatsApp →</a>
+    </div>
+  `;
 }
 
 // ═══════════════════════════════════════════════════════════
