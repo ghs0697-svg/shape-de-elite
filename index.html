@@ -643,7 +643,7 @@
 const API_BASE = 'https://crm-app-eight-flame.vercel.app'; // ajustar quando backend pronto
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://jolly-clafoutis-410e3f.netlify.app/'; // calc externa pra aba CALCULADORA
-const SUPL_PDF_URL = 'https://drive.google.com/file/d/PLACEHOLDER_SUPL_PDF/preview'; // ajustar
+const SUPL_PDF_URL = 'https://drive.google.com/file/d/1ajraxUzEZPe_vjGFyxtoV1waHuCw6SWI/preview';
 
 // ═══════════════════════════════════════════════════════════
 // STATE
@@ -1094,12 +1094,9 @@ function renderSupl() {
   const c = document.getElementById('tab-supl');
   c.innerHTML = `
     <h2>Suplementos</h2>
-    <p class="hint">Lista de suplementos recomendados pelo Método GH. Cada item explica dose, horário e quando faz diferença.</p>
-    <div class="result-card">
-      <h3>📄 PDF de Suplementação</h3>
-      <p class="small mt-2">Baixe o PDF completo. (Vamos integrar visual completo aqui em breve.)</p>
-      <a class="btn" href="${SUPL_PDF_URL.replace('/preview','/view')}" target="_blank" rel="noopener" style="text-decoration:none;text-align:center;">Abrir PDF</a>
-    </div>
+    <p class="hint">Lista de suplementos recomendados pelo Método GH com dose e horário.</p>
+    <iframe class="pdf-frame" src="${SUPL_PDF_URL}" allow="autoplay" loading="lazy"></iframe>
+    <a class="btn secondary" href="${SUPL_PDF_URL.replace('/preview','/view')}" target="_blank" rel="noopener" style="text-decoration:none;text-align:center;margin-top:8px;">Abrir em tela cheia</a>
   `;
 }
 
