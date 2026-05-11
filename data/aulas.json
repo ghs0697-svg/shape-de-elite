@@ -65,21 +65,45 @@
       "titulo": "Suplementos",
       "icone": "💊",
       "desc": "O que tomar, dose e horário.",
-      "aulas": []
+      "aulas": [
+        {
+          "id": "5.1",
+          "titulo": "Suplementação",
+          "youtube": "k-qSqukxV8U",
+          "duracao": "0:40",
+          "desc": "Multivitamínico, enzimas digestivas (por objetivo), ômega 3, magnésio, cafeína e creatina. Dose exata, horário certo e a regra do \"compra isolado, nunca em combo\"."
+        }
+      ]
     },
     {
       "id": 6,
       "titulo": "Progresso",
       "icone": "📈",
       "desc": "Como medir e acompanhar tua evolução.",
-      "aulas": []
+      "aulas": [
+        {
+          "id": "6.1",
+          "titulo": "Como medir a evolução",
+          "youtube": "Ykc55rcVKNo",
+          "duracao": "0:42",
+          "desc": "Os 3 termômetros de verdade (balança, fita métrica e foto) e os 5 checks obrigatórios antes de cortar caloria."
+        }
+      ]
     },
     {
       "id": 7,
       "titulo": "Trocas e platôs",
       "icone": "🔄",
       "desc": "O que fazer quando travar a evolução.",
-      "aulas": []
+      "aulas": [
+        {
+          "id": "7.1",
+          "titulo": "Atualiza a cada 4 meses",
+          "youtube": "Ped0WA8e5m0",
+          "duracao": "0:26",
+          "desc": "A regra sagrada: a cada 4 meses tu troca dieta e treino. Treino evolui da versão 1.0 → 2.0 → 3.0. Dieta recalibra pelo teu peso novo na calculadora."
+        }
+      ]
     },
     {
       "id": 8,
