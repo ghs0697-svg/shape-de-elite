@@ -894,18 +894,20 @@
     <div class="subtitle">AVANÇAR DE FASE</div>
   </header>
   <h2 id="phase-title">Avançar pra Fase X.0</h2>
-  <p class="hint" id="phase-hint">Antes de avançar, confirma quantos dias por semana tu vai treinar agora. Se mudou tua rotina, ajusta aqui — o treino e a dieta vão ser recalibrados.</p>
+  <p class="hint" id="phase-hint">Confirma os dados abaixo e segue. Só o que aparece aqui vai ser alterado — o resto do teu protocolo continua igual.</p>
 
-  <h3 style="margin-bottom: 10px; font-size: 13px; color: var(--text-dim); letter-spacing: .5px;">QUANTOS DIAS POR SEMANA?</h3>
-  <button class="option" data-pdays="3" onclick="selectPhaseDays(this, 3)"><strong>3x por semana</strong><span class="desc">Rotina apertada</span></button>
-  <button class="option" data-pdays="4" onclick="selectPhaseDays(this, 4)"><strong>4x por semana</strong><span class="desc">Equilíbrio</span></button>
-  <button class="option" data-pdays="5" onclick="selectPhaseDays(this, 5)"><strong>5x por semana</strong><span class="desc">Evolução rápida</span></button>
-  <button class="option" data-pdays="6" onclick="selectPhaseDays(this, 6)"><strong>6x por semana</strong><span class="desc">Volume máximo</span></button>
+  <div id="phase-days-section">
+    <h3 style="margin-bottom: 10px; font-size: 13px; color: var(--text-dim); letter-spacing: .5px;">QUANTOS DIAS POR SEMANA?</h3>
+    <button class="option" data-pdays="3" onclick="selectPhaseDays(this, 3)"><strong>3x por semana</strong><span class="desc">Rotina apertada</span></button>
+    <button class="option" data-pdays="4" onclick="selectPhaseDays(this, 4)"><strong>4x por semana</strong><span class="desc">Equilíbrio</span></button>
+    <button class="option" data-pdays="5" onclick="selectPhaseDays(this, 5)"><strong>5x por semana</strong><span class="desc">Evolução rápida</span></button>
+    <button class="option" data-pdays="6" onclick="selectPhaseDays(this, 6)"><strong>6x por semana</strong><span class="desc">Volume máximo</span></button>
+  </div>
 
   <div id="phase-preview" class="phase-diff hidden" style="margin-top: 18px;">
-    <div class="phase-diff-row"><span class="phase-diff-label">Treino</span><span><span class="phase-diff-from" id="pd-treino-from">—</span><span class="phase-diff-to" id="pd-treino-to">—</span></span></div>
-    <div class="phase-diff-row"><span class="phase-diff-label">Dieta</span><span><span class="phase-diff-from" id="pd-dieta-from">—</span><span class="phase-diff-to" id="pd-dieta-to">—</span></span></div>
-    <div class="phase-diff-row"><span class="phase-diff-label">Calorias</span><span><span class="phase-diff-from" id="pd-kcal-from">—</span><span class="phase-diff-to" id="pd-kcal-to">—</span></span></div>
+    <div class="phase-diff-row" id="pd-treino-row"><span class="phase-diff-label">Treino</span><span><span class="phase-diff-from" id="pd-treino-from">—</span><span class="phase-diff-to" id="pd-treino-to">—</span></span></div>
+    <div class="phase-diff-row" id="pd-dieta-row"><span class="phase-diff-label">Dieta</span><span><span class="phase-diff-from" id="pd-dieta-from">—</span><span class="phase-diff-to" id="pd-dieta-to">—</span></span></div>
+    <div class="phase-diff-row" id="pd-kcal-row"><span class="phase-diff-label">Calorias</span><span><span class="phase-diff-from" id="pd-kcal-from">—</span><span class="phase-diff-to" id="pd-kcal-to">—</span></span></div>
   </div>
 
   <button class="btn" id="phase-confirm-btn" onclick="confirmPhaseUpgrade()" disabled style="opacity:.5;">Confirmar e avançar</button>
@@ -970,6 +972,15 @@ function loadState() {
       const parsed = JSON.parse(s);
       Object.assign(state, parsed);
       if (!Array.isArray(state.history)) state.history = [];
+      // Migrate legado: phase única → treinoPhase + dietaPhase separadas
+      if (state.protocol) {
+        if (state.protocol.phase && !state.protocol.treinoPhase) {
+          state.protocol.treinoPhase = state.protocol.phase;
+          state.protocol.dietaPhase = state.protocol.phase;
+        }
+        if (!state.protocol.treinoPhase) state.protocol.treinoPhase = '1.0';
+        if (!state.protocol.dietaPhase) state.protocol.dietaPhase = '1.0';
+      }
     }
   } catch(e) { console.warn('loadState fail:', e); }
 }
@@ -1090,11 +1101,14 @@ function logout() {
 function openSettings() {
   const p = state.protocol;
   if (!p) return;
+  const tp = p.treinoPhase || p.phase || '1.0';
+  const dp = p.dietaPhase || p.phase || '1.0';
   document.getElementById('settings-profile').innerHTML =
     `<strong>${state.user?.email || ''}</strong><br>` +
     `${p.sex} · ${p.age} anos · ${p.weight}kg · ${p.height}cm<br>` +
     `${p.activity} · ${p.bf} · ${p.goal}<br>` +
-    `<span style="color:var(--red);font-weight:700;">Fase ${p.phase || '1.0'}</span> · Treino: ${p.workout} · Dieta: ${p.diet}`;
+    `<span style="color:var(--red);font-weight:700;">Treino Fase ${tp}</span> · ${p.workout}<br>` +
+    `<span style="color:var(--red);font-weight:700;">Dieta Fase ${dp}</span> · ${p.diet}`;
   showScreen('settings-screen');
 }
 
@@ -1245,8 +1259,8 @@ function calculate() {
   }
   alertEl.classList.toggle('visible', showAlert);
 
-  state.protocol = { ...onboard, tmb, maintenance, target, diet, workout, protein, carb, fat, phase: '1.0', dietBase: diet, _owner: state.user?.email || '' };
-  pushHistory('Cálculo inicial · Fase 1.0', state.protocol);
+  state.protocol = { ...onboard, tmb, maintenance, target, diet, workout, protein, carb, fat, treinoPhase: '1.0', dietaPhase: '1.0', dietBase: diet, _owner: state.user?.email || '' };
+  pushHistory('Cálculo inicial · Treino 1.0 · Dieta 1.0', state.protocol);
   saveState();
   oNext();
 }
@@ -1431,7 +1445,7 @@ function renderParceiros() {
 function getTreinoKey(p) {
   // Ex: "TREINO FEM 4X 2.0" → "F_4X_2.0"; "TREINO 4X 1.0" → "M_4X_1.0"
   const sex = p.sex === 'Mulher' ? 'F' : 'M';
-  const phase = p.phase || '1.0';
+  const phase = p.treinoPhase || p.phase || '1.0';
   return `${sex}_${p.days}X_${phase}`;
 }
 
@@ -1470,31 +1484,32 @@ function renderTreino() {
     `<details class="result-card" style="cursor:pointer;"><summary style="font-weight:700;font-size:13px;color:var(--red);letter-spacing:.5px;">${ex.titulo}</summary><div class="small mt-2" style="white-space:pre-wrap;line-height:1.5;">${ex.conteudo}</div></details>`
   ).join('');
 
-  // Card de avançar fase (só aparece se tiver próxima fase)
-  const next = getNextPhase(p.phase || '1.0');
+  // Card de avançar fase DO TREINO (só aparece se tiver próxima fase)
+  const treinoPhase = p.treinoPhase || p.phase || '1.0';
+  const next = getNextPhase(treinoPhase);
   const phaseUpgradeHtml = next ? `
     <div class="phase-upgrade-card">
-      <div class="phase-upgrade-title">PRONTO PRA EVOLUIR?</div>
-      <div class="phase-upgrade-headline">Avançar pra Fase ${next}</div>
-      <div class="phase-upgrade-desc">Já tá ${p.phase || '1.0'} faz uns 4 meses?<br>Hora de trocar o treino e ajustar a dieta — corpo já adaptou no nível atual.</div>
-      <button class="btn" onclick="openPhaseUpgrade('${next}')" style="margin-top:0;">Ir para Fase ${next}</button>
+      <div class="phase-upgrade-title">PRONTO PRA EVOLUIR O TREINO?</div>
+      <div class="phase-upgrade-headline">Avançar TREINO pra Fase ${next}</div>
+      <div class="phase-upgrade-desc">Já tá no treino ${treinoPhase} faz uns 4 meses?<br>Hora de trocar o estímulo — corpo adaptou. (Dieta continua igual; pra ajustar dieta, vai na aba DIETA.)</div>
+      <button class="btn" onclick="openPhaseUpgrade('${next}','treino')" style="margin-top:0;">Avançar treino pra Fase ${next}</button>
     </div>
   ` : `
     <div class="phase-upgrade-card">
-      <div class="phase-upgrade-title">FASE MÁXIMA</div>
-      <div class="phase-upgrade-headline">Tu tá na Fase 3.0 🏆</div>
-      <div class="phase-upgrade-desc">Esse é o nível mais alto do método. Roda esse protocolo enquanto tiver evoluindo. Se quiser ir além, considera virar aluno da consultoria.</div>
+      <div class="phase-upgrade-title">FASE MÁXIMA DE TREINO</div>
+      <div class="phase-upgrade-headline">Treino 3.0 🏆</div>
+      <div class="phase-upgrade-desc">Esse é o nível mais alto de treino do método. Roda enquanto tiver evoluindo.</div>
     </div>
   `;
 
   // PDF url: TREINO_4X_1.0.pdf ou TREINO_FEM_4X_1.0.pdf
   const sex = p.sex === 'Mulher' ? 'FEM_' : '';
-  const pdfUrl = `pdfs/treinos/TREINO_${sex}${p.days}X_${p.phase || '1.0'}.pdf`;
-  const pdfFile = `TREINO ${p.sex === 'Mulher' ? 'FEM ' : ''}${p.days}X ${p.phase || '1.0'}.pdf`;
+  const pdfUrl = `pdfs/treinos/TREINO_${sex}${p.days}X_${treinoPhase}.pdf`;
+  const pdfFile = `TREINO ${p.sex === 'Mulher' ? 'FEM ' : ''}${p.days}X ${treinoPhase}.pdf`;
 
   c.innerHTML = `
     <h2>${p.workout}</h2>
-    <p class="hint">${t.dias.length} dias por semana · Fase ${p.phase || '1.0'}</p>
+    <p class="hint">${t.dias.length} dias por semana · Treino Fase ${treinoPhase}</p>
     <a class="btn secondary" href="${pdfUrl}" download="${pdfFile}" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF do treino</a>
     <div class="day-tabs">${dayBtns}</div>
     ${exHtml}
@@ -1533,17 +1548,28 @@ function adjustDietForPhase(currentDietName, goal, phaseStep) {
   return 'DIETA ' + DIET_ORDER[newIdx];
 }
 
-let phaseUpgrade = { targetPhase: null, newDays: null };
+let phaseUpgrade = { targetPhase: null, kind: null, newDays: null };
 
-function openPhaseUpgrade(targetPhase) {
+function openPhaseUpgrade(targetPhase, kind) {
   const p = state.protocol;
   if (!p) return;
-  phaseUpgrade = { targetPhase, newDays: p.days };
-  document.getElementById('phase-title').textContent = `Avançar pra Fase ${targetPhase}`;
-  // Pre-seleciona dias atuais
-  document.querySelectorAll('[data-pdays]').forEach(b => {
-    b.classList.toggle('selected', parseInt(b.dataset.pdays) === p.days);
-  });
+  phaseUpgrade = { targetPhase, kind, newDays: p.days };
+
+  document.getElementById('phase-title').textContent =
+    `Avançar ${kind === 'treino' ? 'TREINO' : 'DIETA'} pra Fase ${targetPhase}`;
+
+  // Mostra/esconde seções conforme o tipo
+  document.getElementById('phase-days-section').style.display = kind === 'treino' ? 'block' : 'none';
+  document.getElementById('pd-treino-row').style.display = kind === 'treino' ? 'flex' : 'none';
+  document.getElementById('pd-dieta-row').style.display = kind === 'dieta' ? 'flex' : 'none';
+  document.getElementById('pd-kcal-row').style.display = kind === 'dieta' ? 'flex' : 'none';
+
+  if (kind === 'treino') {
+    document.querySelectorAll('[data-pdays]').forEach(b => {
+      b.classList.toggle('selected', parseInt(b.dataset.pdays) === p.days);
+    });
+  }
+
   updatePhasePreview();
   showScreen('phase-screen');
 }
@@ -1557,57 +1583,75 @@ function selectPhaseDays(el, d) {
 
 function updatePhasePreview() {
   const p = state.protocol;
-  if (!p || !phaseUpgrade.targetPhase || !phaseUpgrade.newDays) return;
-  const newDays = phaseUpgrade.newDays;
+  if (!p || !phaseUpgrade.targetPhase) return;
   const target = phaseUpgrade.targetPhase;
-  const phaseStep = target === '2.0' ? 1 : 2;
-  const sex = p.sex === 'Mulher' ? ' FEM' : '';
-  const newWorkout = `TREINO${sex} ${newDays}X ${target}`;
-  const dietBase = p.dietBase || p.diet;
-  const newDiet = adjustDietForPhase(dietBase, p.goal, phaseStep);
-  const newKcal = DIET_KCAL[newDiet.replace(/^DIETA\s+/, '')] || p.target;
-
-  document.getElementById('pd-treino-from').textContent = p.workout;
-  document.getElementById('pd-treino-to').textContent = newWorkout;
-  document.getElementById('pd-dieta-from').textContent = p.diet;
-  document.getElementById('pd-dieta-to').textContent = newDiet;
-  document.getElementById('pd-kcal-from').textContent = (p.target || '?') + ' kcal';
-  document.getElementById('pd-kcal-to').textContent = newKcal + ' kcal';
-  document.getElementById('phase-preview').classList.remove('hidden');
-
+  const kind = phaseUpgrade.kind;
   const btn = document.getElementById('phase-confirm-btn');
+
+  if (kind === 'treino') {
+    if (!phaseUpgrade.newDays) {
+      btn.disabled = true;
+      btn.style.opacity = .5;
+      document.getElementById('phase-preview').classList.add('hidden');
+      return;
+    }
+    const sex = p.sex === 'Mulher' ? ' FEM' : '';
+    const newWorkout = `TREINO${sex} ${phaseUpgrade.newDays}X ${target}`;
+    document.getElementById('pd-treino-from').textContent = p.workout;
+    document.getElementById('pd-treino-to').textContent = newWorkout;
+  } else if (kind === 'dieta') {
+    const phaseStep = target === '2.0' ? 1 : 2;
+    const dietBase = p.dietBase || p.diet;
+    const newDiet = adjustDietForPhase(dietBase, p.goal, phaseStep);
+    const newKcal = DIET_KCAL[newDiet.replace(/^DIETA\s+/, '')] || p.target;
+    document.getElementById('pd-dieta-from').textContent = p.diet;
+    document.getElementById('pd-dieta-to').textContent = newDiet;
+    document.getElementById('pd-kcal-from').textContent = (p.target || '?') + ' kcal';
+    document.getElementById('pd-kcal-to').textContent = newKcal + ' kcal';
+  }
+
+  document.getElementById('phase-preview').classList.remove('hidden');
   btn.disabled = false;
   btn.style.opacity = 1;
 }
 
 function confirmPhaseUpgrade() {
   const p = state.protocol;
-  if (!p || !phaseUpgrade.targetPhase || !phaseUpgrade.newDays) return;
+  if (!p || !phaseUpgrade.targetPhase || !phaseUpgrade.kind) return;
   const target = phaseUpgrade.targetPhase;
-  const phaseStep = target === '2.0' ? 1 : 2;
-  const sex = p.sex === 'Mulher' ? ' FEM' : '';
-  const newDays = phaseUpgrade.newDays;
-  const newWorkout = `TREINO${sex} ${newDays}X ${target}`;
-  const dietBase = p.dietBase || p.diet;
-  const newDiet = adjustDietForPhase(dietBase, p.goal, phaseStep);
-  const newKcal = DIET_KCAL[newDiet.replace(/^DIETA\s+/, '')] || p.target;
+  const kind = phaseUpgrade.kind;
 
-  // Recalcula macros pra nova kcal (mesma régua da calc)
-  const proteinPerKg = p.goal === 'Emagrecer' ? 2.0 : (p.goal === 'Recompor' ? 1.8 : 1.6);
-  const protein = Math.round(p.weight * proteinPerKg);
-  const fat = Math.round((newKcal * 0.25) / 9);
-  const carb = Math.round((newKcal - protein * 4 - fat * 9) / 4);
-
-  state.protocol = {
-    ...p,
-    phase: target,
-    days: newDays,
-    workout: newWorkout,
-    diet: newDiet,
-    target: newKcal,
-    protein, carb, fat
-  };
-  pushHistory(`Avanço pra Fase ${target}`, state.protocol);
+  if (kind === 'treino') {
+    if (!phaseUpgrade.newDays) return;
+    const sex = p.sex === 'Mulher' ? ' FEM' : '';
+    const newDays = phaseUpgrade.newDays;
+    const newWorkout = `TREINO${sex} ${newDays}X ${target}`;
+    state.protocol = {
+      ...p,
+      treinoPhase: target,
+      days: newDays,
+      workout: newWorkout
+    };
+    pushHistory(`Avanço TREINO · Fase ${target} · ${newDays}x/sem`, state.protocol);
+  } else if (kind === 'dieta') {
+    const phaseStep = target === '2.0' ? 1 : 2;
+    const dietBase = p.dietBase || p.diet;
+    const newDiet = adjustDietForPhase(dietBase, p.goal, phaseStep);
+    const newKcal = DIET_KCAL[newDiet.replace(/^DIETA\s+/, '')] || p.target;
+    // Recalcula macros
+    const proteinPerKg = p.goal === 'Emagrecer' ? 2.0 : (p.goal === 'Recompor' ? 1.8 : 1.6);
+    const protein = Math.round(p.weight * proteinPerKg);
+    const fat = Math.round((newKcal * 0.25) / 9);
+    const carb = Math.round((newKcal - protein * 4 - fat * 9) / 4);
+    state.protocol = {
+      ...p,
+      dietaPhase: target,
+      diet: newDiet,
+      target: newKcal,
+      protein, carb, fat
+    };
+    pushHistory(`Avanço DIETA · Fase ${target} · ${newDiet} (${newKcal} kcal)`, state.protocol);
+  }
   saveState();
   state.currentDay = 0;
   initDashboard();
@@ -1620,7 +1664,8 @@ function pushHistory(kind, snapshot) {
     date: new Date().toISOString(),
     kind,
     snapshot: {
-      phase: snapshot.phase,
+      treinoPhase: snapshot.treinoPhase || snapshot.phase,
+      dietaPhase: snapshot.dietaPhase || snapshot.phase,
       sex: snapshot.sex,
       age: snapshot.age,
       weight: snapshot.weight,
@@ -1644,8 +1689,9 @@ function pushHistory(kind, snapshot) {
 function updatePhaseBadge() {
   const badge = document.getElementById('phase-badge');
   if (!badge) return;
-  const phase = state.protocol?.phase || '1.0';
-  badge.textContent = 'FASE ' + phase;
+  const tp = state.protocol?.treinoPhase || state.protocol?.phase || '1.0';
+  const dp = state.protocol?.dietaPhase || state.protocol?.phase || '1.0';
+  badge.textContent = tp === dp ? ('FASE ' + tp) : (`T${tp}·D${dp}`);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1745,12 +1791,31 @@ function renderDieta() {
   const dietPdf = `pdfs/dietas/DIETA_${key}.pdf`;
   const dietFile = `${p.diet}.pdf`;
 
+  // Card de avançar fase DA DIETA
+  const dietaPhase = p.dietaPhase || p.phase || '1.0';
+  const nextDieta = getNextPhase(dietaPhase);
+  const dietaUpgradeHtml = nextDieta ? `
+    <div class="phase-upgrade-card">
+      <div class="phase-upgrade-title">PRONTO PRA AJUSTAR A DIETA?</div>
+      <div class="phase-upgrade-headline">Avançar DIETA pra Fase ${nextDieta}</div>
+      <div class="phase-upgrade-desc">Já tá com essa dieta faz uns 4 meses?<br>${p.goal === 'Emagrecer' ? 'Vou descer 1 faixa de caloria pra forçar nova perda.' : (p.goal === 'Ganhar massa' ? 'Vou subir 1 faixa de caloria pra forçar nova construção.' : 'Vou ajustar levemente a faixa de caloria.')} (Treino continua igual; pra avançar treino, vai na aba TREINO.)</div>
+      <button class="btn" onclick="openPhaseUpgrade('${nextDieta}','dieta')" style="margin-top:0;">Avançar dieta pra Fase ${nextDieta}</button>
+    </div>
+  ` : `
+    <div class="phase-upgrade-card">
+      <div class="phase-upgrade-title">FASE MÁXIMA DE DIETA</div>
+      <div class="phase-upgrade-headline">Dieta 3.0 🏆</div>
+      <div class="phase-upgrade-desc">Esse é o ajuste máximo da dieta pelo método. Mantém enquanto tiver evoluindo.</div>
+    </div>
+  `;
+
   c.innerHTML = `
     <h2>${p.diet}</h2>
-    <p class="hint">~${p.target} kcal/dia · proteína ${p.protein}g · carbo ${p.carb}g · gordura ${p.fat}g</p>
+    <p class="hint">~${p.target} kcal/dia · P ${p.protein}g · C ${p.carb}g · G ${p.fat}g · Dieta Fase ${dietaPhase}</p>
     <a class="btn secondary" href="${dietPdf}" download="${dietFile}" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF da dieta</a>
     ${refsHtml}
     ${regrasHtml}${estiloHtml}${orientHtml}
+    ${dietaUpgradeHtml}
   `;
 }
 
@@ -1829,7 +1894,8 @@ function renderCalc() {
         <div class="small mt-2" style="line-height:1.6;color:var(--text);">
           <strong>${s.sex} · ${s.age} anos · ${s.weight}kg · ${s.height}cm</strong><br>
           ${s.activity} · ${s.bf} · ${s.goal}<br>
-          <span style="color:var(--red);font-weight:700;">${s.workout}</span> · ${s.diet}<br>
+          <span style="color:var(--red);font-weight:700;">${s.workout}</span> ${s.treinoPhase ? `<span style="color:var(--text-muted);font-size:10px;">(T${s.treinoPhase})</span>` : ''}<br>
+          <span style="color:var(--red);font-weight:700;">${s.diet}</span> ${s.dietaPhase ? `<span style="color:var(--text-muted);font-size:10px;">(D${s.dietaPhase})</span>` : ''}<br>
           ${s.target} kcal · P ${s.protein}g · C ${s.carb}g · G ${s.fat}g
         </div>
       </details>
