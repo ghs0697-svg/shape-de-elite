@@ -1,0 +1,75 @@
+{
+  "modulos": [
+    {
+      "id": 1,
+      "titulo": "Bem-vindo",
+      "icone": "👋",
+      "desc": "Entenda em 30 segundos como o Shape de Elite funciona.",
+      "aulas": [
+        {
+          "id": "1.1",
+          "titulo": "Apresentação",
+          "youtube": "lHSIQ1eiCvU",
+          "duracao": "0:30",
+          "desc": "3 ciclos de 4 meses, calculadora que monta teu protocolo e PDFs que evoluem com você."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "titulo": "Calculadora",
+      "icone": "🧮",
+      "desc": "Como usar a calculadora pra montar teu protocolo.",
+      "aulas": []
+    },
+    {
+      "id": 3,
+      "titulo": "Dieta",
+      "icone": "🍽️",
+      "desc": "Como aplicar tua dieta no dia a dia.",
+      "aulas": []
+    },
+    {
+      "id": 4,
+      "titulo": "Treino",
+      "icone": "💪",
+      "desc": "Como executar teu treino.",
+      "aulas": []
+    },
+    {
+      "id": 5,
+      "titulo": "Suplementos",
+      "icone": "💊",
+      "desc": "O que tomar, dose e horário.",
+      "aulas": []
+    },
+    {
+      "id": 6,
+      "titulo": "Progresso",
+      "icone": "📈",
+      "desc": "Como medir e acompanhar tua evolução.",
+      "aulas": []
+    },
+    {
+      "id": 7,
+      "titulo": "Trocas e platôs",
+      "icone": "🔄",
+      "desc": "O que fazer quando travar a evolução.",
+      "aulas": []
+    },
+    {
+      "id": 8,
+      "titulo": "Suporte",
+      "icone": "💬",
+      "desc": "Como falar comigo e tirar dúvidas.",
+      "aulas": []
+    },
+    {
+      "id": 9,
+      "titulo": "Resultados",
+      "icone": "🏆",
+      "desc": "Cases reais e como amplificar teu resultado.",
+      "aulas": []
+    }
+  ]
+}
