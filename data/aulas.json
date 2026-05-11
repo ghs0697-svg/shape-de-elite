@@ -19,22 +19,46 @@
       "id": 2,
       "titulo": "Calculadora",
       "icone": "🧮",
-      "desc": "Como usar a calculadora pra montar teu protocolo.",
-      "aulas": []
+      "desc": "Como usar a calculadora avulsa (só recalcula, não altera teu protocolo oficial).",
+      "aulas": [
+        {
+          "id": "2.1",
+          "titulo": "Como usar",
+          "youtube": "UbicM_I6BNo",
+          "duracao": "0:28",
+          "desc": "Calculadora avulsa: preenche teus dados em 1 minuto e ela te mostra qual dieta e treino seriam pro perfil novo. ⚠️ Não altera teu protocolo dentro do app — pra recalcular oficial, vai em CALCULADORA → Recalcular protocolo."
+        }
+      ]
     },
     {
       "id": 3,
       "titulo": "Dieta",
       "icone": "🍽️",
       "desc": "Como aplicar tua dieta no dia a dia.",
-      "aulas": []
+      "aulas": [
+        {
+          "id": "3.1",
+          "titulo": "Ler, trocar e ajustar",
+          "youtube": "EVK2E1UKfNY",
+          "duracao": "0:55",
+          "desc": "Como ler teu PDF de 4 colunas, fazer trocas de alimentos (igualadas em caloria), seguir a ordem do prato e ajustar semanalmente pelo peso e cintura."
+        }
+      ]
     },
     {
       "id": 4,
       "titulo": "Treino",
       "icone": "💪",
-      "desc": "Como executar teu treino.",
-      "aulas": []
+      "desc": "Como executar teu treino — execução, masculinos e femininos.",
+      "aulas": [
+        {
+          "id": "4.1",
+          "titulo": "Execução e progressão",
+          "youtube": "13ZHD-AEfOs",
+          "duracao": "1:18",
+          "desc": "Cadência 1s subindo / 2-3s controlando a descida, padrão de séries, aquecimento inteligente e a regra sagrada: anota a carga da última série — ela é a meta da próxima semana."
+        }
+      ]
     },
     {
       "id": 5,
