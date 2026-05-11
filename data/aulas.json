@@ -110,14 +110,43 @@
       "titulo": "Suporte",
       "icone": "💬",
       "desc": "Como falar comigo e tirar dúvidas.",
-      "aulas": []
+      "aulas": [
+        {
+          "id": "8.1",
+          "titulo": "Dúvida? Chama no Whats!",
+          "youtube": "tJY3_dE_3kw",
+          "desc": "Travou em alguma parte do método? Tem ajuste de quantidade pra fazer? Chama no WhatsApp de suporte e a gente resolve."
+        }
+      ]
     },
     {
       "id": 9,
       "titulo": "Resultados",
       "icone": "🏆",
-      "desc": "Cases reais e como amplificar teu resultado.",
-      "aulas": []
+      "desc": "Último vídeo e o próximo passo.",
+      "aulas": [
+        {
+          "id": "9.1",
+          "titulo": "Te espero do outro lado!",
+          "youtube": "4gyUDCwWVSQ",
+          "desc": "Último vídeo do curso. Onde a história continua.",
+          "complemento": {
+            "titulo": "Quer ir além? A consultoria individual é o próximo nível:",
+            "items": [
+              "Suporte direto comigo",
+              "Protocolo 100% personalizado",
+              "Plataforma de treino e dieta",
+              "Vídeos instrutivos com um click",
+              "Espaço pra registro de carga e evolução",
+              "Interpretação de exames e suplementação 100% individualizada",
+              "Ajustes finos sempre que necessário",
+              "Atualizações a cada 55 dias, com anamnese pra reajuste e feedback"
+            ],
+            "cta_label": "Ficou interessado? Chama aqui",
+            "cta_link": "https://wa.me/5555999717530?text=Ol%C3%A1%2C%20vim%20pelo%20app%20Shape%20de%20Elite%20e%20quero%20saber%20da%20consultoria%20individual."
+          }
+        }
+      ]
     }
   ]
 }
