@@ -1354,6 +1354,15 @@ function loadState() {
         }
         if (!state.protocol.treinoPhase) state.protocol.treinoPhase = '1.0';
         if (!state.protocol.dietaPhase) state.protocol.dietaPhase = '1.0';
+        // Anti-piracy fields (default seguros)
+        if (typeof state.protocol.recalcCount !== 'number') state.protocol.recalcCount = 0;
+        if (!state.protocol.lockedFromRecalc) state.protocol.lockedFromRecalc = false;
+        if (!state.protocol.phaseStartedAt) {
+          // Sem data registrada → assume hoje (legacy users já podem avançar quando completarem 4 meses A PARTIR DE AGORA)
+          const now = new Date().toISOString();
+          state.protocol.phaseStartedAt = { treino: now, dieta: now };
+        }
+        if (!state.protocol.createdAt) state.protocol.createdAt = state.protocol.phaseStartedAt.treino || new Date().toISOString();
       }
     }
   } catch(e) { console.warn('loadState fail:', e); }
@@ -1633,15 +1642,51 @@ function calculate() {
   }
   alertEl.classList.toggle('visible', showAlert);
 
-  state.protocol = { ...onboard, tmb, maintenance, target, diet, workout, protein, carb, fat, treinoPhase: '1.0', dietaPhase: '1.0', dietBase: diet, _owner: state.user?.email || '' };
-  pushHistory('Cálculo inicial · Treino 1.0 · Dieta 1.0', state.protocol);
+  // Preserva contagem de recalc se já existia (caso seja recalc, foi incrementado em restartOnboarding)
+  const prev = state.protocol || {};
+  const now = new Date().toISOString();
+  state.protocol = {
+    ...onboard, tmb, maintenance, target, diet, workout, protein, carb, fat,
+    treinoPhase: '1.0', dietaPhase: '1.0', dietBase: diet,
+    _owner: state.user?.email || '',
+    recalcCount: prev.recalcCount || 0,
+    lockedFromRecalc: false,
+    createdAt: prev.createdAt || now,
+    phaseStartedAt: { treino: now, dieta: now }
+  };
+  const isRecalc = (prev.recalcCount || 0) >= 1;
+  pushHistory(isRecalc ? 'Recálculo · Treino 1.0 · Dieta 1.0' : 'Cálculo inicial · Treino 1.0 · Dieta 1.0', state.protocol);
   saveState();
   oNext();
 }
 
 function finishOnboarding() { initDashboard(); }
 function restartOnboarding(fromSettings) {
-  if (fromSettings && !confirm('Refazer a calculadora? Teus dados atuais serão sobrescritos.')) return;
+  const p = state.protocol;
+  if (fromSettings && p) {
+    // Trava 1: já avançou de fase → recalc bloqueado
+    if (p.lockedFromRecalc || (p.treinoPhase && p.treinoPhase !== '1.0') || (p.dietaPhase && p.dietaPhase !== '1.0')) {
+      alert('⛔ RECÁLCULO BLOQUEADO\n\nTu já avançou pra Fase 2.0 ou 3.0 em treino ou dieta.\n\nDepois que avança de fase, não dá mais pra recalcular o protocolo. Continua firme com o que tu já tem — esse é o caminho do método.');
+      return;
+    }
+    // Trava 2: já recalculou 1 vez
+    if ((p.recalcCount || 0) >= 1) {
+      alert('⛔ RECÁLCULO BLOQUEADO\n\nTu já refez o cálculo uma vez.\n\nCada aluno pode refazer o cálculo APENAS 1 VEZ. Isso evita ficar trocando de protocolo toda hora — o método precisa de pelo menos 4 meses pra mostrar resultado.\n\nSe tu acha que tem algum erro real, fala com o suporte no WhatsApp.');
+      return;
+    }
+    // Aviso forte antes de prosseguir
+    const ok = confirm(
+      '⚠️ ATENÇÃO\n\n' +
+      'Tu só pode recalcular o protocolo UMA VEZ na vida do produto.\n\n' +
+      'Use isso só se realmente erraste algum dado importante (peso/altura/objetivo) ou se mudou drasticamente.\n\n' +
+      'Depois desse recálculo, NÃO vai dar pra recalcular de novo.\n\n' +
+      'Tu confirma que quer recalcular agora?'
+    );
+    if (!ok) return;
+    // Marca que recalculou
+    state.protocol.recalcCount = (p.recalcCount || 0) + 1;
+    saveState();
+  }
   initOnboarding();
 }
 
@@ -1992,20 +2037,43 @@ function renderTreino() {
   // Card de avançar fase DO TREINO (só aparece se tiver próxima fase)
   const treinoPhase = p.treinoPhase || p.phase || '1.0';
   const next = getNextPhase(treinoPhase);
-  const phaseUpgradeHtml = next ? `
-    <div class="phase-upgrade-card">
-      <div class="phase-upgrade-title">PRONTO PRA EVOLUIR O TREINO?</div>
-      <div class="phase-upgrade-headline">Avançar TREINO pra Fase ${next}</div>
-      <div class="phase-upgrade-desc">Já tá no treino ${treinoPhase} faz uns 4 meses?<br>Hora de trocar o estímulo — corpo adaptou. (Dieta continua igual; pra ajustar dieta, vai na aba DIETA.)</div>
-      <button class="btn" onclick="openPhaseUpgrade('${next}','treino')" style="margin-top:0;">Avançar treino pra Fase ${next}</button>
-    </div>
-  ` : `
-    <div class="phase-upgrade-card">
-      <div class="phase-upgrade-title">FASE MÁXIMA DE TREINO</div>
-      <div class="phase-upgrade-headline">Treino 3.0 🏆</div>
-      <div class="phase-upgrade-desc">Esse é o nível mais alto de treino do método. Roda enquanto tiver evoluindo.</div>
-    </div>
-  `;
+  const tInfo = getPhaseUnlockInfo('treino');
+  let phaseUpgradeHtml;
+  if (next) {
+    if (tInfo.unlocked) {
+      phaseUpgradeHtml = `
+        <div class="phase-upgrade-card">
+          <div class="phase-upgrade-title">✓ DESBLOQUEADO · PRONTO PRA EVOLUIR</div>
+          <div class="phase-upgrade-headline">Avançar TREINO pra Fase ${next}</div>
+          <div class="phase-upgrade-desc">Já tá no treino ${treinoPhase} faz ${tInfo.daysIn} dias.<br>Hora de trocar o estímulo — corpo adaptou. (Dieta continua igual; pra ajustar dieta, vai na aba DIETA.)</div>
+          <button class="btn" onclick="openPhaseUpgrade('${next}','treino')" style="margin-top:0;">Avançar treino pra Fase ${next}</button>
+        </div>
+      `;
+    } else {
+      const pct = Math.round((tInfo.daysIn / PHASE_LOCK_DAYS) * 100);
+      phaseUpgradeHtml = `
+        <div class="phase-upgrade-card" style="opacity:.85;">
+          <div class="phase-upgrade-title">🔒 FASE ${next} BLOQUEADA</div>
+          <div class="phase-upgrade-headline">Faltam ${tInfo.daysLeft} dias</div>
+          <div class="phase-upgrade-desc">A próxima fase do treino só desbloqueia depois de <strong>4 meses (120 dias)</strong> rodando a fase atual. Tu tá no dia <strong>${tInfo.daysIn}/120</strong>.<br><br>Treina firme. O método precisa do tempo dele pra mostrar resultado.</div>
+          <div style="background:var(--bg);border-radius:6px;padding:8px;margin-top:6px;">
+            <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;background:var(--red);width:${pct}%;transition:width .3s;"></div>
+            </div>
+            <div style="font-size:10px;color:var(--text-muted);margin-top:6px;letter-spacing:.5px;">${pct}% DO CICLO</div>
+          </div>
+        </div>
+      `;
+    }
+  } else {
+    phaseUpgradeHtml = `
+      <div class="phase-upgrade-card">
+        <div class="phase-upgrade-title">FASE MÁXIMA DE TREINO</div>
+        <div class="phase-upgrade-headline">Treino 3.0 🏆</div>
+        <div class="phase-upgrade-desc">Esse é o nível mais alto de treino do método. Roda enquanto tiver evoluindo.</div>
+      </div>
+    `;
+  }
 
   // PDF url: TREINO_4X_1.0.pdf ou TREINO_FEM_4X_1.0.pdf
   const sex = p.sex === 'Mulher' ? 'FEM_' : '';
@@ -2340,6 +2408,24 @@ function getNextPhase(cur) {
   return null;
 }
 
+const PHASE_LOCK_DAYS = 120; // 4 meses
+
+function daysSince(isoDate) {
+  if (!isoDate) return 0;
+  const ms = Date.now() - new Date(isoDate).getTime();
+  return Math.floor(ms / (1000 * 60 * 60 * 24));
+}
+
+function getPhaseUnlockInfo(kind) {
+  const p = state.protocol;
+  if (!p || !p.phaseStartedAt) return { unlocked: true, daysLeft: 0, daysIn: 0 };
+  const startedAt = p.phaseStartedAt[kind];
+  if (!startedAt) return { unlocked: true, daysLeft: 0, daysIn: 0 };
+  const daysIn = daysSince(startedAt);
+  const daysLeft = Math.max(0, PHASE_LOCK_DAYS - daysIn);
+  return { unlocked: daysLeft === 0, daysLeft, daysIn };
+}
+
 function adjustDietForPhase(currentDietName, goal, phaseStep) {
   // phaseStep = 1 ou 2 (1 = avançou 1 fase desde a 1.0; 2 = avançou 2 fases)
   // Emagrecer: desce 1 faixa por fase. Ganhar massa: sobe 1 faixa por fase. Recompor: mantém.
@@ -2426,16 +2512,29 @@ function confirmPhaseUpgrade() {
   const target = phaseUpgrade.targetPhase;
   const kind = phaseUpgrade.kind;
 
+  // Trava 4 meses (anti-piracy)
+  const info = getPhaseUnlockInfo(kind);
+  if (!info.unlocked) {
+    alert(`⛔ FASE BLOQUEADA\n\nFaltam ${info.daysLeft} dias pra desbloquear a Fase ${target} ${kind === 'treino' ? 'do treino' : 'da dieta'}.\n\nO método precisa de 4 meses pra cada fase mostrar resultado. Continua firme.`);
+    return;
+  }
+
+  const now = new Date().toISOString();
+  const phaseStartedAt = { ...(p.phaseStartedAt || { treino: now, dieta: now }) };
+
   if (kind === 'treino') {
     if (!phaseUpgrade.newDays) return;
     const sex = p.sex === 'Mulher' ? ' FEM' : '';
     const newDays = phaseUpgrade.newDays;
     const newWorkout = `TREINO${sex} ${newDays}X ${target}`;
+    phaseStartedAt.treino = now;
     state.protocol = {
       ...p,
       treinoPhase: target,
       days: newDays,
-      workout: newWorkout
+      workout: newWorkout,
+      phaseStartedAt,
+      lockedFromRecalc: true
     };
     pushHistory(`Avanço TREINO · Fase ${target} · ${newDays}x/sem`, state.protocol);
   } else if (kind === 'dieta') {
@@ -2443,17 +2542,19 @@ function confirmPhaseUpgrade() {
     const dietBase = p.dietBase || p.diet;
     const newDiet = adjustDietForPhase(dietBase, p.goal, phaseStep);
     const newKcal = DIET_KCAL[newDiet.replace(/^DIETA\s+/, '')] || p.target;
-    // Recalcula macros
     const proteinPerKg = p.goal === 'Emagrecer' ? 2.0 : (p.goal === 'Recompor' ? 1.8 : 1.6);
     const protein = Math.round(p.weight * proteinPerKg);
     const fat = Math.round((newKcal * 0.25) / 9);
     const carb = Math.round((newKcal - protein * 4 - fat * 9) / 4);
+    phaseStartedAt.dieta = now;
     state.protocol = {
       ...p,
       dietaPhase: target,
       diet: newDiet,
       target: newKcal,
-      protein, carb, fat
+      protein, carb, fat,
+      phaseStartedAt,
+      lockedFromRecalc: true
     };
     pushHistory(`Avanço DIETA · Fase ${target} · ${newDiet} (${newKcal} kcal)`, state.protocol);
   }
@@ -2599,20 +2700,43 @@ function renderDieta() {
   // Card de avançar fase DA DIETA
   const dietaPhase = p.dietaPhase || p.phase || '1.0';
   const nextDieta = getNextPhase(dietaPhase);
-  const dietaUpgradeHtml = nextDieta ? `
-    <div class="phase-upgrade-card">
-      <div class="phase-upgrade-title">PRONTO PRA AJUSTAR A DIETA?</div>
-      <div class="phase-upgrade-headline">Avançar DIETA pra Fase ${nextDieta}</div>
-      <div class="phase-upgrade-desc">Já tá com essa dieta faz uns 4 meses?<br>${p.goal === 'Emagrecer' ? 'Vou descer 1 faixa de caloria pra forçar nova perda.' : (p.goal === 'Ganhar massa' ? 'Vou subir 1 faixa de caloria pra forçar nova construção.' : 'Vou ajustar levemente a faixa de caloria.')} (Treino continua igual; pra avançar treino, vai na aba TREINO.)</div>
-      <button class="btn" onclick="openPhaseUpgrade('${nextDieta}','dieta')" style="margin-top:0;">Avançar dieta pra Fase ${nextDieta}</button>
-    </div>
-  ` : `
-    <div class="phase-upgrade-card">
-      <div class="phase-upgrade-title">FASE MÁXIMA DE DIETA</div>
-      <div class="phase-upgrade-headline">Dieta 3.0 🏆</div>
-      <div class="phase-upgrade-desc">Esse é o ajuste máximo da dieta pelo método. Mantém enquanto tiver evoluindo.</div>
-    </div>
-  `;
+  const dInfo = getPhaseUnlockInfo('dieta');
+  let dietaUpgradeHtml;
+  if (nextDieta) {
+    if (dInfo.unlocked) {
+      dietaUpgradeHtml = `
+        <div class="phase-upgrade-card">
+          <div class="phase-upgrade-title">✓ DESBLOQUEADO · PRONTO PRA AJUSTAR</div>
+          <div class="phase-upgrade-headline">Avançar DIETA pra Fase ${nextDieta}</div>
+          <div class="phase-upgrade-desc">Já tá com essa dieta faz ${dInfo.daysIn} dias.<br>${p.goal === 'Emagrecer' ? 'Vou descer 1 faixa de caloria pra forçar nova perda.' : (p.goal === 'Ganhar massa' ? 'Vou subir 1 faixa de caloria pra forçar nova construção.' : 'Vou ajustar levemente a faixa de caloria.')} (Treino continua igual; pra avançar treino, vai na aba TREINO.)</div>
+          <button class="btn" onclick="openPhaseUpgrade('${nextDieta}','dieta')" style="margin-top:0;">Avançar dieta pra Fase ${nextDieta}</button>
+        </div>
+      `;
+    } else {
+      const pct = Math.round((dInfo.daysIn / PHASE_LOCK_DAYS) * 100);
+      dietaUpgradeHtml = `
+        <div class="phase-upgrade-card" style="opacity:.85;">
+          <div class="phase-upgrade-title">🔒 FASE ${nextDieta} BLOQUEADA</div>
+          <div class="phase-upgrade-headline">Faltam ${dInfo.daysLeft} dias</div>
+          <div class="phase-upgrade-desc">O ajuste da dieta só desbloqueia depois de <strong>4 meses (120 dias)</strong> na faixa atual. Tu tá no dia <strong>${dInfo.daysIn}/120</strong>.<br><br>Segue firme com a dieta atual — o corpo precisa do tempo dele pra adaptar.</div>
+          <div style="background:var(--bg);border-radius:6px;padding:8px;margin-top:6px;">
+            <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;background:var(--red);width:${pct}%;transition:width .3s;"></div>
+            </div>
+            <div style="font-size:10px;color:var(--text-muted);margin-top:6px;letter-spacing:.5px;">${pct}% DO CICLO</div>
+          </div>
+        </div>
+      `;
+    }
+  } else {
+    dietaUpgradeHtml = `
+      <div class="phase-upgrade-card">
+        <div class="phase-upgrade-title">FASE MÁXIMA DE DIETA</div>
+        <div class="phase-upgrade-headline">Dieta 3.0 🏆</div>
+        <div class="phase-upgrade-desc">Esse é o ajuste máximo da dieta pelo método. Mantém enquanto tiver evoluindo.</div>
+      </div>
+    `;
+  }
 
   c.innerHTML = `
     <h2>${p.diet}</h2>
@@ -2751,6 +2875,7 @@ function renderSupl() {
   c.innerHTML = `
     <h2>${s.titulo}</h2>
     <p class="hint">${s.subtitulo}</p>
+    <a class="btn secondary" href="pdfs/suplementos.pdf" download="Shape de Elite - Suplementos.pdf" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF dos suplementos</a>
     <div class="result-card" style="background:var(--red-tint);border-color:var(--red);">
       <div class="small" style="color:var(--text);line-height:1.6;">${s.intro}</div>
     </div>
@@ -2784,14 +2909,39 @@ function renderCalc() {
     `;
   }).join('') : '<div class="empty"><p>Nenhum cálculo no histórico ainda.</p></div>';
 
+  // Estado de recalc
+  const proto = state.protocol || {};
+  const recalcUsed = (proto.recalcCount || 0) >= 1;
+  const lockedByPhase = !!proto.lockedFromRecalc || (proto.treinoPhase && proto.treinoPhase !== '1.0') || (proto.dietaPhase && proto.dietaPhase !== '1.0');
+  let recalcCard;
+  if (lockedByPhase) {
+    recalcCard = `
+      <div class="result-card" style="background:var(--surface-2);border-color:var(--border);opacity:.85;">
+        <h3 style="color:var(--text-muted);">🔒 RECÁLCULO BLOQUEADO</h3>
+        <p class="small mt-2" style="line-height:1.5;">Tu já avançou pra Fase 2.0 ou 3.0. Não dá mais pra recalcular o protocolo — segue firme com o que tu já tem. Se tem alguma dúvida real, fala no <strong>WhatsApp de suporte</strong>.</p>
+      </div>
+    `;
+  } else if (recalcUsed) {
+    recalcCard = `
+      <div class="result-card" style="background:var(--surface-2);border-color:var(--border);opacity:.85;">
+        <h3 style="color:var(--text-muted);">🔒 RECÁLCULO JÁ USADO</h3>
+        <p class="small mt-2" style="line-height:1.5;">Tu já refez o cálculo uma vez. Cada aluno pode recalcular <strong>apenas 1 vez</strong>. Se tem algum problema real, fala no <strong>WhatsApp de suporte</strong>.</p>
+      </div>
+    `;
+  } else {
+    recalcCard = `
+      <div class="result-card" style="background:var(--red-tint);border-color:var(--red);">
+        <h3 style="color:var(--gold);">🔄 REFAZER PROTOCOLO OFICIAL</h3>
+        <p class="small mt-2" style="color:var(--text);line-height:1.5;">Use isso só se tu errou algum dado importante (peso/altura/objetivo). Vai sobrescrever o atual e te jogar de volta na Fase 1.0.<br><br><strong style="color:var(--gold);">⚠️ Tu só pode recalcular UMA VEZ — depois disso fica bloqueado pra sempre.</strong></p>
+        <button class="btn" onclick="restartOnboarding(true)" style="margin-top:12px;">🧮 Recalcular protocolo (1 chance)</button>
+      </div>
+    `;
+  }
+
   c.innerHTML = `
     <h2>Calculadora</h2>
 
-    <div class="result-card" style="background:var(--red-tint);border-color:var(--red);">
-      <h3 style="color:var(--gold);">🔄 REFAZER PROTOCOLO OFICIAL</h3>
-      <p class="small mt-2" style="color:var(--text);line-height:1.5;">Use isso quando teu peso ou objetivo mudou bastante e tu quer <strong>recalcular oficialmente</strong> teu protocolo no app. Vai sobrescrever o atual e te jogar de volta na Fase 1.0.</p>
-      <button class="btn" onclick="restartOnboarding(true)" style="margin-top:12px;">🧮 Recalcular protocolo</button>
-    </div>
+    ${recalcCard}
 
     <div class="result-card">
       <h3>🧮 CALCULADORA AVULSA</h3>
