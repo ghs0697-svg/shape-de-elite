@@ -1487,9 +1487,15 @@ function renderTreino() {
     </div>
   `;
 
+  // PDF url: TREINO_4X_1.0.pdf ou TREINO_FEM_4X_1.0.pdf
+  const sex = p.sex === 'Mulher' ? 'FEM_' : '';
+  const pdfUrl = `pdfs/treinos/TREINO_${sex}${p.days}X_${p.phase || '1.0'}.pdf`;
+  const pdfFile = `TREINO ${p.sex === 'Mulher' ? 'FEM ' : ''}${p.days}X ${p.phase || '1.0'}.pdf`;
+
   c.innerHTML = `
     <h2>${p.workout}</h2>
     <p class="hint">${t.dias.length} dias por semana · Fase ${p.phase || '1.0'}</p>
+    <a class="btn secondary" href="${pdfUrl}" download="${pdfFile}" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF do treino</a>
     <div class="day-tabs">${dayBtns}</div>
     ${exHtml}
     ${extrasHtml ? `<h3 style="margin-top:24px;color:var(--text-dim);">📚 Material extra</h3>${extrasHtml}` : ''}
@@ -1735,9 +1741,14 @@ function renderDieta() {
     ? `<details class="result-card" style="cursor:pointer;"><summary style="font-weight:700;font-size:13px;color:var(--red);letter-spacing:.5px;">🍽️ Orientações alimentares</summary><div class="small mt-2" style="white-space:pre-wrap;line-height:1.5;">${d.alimentares}</div></details>`
     : '';
 
+  // PDF url: DIETA_2K.pdf, DIETA_2.5K.pdf, etc.
+  const dietPdf = `pdfs/dietas/DIETA_${key}.pdf`;
+  const dietFile = `${p.diet}.pdf`;
+
   c.innerHTML = `
     <h2>${p.diet}</h2>
     <p class="hint">~${p.target} kcal/dia · proteína ${p.protein}g · carbo ${p.carb}g · gordura ${p.fat}g</p>
+    <a class="btn secondary" href="${dietPdf}" download="${dietFile}" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF da dieta</a>
     ${refsHtml}
     ${regrasHtml}${estiloHtml}${orientHtml}
   `;
