@@ -12,27 +12,34 @@
       "quando": "Pós-desjejum (manhã)",
       "missao": "Cobre falhas da dieta em vitaminas e minerais, energia e imunidade.",
       "cuidados": "Sem contraindicação relevante.",
-      "objetivo": "todos"
+      "objetivos": [
+        "todos"
+      ]
     },
     {
-      "nome": "Enzimas Digestivas",
+      "nome": "Enzimas Digestivas (hipertrofia)",
       "icone": "🧬",
       "dose": "1 a 2 cápsulas",
       "dose_detalhe": "Amilase 50mg + Pepsina 100mg + Papaína 50mg. (Para idoso/atleta: subir pra 250mg + Bromelaína 25mg + Lipase 50mg)",
       "quando": "Pós-almoço e pós-jantar",
       "missao": "Melhora digestão e absorção de proteína e carbo em dietas de alto volume.",
       "cuidados": "Sem contraindicação relevante.",
-      "objetivo": "Ganhar massa"
+      "objetivos": [
+        "Ganhar massa"
+      ]
     },
     {
-      "nome": "Enzimas Digestivas",
+      "nome": "Enzimas Digestivas (emagrecimento)",
       "icone": "🧬",
       "dose": "1 a 2 cápsulas",
       "dose_detalhe": "Faseolamina 200mg + Caseolamina 200mg",
       "quando": "Pós-almoço e pós-jantar",
       "missao": "Inibe absorção parcial de carbo e gordura.",
       "cuidados": "Pode dar gases leves na primeira semana.",
-      "objetivo": "Emagrecer"
+      "objetivos": [
+        "Emagrecer",
+        "Recompor"
+      ]
     },
     {
       "nome": "Ômega 3 DHA",
@@ -42,7 +49,9 @@
       "quando": "Pós-desjejum (manhã)",
       "missao": "Anti-inflamatório potente — saúde do cérebro, coração e articulações. Desinflama o corpo.",
       "cuidados": "Cuidado se usa anticoagulante.",
-      "objetivo": "todos"
+      "objetivos": [
+        "todos"
+      ]
     },
     {
       "nome": "Magnésio",
@@ -52,7 +61,9 @@
       "quando": "Pós-jantar (à noite, antes de dormir)",
       "missao": "Recuperação muscular e nervosa, melhora o sono e a sensibilidade à insulina. Tem bônus em foco e cognição.",
       "cuidados": "Evita óxido de magnésio (baixa absorção).",
-      "objetivo": "todos"
+      "objetivos": [
+        "todos"
+      ]
     },
     {
       "nome": "Cafeína",
@@ -62,7 +73,9 @@
       "quando": "Pré-treino. Nunca depois das 16h.",
       "missao": "Melhora desempenho no treino, foco e disposição.",
       "cuidados": "Em doses altas pode dar tremor, dificuldade pra dormir, queda de pressão ou arritmia. Faz pausa de 1 semana a cada 8 pra resetar a tolerância.",
-      "objetivo": "todos"
+      "objetivos": [
+        "todos"
+      ]
     },
     {
       "nome": "Creatina Monoidratada",
@@ -72,7 +85,9 @@
       "quando": "Qualquer horário do dia. Todos os dias, inclusive descanso. O importante é constância, não horário.",
       "missao": "Aumenta foco, volume celular e performance cognitiva. Suplemento mais estudado do mundo.",
       "cuidados": "Bebe mais água durante o dia.",
-      "objetivo": "todos"
+      "objetivos": [
+        "todos"
+      ]
     }
   ]
 }

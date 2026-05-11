@@ -1759,12 +1759,15 @@ function renderDieta() {
 // ═══════════════════════════════════════════════════════════
 function renderSupl() {
   const s = state.suplData;
-  const goal = state.protocol?.goal || 'todos';
+  const goal = state.protocol?.goal || '';
   const c = document.getElementById('tab-supl');
   if (!s) { c.innerHTML = '<div class="empty"><p>Carregando suplementos...</p></div>'; return; }
 
-  // Filtra: mostra "todos" + os do objetivo do aluno
-  const potes = s.potes.filter(p => p.objetivo === 'todos' || p.objetivo === goal);
+  // Filtra: mostra "todos" + os que casam com o objetivo do aluno (suporta array `objetivos` e legado `objetivo`)
+  const potes = s.potes.filter(p => {
+    const list = Array.isArray(p.objetivos) ? p.objetivos : (p.objetivo ? [p.objetivo] : ['todos']);
+    return list.includes('todos') || list.includes(goal);
+  });
 
   const potesHtml = potes.map(p => `
     <div class="supl-card">
