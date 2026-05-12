@@ -304,6 +304,7 @@
     display: flex;
     gap: 0;
     margin: 0 -20px 16px;
+    padding: 0 4px;
     border-bottom: 1px solid var(--border);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -316,19 +317,19 @@
   }
   .tabs::-webkit-scrollbar { display: none; }
   .tab-btn {
-    flex: 1;
-    min-width: 90px;
-    padding: 14px 12px;
+    flex: 0 0 auto;
+    padding: 13px 10px;
     background: transparent;
     border: none;
     color: var(--text-muted);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .4px;
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: all .15s;
     font-family: inherit;
+    white-space: nowrap;
   }
   .tab-btn:hover { color: var(--text-dim); }
   .tab-btn.active { color: var(--red); border-bottom-color: var(--red); }
