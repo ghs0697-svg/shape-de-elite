@@ -1401,6 +1401,7 @@
     <button class="tab-btn" data-tab="dieta" onclick="showTab('dieta')">DIETA</button>
     <button class="tab-btn" data-tab="supl" onclick="showTab('supl')">SUPLEMENTOS</button>
     <button class="tab-btn" data-tab="aulas" onclick="showTab('aulas')">AULAS</button>
+    <button class="tab-btn" data-tab="ebooks" onclick="showTab('ebooks')">EBOOKS</button>
     <button class="tab-btn" data-tab="acess" onclick="showTab('acess')">ACESSÓRIOS</button>
     <button class="tab-btn" data-tab="parc" onclick="showTab('parc')">PARCEIROS</button>
     <button class="tab-btn" data-tab="calc" onclick="showTab('calc')">CALCULADORA</button>
@@ -1412,6 +1413,7 @@
   <div id="tab-dieta" class="tab-content hidden"></div>
   <div id="tab-supl" class="tab-content hidden"></div>
   <div id="tab-aulas" class="tab-content hidden"></div>
+  <div id="tab-ebooks" class="tab-content hidden"></div>
   <div id="tab-acess" class="tab-content hidden"></div>
   <div id="tab-parc" class="tab-content hidden"></div>
   <div id="tab-calc" class="tab-content hidden"></div>
@@ -2059,26 +2061,6 @@ function buildMghCard() {
   `;
 }
 
-// Seção de ebooks (order bumps) — usada na aba SUPLEMENTOS
-function buildEbooksSection() {
-  const e = state.upsellData?.ebooks;
-  if (!e || !e.ativo || !e.itens?.length) return '';
-  const cards = e.itens.map(it => `
-    <div class="ebook-card${it.destaque ? ' destaque' : ''}">
-      <div class="ebook-card-head">
-        <span class="ebook-card-nome">${it.nome}</span>
-        ${it.badge ? `<span class="ebook-card-badge">${it.badge}</span>` : ''}
-      </div>
-      <div class="ebook-card-desc">${it.desc}</div>
-      <a class="ebook-card-link" href="${it.link}" target="_blank" rel="noopener">Quero esse ebook →</a>
-    </div>
-  `).join('');
-  return `
-    <h3 style="margin-top:28px;margin-bottom:6px;color:var(--gh-gold);font-size:14px;letter-spacing:.5px;">${e.titulo}</h3>
-    <p class="hint" style="margin-bottom:14px;">${e.subtitulo}</p>
-    ${cards}
-  `;
-}
 
 // Heartbeat: verifica a cada 10 min se sessão ainda vale + status da conta
 let _verifyTimer = null;
@@ -2100,9 +2082,37 @@ function showTab(tab) {
   else if (tab === 'dieta') renderDieta();
   else if (tab === 'supl') renderSupl();
   else if (tab === 'aulas') renderAulas();
+  else if (tab === 'ebooks') renderEbooks();
   else if (tab === 'acess') renderAcessorios();
   else if (tab === 'parc') renderParceiros();
   else if (tab === 'calc') renderCalc();
+}
+
+// ═══════════════════════════════════════════════════════════
+// EBOOKS (aba dedicada — order bumps Método GH)
+// ═══════════════════════════════════════════════════════════
+function renderEbooks() {
+  const c = document.getElementById('tab-ebooks');
+  const e = state.upsellData?.ebooks;
+  if (!e || !e.itens?.length) {
+    c.innerHTML = '<div class="empty"><p>Ebooks em breve.</p></div>';
+    return;
+  }
+  const cards = e.itens.map(it => `
+    <div class="ebook-card${it.destaque ? ' destaque' : ''}">
+      <div class="ebook-card-head">
+        <span class="ebook-card-nome">${it.nome}</span>
+        ${it.badge ? `<span class="ebook-card-badge">${it.badge}</span>` : ''}
+      </div>
+      <div class="ebook-card-desc">${it.desc}</div>
+      <a class="ebook-card-link" href="${it.link}" target="_blank" rel="noopener">Quero esse ebook →</a>
+    </div>
+  `).join('');
+  c.innerHTML = `
+    <h2>${e.titulo}</h2>
+    <p class="hint">${e.subtitulo}</p>
+    ${cards}
+  `;
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -3247,7 +3257,6 @@ function renderSupl() {
       <div class="small" style="color:var(--text-dim);font-weight:600;letter-spacing:.3px;">${s.rodape}</div>
     </div>
     ${shopHtml}
-    ${buildEbooksSection()}
   `;
 }
 
