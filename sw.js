@@ -1,4 +1,4 @@
-const CACHE_NAME = 'shape-de-elite-v16';
+const CACHE_NAME = 'shape-de-elite-v17';
 const ASSETS = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const ASSETS = [
   './data/exercise-videos.json',
   './data/suplementos.json',
   './data/aulas.json',
+  './data/upsell.json',
   './assets/bf-10.jpg',
   './assets/bf-15.jpg',
   './assets/bf-20.jpg',

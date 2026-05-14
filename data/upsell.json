@@ -1,0 +1,54 @@
+{
+  "consultoria": {
+    "ativo": true,
+    "badge": "O PRÓXIMO NÍVEL",
+    "logo": "GH",
+    "marca": "MÉTODO GH",
+    "headline": "Tá na hora de migrar pro Método GH",
+    "subtitle": "Chegou no fim do Shape de Elite — ou sente que precisa de um protocolo mais individualizado? A consultoria é 100% personalizada, com acompanhamento direto comigo, anamnese, exames e ajustes sempre que precisar.",
+    "bullets": [
+      "Protocolo 100% individualizado pra ti",
+      "Acompanhamento direto do GH",
+      "Interpretação de exames + suplementação personalizada",
+      "Ajustes finos sempre que necessário",
+      "Atualizações a cada 55 dias com reajuste e feedback"
+    ],
+    "cta": "Quero migrar pro Método GH",
+    "link": "https://wa.me/5520130783?text=E%20a%C3%AD%20GH%2C%20cheguei%20no%20Shape%20de%20Elite%20e%20quero%20migrar%20pra%20consultoria%20individual%20do%20M%C3%A9todo%20GH."
+  },
+  "ebooks": {
+    "ativo": true,
+    "titulo": "📚 Biblioteca Método GH",
+    "subtitulo": "Material clínico de farmacologia de performance — do fundamento à aplicação.",
+    "itens": [
+      {
+        "nome": "Super Combo — 3 Ebooks Clínicos",
+        "badge": "MELHOR VALOR",
+        "desc": "Os 3 ebooks juntos: Ergogênicos (famílias, riscos, arquitetura) + Protocolos & Escudo Adjuvante (12 cenários + farmacologia de proteção) + Peptídeos (4 pilares × 4 fases). O pacote completo.",
+        "link": "https://payfast.greenn.com.br/ywn3nqu",
+        "destaque": true
+      },
+      {
+        "nome": "Ebook Peptídeos — Blueprint Clínico",
+        "badge": "",
+        "desc": "4 pilares × 4 fases: neuroendócrino, regeneração tecidual, modulação metabólica e neurocognição. Protocolos, doses, logística de reconstituição e os 7 alertas críticos de segurança.",
+        "link": "https://payfast.greenn.com.br/nygvqq3",
+        "destaque": false
+      },
+      {
+        "nome": "Ebook Ergogênicos — Parte 1",
+        "badge": "BASE OBRIGATÓRIA",
+        "desc": "Como funciona o eixo HPT, as modificações estruturais das moléculas e as 4 grandes famílias. Inclui o Framework das 7 Pirâmides de Risco, o Painel Vermelho com 8 alertas clínicos e a arquitetura Blast & Cruise.",
+        "link": "https://payfast.greenn.com.br/f5ff9mt",
+        "destaque": false
+      },
+      {
+        "nome": "Ebook Ergogênicos — Parte 2",
+        "badge": "",
+        "desc": "Protocolos & Escudo Adjuvante: 12 cenários de protocolo (6 masculinos + 6 femininos), Mapa de Redução de Danos sistêmico e endócrino, 10 módulos do Escudo Adjuvante, rotina de exames e quadro mestre de 40+ moléculas.",
+        "link": "https://payfast.greenn.com.br/8yp5y2d",
+        "destaque": false
+      }
+    ]
+  }
+}
