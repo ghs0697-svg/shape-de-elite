@@ -1230,12 +1230,13 @@
     </div>
     <button class="btn" onclick="doLogin()">Entrar</button>
     <button class="btn ghost" onclick="showAuth('first')">Primeiro acesso? Criar senha</button>
+    <button class="btn ghost" onclick="showAuth('reset')">Esqueci minha senha</button>
     <div id="auth-msg" class="hint mt-2 text-center hidden"></div>
   </div>
 
   <div id="auth-first" class="hidden">
     <h2>Primeiro acesso</h2>
-    <p class="hint">Digita o e-mail que usaste na compra. Vou enviar um código de confirmação e tu cria tua senha.</p>
+    <p class="hint">Digita o e-mail que usaste na compra e cria tua senha.</p>
     <div class="input-group">
       <label>E-MAIL DA COMPRA</label>
       <input type="email" id="first-email" placeholder="seu@email.com" autocomplete="email" inputmode="email">
@@ -1251,6 +1252,39 @@
     <button class="btn" onclick="doFirstAccess()">Criar senha</button>
     <button class="btn ghost" onclick="showAuth('login')">Já tenho senha · Voltar</button>
     <div id="first-msg" class="hint mt-2 text-center hidden"></div>
+  </div>
+
+  <div id="auth-reset" class="hidden">
+    <h2>Esqueci minha senha</h2>
+    <!-- Etapa 1: pedir código -->
+    <div id="reset-step1">
+      <p class="hint">Digita teu e-mail. Vou te mandar um código de 6 dígitos no <strong>WhatsApp</strong> que tu cadastrou na compra.</p>
+      <div class="input-group">
+        <label>E-MAIL</label>
+        <input type="email" id="reset-email" placeholder="seu@email.com" autocomplete="email" inputmode="email">
+      </div>
+      <button class="btn" onclick="doResetRequest()">Enviar código no WhatsApp</button>
+      <button class="btn ghost" onclick="showAuth('login')">Voltar</button>
+    </div>
+    <!-- Etapa 2: digitar código + senha nova -->
+    <div id="reset-step2" class="hidden">
+      <p class="hint">Código enviado pro WhatsApp <strong id="reset-phone-masked">—</strong>. Digita ele aqui + tua senha nova.</p>
+      <div class="input-group">
+        <label>CÓDIGO (6 dígitos)</label>
+        <input type="text" id="reset-code" placeholder="000000" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+      </div>
+      <div class="input-group">
+        <label>NOVA SENHA (mín. 6 caracteres)</label>
+        <input type="password" id="reset-pwd" placeholder="••••••••" autocomplete="new-password">
+      </div>
+      <div class="input-group">
+        <label>CONFIRMAR SENHA</label>
+        <input type="password" id="reset-pwd2" placeholder="••••••••" autocomplete="new-password">
+      </div>
+      <button class="btn" onclick="doResetConfirm()">Redefinir senha e entrar</button>
+      <button class="btn ghost" onclick="resetBackToStep1()">Não recebi · tentar outro e-mail</button>
+    </div>
+    <div id="reset-msg" class="hint mt-2 text-center hidden"></div>
   </div>
 </div>
 
@@ -1621,6 +1655,80 @@ function showScreen(id) {
 function showAuth(mode) {
   document.getElementById('auth-login').classList.toggle('hidden', mode !== 'login');
   document.getElementById('auth-first').classList.toggle('hidden', mode !== 'first');
+  document.getElementById('auth-reset').classList.toggle('hidden', mode !== 'reset');
+  // Reset sempre volta pra etapa 1 quando abre
+  if (mode === 'reset') resetBackToStep1();
+}
+
+function resetBackToStep1() {
+  document.getElementById('reset-step1').classList.remove('hidden');
+  document.getElementById('reset-step2').classList.add('hidden');
+  document.getElementById('reset-msg').classList.add('hidden');
+  ['reset-code', 'reset-pwd', 'reset-pwd2'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+}
+
+async function doResetRequest() {
+  const email = document.getElementById('reset-email').value.trim().toLowerCase();
+  const msg = document.getElementById('reset-msg');
+  msg.classList.remove('hidden');
+  if (!email) { msg.textContent = 'Digita teu e-mail.'; return; }
+  msg.textContent = 'Enviando código...';
+  try {
+    const res = await fetch(API_BASE + '/api/auth/reset-request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      msg.textContent = data.error || 'Não consegui enviar o código.';
+      return;
+    }
+    // Sucesso → vai pra etapa 2
+    document.getElementById('reset-phone-masked').textContent = data.phoneMasked || 'teu WhatsApp';
+    document.getElementById('reset-step1').classList.add('hidden');
+    document.getElementById('reset-step2').classList.remove('hidden');
+    msg.classList.add('hidden');
+    // Guarda o email pra etapa 2
+    state._resetEmail = email;
+  } catch (e) {
+    msg.textContent = 'Erro de conexão. Tenta de novo.';
+  }
+}
+
+async function doResetConfirm() {
+  const email = state._resetEmail || document.getElementById('reset-email').value.trim().toLowerCase();
+  const code = document.getElementById('reset-code').value.trim();
+  const pwd = document.getElementById('reset-pwd').value;
+  const pwd2 = document.getElementById('reset-pwd2').value;
+  const msg = document.getElementById('reset-msg');
+  msg.classList.remove('hidden');
+  if (!code || code.length !== 6) { msg.textContent = 'Digita o código de 6 dígitos.'; return; }
+  if (!pwd || pwd.length < 6) { msg.textContent = 'Senha precisa de no mínimo 6 caracteres.'; return; }
+  if (pwd !== pwd2) { msg.textContent = 'As senhas não conferem.'; return; }
+  msg.textContent = 'Redefinindo...';
+  try {
+    const res = await fetch(API_BASE + '/api/auth/reset-confirm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, code, password: pwd })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      msg.textContent = data.error || 'Não consegui redefinir a senha.';
+      return;
+    }
+    // Logou direto
+    state.user = { email: data.email, token: data.token, name: data.name };
+    state._resetEmail = null;
+    saveState();
+    msg.classList.add('hidden');
+    afterLogin();
+  } catch (e) {
+    msg.textContent = 'Erro de conexão. Tenta de novo.';
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
