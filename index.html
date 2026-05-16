@@ -2543,31 +2543,17 @@ function renderTreino() {
   const tInfo = getPhaseUnlockInfo('treino');
   let phaseUpgradeHtml;
   if (next) {
-    if (tInfo.unlocked) {
-      phaseUpgradeHtml = `
-        <div class="phase-upgrade-card">
-          <div class="phase-upgrade-title">✓ DISPONÍVEL · AVANÇAR QUANDO QUISER</div>
-          <div class="phase-upgrade-headline">Avançar TREINO pra Fase ${next}</div>
-          <div class="phase-upgrade-desc">Tu tá no treino ${treinoPhase}.<br><strong style="color:var(--gold);">Recomendação:</strong> roda essa versão por <strong>pelo menos 1 semana</strong> antes de pular pra próxima — o corpo precisa de tempo pra adaptar.</div>
-          <button class="btn" onclick="openPhaseUpgrade('${next}','treino')" style="margin-top:0;">Avançar treino pra Fase ${next}</button>
-        </div>
-      `;
-    } else {
-      const pct = Math.round((tInfo.daysIn / INITIAL_GATE_DAYS) * 100);
-      phaseUpgradeHtml = `
-        <div class="phase-upgrade-card" style="opacity:.85;">
-          <div class="phase-upgrade-title">🔒 EM BREVE</div>
-          <div class="phase-upgrade-headline">Faltam ${tInfo.daysLeft} dias</div>
-          <div class="phase-upgrade-desc">As fases avançadas desbloqueiam <strong>${INITIAL_GATE_DAYS} dias após teu cadastro</strong>. Tu tá no dia <strong>${tInfo.daysIn}/${INITIAL_GATE_DAYS}</strong>.<br><br>Aproveita pra rodar a Fase 1.0 firme — é nessa base que o método se constrói.</div>
-          <div style="background:var(--bg);border-radius:6px;padding:8px;margin-top:6px;">
-            <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden;">
-              <div style="height:100%;background:var(--red);width:${pct}%;transition:width .3s;"></div>
-            </div>
-            <div style="font-size:10px;color:var(--text-muted);margin-top:6px;letter-spacing:.5px;">${pct}% DA JANELA INICIAL</div>
-          </div>
-        </div>
-      `;
-    }
+    const btnHtml = tInfo.unlocked
+      ? `<button class="btn" onclick="openPhaseUpgrade('${next}','treino')" style="margin-top:0;">Avançar treino pra Fase ${next}</button>`
+      : `<button class="btn" disabled style="margin-top:0;opacity:.5;cursor:not-allowed;">Disponível em ${tInfo.daysLeft} ${tInfo.daysLeft === 1 ? 'dia' : 'dias'}</button>`;
+    phaseUpgradeHtml = `
+      <div class="phase-upgrade-card">
+        <div class="phase-upgrade-title">${tInfo.unlocked ? '✓ AVANÇAR QUANDO QUISER' : '🔒 EM BREVE'}</div>
+        <div class="phase-upgrade-headline">Avançar TREINO pra Fase ${next}</div>
+        <div class="phase-upgrade-desc">Roda essa versão por <strong>pelo menos 1 semana</strong> antes de pular — corpo precisa de tempo pra adaptar.${tInfo.unlocked ? '' : '<br><br><span style="color:var(--text-muted);font-size:11px;">Botão libera em ' + tInfo.daysLeft + ' ' + (tInfo.daysLeft === 1 ? 'dia' : 'dias') + '.</span>'}</div>
+        ${btnHtml}
+      </div>
+    `;
   } else {
     phaseUpgradeHtml = `
       <div class="phase-upgrade-card">
@@ -3193,31 +3179,20 @@ function renderDieta() {
   const dInfo = getPhaseUnlockInfo('dieta');
   let dietaUpgradeHtml;
   if (nextDieta) {
-    if (dInfo.unlocked) {
-      dietaUpgradeHtml = `
-        <div class="phase-upgrade-card">
-          <div class="phase-upgrade-title">✓ DISPONÍVEL · AVANÇAR QUANDO QUISER</div>
-          <div class="phase-upgrade-headline">Avançar DIETA pra Fase ${nextDieta}</div>
-          <div class="phase-upgrade-desc">${p.goal === 'Emagrecer' ? 'Vou descer 1 faixa de caloria pra forçar nova perda.' : (p.goal === 'Ganhar massa' ? 'Vou subir 1 faixa de caloria pra forçar nova construção.' : 'Vou ajustar levemente a faixa de caloria.')}<br><strong style="color:var(--gold);">Recomendação:</strong> roda essa dieta por <strong>pelo menos 1 semana</strong> antes de pular — o corpo precisa de tempo pra adaptar.</div>
-          <button class="btn" onclick="openPhaseUpgrade('${nextDieta}','dieta')" style="margin-top:0;">Avançar dieta pra Fase ${nextDieta}</button>
-        </div>
-      `;
-    } else {
-      const pct = Math.round((dInfo.daysIn / INITIAL_GATE_DAYS) * 100);
-      dietaUpgradeHtml = `
-        <div class="phase-upgrade-card" style="opacity:.85;">
-          <div class="phase-upgrade-title">🔒 EM BREVE</div>
-          <div class="phase-upgrade-headline">Faltam ${dInfo.daysLeft} dias</div>
-          <div class="phase-upgrade-desc">As fases avançadas desbloqueiam <strong>${INITIAL_GATE_DAYS} dias após teu cadastro</strong>. Tu tá no dia <strong>${dInfo.daysIn}/${INITIAL_GATE_DAYS}</strong>.<br><br>Aproveita pra rodar a dieta atual firme — é nessa base que o corpo entende o ritmo.</div>
-          <div style="background:var(--bg);border-radius:6px;padding:8px;margin-top:6px;">
-            <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden;">
-              <div style="height:100%;background:var(--red);width:${pct}%;transition:width .3s;"></div>
-            </div>
-            <div style="font-size:10px;color:var(--text-muted);margin-top:6px;letter-spacing:.5px;">${pct}% DA JANELA INICIAL</div>
-          </div>
-        </div>
-      `;
-    }
+    const goalMsg = p.goal === 'Emagrecer' ? 'Vou descer 1 faixa de caloria pra forçar nova perda.'
+                   : (p.goal === 'Ganhar massa' ? 'Vou subir 1 faixa de caloria pra forçar nova construção.'
+                   : 'Vou ajustar levemente a faixa de caloria.');
+    const btnHtmlDieta = dInfo.unlocked
+      ? `<button class="btn" onclick="openPhaseUpgrade('${nextDieta}','dieta')" style="margin-top:0;">Avançar dieta pra Fase ${nextDieta}</button>`
+      : `<button class="btn" disabled style="margin-top:0;opacity:.5;cursor:not-allowed;">Disponível em ${dInfo.daysLeft} ${dInfo.daysLeft === 1 ? 'dia' : 'dias'}</button>`;
+    dietaUpgradeHtml = `
+      <div class="phase-upgrade-card">
+        <div class="phase-upgrade-title">${dInfo.unlocked ? '✓ AVANÇAR QUANDO QUISER' : '🔒 EM BREVE'}</div>
+        <div class="phase-upgrade-headline">Avançar DIETA pra Fase ${nextDieta}</div>
+        <div class="phase-upgrade-desc">${goalMsg}<br>Roda essa dieta por <strong>pelo menos 1 semana</strong> antes de pular — corpo precisa de tempo pra adaptar.${dInfo.unlocked ? '' : '<br><br><span style="color:var(--text-muted);font-size:11px;">Botão libera em ' + dInfo.daysLeft + ' ' + (dInfo.daysLeft === 1 ? 'dia' : 'dias') + '.</span>'}</div>
+        ${btnHtmlDieta}
+      </div>
+    `;
   } else {
     dietaUpgradeHtml = `
       <div class="phase-upgrade-card">
