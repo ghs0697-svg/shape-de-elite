@@ -1128,6 +1128,44 @@
   .ach-btn.secondary { background: var(--surface-2); }
   .ach-btn.ghost { background: transparent; color: var(--text-muted); }
 
+  /* How-to-first-access modal — steps numerados */
+  .howto-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .howto-step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .howto-step-num {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--red);
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .howto-step-body { flex: 1; min-width: 0; }
+  .howto-step-title { font-weight: 700; font-size: 14px; margin-bottom: 3px; line-height: 1.25; }
+  .howto-step-desc { color: var(--text-dim); font-size: 12px; line-height: 1.45; }
+  .howto-tip {
+    background: var(--surface-2);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 12px 14px;
+    margin-top: 14px;
+  }
+  .howto-tip-title { color: var(--gold); font-weight: 700; font-size: 11px; letter-spacing: 1px; margin-bottom: 6px; }
+  .howto-tip-body { color: var(--text-dim); font-size: 12px; line-height: 1.5; }
+
   /* Install modal */
   .install-modal {
     position: fixed;
@@ -1231,6 +1269,7 @@
     <button class="btn" onclick="doLogin()">Entrar</button>
     <button class="btn ghost" onclick="showAuth('first')">Primeiro acesso? Criar senha</button>
     <button class="btn ghost" onclick="showAuth('reset')">Esqueci minha senha</button>
+    <button class="btn ghost" onclick="openHowToModal()" style="color:var(--gold);">📖 Como acessar pela primeira vez</button>
     <div id="auth-msg" class="hint mt-2 text-center hidden"></div>
   </div>
 
@@ -1466,6 +1505,46 @@
       </a>
     </div>
     <button class="float-btn" onclick="toggleFloatMenu()" aria-label="Menu rápido">⚡</button>
+  </div>
+</div>
+
+<!-- How-to-first-access modal (aparece no botão da tela de login) -->
+<div class="install-modal" id="howToModal" onclick="closeHowToOnBg(event)">
+  <div class="install-modal-box">
+    <h3>📖 Como acessar pela primeira vez</h3>
+    <p class="hint" style="margin-bottom:14px;">Tua compra foi confirmada e teu acesso já tá liberado. Segue os 3 passos abaixo pra criar tua senha.</p>
+
+    <div class="howto-steps">
+      <div class="howto-step">
+        <div class="howto-step-num">1</div>
+        <div class="howto-step-body">
+          <div class="howto-step-title">Tu já tá no lugar certo</div>
+          <div class="howto-step-desc">Esse é o app do Shape de Elite (<strong>app.shapedeelite.com.br</strong>). Aqui mora teu treino, dieta e tudo do método.</div>
+        </div>
+      </div>
+      <div class="howto-step">
+        <div class="howto-step-num">2</div>
+        <div class="howto-step-body">
+          <div class="howto-step-title">Clica em "Primeiro acesso? Criar senha"</div>
+          <div class="howto-step-desc">É o botão logo abaixo do botão de Entrar.</div>
+        </div>
+      </div>
+      <div class="howto-step">
+        <div class="howto-step-num">3</div>
+        <div class="howto-step-body">
+          <div class="howto-step-title">Usa o MESMO e-mail da compra + cria tua senha</div>
+          <div class="howto-step-desc">Digita o e-mail que tu usou na Greenn, cria uma senha de no mínimo 6 caracteres e confirma. Pronto, tá dentro.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="howto-tip">
+      <div class="howto-tip-title">💡 DICA RÁPIDA</div>
+      <div class="howto-tip-body">Salva o app na tela inicial do celular pra virar ícone igual qualquer app: no navegador, clica em <strong>Compartilhar</strong> (iPhone) ou <strong>3 pontinhos</strong> (Android) → <strong>"Adicionar à tela inicial"</strong>.</div>
+    </div>
+
+    <button class="btn" onclick="closeHowToModal(); showAuth('first');" style="margin-top:16px;">Entendi, vou criar minha senha</button>
+    <button class="btn ghost" onclick="closeHowToModal()">Fechar</button>
   </div>
 </div>
 
@@ -2876,6 +2955,10 @@ function closeInstallModal() {
   document.getElementById('installModal').classList.remove('show');
 }
 function closeInstallOnBg(e) { if (e.target.id === 'installModal') closeInstallModal(); }
+
+function openHowToModal() { document.getElementById('howToModal').classList.add('show'); }
+function closeHowToModal() { document.getElementById('howToModal').classList.remove('show'); }
+function closeHowToOnBg(e) { if (e.target.id === 'howToModal') closeHowToModal(); }
 
 // Click fora do floatMenu fecha
 document.addEventListener('click', e => {
