@@ -1474,6 +1474,7 @@
     <div class="progress-dot" data-step="5"></div>
     <div class="progress-dot" data-step="6"></div>
     <div class="progress-dot" data-step="7"></div>
+    <div class="progress-dot" data-step="8"></div>
   </div>
 
   <div class="screen active" id="o1">
@@ -1559,11 +1560,23 @@
     <button class="option" onclick="selectDays(this,6)"><strong>6x por semana</strong><span class="desc">Volume máximo, pra quem já treina há tempos</span></button>
     <div class="btn-group">
       <button class="btn secondary" onclick="oPrev()">Voltar</button>
-      <button class="btn" onclick="calculate()">Calcular meu protocolo</button>
+      <button class="btn" onclick="validateDays()">Continuar</button>
     </div>
   </div>
 
   <div class="screen" id="o7">
+    <h2>Qual teu nível de treino?</h2>
+    <p class="hint">Seja honesto — isso define onde teu protocolo começa.</p>
+    <button class="option" onclick="selectLevel(this,'iniciante')"><strong>Iniciante</strong><span class="desc">Nunca treinei sério, voltando depois de muito tempo parado, ou treino sem orientação. Começo do zero, aprendo padrão de execução.</span></button>
+    <button class="option" onclick="selectLevel(this,'intermediario')"><strong>Intermediário</strong><span class="desc">Treino regular há mais de 1 ano, já tenho execução decente, conheço meu corpo. Pulo a adaptação básica.</span></button>
+    <button class="option" onclick="selectLevel(this,'avancado')"><strong>Avançado</strong><span class="desc">Treino sério há vários anos, dominio total da execução, busco performance e estética acima da média. Vou direto pro nível máximo.</span></button>
+    <div class="btn-group">
+      <button class="btn secondary" onclick="oPrev()">Voltar</button>
+      <button class="btn" onclick="validateLevel()">Calcular meu protocolo</button>
+    </div>
+  </div>
+
+  <div class="screen" id="o8">
     <h2>Teu protocolo</h2>
     <div class="result-grid">
       <div class="result-card"><h3>TMB</h3><div class="big white" id="r-tmb">—</div><div class="small">em repouso</div></div>
@@ -2109,7 +2122,8 @@ let onboard = {
   activity: null, activityFactor: null,
   bf: null, bfAdjust: 0,
   goal: null, goalAdjust: 0,
-  days: null
+  days: null,
+  level: null
 };
 
 function initOnboarding() {
@@ -2167,6 +2181,20 @@ function selectDays(el, d) {
   document.querySelectorAll('#o6 .option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   onboard.days = d;
+}
+function validateDays() {
+  if (!onboard.days) { alert('Selecione quantos dias vai treinar.'); return; }
+  oNext();
+}
+
+function selectLevel(el, v) {
+  document.querySelectorAll('#o7 .option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  onboard.level = v;
+}
+function validateLevel() {
+  if (!onboard.level) { alert('Selecione teu nível de treino.'); return; }
+  calculate();
 }
 
 function validateDados() {
