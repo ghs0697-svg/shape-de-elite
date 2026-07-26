@@ -2872,7 +2872,9 @@ function renderTreino() {
   ).join('');
   const day = t.dias[state.currentDay] || t.dias[0];
   const exHtml = day.exercicios.map((ex, idx) => {
-    const url = state.videoMap[ex.video_key];
+    // video_url = resolvido no manifesto (instrutivo no grupo da prioridade, execução no resto);
+    // fallback: banco antigo por video_key (alunos pré-prioridade)
+    const url = ex.video_url || state.videoMap[ex.video_key];
     const nameHtml = url
       ? `<a onclick="openVideo('${escapeAttr(url)}', '${escapeAttr(ex.exercicio)}')">▶ ${ex.exercicio}</a>`
       : ex.exercicio;
