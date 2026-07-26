@@ -1,4 +1,4 @@
-const CACHE_NAME = 'shape-de-elite-v30';
+const CACHE_NAME = 'shape-de-elite-v31';
 const ASSETS = [
   './',
   './index.html',
@@ -9,10 +9,10 @@ const ASSETS = [
   './data/suplementos.json',
   './data/aulas.json',
   './data/upsell.json',
-  './assets/bf-10.jpg',
-  './assets/bf-15.jpg',
-  './assets/bf-20.jpg',
-  './assets/bf-25.jpg'
+  './assets/bf-10.jpg?v=2',
+  './assets/bf-15.jpg?v=2',
+  './assets/bf-20.jpg?v=2',
+  './assets/bf-25.jpg?v=2'
 ];
 
 self.addEventListener('install', e => {
@@ -40,6 +40,19 @@ self.addEventListener('fetch', e => {
     e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
-  // Cache-first pros assets estáticos (JSONs, imagens)
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+  // Imagens: network-first (nunca fica preso em resposta velha/quebrada do cache)
+  if (e.request.destination === 'image' || /\.(jpg|jpeg|png|webp)(\?|$)/.test(e.request.url)) {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        if (res && res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+        }
+        return res;
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+  // Cache-first pros demais assets estáticos (JSONs), só serve resposta válida
+  e.respondWith(caches.match(e.request).then(r => (r && r.ok ? r : fetch(e.request))));
 });
