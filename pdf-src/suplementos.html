@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Manual dos 6 Potes · Shape de Elite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page { size: 210mm 297mm; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0A0A0A; --bg2: #120C0C; --card: #1A1414; --border: #2C2222; --border-hi: #3A2A2A;
+    --tx: #F5F3F3; --dim: #A09898; --mute: #5E5656;
+    --red: #B91C1C; --red-hi: #E63535; --red-soft: rgba(185,28,28,.12); --red-bd: rgba(185,28,28,.38);
+    --gold: #F5C542;
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--tx); }
+  .page {
+    width: 210mm; height: 296mm; page-break-after: always; position: relative; overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(185,28,28,.14) 0%, transparent 60%),
+      linear-gradient(180deg, var(--bg2) 0%, var(--bg) 55%);
+    padding: 18mm 16mm 22mm; display: flex; flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; }
+  .page::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1.2mm;
+    background: linear-gradient(90deg, transparent, var(--red) 30% 70%, transparent); opacity: .8; }
+  .brand { position: absolute; bottom: 8mm; left: 16mm; right: 16mm; display: flex; justify-content: space-between;
+    font-size: 8.5pt; color: var(--mute); font-weight: 700; letter-spacing: .8px; }
+  .brand b { color: var(--red-hi); }
+  .kick { display: inline-block; font-size: 9pt; font-weight: 800; letter-spacing: 2.5px; color: var(--red-hi);
+    text-transform: uppercase; border: 1px solid var(--red-bd); background: var(--red-soft);
+    border-radius: 6px; padding: 2mm 4.5mm; margin-bottom: 7mm; width: fit-content; }
+  h1 { font-size: 38pt; font-weight: 900; line-height: 1.0; text-transform: uppercase; letter-spacing: -.5px; }
+  h1 span { color: var(--red-hi); }
+  .rule { width: 42mm; height: 1.6mm; background: var(--red); border-radius: 2mm; margin: 8mm 0; }
+  .sub { font-size: 12.5pt; color: var(--dim); line-height: 1.5; max-width: 155mm; }
+  .capa-card { margin-top: 10mm; background: var(--card); border: 1px solid var(--border-hi);
+    border-left: 2mm solid var(--red); border-radius: 4mm; padding: 7mm 8mm; max-width: 165mm; }
+  .capa-card .t { font-size: 10pt; font-weight: 800; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 3mm; }
+  .capa-card .b { font-size: 11.5pt; color: var(--tx); line-height: 1.55; }
+  .toc { margin-top: 10mm; display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; max-width: 165mm; }
+  .toc-item { display: flex; align-items: center; gap: 4mm; background: var(--card); border: 1px solid var(--border);
+    border-radius: 3.5mm; padding: 4.5mm 5.5mm; font-size: 11pt; font-weight: 700; }
+  .toc-item .ic { font-size: 14pt; }
+
+  h2 { font-size: 18pt; font-weight: 900; text-transform: uppercase; margin-bottom: 6mm; }
+  h2 span { color: var(--red-hi); }
+  .pote { background: var(--card); border: 1px solid var(--border-hi); border-radius: 4.5mm;
+    padding: 7mm; margin-bottom: 7mm; }
+  .pote-head { display: flex; align-items: center; gap: 5mm; margin-bottom: 5mm; }
+  .pote-ic { font-size: 20pt; width: 14mm; height: 14mm; background: var(--red-soft);
+    border: 1px solid var(--red-bd); border-radius: 3.5mm; display: flex; align-items: center; justify-content: center; }
+  .pote-nome { font-size: 15pt; font-weight: 900; line-height: 1.1; }
+  .pote-obj { font-size: 8.5pt; font-weight: 700; letter-spacing: 1.2px; color: var(--gold); text-transform: uppercase; margin-top: 1.5mm; }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-bottom: 5mm; }
+  .chip { background: var(--bg); border: 1px solid var(--border); border-radius: 3mm; padding: 3.5mm 5mm; }
+  .chip-k { font-size: 8pt; font-weight: 800; letter-spacing: 1.5px; color: var(--mute); text-transform: uppercase; margin-bottom: 1.5mm; }
+  .chip-v { font-size: 11.5pt; font-weight: 800; color: var(--red-hi); }
+  .sec { margin-top: 4mm; }
+  .sec-k { font-size: 8.5pt; font-weight: 800; letter-spacing: 1.8px; color: var(--dim); text-transform: uppercase; margin-bottom: 1.8mm; }
+  .sec-v { font-size: 10.5pt; line-height: 1.5; color: var(--tx); }
+  .sec.warn .sec-k { color: var(--gold); }
+  .sec.warn .sec-v { color: #E8DFC8; }
+
+  .final-card { background: var(--card); border: 1px solid var(--red-bd); border-radius: 4.5mm; padding: 8mm; margin-top: 6mm; }
+  .final-card .t { font-size: 13pt; font-weight: 900; text-transform: uppercase; color: var(--red-hi); margin-bottom: 4mm; }
+  .final-card .b { font-size: 11.5pt; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+  <div class="page">
+    <div class="kick">Shape de Elite · Material Oficial</div>
+    <h1>MANUAL DOS <span>6 POTES</span></h1>
+    <div class="rule"></div>
+    <p class="sub">Doses exatas, sem enrolação. Seis potes básicos que todo protocolo precisa.</p>
+    <div class="capa-card">
+      <div class="t">Antes de abrir o primeiro pote</div>
+      <div class="b">Isto é um acelerador. Não anula dieta furada, chope de domingo e não substitui teu treino. Zero aula de biologia: tu só precisa saber O QUE tomar, QUANTO e QUANDO.</div>
+    </div>
+    <div class="toc">
+      <div class="toc-item"><span class="ic">💊</span><span>Multivitamínico Completo</span></div><div class="toc-item"><span class="ic">🧬</span><span>Enzimas Digestivas (hipertrofia)</span></div><div class="toc-item"><span class="ic">🧬</span><span>Enzimas Digestivas (emagrecimento)</span></div><div class="toc-item"><span class="ic">🐟</span><span>Ômega 3 DHA</span></div><div class="toc-item"><span class="ic">🌙</span><span>Magnésio</span></div><div class="toc-item"><span class="ic">⚡</span><span>Cafeína</span></div><div class="toc-item"><span class="ic">💪</span><span>Creatina Monoidratada</span></div>
+    </div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+
+  
+  <div class="page">
+    <h2>Os potes <span>· parte 1 de 4</span></h2>
+    
+  <div class="pote">
+    <div class="pote-head">
+      <div class="pote-ic">💊</div>
+      <div>
+        <div class="pote-nome">Multivitamínico Completo</div>
+        <div class="pote-obj">Todo protocolo</div>
+      </div>
+    </div>
+    <div class="chips">
+      <div class="chip"><div class="chip-k">Dose</div><div class="chip-v">1 comprimido</div></div>
+      <div class="chip"><div class="chip-k">Quando</div><div class="chip-v">Pós-desjejum (manhã)</div></div>
+    </div>
+    <div class="sec"><div class="sec-k">Missão</div><div class="sec-v">Cobre falhas da dieta em vitaminas e minerais, energia e imunidade.</div></div>
+    <div class="sec"><div class="sec-k">Detalhe da dose</div><div class="sec-v">Marca com Vit A 3.000UI, B1 50mg, B2 20mg, B6 50mg, ácido fólico 1.000mcg, D3 1.000UI, E 100mg, K2 MK7 50mcg, Inositol 100mg</div></div>
+    <div class="sec warn"><div class="sec-k">Cuidados</div><div class="sec-v">Sem contraindicação relevante.</div></div>
+  </div>
+  <div class="pote">
+    <div class="pote-head">
+      <div class="pote-ic">🧬</div>
+      <div>
+        <div class="pote-nome">Enzimas Digestivas (hipertrofia)</div>
+        <div class="pote-obj">Ganhar massa</div>
+      </div>
+    </div>
+    <div class="chips">
+      <div class="chip"><div class="chip-k">Dose</div><div class="chip-v">1 a 2 cápsulas</div></div>
+      <div class="chip"><div class="chip-k">Quando</div><div class="chip-v">Pós-almoço e pós-jantar</div></div>
+    </div>
+    <div class="sec"><div class="sec-k">Missão</div><div class="sec-v">Melhora digestão e absorção de proteína e carbo em dietas de alto volume.</div></div>
+    <div class="sec"><div class="sec-k">Detalhe da dose</div><div class="sec-v">Amilase 50mg + Pepsina 100mg + Papaína 50mg. (Para idoso/atleta: subir pra 250mg + Bromelaína 25mg + Lipase 50mg)</div></div>
+    <div class="sec warn"><div class="sec-k">Cuidados</div><div class="sec-v">Sem contraindicação relevante.</div></div>
+  </div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+  <div class="page">
+    <h2>Os potes <span>· parte 2 de 4</span></h2>
+    
+  <div class="pote">
+    <div class="pote-head">
+      <div class="pote-ic">🧬</div>
+      <div>
+        <div class="pote-nome">Enzimas Digestivas (emagrecimento)</div>
+        <div class="pote-obj">Emagrecer · Recompor</div>
+      </div>
+    </div>
+    <div class="chips">
+      <div class="chip"><div class="chip-k">Dose</div><div class="chip-v">1 a 2 cápsulas</div></div>
+      <div class="chip"><div class="chip-k">Quando</div><div class="chip-v">Pós-almoço e pós-jantar</div></div>
+    </div>
+    <div class="sec"><div class="sec-k">Missão</div><div class="sec-v">Inibe absorção parcial de carbo e gordura.</div></div>
+    <div class="sec"><div class="sec-k">Detalhe da dose</div><div class="sec-v">Faseolamina 200mg + Caseolamina 200mg</div></div>
+    <div class="sec warn"><div class="sec-k">Cuidados</div><div class="sec-v">Pode dar gases leves na primeira semana.</div></div>
+  </div>
+  <div class="pote">
+    <div class="pote-head">
+      <div class="pote-ic">🐟</div>
+      <div>
+        <div class="pote-nome">Ômega 3 DHA</div>
+        <div class="pote-obj">Todo protocolo</div>
+      </div>
+    </div>
+    <div class="chips">
+      <div class="chip"><div class="chip-k">Dose</div><div class="chip-v">1000mg</div></div>
+      <div class="chip"><div class="chip-k">Quando</div><div class="chip-v">Pós-desjejum (manhã)</div></div>
+    </div>
+    <div class="sec"><div class="sec-k">Missão</div><div class="sec-v">Anti-inflamatório potente — saúde do cérebro, coração e articulações. Desinflama o corpo.</div></div>
+    <div class="sec"><div class="sec-k">Detalhe da dose</div><div class="sec-v">EPA + DHA total na faixa de 1000mg, priorizar DHA alto.</div></div>
+    <div class="sec warn"><div class="sec-k">Cuidados</div><div class="sec-v">Cuidado se usa anticoagulante.</div></div>
+  </div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+  <div class="page">
+    <h2>Os potes <span>· parte 3 de 4</span></h2>
+    
+  <div class="pote">
+    <div class="pote-head">
+      <div class="pote-ic">🌙</div>
+      <div>
+        <div class="pote-nome">Magnésio</div>
+        <div class="pote-obj">Todo protocolo</div>
+      </div>
+    </div>
+    <div class="chips">
+      <div class="chip"><div class="chip-k">Dose</div><div class="chip-v">Treonato 300mg OU Inositol 1500mg</div></div>
+      <div class="chip"><div class="chip-k">Quando</div><div class="chip-v">Pós-jantar (à noite, antes de dormir)</div></div>
+    </div>
+    <div class="sec"><div class="sec-k">Missão</div><div class="sec-v">Recuperação muscular e nervosa, melhora o sono e a sensibilidade à insulina. Tem bônus em foco e cognição.</div></div>
+    <div class="sec"><div class="sec-k">Detalhe da dose</div><div class="sec-v">Treonato passa a barreira hematoencefálica (melhor pro cérebro). Inositol tem bônus em foco e cognição.</div></div>
+    <div class="sec warn"><div class="sec-k">Cuidados</div><div class="sec-v">Evita óxido de magnésio (baixa absorção).</div></div>
+  </div>
+  <div class="pote">
+    <div class="pote-head">
+      <div class="pote-ic">⚡</div>
+      <div>
+        <div class="pote-nome">Cafeína</div>
+        <div class="pote-obj">Todo protocolo</div>
+      </div>
+    </div>
+    <div class="chips">
+      <div class="chip"><div class="chip-k">Dose</div><div class="chip-v">200mg a 400mg</div></div>
+      <div class="chip"><div class="chip-k">Quando</div><div class="chip-v">Pré-treino. Nunca depois das 16h.</div></div>
+    </div>
+    <div class="sec"><div class="sec-k">Missão</div><div class="sec-v">Melhora desempenho no treino, foco e disposição.</div></div>
+    <div class="sec"><div class="sec-k">Detalhe da dose</div><div class="sec-v">Começa em 200mg, sobe se sentir pouco efeito.</div></div>
+    <div class="sec warn"><div class="sec-k">Cuidados</div><div class="sec-v">Em doses altas pode dar tremor, dificuldade pra dormir, queda de pressão ou arritmia. Faz pausa de 1 semana a cada 8 pra resetar a tolerância.</div></div>
+  </div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+  <div class="page">
+    <h2>Os potes <span>· parte 4 de 4</span></h2>
+    
+  <div class="pote">
+    <div class="pote-head">
+      <div class="pote-ic">💪</div>
+      <div>
+        <div class="pote-nome">Creatina Monoidratada</div>
+        <div class="pote-obj">Todo protocolo</div>
+      </div>
+    </div>
+    <div class="chips">
+      <div class="chip"><div class="chip-k">Dose</div><div class="chip-v">Mulher 5g · Homem 10g</div></div>
+      <div class="chip"><div class="chip-k">Quando</div><div class="chip-v">Qualquer horário do dia. Todos os dias, inclusive descanso. O importante é constância, não horário.</div></div>
+    </div>
+    <div class="sec"><div class="sec-k">Missão</div><div class="sec-v">Aumenta foco, volume celular e performance cognitiva. Suplemento mais estudado do mundo.</div></div>
+    <div class="sec"><div class="sec-k">Detalhe da dose</div><div class="sec-v">Creapure (alemã) ou marca nacional séria. Não precisa marca cara.</div></div>
+    <div class="sec warn"><div class="sec-k">Cuidados</div><div class="sec-v">Bebe mais água durante o dia.</div></div>
+  </div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+
+  <div class="page">
+    <h2>A regra <span>de ouro</span></h2>
+    <div class="final-card">
+      <div class="t">Como comprar</div>
+      <div class="b">Compra tudo isolado, nunca em combo. Marca nacional séria funciona tanto quanto importada.</div>
+    </div>
+    <div class="final-card">
+      <div class="t">Como usar este manual</div>
+      <div class="b">Suplemento é acelerador, não fundação. A base do teu resultado é a dieta e o treino que a calculadora te entregou. Segue as doses daqui, nos horários daqui, e deixa o resto do trabalho com o protocolo.</div>
+    </div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+
+</body>
+</html>
