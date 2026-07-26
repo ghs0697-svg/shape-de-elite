@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><title>Dieta 2.2K · Shape de Elite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page { size: 210mm 297mm; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0A0A0A; --bg2: #120C0C; --card: #1A1414; --border: #2C2222; --border-hi: #3A2A2A;
+    --tx: #F5F3F3; --dim: #A09898; --mute: #5E5656;
+    --red: #B91C1C; --red-hi: #E63535; --red-soft: rgba(185,28,28,.12); --red-bd: rgba(185,28,28,.38);
+    --gold: #F5C542;
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--tx); }
+  .page {
+    width: 210mm; height: 296mm; page-break-after: always; position: relative; overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(185,28,28,.14) 0%, transparent 60%),
+      linear-gradient(180deg, var(--bg2) 0%, var(--bg) 55%);
+    padding: 16mm 16mm 20mm; display: flex; flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; }
+  .page::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1.2mm;
+    background: linear-gradient(90deg, transparent, var(--red) 30% 70%, transparent); opacity: .8; }
+  .brand { position: absolute; bottom: 8mm; left: 16mm; right: 16mm; display: flex; justify-content: space-between;
+    font-size: 8.5pt; color: var(--mute); font-weight: 700; letter-spacing: .8px; }
+  .brand b { color: var(--red-hi); }
+  .kick { display: inline-block; font-size: 9pt; font-weight: 800; letter-spacing: 2.5px; color: var(--red-hi);
+    text-transform: uppercase; border: 1px solid var(--red-bd); background: var(--red-soft);
+    border-radius: 6px; padding: 2mm 4.5mm; margin-bottom: 7mm; width: fit-content; }
+  h1 { font-size: 40pt; font-weight: 900; line-height: 1.0; text-transform: uppercase; letter-spacing: -.5px; }
+  h1 span { color: var(--red-hi); }
+  .rule { width: 42mm; height: 1.6mm; background: var(--red); border-radius: 2mm; margin: 7mm 0; }
+  .sub { font-size: 12.5pt; color: var(--dim); line-height: 1.5; max-width: 155mm; }
+
+  .ref-kick { font-size: 9pt; font-weight: 800; letter-spacing: 2.2px; color: var(--gold); text-transform: uppercase; margin-bottom: 2mm; }
+  h2 { font-size: 20pt; font-weight: 900; text-transform: uppercase; line-height: 1.05; margin-bottom: 1.5mm; }
+  h2 span { color: var(--red-hi); }
+  .ref-note { font-size: 10pt; color: var(--dim); font-weight: 600; margin-bottom: 5mm; }
+
+  .opt { background: var(--card); border: 1px solid var(--border-hi); border-radius: 4mm; padding: 5mm 5.5mm; margin-bottom: 4.5mm; }
+  .opt-title { font-size: 10.5pt; font-weight: 900; color: var(--red-hi); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 3.5mm; }
+  table { width: 100%; border-collapse: collapse; }
+  th { font-size: 7.5pt; font-weight: 800; letter-spacing: 1.4px; color: var(--mute); text-transform: uppercase;
+    text-align: left; padding: 0 2.5mm 2mm 0; border-bottom: 1px solid var(--border); }
+  td { font-size: 9.8pt; padding: 2.4mm 2.5mm 2.4mm 0; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.35; }
+  tr:last-child td { border-bottom: none; }
+  td.ali { font-weight: 700; width: 34%; }
+  td.qtd { font-weight: 800; color: var(--red-hi); width: 20%; white-space: nowrap; }
+  td.obs { color: var(--dim); font-size: 9pt; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5mm; align-items: start; }
+  .grid2 .opt { margin-bottom: 0; min-width: 0; }
+  .grid2 .macros { grid-template-columns: 1fr 1fr; }
+  .grid2 td { font-size: 9pt; }
+  .grid2 td.obs { font-size: 8.2pt; }
+  .grid2 th { font-size: 7pt; letter-spacing: 1px; }
+
+  .macros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.5mm; margin-top: 4mm; }
+  .macro { background: var(--bg); border: 1px solid var(--border); border-radius: 3mm; padding: 3mm 4mm; }
+  .macro .k { font-size: 7.5pt; font-weight: 800; letter-spacing: 1.2px; color: var(--mute); text-transform: uppercase; margin-bottom: 1.2mm; }
+  .macro .v { font-size: 12pt; font-weight: 900; color: var(--tx); }
+  .macro.cal .v { color: var(--red-hi); }
+  .note { font-size: 9pt; color: var(--gold); margin-top: 3.5mm; line-height: 1.4; }
+
+  .total { background: var(--card); border: 1px solid var(--red-bd); border-radius: 4mm; padding: 6mm; margin-top: 6mm; }
+  .total .t { font-size: 12pt; font-weight: 900; text-transform: uppercase; color: var(--red-hi); margin-bottom: 3.5mm; letter-spacing: 1px; }
+
+  .box { background: var(--card); border: 1px solid var(--border-hi); border-left: 2mm solid var(--red);
+    border-radius: 4mm; padding: 6mm 7mm; margin-bottom: 5mm; }
+  .box .bt { font-size: 10.5pt; font-weight: 900; letter-spacing: 1.6px; color: var(--gold); text-transform: uppercase; margin-bottom: 3mm; }
+  .box ul { list-style: none; }
+  .box li { font-size: 10pt; line-height: 1.5; padding-left: 5mm; position: relative; margin-bottom: 1.8mm; }
+  .box li::before { content: ''; position: absolute; left: 0; top: 2.1mm; width: 1.8mm; height: 1.8mm;
+    background: var(--red-hi); border-radius: 50%; }
+  .box p { font-size: 10pt; line-height: 1.55; margin-bottom: 2mm; }
+</style></head><body>
+
+  <div class="page">
+    <div class="kick">Shape de Elite · Protocolo Alimentar</div>
+    <h1>DIETA <span>2.2K</span></h1>
+    <div class="rule"></div>
+    <p class="sub">2200 kcal por dia em 4 refeições. Segue as quantidades, escolhe entre as opções de cada refeição e roda o protocolo. Hidratação: 3 a 5 litros de água por dia.</p>
+    <div style="margin-top:9mm;">
+      <div class="box">
+        <div class="bt">Regras gerais</div>
+        <ul><li>Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)</li><li>Café: somente até às 16h, sem açúcar</li><li>Vinagre de maçã: 1 colher antes do almoço e janta</li><li>Refeição livre: 1x por semana (tomar Glifage antes)</li><li>Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina</li><li>Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)</li><li>Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado</li></ul>
+      </div>
+    </div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+
+  <div class="page">
+    <div class="ref-kick">1ª REFEIÇÃO</div><h2>DESJEJUM</h2><div class="ref-note">escolher uma opção</div>
+    
+  <div class="opt">
+    <div class="opt-title">Opção 1</div>
+    
+  <table>
+    <tr><th style="width:34%">Alimento</th><th style="width:20%">Quantidade</th><th>Observação</th></tr>
+    <tr>
+      <td class="ali">Ovos</td>
+      <td class="qtd">03 unidades</td>
+      <td class="obs">Mexidos ou cozidos</td>
+    </tr><tr>
+      <td class="ali">Pão</td>
+      <td class="qtd">3 fatias</td>
+      <td class="obs">Ou tapioca (35g por fatia)</td>
+    </tr><tr>
+      <td class="ali">Frutas</td>
+      <td class="qtd">150g</td>
+      <td class="obs">Livre escolha</td>
+    </tr>
+  </table>
+    
+  </div>
+  <div class="opt">
+    <div class="opt-title">Opção 2</div>
+    
+  <table>
+    <tr><th style="width:34%">Alimento</th><th style="width:20%">Quantidade</th><th>Observação</th></tr>
+    <tr>
+      <td class="ali">Ovos</td>
+      <td class="qtd">03 unidades</td>
+      <td class="obs">Mexidos ou cozidos</td>
+    </tr><tr>
+      <td class="ali">Pão</td>
+      <td class="qtd">3 fatias</td>
+      <td class="obs">Ou tapioca (35g por fatia)</td>
+    </tr><tr>
+      <td class="ali">Requeijão light</td>
+      <td class="qtd">30g</td>
+      <td class="obs">Ou ricota (100g) ou queijo muçarela (01 fatia)</td>
+    </tr>
+  </table>
+    
+  </div>
+  <div class="opt">
+    <div class="opt-title">Opção 3: Iogurte com whey e aveia</div>
+    
+  <table>
+    <tr><th style="width:34%">Alimento</th><th style="width:20%">Quantidade</th><th>Observação</th></tr>
+    <tr>
+      <td class="ali">Whey protein</td>
+      <td class="qtd">1 dose</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Aveia</td>
+      <td class="qtd">65g</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Iogurte zero</td>
+      <td class="qtd">100g</td>
+      <td class="obs">Ou leite desnatado (200ml)</td>
+    </tr><tr>
+      <td class="ali">Frutas</td>
+      <td class="qtd">150g</td>
+      <td class="obs">Livre escolha</td>
+    </tr>
+  </table>
+    <div class="macros "><div class="macro"><div class="k">Proteína</div><div class="v">27g</div></div><div class="macro"><div class="k">Carboidrato</div><div class="v">59g</div></div><div class="macro"><div class="k">Gordura</div><div class="v">18g</div></div><div class="macro cal"><div class="k">Calorias</div><div class="v">501 kcal</div></div></div>
+  </div>
+    
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+
+  <div class="page">
+    <div class="ref-kick">2ª REFEIÇÃO</div><h2>ALMOÇO</h2><div class="ref-note"></div>
+    
+  <div class="opt">
+    
+    
+  <table>
+    <tr><th style="width:34%">Alimento</th><th style="width:20%">Quantidade</th><th>Observação</th></tr>
+    <tr>
+      <td class="ali">Proteína</td>
+      <td class="qtd">escolher uma</td>
+      <td class="obs">Carne bovina 180g | Frango 185g | Carne suína 190g | Peixe 220g | Atum 220g</td>
+    </tr><tr>
+      <td class="ali">Carboidrato</td>
+      <td class="qtd">escolher um</td>
+      <td class="obs">Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 215g</td>
+    </tr><tr>
+      <td class="ali">Feijão</td>
+      <td class="qtd">100g (grãos)</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Legumes</td>
+      <td class="qtd">150g</td>
+      <td class="obs">Brócolis, cebola, cenoura, pepino, couve-flor, tomate</td>
+    </tr><tr>
+      <td class="ali">Salada verde</td>
+      <td class="qtd">à vontade</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Frutas</td>
+      <td class="qtd">60g</td>
+      <td class="obs">Livre escolha</td>
+    </tr>
+  </table>
+    <div class="macros "><div class="macro"><div class="k">Proteína</div><div class="v">69g</div></div><div class="macro"><div class="k">Carboidrato</div><div class="v">68g</div></div><div class="macro"><div class="k">Gordura</div><div class="v">12g</div></div><div class="macro cal"><div class="k">Calorias</div><div class="v">656 kcal</div></div></div>
+  </div>
+    <div class="note">*Sem feijão: adicionar 50g de qualquer carboidrato</div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+
+  <div class="page">
+    <div class="ref-kick">3ª REFEIÇÃO</div><h2>LANCHE</h2><div class="ref-note">escolher uma opção</div>
+    <div class="grid2">
+      
+  <div class="opt">
+    <div class="opt-title">Opção 1: Iogurte/Leite com Whey</div>
+    
+  <table>
+    <tr><th style="width:34%">Alimento</th><th style="width:20%">Quantidade</th><th>Observação</th></tr>
+    <tr>
+      <td class="ali">Whey protein</td>
+      <td class="qtd">1 dose</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Aveia</td>
+      <td class="qtd">40g</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Iogurte zero</td>
+      <td class="qtd">100g</td>
+      <td class="obs">Ou leite desnatado (200ml)</td>
+    </tr><tr>
+      <td class="ali">Frutas</td>
+      <td class="qtd">150g</td>
+      <td class="obs">Livre escolha</td>
+    </tr>
+  </table>
+    
+  </div>
+  <div class="opt">
+    <div class="opt-title">Opção 2: Mingau</div>
+    
+  <table>
+    <tr><th style="width:34%">Alimento</th><th style="width:20%">Quantidade</th><th>Observação</th></tr>
+    <tr>
+      <td class="ali">Aveia</td>
+      <td class="qtd">50g</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Whey protein</td>
+      <td class="qtd">1 dose</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Leite desnatado</td>
+      <td class="qtd">200ml</td>
+      <td class="obs">Ou iogurte zero (100g)</td>
+    </tr><tr>
+      <td class="ali">Frutas</td>
+      <td class="qtd">150g</td>
+      <td class="obs">Livre escolha</td>
+    </tr>
+  </table>
+    
+  </div>
+  <div class="opt">
+    <div class="opt-title">Opção 3: Panqueca/Bolinho com frutas</div>
+    
+  <table>
+    <tr><th style="width:34%">Alimento</th><th style="width:20%">Quantidade</th><th>Observação</th></tr>
+    <tr>
+      <td class="ali">Aveia</td>
+      <td class="qtd">40g</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Whey protein</td>
+      <td class="qtd">1 dose</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Ovos</td>
+      <td class="qtd">03 unidades</td>
+      <td class="obs">Mexidos ou cozidos</td>
+    </tr><tr>
+      <td class="ali">Frutas</td>
+      <td class="qtd">100g</td>
+      <td class="obs">Livre escolha</td>
+    </tr>
+  </table>
+    
+  </div>
+  <div class="opt">
+    <div class="opt-title">Opção 4: Repeteco do almoço</div>
+    
+  <table>
+    <tr><th style="width:34%">Alimento</th><th style="width:20%">Quantidade</th><th>Observação</th></tr>
+    <tr>
+      <td class="ali">Proteína</td>
+      <td class="qtd">escolher uma</td>
+      <td class="obs">Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g</td>
+    </tr><tr>
+      <td class="ali">Carboidrato</td>
+      <td class="qtd">escolher um</td>
+      <td class="obs">Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g</td>
+    </tr><tr>
+      <td class="ali">Salada verde</td>
+      <td class="qtd">à vontade</td>
+      <td class="obs">---</td>
+    </tr>
+  </table>
+    <div class="macros "><div class="macro"><div class="k">Proteína</div><div class="v">35g</div></div><div class="macro"><div class="k">Carboidrato</div><div class="v">52g</div></div><div class="macro"><div class="k">Gordura</div><div class="v">5g</div></div><div class="macro cal"><div class="k">Calorias</div><div class="v">393 kcal</div></div></div>
+  </div>
+    </div>
+    
+    
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+
+  <div class="page">
+    <div class="ref-kick">4ª REFEIÇÃO</div><h2>JANTAR</h2><div class="ref-note"></div>
+    
+  <div class="opt">
+    
+    
+  <table>
+    <tr><th style="width:34%">Alimento</th><th style="width:20%">Quantidade</th><th>Observação</th></tr>
+    <tr>
+      <td class="ali">Proteína</td>
+      <td class="qtd">escolher uma</td>
+      <td class="obs">Peixe 245g | Frango 205g | Atum 245g | Carne bovina magra 200g</td>
+    </tr><tr>
+      <td class="ali">Carboidrato</td>
+      <td class="qtd">escolher um</td>
+      <td class="obs">Batata doce 245g | Abóbora 545g | Mandioca 165g | Arroz 175g</td>
+    </tr><tr>
+      <td class="ali">Legumes</td>
+      <td class="qtd">200g</td>
+      <td class="obs">---</td>
+    </tr><tr>
+      <td class="ali">Salada verde</td>
+      <td class="qtd">à vontade</td>
+      <td class="obs">---</td>
+    </tr>
+  </table>
+    <div class="macros "><div class="macro"><div class="k">Proteína</div><div class="v">72g</div></div><div class="macro"><div class="k">Carboidrato</div><div class="v">62g</div></div><div class="macro"><div class="k">Gordura</div><div class="v">13g</div></div><div class="macro cal"><div class="k">Calorias</div><div class="v">650 kcal</div></div></div>
+  </div>
+    
+    <div class="total">
+      <div class="t">Total do dia</div>
+      <div class="macros "><div class="macro"><div class="k">Proteína</div><div class="v">202g</div></div><div class="macro"><div class="k">Carboidrato</div><div class="v">240g</div></div><div class="macro"><div class="k">Gordura</div><div class="v">48g</div></div><div class="macro cal"><div class="k">Calorias Totais</div><div class="v">2200 kcal</div></div></div>
+    </div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+
+  <div class="page">
+    <div class="ref-kick">Pra dieta render</div>
+    <h2>Orientações de <span>estilo de vida</span></h2>
+    <div class="ref-note"></div>
+    <div class="box"><div class="bt">AERÓBICOS</div><ul><li>5x por semana (bike, esteira, elíptico ou escada)</li><li>30 minutos por sessão (pós treino ou turno alternado)</li><li>Frequência cardíaca: 120 bpm (com ofegância)</li></ul></div><div class="box"><div class="bt">SONO</div><ul><li>Dormir no mínimo 7h por noite, com rotina fixa</li><li>Evitar telas por pelo menos 1h antes de dormir</li><li>Preferir ambiente escuro e silencioso</li></ul></div><div class="box"><div class="bt">ESTRESSE E BEM-ESTAR</div><ul><li>Praticar respiração profunda, meditação ou alongamento regularmente</li><li>Buscar pausas ao longo do dia e reduzir sobrecargas</li><li>Ter momentos prazerosos e interações sociais positivas</li><li>Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado</li><li>Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado</li></ul></div><div class="box"><div class="bt">HIGIENE E SAÚDE BUCAL</div><ul><li>Escovar os dentes após todas as refeições, inclusive lanches</li><li>Utilizar limpador de língua diariamente</li><li>Higienizar gengiva, bochechas e céu da boca suavemente</li><li>Usar enxaguante bucal sem álcool (2x ao dia)</li><li>Consultar dentista regularmente para avaliar causas do comprometimento do paladar</li><li>Consumir frutas cítricas para estimular a salivação e recuperar o paladar</li></ul></div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+
+  <div class="page">
+    <div class="ref-kick">Pra dieta render</div>
+    <h2>Orientações <span>alimentares</span></h2>
+    <div class="ref-note"></div>
+    <div class="box"><div class="bt">Ordem de ingestão nas refeições</div></div><div class="box"><ul><li>1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.</li><li>2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.</li><li>3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.</li><li>4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.</li></ul></div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+
+</body></html>

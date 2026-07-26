@@ -84,6 +84,11 @@
       "nome": "",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 100g | Frango 105g | Carne suína 105g | Peixe 125g | Atum 125g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 45g | Massa 40g | Mandioca 40g | Batata inglesa 75g"
@@ -201,6 +206,11 @@
       "nome": "Opção 4: Repeteco do almoço",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 100g | Frango 105g | Carne suína 105g | Peixe 125g | Atum 125g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 100g | Massa 95g | Mandioca 95g | Batata inglesa 165g"
@@ -222,6 +232,11 @@
      {
       "nome": "",
       "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 125g | Frango 105g | Atum 125g | Carne bovina magra 100g"
+       },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
@@ -343,6 +358,11 @@
       "nome": "",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 65g | Massa 60g | Mandioca 60g | Batata inglesa 105g"
@@ -460,6 +480,11 @@
       "nome": "Opção 4: Repeteco do almoço",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 120g | Massa 110g | Mandioca 110g | Batata inglesa 200g"
@@ -481,6 +506,11 @@
      {
       "nome": "",
       "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 150g | Frango 125g | Atum 150g | Carne bovina magra 120g"
+       },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
@@ -602,6 +632,11 @@
       "nome": "",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 105g | Massa 100g | Mandioca 100g | Batata inglesa 175g"
@@ -719,6 +754,11 @@
       "nome": "Opção 4: Repeteco do almoço",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 150g | Massa 140g | Mandioca 140g | Batata inglesa 245g"
@@ -740,6 +780,11 @@
      {
       "nome": "",
       "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 185g | Frango 155g | Atum 185g | Carne bovina magra 150g"
+       },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
@@ -861,6 +906,11 @@
       "nome": "",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 180g | Frango 185g | Carne suína 190g | Peixe 220g | Atum 220g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 215g"
@@ -978,6 +1028,11 @@
       "nome": "Opção 4: Repeteco do almoço",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
@@ -999,6 +1054,11 @@
      {
       "nome": "",
       "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 245g | Frango 205g | Atum 245g | Carne bovina magra 200g"
+       },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
@@ -1120,6 +1180,11 @@
       "nome": "",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 155g | Massa 145g | Mandioca 145g | Batata inglesa 255g"
@@ -1237,6 +1302,11 @@
       "nome": "Opção 4: Repeteco do almoço",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 180g | Frango 185g | Carne suína 190g | Peixe 220g | Atum 220g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
@@ -1258,6 +1328,11 @@
      {
       "nome": "",
       "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 270g | Frango 225g | Atum 270g | Carne bovina magra 220g"
+       },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
@@ -1379,6 +1454,11 @@
       "nome": "",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
@@ -1496,6 +1576,11 @@
       "nome": "Opção 4: Repeteco do almoço",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 200g | Frango 205g | Carne suína 215g | Peixe 245g | Atum 245g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 250g | Massa 235g | Mandioca 235g | Batata inglesa 410g"
@@ -1517,6 +1602,11 @@
      {
       "nome": "",
       "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 295g | Frango 250g | Atum 295g | Carne bovina magra 240g"
+       },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
@@ -1638,6 +1728,11 @@
       "nome": "",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 180g | Frango 185g | Carne suína 190g | Peixe 220g | Atum 220g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 105g | Massa 100g | Mandioca 100g | Batata inglesa 175g"
@@ -1755,6 +1850,11 @@
       "nome": "Opção 4: Repeteco do almoço",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 180g | Massa 170g | Mandioca 170g | Batata inglesa 295g"
@@ -1776,6 +1876,11 @@
      {
       "nome": "",
       "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 220g | Frango 185g | Atum 220g | Carne bovina magra 180g"
+       },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
@@ -1897,6 +2002,11 @@
       "nome": "",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 250g | Frango 260g | Carne suína 265g | Peixe 310g | Atum 310g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 320g | Massa 300g | Mandioca 300g | Batata inglesa 525g"
@@ -2014,6 +2124,11 @@
       "nome": "Opção 4: Repeteco do almoço",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
@@ -2035,6 +2150,11 @@
      {
       "nome": "",
       "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 345g | Frango 290g | Atum 345g | Carne bovina magra 280g"
+       },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
@@ -2156,6 +2276,11 @@
       "nome": "",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 280g | Frango 290g | Carne suína 300g | Peixe 345g | Atum 345g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 390g | Massa 365g | Mandioca 365g | Batata inglesa 640g"
@@ -2273,6 +2398,11 @@
       "nome": "Opção 4: Repeteco do almoço",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
@@ -2294,6 +2424,11 @@
      {
       "nome": "",
       "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 380g | Frango 320g | Atum 380g | Carne bovina magra 310g"
+       },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
@@ -2415,6 +2550,11 @@
       "nome": "",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 250g | Frango 260g | Carne suína 265g | Peixe 310g | Atum 310g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 240g | Massa 225g | Mandioca 225g | Batata inglesa 395g"
@@ -2532,6 +2672,11 @@
       "nome": "Opção 4: Repeteco do almoço",
       "alimentos": [
        {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
         "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
@@ -2553,6 +2698,11 @@
      {
       "nome": "",
       "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 345g | Frango 290g | Atum 345g | Carne bovina magra 280g"
+       },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
