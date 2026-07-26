@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Shape Elite">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
-<title>Shape de Elite — Método GH</title>
+<title>Shape de Elite · Método GH</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
@@ -1128,7 +1128,7 @@
   .ach-btn.secondary { background: var(--surface-2); }
   .ach-btn.ghost { background: transparent; color: var(--text-muted); }
 
-  /* How-to-first-access modal — steps numerados */
+  /* How-to-first-access modal, steps numerados */
   .howto-steps {
     display: flex;
     flex-direction: column;
@@ -1475,11 +1475,12 @@
     <div class="progress-dot" data-step="6"></div>
     <div class="progress-dot" data-step="7"></div>
     <div class="progress-dot" data-step="8"></div>
+    <div class="progress-dot" data-step="9"></div>
   </div>
 
   <div class="screen active" id="o1">
     <h1>Monta teu protocolo em 1 minuto</h1>
-    <p class="hint">Responde 6 perguntas. Vou te indicar a dieta e o treino certos pro teu perfil. Depois é só seguir.</p>
+    <p class="hint">Responde 7 perguntas. Vou te indicar a dieta e o treino certos pro teu perfil, na ordem certa de rodar a semana. Depois é só seguir.</p>
     <button class="btn" onclick="oNext()">Começar</button>
     <button class="btn ghost" onclick="logout()">Sair</button>
   </div>
@@ -1565,8 +1566,18 @@
   </div>
 
   <div class="screen" id="o7">
+    <h2>Qual músculo tu quer priorizar?</h2>
+    <p class="hint">O grupo escolhido abre a semana e ganha um segundo dia de estímulo. O resto do corpo continua treinando normal, só não puxa a fila.</p>
+    <div id="o-priority-options"></div>
+    <div class="btn-group">
+      <button class="btn secondary" onclick="oPrev()">Voltar</button>
+      <button class="btn" onclick="validatePriority()">Continuar</button>
+    </div>
+  </div>
+
+  <div class="screen" id="o8">
     <h2>Qual teu nível de treino?</h2>
-    <p class="hint">Seja honesto — isso define onde teu protocolo começa.</p>
+    <p class="hint">Seja honesto, isso define onde teu protocolo começa.</p>
     <button class="option" onclick="selectLevel(this,'iniciante')"><strong>Iniciante</strong><span class="desc">Nunca treinei sério, voltando depois de muito tempo parado, ou treino sem orientação. Começo do zero, aprendo padrão de execução.</span></button>
     <button class="option" onclick="selectLevel(this,'intermediario')"><strong>Intermediário</strong><span class="desc">Treino regular há mais de 1 ano, já tenho execução decente, conheço meu corpo. Pulo a adaptação básica.</span></button>
     <button class="option" onclick="selectLevel(this,'avancado')"><strong>Avançado</strong><span class="desc">Treino sério há vários anos, dominio total da execução, busco performance e estética acima da média. Vou direto pro nível máximo.</span></button>
@@ -1576,7 +1587,7 @@
     </div>
   </div>
 
-  <div class="screen" id="o8">
+  <div class="screen" id="o9">
     <h2>Teu protocolo</h2>
     <div class="result-grid">
       <div class="result-card"><h3>TMB</h3><div class="big white" id="r-tmb">—</div><div class="small">em repouso</div></div>
@@ -1657,7 +1668,7 @@
 <div class="install-modal" id="shoppingModal" onclick="shoppingOnBg(event)">
   <div class="install-modal-box" style="max-width:520px;max-height:88vh;overflow-y:auto;" onclick="event.stopPropagation()">
     <h3>🛒 Lista de compras</h3>
-    <p class="hint" style="margin-bottom:16px;">Só o que tu vai precisar comprar — quantidade tu mede direto no preparo.</p>
+    <p class="hint" style="margin-bottom:16px;">Só o que tu vai precisar comprar, quantidade tu mede direto no preparo.</p>
     <div id="shopping-content"></div>
     <div style="display:flex;gap:8px;margin-top:14px;">
       <button class="btn secondary" onclick="copyShoppingList()" id="shopping-copy-btn" style="margin-top:0;">📋 Copiar lista</button>
@@ -1667,7 +1678,7 @@
   </div>
 </div>
 
-<!-- Timer modal — cronômetro de descanso entre séries -->
+<!-- Timer modal, cronômetro de descanso entre séries -->
 <div class="timer-modal" id="timerModal" onclick="timerOnBg(event)">
   <div class="timer-modal-body" onclick="event.stopPropagation()">
     <div class="timer-label">Descanso</div>
@@ -1724,7 +1735,7 @@
 
     <div class="howto-tip" style="border-left-color:#25d366;background:#0d1f15;">
       <div class="howto-tip-title" style="color:#25d366;">🔥 GRUPO DO WHATSAPP</div>
-      <div class="howto-tip-body" style="margin-bottom:10px;">Entra no grupo exclusivo do Shape de Elite — onde rola dúvida, dica, motivação e avisos. Vale demais.</div>
+      <div class="howto-tip-body" style="margin-bottom:10px;">Entra no grupo exclusivo do Shape de Elite, onde rola dúvida, dica, motivação e avisos. Vale demais.</div>
       <a href="https://chat.whatsapp.com/B8U4QhFV4x8KDmKXvOpahR?mode=gi_t" target="_blank" rel="noopener" style="display:inline-block;background:#25d366;color:white;padding:9px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Entrar no grupo →</a>
     </div>
 
@@ -1778,9 +1789,9 @@
   <h2 id="phase-title">Avançar pra Fase X.0</h2>
   <div class="alert-card visible" style="background:#2A1F0F;border-color:#8B6914;margin-bottom:14px;">
     <div class="alert-title">⚠️ ANTES DE AVANÇAR</div>
-    <div class="alert-body">Faz essa versão por <strong>pelo menos 1 semana</strong> pra evoluir teu protocolo. O corpo precisa de tempo pra adaptar — pular cedo demais não acelera resultado, só impede.</div>
+    <div class="alert-body">Faz essa versão por <strong>pelo menos 1 semana</strong> pra evoluir teu protocolo. O corpo precisa de tempo pra adaptar, pular cedo demais não acelera resultado, só impede.</div>
   </div>
-  <p class="hint" id="phase-hint">Confirma os dados abaixo e segue. Só o que aparece aqui vai ser alterado — o resto do teu protocolo continua igual.</p>
+  <p class="hint" id="phase-hint">Confirma os dados abaixo e segue. Só o que aparece aqui vai ser alterado, o resto do teu protocolo continua igual.</p>
 
   <div id="phase-days-section">
     <h3 style="margin-bottom: 10px; font-size: 13px; color: var(--text-dim); letter-spacing: .5px;">QUANTOS DIAS POR SEMANA?</h3>
@@ -1833,7 +1844,7 @@
 // ═══════════════════════════════════════════════════════════
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 const STORAGE_KEY = 'shapedeelite_v1';
-const CALC_URL = 'https://jolly-clafoutis-410e3f.netlify.app/'; // calc externa pra aba CALCULADORA
+const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 const SUPL_PDF_URL = 'https://drive.google.com/file/d/1ajraxUzEZPe_vjGFyxtoV1waHuCw6SWI/preview';
 
 // ═══════════════════════════════════════════════════════════
@@ -1857,7 +1868,7 @@ async function api(path, opts = {}) {
   const res = await fetch(API_BASE + path, { ...opts, headers });
   // 401 = sessão expirada (single session: logou em outro device)
   if (res.status === 401) {
-    alert('⚠️ Sua sessão expirou — alguém logou nessa conta em outro dispositivo, ou tu ficou muito tempo fora.\n\nVamos te enviar pra tela de login.');
+    alert('⚠️ Sua sessão expirou, alguém logou nessa conta em outro dispositivo, ou tu ficou muito tempo fora.\n\nVamos te enviar pra tela de login.');
     logout();
     throw new Error('Sessão expirada');
   }
@@ -2070,7 +2081,7 @@ async function afterLogin() {
     saveState();
   }
 
-  // Tenta buscar protocolo do SERVIDOR (fonte de verdade — funciona em qualquer device)
+  // Tenta buscar protocolo do SERVIDOR (fonte de verdade, funciona em qualquer device)
   try {
     const r = await api('/api/protocol/get');
     if (r && r.ok && r.exists && r.protocol) {
@@ -2091,7 +2102,7 @@ async function afterLogin() {
 
 function logout() {
   stopVerifyHeartbeat();
-  // Mantém protocolo no localStorage (vinculado ao email) — só limpa sessão
+  // Mantém protocolo no localStorage (vinculado ao email), só limpa sessão
   state.user = null;
   state.oScreen = 1;
   state.treinoData = null;
@@ -2129,11 +2140,12 @@ let onboard = {
   bf: null, bfAdjust: 0,
   goal: null, goalAdjust: 0,
   days: null,
+  priority: null, priorityLabel: null,
   level: null
 };
 
 function initOnboarding() {
-  onboard = { sex: null, age: null, weight: null, height: null, activity: null, activityFactor: null, bf: null, bfAdjust: 0, goal: null, goalAdjust: 0, days: null };
+  onboard = { sex: null, age: null, weight: null, height: null, activity: null, activityFactor: null, bf: null, bfAdjust: 0, goal: null, goalAdjust: 0, days: null, priority: null, priorityLabel: null, level: null };
   state.oScreen = 1;
   document.querySelectorAll('#onboard-screen .screen').forEach(s => s.classList.remove('active'));
   document.getElementById('o1').classList.add('active');
@@ -2153,8 +2165,55 @@ function showOnboardScreen(n) {
   document.querySelectorAll('#onboard-screen .screen').forEach(s => s.classList.remove('active'));
   document.getElementById('o' + n).classList.add('active');
   state.oScreen = n;
+  if (n === 7) renderPriorities();
   updateProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── Prioridade muscular (define qual dos 108 treinos por prioridade o aluno recebe) ───
+const PRIORITIES = {
+  Homem: [
+    { code: 'PEITO',      label: 'Peito',      desc: 'Peito abre a semana e ganha 2 dias. Ombro e tríceps pegam carona.' },
+    { code: 'COSTAS',     label: 'Costas',     desc: 'Costas abre a semana e ganha 2 dias. Bíceps acompanha o puxar.' },
+    { code: 'OMBRO',      label: 'Ombro',      desc: 'Ombro abre a semana e ganha 2 dias. Peito entra no dia de empurrar.' },
+    { code: 'BRACO',      label: 'Braço',      desc: 'Um dia dedicado de braço, mais bíceps no dia de costas e tríceps no de peito.' },
+    { code: 'COXA',       label: 'Coxa',       desc: 'Quadríceps abre a semana e ganha 2 dias, com posterior preservado.' }
+  ],
+  Mulher: [
+    { code: 'GLUTEO',     label: 'Glúteo',     desc: 'Glúteo abre a semana e ganha dias extras, com posterior mantido.' },
+    { code: 'POSTERIOR',  label: 'Posterior',  desc: 'Posterior de coxa abre a semana e ganha 2 dias, com glúteo preservado.' },
+    { code: 'QUADRICEPS', label: 'Quadríceps', desc: 'Quadríceps abre a semana e ganha 2 dias.' },
+    { code: 'SUPERIORES', label: 'Superiores', desc: 'Tronco abre a semana e ganha mais dias, inferior fica reduzido.' }
+  ]
+};
+const PRIORITY_NONE = { code: 'EQUILIBRADO', label: 'Sem prioridade', desc: 'Divisão equilibrada, nenhum grupo puxa a fila. O treino padrão de sempre.' };
+
+function renderPriorities() {
+  const box = document.getElementById('o-priority-options');
+  const list = (PRIORITIES[onboard.sex] || PRIORITIES.Homem).concat([PRIORITY_NONE]);
+  if (onboard.priority && !list.some(p => p.code === onboard.priority)) {
+    onboard.priority = null; onboard.priorityLabel = null; // trocou o sexo no voltar
+  }
+  box.innerHTML = '';
+  list.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'option' + (onboard.priority === p.code ? ' selected' : '');
+    btn.innerHTML = '<strong></strong><span class="desc"></span>';
+    btn.querySelector('strong').textContent = p.label;
+    btn.querySelector('.desc').textContent = p.desc;
+    btn.onclick = () => selectPriority(btn, p.code, p.label);
+    box.appendChild(btn);
+  });
+}
+function selectPriority(el, code, label) {
+  document.querySelectorAll('#o-priority-options .option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  onboard.priority = code;
+  onboard.priorityLabel = label;
+}
+function validatePriority() {
+  if (!onboard.priority) { alert('Escolhe qual músculo tu quer priorizar.'); return; }
+  oNext();
 }
 
 function oNext() { showOnboardScreen(state.oScreen + 1); }
@@ -2194,7 +2253,7 @@ function validateDays() {
 }
 
 function selectLevel(el, v) {
-  document.querySelectorAll('#o7 .option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('#o8 .option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   onboard.level = v;
 }
@@ -2220,6 +2279,7 @@ function validateGoal() { if (!onboard.goal) { alert('Selecione o objetivo.'); r
 async function calculate() {
   if (!onboard.goal) { alert('Selecione o objetivo.'); return; }
   if (!onboard.days) { alert('Selecione quantos dias vai treinar.'); return; }
+  if (!onboard.priority) { alert('Escolhe qual músculo tu quer priorizar.'); return; }
 
   // TMB Mifflin-St Jeor
   let tmb = onboard.sex === 'Homem'
@@ -2242,8 +2302,12 @@ async function calculate() {
   else if (target < 3350) diet = 'DIETA 3.2K';
   else diet = 'DIETA 3.5K';
 
+  // Nome do treino: com prioridade = "TREINO PEITO 4X 1.0"; sem = padrão antigo "TREINO FEM 4X 1.0"
   const femSuffix = onboard.sex === 'Mulher' ? ' FEM' : '';
-  const workout = 'TREINO' + femSuffix + ' ' + onboard.days + 'X 1.0';
+  const isPrio = onboard.priority && onboard.priority !== 'EQUILIBRADO';
+  const workout = isPrio
+    ? 'TREINO ' + onboard.priorityLabel.toUpperCase() + ' ' + onboard.days + 'X 1.0'
+    : 'TREINO' + femSuffix + ' ' + onboard.days + 'X 1.0';
 
   // Macros
   let proteinPerKg = onboard.goal === 'Emagrecer' ? 2.0 : (onboard.goal === 'Recompor' ? 1.8 : 1.6);
@@ -2331,12 +2395,12 @@ function restartOnboarding(fromSettings) {
   if (fromSettings && p) {
     // Trava 1: já avançou de fase → recalc bloqueado
     if (p.lockedFromRecalc || (p.treinoPhase && p.treinoPhase !== '1.0') || (p.dietaPhase && p.dietaPhase !== '1.0')) {
-      alert('⛔ RECÁLCULO BLOQUEADO\n\nTu já avançou pra Fase 2.0 ou 3.0 em treino ou dieta.\n\nDepois que avança de fase, não dá mais pra recalcular o protocolo. Continua firme com o que tu já tem — esse é o caminho do método.');
+      alert('⛔ RECÁLCULO BLOQUEADO\n\nTu já avançou pra Fase 2.0 ou 3.0 em treino ou dieta.\n\nDepois que avança de fase, não dá mais pra recalcular o protocolo. Continua firme com o que tu já tem, esse é o caminho do método.');
       return;
     }
     // Trava 2: já recalculou 1 vez
     if ((p.recalcCount || 0) >= 1) {
-      alert('⛔ RECÁLCULO BLOQUEADO\n\nTu já refez o cálculo uma vez.\n\nCada aluno pode refazer o cálculo APENAS 1 VEZ. Isso evita ficar trocando de protocolo toda hora — o método precisa de pelo menos 4 meses pra mostrar resultado.\n\nSe tu acha que tem algum erro real, fala com o suporte no WhatsApp.');
+      alert('⛔ RECÁLCULO BLOQUEADO\n\nTu já refez o cálculo uma vez.\n\nCada aluno pode refazer o cálculo APENAS 1 VEZ. Isso evita ficar trocando de protocolo toda hora, o método precisa de pelo menos 4 meses pra mostrar resultado.\n\nSe tu acha que tem algum erro real, fala com o suporte no WhatsApp.');
       return;
     }
     // Aviso forte antes de prosseguir
@@ -2388,7 +2452,7 @@ async function initDashboard() {
 }
 
 // ═══════════════════════════════════════════════════════════
-// UPSELL — Banner Método GH (sticky no topo do dashboard)
+// UPSELL, Banner Método GH (sticky no topo do dashboard)
 // ═══════════════════════════════════════════════════════════
 const MGH_DISMISS_KEY = 'shapedeelite_mgh_dismissed';
 const MGH_REAPPEAR_DAYS = 5; // reaparece depois de X dias se aluno fechou
@@ -2481,7 +2545,7 @@ function showTab(tab) {
 }
 
 // ═══════════════════════════════════════════════════════════
-// EBOOKS (aba dedicada — order bumps Método GH)
+// EBOOKS (aba dedicada, order bumps Método GH)
 // ═══════════════════════════════════════════════════════════
 function renderEbooks() {
   const c = document.getElementById('tab-ebooks');
@@ -2636,27 +2700,27 @@ function renderAcessorios() {
     <h3 style="margin-top:18px;margin-bottom:8px;color:#ffa726;font-size:12px;letter-spacing:.5px;">🛒 SHOPEE (econômico)</h3>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Balança de precisão</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
-      <div class="partner-desc">Balança digital — pesar carne crua, arroz, suplementos. Fundamental pra ser preciso na dieta.</div>
+      <div class="partner-desc">Balança digital, pesar carne crua, arroz, suplementos. Fundamental pra ser preciso na dieta.</div>
       <a class="partner-link" href="https://s.shopee.com.br/W3DVo4Iae?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Colher de precisão</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
-      <div class="partner-desc">Doseadora — pesar suplementos, manteiga, azeite, pasta de amendoim.</div>
+      <div class="partner-desc">Doseadora, pesar suplementos, manteiga, azeite, pasta de amendoim.</div>
       <a class="partner-link" href="https://s.shopee.com.br/1LcKVMvIfI?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Bolsa térmica marmita (grande)</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
-      <div class="partner-desc">2 compartimentos, alça reforçada — pra levar tuas refeições do dia pro trabalho, escola ou academia. R$ 29-39 (67% OFF).</div>
+      <div class="partner-desc">2 compartimentos, alça reforçada, pra levar tuas refeições do dia pro trabalho, escola ou academia. R$ 29-39 (67% OFF).</div>
       <a class="partner-link" href="https://s.shopee.com.br/2VoqQhXijt?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Faixa de joelho</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
-      <div class="partner-desc">Faixa elástica de pressão — alternativa econômica à joelheira.</div>
+      <div class="partner-desc">Faixa elástica de pressão, alternativa econômica à joelheira.</div>
       <a class="partner-link" href="https://s.shopee.com.br/7KtXeHgEgZ?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Luva aderente</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
-      <div class="partner-desc">Pegada extra com palma de borracha — útil pra exercícios de cabo.</div>
+      <div class="partner-desc">Pegada extra com palma de borracha, útil pra exercícios de cabo.</div>
       <a class="partner-link" href="https://s.shopee.com.br/5flJfN50qn?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
     </div>
 
@@ -2668,12 +2732,12 @@ function renderAcessorios() {
     </div>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Strap 8 (alta performance)</span><span class="partner-discount">YANGFIT</span></div>
-      <div class="partner-desc">Strap profissional pra cargas pesadas — stiff, terra, remada.</div>
+      <div class="partner-desc">Strap profissional pra cargas pesadas, stiff, terra, remada.</div>
       <a class="partner-link" href="https://www.yangfit.com.br/strap-8-grip-alta-perfomance-para-musculacao-stiff-yangfit" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Cinturão de musculação</span><span class="partner-discount">YANGFIT</span></div>
-      <div class="partner-desc">Couro sintético — proteção lombar em agachamento, terra, desenvolvimento pesado.</div>
+      <div class="partner-desc">Couro sintético, proteção lombar em agachamento, terra, desenvolvimento pesado.</div>
       <a class="partner-link" href="https://www.yangfit.com.br/cinturao-musculacao-cross-training-couro-sintetico?variant_id=211" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
@@ -2683,52 +2747,52 @@ function renderAcessorios() {
     </div>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Joelheira de contenção</span><span class="partner-discount">YANGFIT</span></div>
-      <div class="partner-desc">Neoprene 7mm — estabilidade no joelho em agachamento e leg press.</div>
+      <div class="partner-desc">Neoprene 7mm, estabilidade no joelho em agachamento e leg press.</div>
       <a class="partner-link" href="https://www.yangfit.com.br/joelheira-compressao-neoprene-7mm-para-lpo-cross-training-par?variant_id=305" target="_blank" rel="noopener">Acessar →</a>
     </div>
 
     <h3 style="margin-top:24px;margin-bottom:8px;color:var(--text-dim);font-size:12px;letter-spacing:.5px;">🎯 FAIXAS ELÁSTICAS</h3>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Kit Mini-band (4 intensidades)</span><span class="partner-discount">YANGFIT</span></div>
-      <div class="partner-desc">Pacote completo de 4 mini-bands de tecido — leve até extra-forte. Glúteos, ombros, aquecimento.</div>
+      <div class="partner-desc">Pacote completo de 4 mini-bands de tecido, leve até extra-forte. Glúteos, ombros, aquecimento.</div>
       <a class="partner-link" href="https://www.yangfit.com.br/kit-mini-band-tecido-4-intensidades-faixa-elastica-circular" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Mini-band leve (iniciante)</span><span class="partner-discount">YANGFIT</span></div>
-      <div class="partner-desc">Pra começar — ativação de glúteo médio sem sobrecarga.</div>
+      <div class="partner-desc">Pra começar, ativação de glúteo médio sem sobrecarga.</div>
       <a class="partner-link" href="https://www.yangfit.com.br/mini-band-de-tecido-faixa-elastica-circular-intensidade-leve" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Mini-band extra-forte (avançada)</span><span class="partner-discount">YANGFIT</span></div>
-      <div class="partner-desc">Resistência máxima — pra quem já tem condicionamento.</div>
+      <div class="partner-desc">Resistência máxima, pra quem já tem condicionamento.</div>
       <a class="partner-link" href="https://www.yangfit.com.br/mini-band-de-tecido-faixa-elastica-circular-intensidade-extra-forte" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Kit Super-band</span><span class="partner-discount">YANGFIT</span></div>
-      <div class="partner-desc">4 elásticos extensores — exercícios em casa, alongamento, mobilidade.</div>
+      <div class="partner-desc">4 elásticos extensores, exercícios em casa, alongamento, mobilidade.</div>
       <a class="partner-link" href="https://www.yangfit.com.br/kit-super-band-4-intensidades-elastico-extensor-borracha-treino" target="_blank" rel="noopener">Acessar →</a>
     </div>
 
     <h3 style="margin-top:24px;margin-bottom:8px;color:var(--text-dim);font-size:12px;letter-spacing:.5px;">💉 HOSPITALARES</h3>
     <p class="hint" style="margin-bottom:14px;font-size:11px;">Pra aplicações subcutâneas/intramusculares. Material descartável de uso único.</p>
     <div class="partner-card">
-      <div class="partner-card-head"><span class="partner-name">Seringa Insulina 1ml — Descarpack</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
-      <div class="partner-desc">13mm × 0,45mm, agulha fixa — pra aplicações subcutâneas. R$ 17,49 (40% OFF).</div>
+      <div class="partner-card-head"><span class="partner-name">Seringa Insulina 1ml, Descarpack</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
+      <div class="partner-desc">13mm × 0,45mm, agulha fixa, pra aplicações subcutâneas. R$ 17,49 (40% OFF).</div>
       <a class="partner-link" href="https://s.shopee.com.br/1Lcswq12uQ?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
-      <div class="partner-card-head"><span class="partner-name">Agulha Hipodérmica 100un — Medix</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
+      <div class="partner-card-head"><span class="partner-name">Agulha Hipodérmica 100un, Medix</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
       <div class="partner-desc">Descartável, vários tamanhos disponíveis. R$ 20,90.</div>
       <a class="partner-link" href="https://s.shopee.com.br/17VMDf5Y7?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
-      <div class="partner-card-head"><span class="partner-name">Seringa 3ml Luer Lock — SR</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
-      <div class="partner-desc">Bico rosca (Luer Lock) descartável — pra aplicações IM com agulha trocável. R$ 11-37.</div>
+      <div class="partner-card-head"><span class="partner-name">Seringa 3ml Luer Lock, SR</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
+      <div class="partner-desc">Bico rosca (Luer Lock) descartável, pra aplicações IM com agulha trocável. R$ 11-37.</div>
       <a class="partner-link" href="https://s.shopee.com.br/8pitsX12bL?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
-      <div class="partner-card-head"><span class="partner-name">Álcool Swab 70% — Uniqmed</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
-      <div class="partner-desc">Sachês de lenço umedecido em álcool 70% — assepsia antes da aplicação. R$ 14,90-41,50.</div>
+      <div class="partner-card-head"><span class="partner-name">Álcool Swab 70%, Uniqmed</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
+      <div class="partner-desc">Sachês de lenço umedecido em álcool 70%, assepsia antes da aplicação. R$ 14,90-41,50.</div>
       <a class="partner-link" href="https://s.shopee.com.br/5ApbVlof89?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
     </div>
   `;
@@ -2776,7 +2840,7 @@ function renderParceiros() {
         <span class="partner-discount">DESCONTO</span>
       </div>
       <div class="partner-desc">Farmácia de manipulação. GH usa há mais de 7 anos.</div>
-      <div class="partner-msg-tip">Ao clicar, abre o WhatsApp com a mensagem padrão "Olá, sou aluno do Shape de Elite. Vim por indicação do GH." — só revisa e envia.</div>
+      <div class="partner-msg-tip">Ao clicar, abre o WhatsApp com a mensagem padrão "Olá, sou aluno do Shape de Elite. Vim por indicação do GH.", só revisa e envia.</div>
       <a class="partner-link whatsapp" href="https://api.whatsapp.com/send?phone=5516997693445&text=${encodeURIComponent('Olá, sou aluno do Shape de Elite. Vim por indicação do GH.')}" target="_blank" rel="noopener">Falar no WhatsApp →</a>
     </div>
   `;
@@ -2786,9 +2850,11 @@ function renderParceiros() {
 // TREINO RENDER
 // ═══════════════════════════════════════════════════════════
 function getTreinoKey(p) {
-  // Ex: "TREINO FEM 4X 2.0" → "F_4X_2.0"; "TREINO 4X 1.0" → "M_4X_1.0"
+  // Com prioridade (aluno novo): "M_PEITO_4X_2.0" / "F_GLUTEO_5X_1.0".
+  // Sem prioridade (aluno antigo ou "Sem prioridade"): "F_4X_2.0" / "M_4X_1.0", caminho antigo INTOCADO.
   const sex = p.sex === 'Mulher' ? 'F' : 'M';
   const phase = p.treinoPhase || p.phase || '1.0';
+  if (p.priority && p.priority !== 'EQUILIBRADO') return `${sex}_${p.priority}_${p.days}X_${phase}`;
   return `${sex}_${p.days}X_${phase}`;
 }
 
@@ -2857,7 +2923,7 @@ function renderTreino() {
       <div class="phase-upgrade-card">
         <div class="phase-upgrade-title">${tInfo.unlocked ? '✓ AVANÇAR QUANDO QUISER' : '🔒 EM BREVE'}</div>
         <div class="phase-upgrade-headline">Avançar TREINO pra Fase ${next}</div>
-        <div class="phase-upgrade-desc">Roda essa versão por <strong>pelo menos 1 semana</strong> antes de pular — corpo precisa de tempo pra adaptar.${tInfo.unlocked ? '' : '<br><br><span style="color:var(--text-muted);font-size:11px;">Botão libera em ' + tInfo.daysLeft + ' ' + (tInfo.daysLeft === 1 ? 'dia' : 'dias') + '.</span>'}</div>
+        <div class="phase-upgrade-desc">Roda essa versão por <strong>pelo menos 1 semana</strong> antes de pular, corpo precisa de tempo pra adaptar.${tInfo.unlocked ? '' : '<br><br><span style="color:var(--text-muted);font-size:11px;">Botão libera em ' + tInfo.daysLeft + ' ' + (tInfo.daysLeft === 1 ? 'dia' : 'dias') + '.</span>'}</div>
         ${btnHtml}
       </div>
     `;
@@ -2871,10 +2937,15 @@ function renderTreino() {
     `;
   }
 
-  // PDF url: TREINO_4X_1.0.pdf ou TREINO_FEM_4X_1.0.pdf
+  // PDF url: prioridade = PEITO_4X_1.0.pdf; sem prioridade = TREINO_4X_1.0.pdf / TREINO_FEM_4X_1.0.pdf
+  const hasPrio = p.priority && p.priority !== 'EQUILIBRADO';
   const sex = p.sex === 'Mulher' ? 'FEM_' : '';
-  const pdfUrl = `pdfs/treinos/TREINO_${sex}${p.days}X_${treinoPhase}.pdf`;
-  const pdfFile = `TREINO ${p.sex === 'Mulher' ? 'FEM ' : ''}${p.days}X ${treinoPhase}.pdf`;
+  const pdfUrl = hasPrio
+    ? `pdfs/treinos/${p.priority}_${p.days}X_${treinoPhase}.pdf`
+    : `pdfs/treinos/TREINO_${sex}${p.days}X_${treinoPhase}.pdf`;
+  const pdfFile = hasPrio
+    ? `TREINO ${(p.priorityLabel || p.priority).toUpperCase()} ${p.days}X ${treinoPhase}.pdf`
+    : `TREINO ${p.sex === 'Mulher' ? 'FEM ' : ''}${p.days}X ${treinoPhase}.pdf`;
 
   c.innerHTML = `
     <h2>${p.workout}</h2>
@@ -3057,7 +3128,7 @@ function openAchievement(dayIdx) {
   const day = t.dias[dayIdx] || t.dias[0];
   const doneCount = day.exercicios.reduce((acc, _, i) => acc + (isExerciseDone(dayIdx, i) ? 1 : 0), 0);
 
-  // Detecta músculos treinados (das classes dos exercícios) — usa nomes dos exercícios pra agrupar
+  // Detecta músculos treinados (das classes dos exercícios), usa nomes dos exercícios pra agrupar
   const musclesSet = new Set();
   day.exercicios.forEach((ex, i) => {
     if (!isExerciseDone(dayIdx, i)) return;
@@ -3269,7 +3340,7 @@ async function achShare() {
       try {
         await navigator.share({
           files: [file],
-          title: 'Shape de Elite — Treino concluído',
+          title: 'Shape de Elite, Treino concluído',
           text: 'Mais um treino na conta. @gh.scheuermann'
         });
       } catch(e) { if (e.name !== 'AbortError') achSave(); }
@@ -3333,7 +3404,7 @@ function getNextPhase(cur) {
   return null;
 }
 
-// Janela inicial de 8 dias após cadastro — sai da garantia 7d Greenn,
+// Janela inicial de 8 dias após cadastro, sai da garantia 7d Greenn,
 // depois disso tudo (fase 2.0 + 3.0 de treino e dieta) tá liberado.
 // Aviso "faz pelo menos 1 semana antes de pular" aparece na hora de avançar.
 const INITIAL_GATE_DAYS = 8;
@@ -3441,7 +3512,7 @@ async function confirmPhaseUpgrade() {
   const target = phaseUpgrade.targetPhase;
   const kind = phaseUpgrade.kind;
 
-  // Servidor é a fonte de verdade — manda o pedido e ele valida (4 meses, transição, etc)
+  // Servidor é a fonte de verdade, manda o pedido e ele valida (4 meses, transição, etc)
   const body = { kind, targetPhase: target };
   if (kind === 'treino') {
     if (!phaseUpgrade.newDays) return;
@@ -3625,7 +3696,7 @@ function renderDieta() {
       <div class="phase-upgrade-card">
         <div class="phase-upgrade-title">${dInfo.unlocked ? '✓ AVANÇAR QUANDO QUISER' : '🔒 EM BREVE'}</div>
         <div class="phase-upgrade-headline">Avançar DIETA pra Fase ${nextDieta}</div>
-        <div class="phase-upgrade-desc">${goalMsg}<br>Roda essa dieta por <strong>pelo menos 1 semana</strong> antes de pular — corpo precisa de tempo pra adaptar.${dInfo.unlocked ? '' : '<br><br><span style="color:var(--text-muted);font-size:11px;">Botão libera em ' + dInfo.daysLeft + ' ' + (dInfo.daysLeft === 1 ? 'dia' : 'dias') + '.</span>'}</div>
+        <div class="phase-upgrade-desc">${goalMsg}<br>Roda essa dieta por <strong>pelo menos 1 semana</strong> antes de pular, corpo precisa de tempo pra adaptar.${dInfo.unlocked ? '' : '<br><br><span style="color:var(--text-muted);font-size:11px;">Botão libera em ' + dInfo.daysLeft + ' ' + (dInfo.daysLeft === 1 ? 'dia' : 'dias') + '.</span>'}</div>
         ${btnHtmlDieta}
       </div>
     `;
@@ -3737,7 +3808,7 @@ function buildShoppingText() {
   const list = buildShoppingList();
   if (!list) return '';
   const order = ['Proteínas','Lácteos','Leguminosas','Carboidratos','Frutas','Verduras e legumes','Gorduras boas','Outros / Variados'];
-  let text = `🛒 LISTA DE COMPRAS — ${state.protocol.diet}\n(Shape de Elite)\n\n`;
+  let text = `🛒 LISTA DE COMPRAS, ${state.protocol.diet}\n(Shape de Elite)\n\n`;
   order.forEach(name => {
     const cat = list[name];
     if (!cat || !cat.items.length) return;
@@ -3821,10 +3892,10 @@ function renderSupl() {
     </div>
   `).join('');
 
-  // Loja Shopee — onde comprar (FTW)
+  // Loja Shopee, onde comprar (FTW)
   const shopHtml = `
     <h3 style="margin-top:28px;margin-bottom:8px;color:#ffa726;font-size:13px;letter-spacing:.5px;">🛒 ONDE COMPRAR</h3>
-    <p class="hint" style="margin-bottom:14px;">Marca <strong>FTW</strong> — qualidade nacional com preço justo.</p>
+    <p class="hint" style="margin-bottom:14px;">Marca <strong>FTW</strong>, qualidade nacional com preço justo.</p>
 
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Whey Protein Concentrado 1kg</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
@@ -3943,7 +4014,7 @@ function renderCalc() {
     recalcCard = `
       <div class="result-card" style="background:var(--surface-2);border-color:var(--border);opacity:.85;">
         <h3 style="color:var(--text-muted);">🔒 RECÁLCULO BLOQUEADO</h3>
-        <p class="small mt-2" style="line-height:1.5;">Tu já avançou pra Fase 2.0 ou 3.0. Não dá mais pra recalcular o protocolo — segue firme com o que tu já tem. Se tem alguma dúvida real, fala no <strong>WhatsApp de suporte</strong>.</p>
+        <p class="small mt-2" style="line-height:1.5;">Tu já avançou pra Fase 2.0 ou 3.0. Não dá mais pra recalcular o protocolo, segue firme com o que tu já tem. Se tem alguma dúvida real, fala no <strong>WhatsApp de suporte</strong>.</p>
       </div>
     `;
   } else if (recalcUsed) {
@@ -3957,7 +4028,7 @@ function renderCalc() {
     recalcCard = `
       <div class="result-card" style="background:var(--red-tint);border-color:var(--red);">
         <h3 style="color:var(--gold);">🔄 REFAZER PROTOCOLO OFICIAL</h3>
-        <p class="small mt-2" style="color:var(--text);line-height:1.5;">Use isso só se tu errou algum dado importante (peso/altura/objetivo). Vai sobrescrever o atual e te jogar de volta na Fase 1.0.<br><br><strong style="color:var(--gold);">⚠️ Tu só pode recalcular UMA VEZ — depois disso fica bloqueado pra sempre.</strong></p>
+        <p class="small mt-2" style="color:var(--text);line-height:1.5;">Use isso só se tu errou algum dado importante (peso/altura/objetivo). Vai sobrescrever o atual e te jogar de volta na Fase 1.0.<br><br><strong style="color:var(--gold);">⚠️ Tu só pode recalcular UMA VEZ, depois disso fica bloqueado pra sempre.</strong></p>
         <button class="btn" onclick="restartOnboarding(true)" style="margin-top:12px;">🧮 Recalcular protocolo (1 chance)</button>
       </div>
     `;
