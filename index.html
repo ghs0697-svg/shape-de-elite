@@ -1375,6 +1375,45 @@
     .dashboard-header { margin-left: -14px; margin-right: -14px; padding-left: 14px; padding-right: 14px; }
     .tabs { margin-left: -14px; margin-right: -14px; }
   }
+  /* ════════ Progressão de carga: grade de séries (kg/placa/reps), igual Peitão ════════ */
+  .sets-wrap { margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--border); }
+  .sets-title { font-size: 10px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; color: var(--red-hover); margin-bottom: 8px; }
+  .sets-grid { display: flex; flex-direction: column; gap: 5px; width: 100%; }
+  .set-head, .set-row { display: flex; align-items: center; gap: 6px; }
+  .set-head span { font-size: 9px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; color: var(--text-muted); }
+  .set-head .sh-kg { width: 54px; } .set-head .sh-pl { width: 42px; } .set-head .sh-reps { width: 50px; }
+  .set-num { width: 16px; min-width: 16px; font-size: 11px; font-weight: 800; color: var(--text-muted); text-align: center; }
+  .set-in {
+    background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px;
+    color: var(--text); font-family: inherit; font-size: 15px; font-weight: 700; text-align: center;
+    padding: 7px 4px; outline: none; transition: border-color .15s; -moz-appearance: textfield;
+  }
+  .set-in::-webkit-outer-spin-button, .set-in::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .set-in:focus { border-color: var(--red); }
+  .set-in::placeholder { color: var(--text-muted); }
+  .set-in.set-kg { width: 54px; } .set-in.set-pl { width: 42px; } .set-in.set-reps { width: 50px; }
+  .set-in:not(:placeholder-shown) { border-color: rgba(180,30,30,.45); background: var(--red-tint); }
+  .set-row:has(.set-in:not(:placeholder-shown)) .set-num { color: var(--red-hover); }
+  .set-prev { font-size: 10px; color: var(--text-dim); white-space: nowrap; margin-left: 2px; flex: 1; }
+  .set-del {
+    width: 20px; min-width: 20px; height: 26px; border: none; background: transparent;
+    color: var(--text-muted); font-size: 16px; line-height: 1; cursor: pointer; border-radius: 5px; padding: 0;
+  }
+  .set-del:active { color: #FF3B30; background: rgba(255,59,48,.12); }
+  .set-add {
+    align-self: flex-start; margin-top: 4px; background: transparent; border: 1px dashed rgba(180,30,30,.45);
+    color: var(--red-hover); font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 8px;
+    cursor: pointer; font-family: inherit;
+  }
+  .set-add:active { background: var(--red-tint); }
+  .wk-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 8px 10px; margin-bottom: 12px; }
+  .wk-nav { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); font-size: 20px; line-height: 1; cursor: pointer; font-family: inherit; }
+  .wk-nav:disabled { opacity: .3; cursor: default; }
+  .wk-nav:not(:disabled):active { border-color: var(--red); background: var(--red-tint); }
+  .wk-label { font-size: 13px; font-weight: 700; color: var(--text-dim); text-align: center; }
+  .wk-label b { color: var(--text); font-size: 16px; }
+  .wk-now { font-size: 9px; font-weight: 800; color: var(--red-hover); background: var(--red-tint); padding: 2px 6px; border-radius: 6px; margin-left: 5px; text-transform: uppercase; letter-spacing: .3px; }
+
   /* VSL Método GH (dentro do card de consultoria, igual Peitão) */
   .vsl-label {
     font-size: 12px; font-weight: 800; color: #F5C542;
@@ -2462,6 +2501,7 @@ async function initDashboard() {
   renderMghBanner();
   showTab('treino');
   startVerifyHeartbeat();
+  restoreSetsFromServer(); // backup de cargas da conta (não bloqueia o load)
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -2889,6 +2929,174 @@ const FTW_SUPLEMENTOS = [
 ];
 
 // ═══════════════════════════════════════════════════════════
+// PROGRESSÃO DE CARGA (grade de séries kg/placa/reps, igual Peitão)
+// Offline-first no localStorage + backup por conta em /api/sets.
+// Caminho de carga é sagrado: snapshot + log append-only no servidor.
+// ═══════════════════════════════════════════════════════════
+const WEEKS_MAX = 18; // fase dura 4 meses
+
+function setsEmail() { return (state.user && state.user.email) || 'anon'; }
+function currentWeekDefault() {
+  const started = state.protocol?.phaseStartedAt?.treino || state.protocol?.createdAt;
+  if (!started) return 1;
+  const w = Math.floor((Date.now() - new Date(started).getTime()) / (7 * 864e5)) + 1;
+  return Math.min(WEEKS_MAX, Math.max(1, w));
+}
+function getWeek() {
+  if (!state.week) {
+    const saved = parseInt(localStorage.getItem('shape_week_' + setsEmail()) || '0');
+    state.week = (saved >= 1 && saved <= WEEKS_MAX) ? saved : currentWeekDefault();
+  }
+  return state.week;
+}
+function setWeek(w) {
+  if (w < 1 || w > WEEKS_MAX) return;
+  state.week = w;
+  try { localStorage.setItem('shape_week_' + setsEmail(), String(w)); } catch (e) {}
+  renderTreino();
+}
+function weekBarHtml() {
+  const w = getWeek();
+  const isNow = w === currentWeekDefault();
+  return `<div class="wk-bar">
+    <button class="wk-nav" onclick="setWeek(${w - 1})" ${w <= 1 ? 'disabled' : ''} aria-label="Semana anterior">‹</button>
+    <div class="wk-label">Semana <b>${w}</b>${isNow ? '<span class="wk-now">atual</span>' : ''}<br><span style="font-size:10px;">anota a carga da última série de cada exercício</span></div>
+    <button class="wk-nav" onclick="setWeek(${w + 1})" ${w >= WEEKS_MAX ? 'disabled' : ''} aria-label="Próxima semana">›</button>
+  </div>`;
+}
+
+function setsKey(ctxKey, idx, w) { return `shape_sets_${setsEmail()}_${ctxKey}_w${w}_e${idx}`; }
+function serieCount(seriesStr) {
+  const nums = String(seriesStr || '').match(/\d+/g);
+  if (nums && nums.length) { const m = Math.max.apply(null, nums.map(Number)); if (m >= 1 && m <= 12) return m; }
+  return 3;
+}
+function loadSetsLS(ctxKey, idx, w) {
+  try { const a = JSON.parse(localStorage.getItem(setsKey(ctxKey, idx, w)) || 'null'); if (Array.isArray(a) && a.length) return a; } catch (e) {}
+  return null;
+}
+function saveSetsLS(ctxKey, idx, w, arr) {
+  const clean = (arr || []).map(s => ({ kg: String(s.kg || '').trim(), pl: String(s.pl || '').trim(), reps: String(s.reps || '').trim() }));
+  try { localStorage.setItem(setsKey(ctxKey, idx, w), JSON.stringify(clean)); } catch (e) {}
+  queueSetsSync(setsKey(ctxKey, idx, w), clean);
+}
+
+// Sync servidor (best-effort; offline não quebra nada)
+function setsServerKey(localKey) { return localKey.replace('shape_sets_' + setsEmail() + '_', ''); }
+let _syncTimers = {}, _syncPending = {};
+function queueSetsSync(localKey, sets) {
+  if (!state.user) return;
+  const k = setsServerKey(localKey);
+  _syncPending[k] = sets;
+  clearTimeout(_syncTimers[k]);
+  _syncTimers[k] = setTimeout(async () => {
+    const payload = _syncPending[k]; delete _syncPending[k];
+    try {
+      await api('/api/sets', { method: 'POST', body: JSON.stringify({ key: k, sets: payload }) });
+    } catch (e) { /* offline: fica no localStorage; re-tenta no próximo save */ }
+  }, 1200);
+}
+
+// Restore no login: semeia o localStorage com o snapshot da conta
+// (só chaves que não existem localmente; o aparelho atual é a versão mais fresca).
+async function restoreSetsFromServer() {
+  if (!state.user) return;
+  try {
+    const r = await api('/api/sets');
+    if (!r || !r.ok || !r.sets) return;
+    const prefix = 'shape_sets_' + setsEmail() + '_';
+    for (const k of Object.keys(r.sets)) {
+      const lk = prefix + k;
+      if (localStorage.getItem(lk) === null) {
+        try { localStorage.setItem(lk, JSON.stringify(r.sets[k])); } catch (e) {}
+      }
+    }
+    // sobe em bulk o que só existe local (primeira sincronização)
+    const missing = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const lk = localStorage.key(i);
+      if (lk && lk.startsWith(prefix)) {
+        const sk = lk.slice(prefix.length);
+        if (!(sk in r.sets)) { try { missing[sk] = JSON.parse(localStorage.getItem(lk)); } catch (e) {} }
+      }
+    }
+    if (Object.keys(missing).length) {
+      await api('/api/sets', { method: 'POST', body: JSON.stringify({ entries: missing }) }).catch(() => {});
+    }
+    const treinoVisivel = document.getElementById('tab-treino') && !document.getElementById('tab-treino').classList.contains('hidden');
+    if (treinoVisivel) renderTreino();
+  } catch (e) { /* silencioso */ }
+}
+function getPrevSets(ctxKey, idx, w) {
+  for (let ww = w - 1; ww >= 1; ww--) { const v = loadSetsLS(ctxKey, idx, ww); if (v) return v; }
+  return null;
+}
+function setsGridHtml(ctxKey, idx, seriesStr, nome) {
+  const w = getWeek();
+  let sets = loadSetsLS(ctxKey, idx, w);
+  if (!sets || !sets.length) { const n = serieCount(seriesStr); sets = Array.from({ length: n }, () => ({ kg: '', pl: '', reps: '' })); }
+  const prev = getPrevSets(ctxKey, idx, w);
+  const gid = 'sets_' + ctxKey + '_' + idx;
+  const rows = sets.map((s, si) => {
+    const p = prev && prev[si];
+    const ptxt = (p && (p.kg || p.pl || p.reps))
+      ? `<span class="set-prev">ant: ${p.kg ? p.kg + 'kg' : (p.pl ? p.pl + 'pl' : '&mdash;')}${p.reps ? ' &times;' + p.reps : ''}</span>`
+      : '<span class="set-prev"></span>';
+    return `<div class="set-row">
+        <span class="set-num">${si + 1}</span>
+        <input class="set-in set-kg" type="number" inputmode="decimal" placeholder="kg" value="${s.kg || ''}" oninput="onSetField('${ctxKey}',${idx})">
+        <input class="set-in set-pl" type="number" inputmode="numeric" placeholder="pl" value="${s.pl || ''}" oninput="onSetField('${ctxKey}',${idx})">
+        <input class="set-in set-reps" type="number" inputmode="numeric" placeholder="reps" value="${s.reps || ''}" oninput="onSetField('${ctxKey}',${idx})">
+        ${ptxt}
+        <button type="button" class="set-del" onclick="removeSet('${ctxKey}',${idx},${si})" title="Remover série" aria-label="Remover série">&times;</button>
+      </div>`;
+  }).join('');
+  return `<div class="sets-wrap"><div class="sets-title">Progressão de carga</div>
+    <div class="sets-grid" id="${gid}" data-exname="${escapeAttr(nome || '')}">
+      <div class="set-head"><span class="set-num"></span><span class="sh-kg">kg</span><span class="sh-pl">placa</span><span class="sh-reps">reps</span><span class="set-prev"></span><span class="set-del"></span></div>
+      ${rows}
+      <button type="button" class="set-add" onclick="addSet('${ctxKey}',${idx})">+ série</button>
+    </div></div>`;
+}
+function readSetsFromDom(gid) {
+  const g = document.getElementById(gid); if (!g) return null;
+  return Array.from(g.querySelectorAll('.set-row')).map(r => ({
+    kg: (r.querySelector('.set-kg') || {}).value || '',
+    pl: (r.querySelector('.set-pl') || {}).value || '',
+    reps: (r.querySelector('.set-reps') || {}).value || ''
+  }));
+}
+let _setTimers = {};
+function onSetField(ctxKey, idx) {
+  const gid = 'sets_' + ctxKey + '_' + idx;
+  clearTimeout(_setTimers[gid]);
+  _setTimers[gid] = setTimeout(() => {
+    const arr = readSetsFromDom(gid);
+    if (!arr) return;
+    saveSetsLS(ctxKey, idx, getWeek(), arr);
+  }, 400);
+}
+function reRenderGrid(ctxKey, idx) {
+  const gid = 'sets_' + ctxKey + '_' + idx;
+  const g = document.getElementById(gid); if (!g) return;
+  const wrap = g.closest('.sets-wrap');
+  if (wrap) wrap.outerHTML = setsGridHtml(ctxKey, idx, '', g.dataset.exname || '');
+}
+function addSet(ctxKey, idx) {
+  const gid = 'sets_' + ctxKey + '_' + idx;
+  const arr = readSetsFromDom(gid) || []; if (arr.length >= 12) return;
+  arr.push({ kg: '', pl: '', reps: '' });
+  saveSetsLS(ctxKey, idx, getWeek(), arr);
+  reRenderGrid(ctxKey, idx);
+}
+function removeSet(ctxKey, idx, si) {
+  const gid = 'sets_' + ctxKey + '_' + idx;
+  const arr = readSetsFromDom(gid) || []; arr.splice(si, 1);
+  saveSetsLS(ctxKey, idx, getWeek(), arr);
+  reRenderGrid(ctxKey, idx);
+}
+
+// ═══════════════════════════════════════════════════════════
 // TREINO RENDER
 // ═══════════════════════════════════════════════════════════
 function getTreinoKey(p) {
@@ -2933,6 +3141,7 @@ function renderTreino() {
           <div class="exercise-meta-item rest-clickable" onclick="openTimer(${parseRestSeconds(ex.intervalo)}, '${escapeAttr(ex.exercicio)}')" title="Tocar pra iniciar cronômetro"><div class="label">⏱ DESCANSO</div><div class="val">${ex.intervalo || '—'}</div></div>
         </div>
         ${ex.obs ? `<div class="exercise-obs">${ex.obs}</div>` : ''}
+        ${setsGridHtml(key + '_d' + state.currentDay, idx, ex.series, ex.exercicio)}
       </div>
     `;
   }).join('');
@@ -2995,6 +3204,7 @@ function renderTreino() {
     <h2>${p.workout}</h2>
     <p class="hint">${t.dias.length} dias por semana · Treino Fase ${treinoPhase}</p>
     <a class="btn secondary" href="${pdfUrl}" download="${pdfFile}" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF do treino</a>
+    ${weekBarHtml()}
     <div class="day-tabs">${dayBtns}</div>
     ${concludeBarHtml}
     ${exHtml}
