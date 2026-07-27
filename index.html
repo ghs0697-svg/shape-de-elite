@@ -1375,6 +1375,19 @@
     .dashboard-header { margin-left: -14px; margin-right: -14px; padding-left: 14px; padding-right: 14px; }
     .tabs { margin-left: -14px; margin-right: -14px; }
   }
+  /* VSL Método GH (dentro do card de consultoria, igual Peitão) */
+  .vsl-label {
+    font-size: 12px; font-weight: 800; color: #F5C542;
+    letter-spacing: .4px; text-transform: uppercase; text-align: center;
+    margin: 16px 0 10px;
+  }
+  .vsl-video {
+    width: 100%; max-width: 300px; aspect-ratio: 9 / 16;
+    border-radius: 12px; background: #000; display: block; margin: 0 auto 14px;
+    box-shadow: 0 8px 28px rgba(0,0,0,.5);
+  }
+  .partner-group-title { font-size: 13px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--text-dim, #A0A0A0); margin: 22px 0 10px; }
+  .partner-group-title:first-of-type { margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -2512,6 +2525,10 @@ function buildMghCard() {
       <div class="mgh-card-headline">${c.headline}</div>
       <div class="mgh-card-sub">${c.subtitle}</div>
       ${bullets ? `<ul class="mgh-card-bullets">${bullets}</ul>` : ''}
+      <div class="vsl-label">Por que migrar pro Método GH</div>
+      <video class="vsl-video" controls playsinline preload="none" poster="assets/vsl-poster.jpg">
+        <source src="assets/vsl-metodogh.mp4" type="video/mp4">
+      </video>
       <a class="mgh-card-cta" href="${c.link}" target="_blank" rel="noopener">${c.cta} →</a>
     </div>
   `;
@@ -2843,8 +2860,33 @@ function renderParceiros() {
       <div class="partner-msg-tip">Ao clicar, abre o WhatsApp com a mensagem padrão "Olá, sou aluno do Shape de Elite. Vim por indicação do GH.", só revisa e envia.</div>
       <a class="partner-link whatsapp" href="https://api.whatsapp.com/send?phone=5516997693445&text=${encodeURIComponent('Olá, sou aluno do Shape de Elite. Vim por indicação do GH.')}" target="_blank" rel="noopener">Falar no WhatsApp →</a>
     </div>
+
+    <div class="partner-group-title">💊 Suplementos (FTW · Loja oficial)</div>
+    ${FTW_SUPLEMENTOS.map(p => `
+    <div class="partner-card">
+      <div class="partner-card-head">
+        <span class="partner-name">${p.nome}</span>
+        <span class="partner-discount">SHOPEE</span>
+      </div>
+      <div class="partner-desc">${p.desc}</div>
+      <a class="partner-link" href="${p.link}" target="_blank" rel="noopener">Comprar na loja oficial →</a>
+    </div>`).join('')}
   `;
 }
+
+// Catálogo FTW (patrocinador do Método GH), mesmo da aba de parceiros do Peitão
+const FTW_SUPLEMENTOS = [
+  { nome: 'Whey Protein Concentrado 1kg', desc: 'FTW · refil · R$ 64,90 (62% OFF). Proteína de soro do leite.', link: 'https://s.shopee.com.br/6VKciJh60W?share_channel_code=1' },
+  { nome: 'Creatina Monoidratada 300g', desc: 'FTW · pura · R$ 33,85 (50% OFF). 5-10g/dia, todos os dias.', link: 'https://s.shopee.com.br/4LG889ON4C?share_channel_code=1' },
+  { nome: 'Pré Treino Diabo Verde 300g', desc: 'FTW · pre-workout · R$ 66,40 (65% OFF). Energia e foco pré-treino.', link: 'https://s.shopee.com.br/8KmGtTfMrh?share_channel_code=1' },
+  { nome: 'Thermo Caps Termogênico 90 cáps', desc: 'FTW Diabo Verde · com cafeína · R$ 29,00 (67% OFF). Termogênico em cápsulas.', link: 'https://s.shopee.com.br/8KmGtSOAoq?share_channel_code=1' },
+  { nome: 'Ômega 3 MEG-3 90 cáps', desc: 'FTW · 660mg EPA + 440mg DHA · R$ 69,25 (19% OFF). Anti-inflamatório.', link: 'https://s.shopee.com.br/6fe2uNMflR?share_channel_code=1' },
+  { nome: 'Vitamina B12 60 cáps', desc: 'FTW · R$ 48,40 (17% OFF). Energia, neuro, hemácias.', link: 'https://s.shopee.com.br/4qCOilywN9?share_channel_code=1' },
+  { nome: 'Vitamina D3 2.000 UI · 60 cáps', desc: 'FTW · alta concentração · R$ 38,70 (20% OFF). Imunidade, ossos, testosterona.', link: 'https://s.shopee.com.br/901xgVQd3D?share_channel_code=1' },
+  { nome: 'Coenzima Q10 100mg · 30 cáps', desc: 'FTW · R$ 38,70 (66% OFF). Antioxidante, energia celular, coração.', link: 'https://s.shopee.com.br/7KtjhUeYqM?share_channel_code=1' },
+  { nome: 'NAC (N-Acetil L-Cisteína) 60 cáps', desc: 'FTW · R$ 38,70 (38% OFF). Antioxidante, fígado, detox.', link: 'https://s.shopee.com.br/1qYn9QfWHK?share_channel_code=1' },
+  { nome: 'Tri-Magnésio 60 cáps', desc: 'FTW · 3 formas de magnésio · R$ 56,16 (45% OFF). Sono, músculo, sensibilidade à insulina.', link: 'https://s.shopee.com.br/4VZYKNPkxQ?share_channel_code=1' },
+];
 
 // ═══════════════════════════════════════════════════════════
 // TREINO RENDER
