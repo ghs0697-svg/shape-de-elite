@@ -1414,6 +1414,28 @@
   .wk-label b { color: var(--text); font-size: 16px; }
   .wk-now { font-size: 9px; font-weight: 800; color: var(--red-hover); background: var(--red-tint); padding: 2px 6px; border-radius: 6px; margin-left: 5px; text-transform: uppercase; letter-spacing: .3px; }
 
+  /* ════════ Fotos de progresso (4 ângulos por fase, igual Peitão) ════════ */
+  .foto-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-top: 14px; }
+  .foto-sec-title { font-size: 12px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase; color: var(--red-hover); margin-bottom: 3px; }
+  .foto-sec-sub { font-size: 11px; color: var(--text-dim); margin-bottom: 10px; line-height: 1.4; }
+  .foto-fases { display: flex; gap: 6px; margin-bottom: 10px; }
+  .foto-fase-chip { flex: 1; padding: 7px 4px; border-radius: 9px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text-dim); font-size: 11.5px; font-weight: 800; cursor: pointer; font-family: inherit; }
+  .foto-fase-chip.on { border-color: var(--red); color: var(--text); background: var(--red-tint); }
+  .foto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .foto-slot { position: relative; aspect-ratio: 3 / 4; border-radius: 12px; border: 1.5px dashed var(--border-hover); background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; cursor: pointer; overflow: hidden; color: var(--text-muted); -webkit-tap-highlight-color: transparent; }
+  .foto-slot.set { border-style: solid; border-color: rgba(180,30,30,.45); }
+  .foto-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .foto-slot-plus { position: relative; z-index: 1; font-size: 22px; color: var(--red-hover); line-height: 1; }
+  .foto-slot-label { position: relative; z-index: 1; font-size: 12px; font-weight: 700; }
+  .foto-slot.set .foto-slot-label { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; background: linear-gradient(0deg, rgba(0,0,0,.8), transparent); color: #fff; padding: 16px 8px 6px; text-align: center; }
+  .foto-slot-ok { position: absolute; top: 6px; right: 6px; z-index: 3; background: #2DD881; color: #04120a; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; }
+  .foto-slot-cloud { position: absolute; top: 6px; left: 6px; z-index: 3; font-size: 11px; opacity: .85; }
+  .foto-viewer { position: fixed; inset: 0; z-index: 210; background: rgba(0,0,0,.94); display: none; align-items: center; justify-content: center; padding: 20px; }
+  .foto-viewer.show { display: flex; }
+  .foto-viewer img { max-width: 100%; max-height: 86vh; border-radius: 12px; }
+  .foto-viewer-x { position: absolute; top: 14px; right: 16px; background: rgba(255,255,255,.14); border: none; color: #fff; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; }
+  .foto-viewer-del { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: #FF3B30; border: none; color: #fff; font-family: inherit; font-weight: 800; font-size: 13px; padding: 11px 22px; border-radius: 12px; cursor: pointer; }
+
   /* VSL Método GH (dentro do card de consultoria, igual Peitão) */
   .vsl-label {
     font-size: 12px; font-weight: 800; color: #F5C542;
@@ -2502,6 +2524,7 @@ async function initDashboard() {
   showTab('treino');
   startVerifyHeartbeat();
   restoreSetsFromServer(); // backup de cargas da conta (não bloqueia o load)
+  flushFotoUploads();      // sobe fotos pendentes pro Drive (se backend configurado)
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -2929,6 +2952,131 @@ const FTW_SUPLEMENTOS = [
 ];
 
 // ═══════════════════════════════════════════════════════════
+// FOTOS DE PROGRESSO (4 ângulos por FASE do protocolo, igual Peitão)
+// Local no aparelho (IndexedDB); backup no Drive via /api/fotos quando configurado.
+// ═══════════════════════════════════════════════════════════
+const FOTO_ANGLES = [{ k: 'frente', l: 'Frente' }, { k: 'costas', l: 'Costas' }, { k: 'ladoD', l: 'Lado D' }, { k: 'ladoE', l: 'Lado E' }];
+const FOTO_FASES = ['1.0', '2.0', '3.0'];
+let _fdb = null;
+function fotosDB() {
+  return new Promise((res, rej) => {
+    if (_fdb) return res(_fdb);
+    let rq; try { rq = indexedDB.open('shapeFotos', 1); } catch (e) { return rej(e); }
+    rq.onupgradeneeded = () => { rq.result.createObjectStore('fotos'); };
+    rq.onsuccess = () => { _fdb = rq.result; res(_fdb); };
+    rq.onerror = () => rej(rq.error);
+  });
+}
+function fotoFase() { return state.fotoFase || state.protocol?.treinoPhase || '1.0'; }
+function setFotoFase(f) { state.fotoFase = f; renderTreino(); }
+function fotoKey(f, angle) { return setsEmail() + '|f' + f + '|' + angle; }
+async function fotoGet(f, angle) {
+  try { const db = await fotosDB(); return await new Promise(r => { const rq = db.transaction('fotos').objectStore('fotos').get(fotoKey(f, angle)); rq.onsuccess = () => r(rq.result || null); rq.onerror = () => r(null); }); } catch (e) { return null; }
+}
+async function fotoPut(f, angle, rec) {
+  try { const db = await fotosDB(); return await new Promise(r => { const rq = db.transaction('fotos', 'readwrite').objectStore('fotos').put(rec, fotoKey(f, angle)); rq.onsuccess = () => r(true); rq.onerror = () => r(false); }); } catch (e) { return false; }
+}
+async function fotoDel(f, angle) {
+  try { const db = await fotosDB(); return await new Promise(r => { const rq = db.transaction('fotos', 'readwrite').objectStore('fotos').delete(fotoKey(f, angle)); rq.onsuccess = () => r(true); rq.onerror = () => r(false); }); } catch (e) { return false; }
+}
+async function fotoAllKeys() {
+  try { const db = await fotosDB(); return await new Promise(r => { const rq = db.transaction('fotos').objectStore('fotos').getAllKeys(); rq.onsuccess = () => r(rq.result || []); rq.onerror = () => r([]); }); } catch (e) { return []; }
+}
+function fotoDateBR() { const d = new Date(), p = n => String(n).padStart(2, '0'); return p(d.getDate()) + '-' + p(d.getMonth() + 1) + '-' + d.getFullYear(); }
+function fotoToast(m) { if (typeof showToast === 'function') showToast(m); }
+function compressImage(file, maxPx, quality) {
+  return new Promise((res, rej) => {
+    const rd = new FileReader();
+    rd.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        const sc = Math.min(1, maxPx / Math.max(w, h));
+        w = Math.round(w * sc); h = Math.round(h * sc);
+        const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+        cv.getContext('2d').drawImage(img, 0, 0, w, h);
+        res(cv.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = rej; img.src = e.target.result;
+    };
+    rd.onerror = rej; rd.readAsDataURL(file);
+  });
+}
+let _fotoPick = null;
+function pickFoto(angle) { _fotoPick = { f: fotoFase(), angle }; const inp = document.getElementById('fotoInput'); inp.value = ''; inp.click(); }
+async function onFotoPicked(input) {
+  const file = input.files && input.files[0];
+  if (!file || !_fotoPick) return;
+  const { f, angle } = _fotoPick;
+  fotoToast('📷 Salvando foto...');
+  try {
+    const dataUrl = await compressImage(file, 1280, 0.82);
+    await fotoPut(f, angle, { dataUrl, f, angle, date: fotoDateBR(), ts: Date.now(), uploaded: false });
+    await hydrateFotos();
+    fotoToast('✓ Foto salva no teu aparelho');
+    uploadFoto(f, angle);
+  } catch (e) { fotoToast('Não consegui salvar essa foto. Tenta de novo.'); }
+}
+async function uploadFoto(f, angle) {
+  if (!state.user) return;
+  const rec = await fotoGet(f, angle);
+  if (!rec || rec.uploaded) return;
+  try {
+    const r = await api('/api/fotos', { method: 'POST', body: JSON.stringify({ date: rec.date, angle, dataUrl: rec.dataUrl }) });
+    if (r && r.ok) { rec.uploaded = true; await fotoPut(f, angle, rec); hydrateFotos(); }
+  } catch (e) { /* offline ou backend sem credencial: fica pendente */ }
+}
+let _fotoFlushed = false;
+async function flushFotoUploads() {
+  if (_fotoFlushed) return; _fotoFlushed = true;
+  const keys = await fotoAllKeys();
+  for (const k of keys.filter(k => String(k).startsWith(setsEmail() + '|'))) {
+    const p = String(k).split('|');
+    await uploadFoto(String(p[1]).replace('f', ''), p[2]);
+  }
+}
+async function hydrateFotos() {
+  const f = fotoFase();
+  for (const a of FOTO_ANGLES) {
+    const slot = document.getElementById('fslot-' + a.k);
+    if (!slot) continue;
+    const rec = await fotoGet(f, a.k);
+    if (rec && rec.dataUrl) {
+      slot.className = 'foto-slot set';
+      slot.innerHTML = `<img src="${rec.dataUrl}" alt="${a.l}"><span class="foto-slot-ok">✓</span>${rec.uploaded ? '<span class="foto-slot-cloud" title="No backup">☁️</span>' : ''}<span class="foto-slot-label">${a.l} · ${rec.date}</span>`;
+      slot.onclick = () => openFotoViewer(f, a.k);
+    } else {
+      slot.className = 'foto-slot';
+      slot.innerHTML = `<span class="foto-slot-plus">+</span><span class="foto-slot-label">${a.l}</span>`;
+      slot.onclick = () => pickFoto(a.k);
+    }
+  }
+}
+async function openFotoViewer(f, angle) {
+  const rec = await fotoGet(f, angle); if (!rec) return;
+  const v = document.getElementById('fotoViewer');
+  document.getElementById('fotoViewerImg').src = rec.dataUrl;
+  document.getElementById('fotoViewerDel').onclick = async () => {
+    if (!confirm('Apagar essa foto do teu aparelho?')) return;
+    await fotoDel(f, angle); closeFotoViewer(); hydrateFotos();
+  };
+  v.classList.add('show');
+}
+function closeFotoViewer() { document.getElementById('fotoViewer').classList.remove('show'); }
+function fotosSecHtml() {
+  const f = fotoFase();
+  return `
+    <div class="foto-card">
+      <div class="foto-sec-title">📸 Fotos de progresso</div>
+      <div class="foto-sec-sub">Registra os 4 ângulos no começo de cada fase (a cada 4 meses, quando o protocolo troca). Mesma roupa, mesma luz, mesmo lugar: é assim que a evolução aparece.</div>
+      <div class="foto-fases">${FOTO_FASES.map(x => `<button class="foto-fase-chip${x === f ? ' on' : ''}" onclick="setFotoFase('${x}')">Fase ${x}</button>`).join('')}</div>
+      <div class="foto-grid">
+        ${FOTO_ANGLES.map(a => `<div class="foto-slot" id="fslot-${a.k}"><span class="foto-slot-plus">+</span><span class="foto-slot-label">${a.l}</span></div>`).join('')}
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
 // PROGRESSÃO DE CARGA (grade de séries kg/placa/reps, igual Peitão)
 // Offline-first no localStorage + backup por conta em /api/sets.
 // Caminho de carga é sagrado: snapshot + log append-only no servidor.
@@ -3210,7 +3358,9 @@ function renderTreino() {
     ${exHtml}
     ${extrasHtml ? `<h3 style="margin-top:24px;color:var(--text-dim);">📚 Material extra</h3>${extrasHtml}` : ''}
     ${phaseUpgradeHtml}
+    ${fotosSecHtml()}
   `;
+  hydrateFotos();
 }
 
 function selectDay(i) {
@@ -4327,5 +4477,11 @@ if ('serviceWorker' in navigator) {
 
 document.addEventListener('DOMContentLoaded', boot);
 </script>
+<input type="file" id="fotoInput" accept="image/*" style="display:none;" onchange="onFotoPicked(this)">
+<div class="foto-viewer" id="fotoViewer" onclick="if(event.target.id==='fotoViewer')closeFotoViewer()">
+  <button class="foto-viewer-x" onclick="closeFotoViewer()" aria-label="Fechar">✕</button>
+  <img id="fotoViewerImg" alt="Foto de progresso">
+  <button class="foto-viewer-del" id="fotoViewerDel">🗑 Apagar foto</button>
+</div>
 </body>
 </html>
