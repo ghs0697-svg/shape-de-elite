@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><title>Treino Costas 3X 2.0 · Shape de Elite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page { size: 210mm 297mm; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --bg:#0A0A0A; --bg2:#120C0C; --card:#1A1414; --border:#2C2222; --border-hi:#3A2A2A;
+    --tx:#F5F3F3; --dim:#A09898; --mute:#5E5656;
+    --red:#B91C1C; --red-hi:#E63535; --red-soft:rgba(185,28,28,.12); --red-bd:rgba(185,28,28,.38); --gold:#F5C542; }
+  body { font-family:'Inter',-apple-system,sans-serif; background:var(--bg); color:var(--tx); }
+  a { color: inherit; text-decoration: none; }
+  .page { width:210mm; height:296mm; page-break-after:always; position:relative; overflow:hidden;
+    background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(185,28,28,.14) 0%, transparent 60%),
+      linear-gradient(180deg, var(--bg2) 0%, var(--bg) 55%);
+    padding:16mm 16mm 20mm; display:flex; flex-direction:column; }
+  .page:last-child { page-break-after:auto; }
+  .page::before { content:''; position:absolute; top:0; left:0; right:0; height:1.2mm;
+    background:linear-gradient(90deg, transparent, var(--red) 30% 70%, transparent); opacity:.8; }
+  .brand { position:absolute; bottom:8mm; left:16mm; right:16mm; display:flex; justify-content:space-between;
+    font-size:8.5pt; color:var(--mute); font-weight:700; letter-spacing:.8px; }
+  .brand b { color:var(--red-hi); }
+  .kick { display:inline-block; font-size:9pt; font-weight:800; letter-spacing:2.5px; color:var(--red-hi);
+    text-transform:uppercase; border:1px solid var(--red-bd); background:var(--red-soft);
+    border-radius:6px; padding:2mm 4.5mm; margin-bottom:7mm; width:fit-content; }
+  h1 { font-size:34pt; font-weight:900; line-height:1.02; text-transform:uppercase; letter-spacing:-.5px; }
+  h1 span { color:var(--red-hi); }
+  .fase { display:inline-block; margin-top:4mm; font-size:11pt; font-weight:900; color:var(--gold);
+    letter-spacing:1.5px; text-transform:uppercase; }
+  .rule { width:42mm; height:1.6mm; background:var(--red); border-radius:2mm; margin:7mm 0; }
+  .sub { font-size:12pt; color:var(--dim); line-height:1.5; max-width:158mm; }
+  .semana { margin-top:8mm; background:var(--card); border:1px solid var(--border-hi);
+    border-left:2mm solid var(--red); border-radius:4mm; padding:6mm 7mm; max-width:168mm; }
+  .semana .t { font-size:10.5pt; font-weight:900; letter-spacing:1.6px; color:var(--gold); text-transform:uppercase; margin-bottom:4mm; }
+  .sem-row { display:flex; gap:5mm; padding:2.6mm 0; border-bottom:1px solid var(--border); font-size:10.5pt; }
+  .sem-row:last-child { border-bottom:none; }
+  .sem-d { flex:0 0 12mm; font-weight:900; color:var(--red-hi); }
+  .sem-nota { font-size:9pt; color:var(--dim); margin-top:4mm; line-height:1.5; }
+
+  .dia-kick { font-size:9pt; font-weight:800; letter-spacing:2.2px; color:var(--gold); text-transform:uppercase; margin-bottom:2mm; }
+  h2 { font-size:22pt; font-weight:900; text-transform:uppercase; margin-bottom:1.5mm; }
+  h2 span { color:var(--red-hi); }
+  .dia-sub { font-size:10pt; color:var(--dim); font-weight:600; margin-bottom:6mm; }
+  .tbl { background:var(--card); border:1px solid var(--border-hi); border-radius:4mm; padding:5mm 6mm; }
+  table { width:100%; border-collapse:collapse; }
+  th { font-size:7.5pt; font-weight:800; letter-spacing:1.4px; color:var(--mute); text-transform:uppercase;
+    text-align:left; padding:0 2.5mm 2.4mm 0; border-bottom:1px solid var(--border); }
+  th.c, td.c { text-align:center; }
+  td { font-size:10.5pt; padding:3mm 2.5mm 3mm 0; border-bottom:1px solid var(--border); vertical-align:middle; line-height:1.3; }
+  tr:last-child td { border-bottom:none; }
+  td.ex { font-weight:700; width:47%; }
+  td.ex .play { color:var(--red-hi); font-size:8pt; margin-right:1.5mm; }
+  td.ser { font-weight:800; color:var(--red-hi); width:13%; white-space:nowrap; }
+  td.rep { width:20%; }
+  td.itv { color:var(--dim); width:20%; }
+  .video-hint { font-size:8.5pt; color:var(--mute); margin-top:3.5mm; }
+
+  .box { background:var(--card); border:1px solid var(--border-hi); border-left:2mm solid var(--red);
+    border-radius:4mm; padding:6mm 7mm; margin-bottom:5mm; }
+  .box .bt { font-size:10.5pt; font-weight:900; letter-spacing:1.6px; color:var(--gold); text-transform:uppercase; margin-bottom:3mm; }
+  .box .sh { font-size:9.5pt; font-weight:900; letter-spacing:1.2px; color:var(--red-hi); text-transform:uppercase; margin:3.5mm 0 2mm; }
+  .box p { font-size:9.8pt; line-height:1.5; margin-bottom:1.6mm; }
+  .box ul { list-style:none; }
+  .box li { font-size:9.8pt; line-height:1.5; padding-left:5mm; position:relative; margin-bottom:1.6mm; }
+  .box li::before { content:''; position:absolute; left:0; top:2mm; width:1.8mm; height:1.8mm; background:var(--red-hi); border-radius:50%; }
+</style></head><body>
+
+  <div class="page">
+    <div class="kick">Shape de Elite · Protocolo de Treino</div>
+    <h1>TREINO<br><span>UL COSTAS</span> 3X</h1>
+    <div class="fase">Fase 2.0 · Upper Lower com prioridade de costas</div>
+    <div class="rule"></div>
+    <p class="sub">Costas abre a semana e recebe estímulo extra. O resto do corpo continua treinando completo, só não puxa a fila. Roda os dias na ordem abaixo e troca de fase a cada 4 meses.</p>
+    <div class="semana">
+      <div class="t">Ordem da semana</div>
+      <div class="sem-row"><div class="sem-d">D1</div><div>Superiores (A)</div></div><div class="sem-row"><div class="sem-d">D2</div><div>Inferiores</div></div><div class="sem-row"><div class="sem-d">D3</div><div>Superiores (B)</div></div>
+      <div class="sem-nota">A sequência não é aleatória: ela espalha o estímulo da prioridade na semana e evita que um dia pesado atrapalhe o seguinte.</div>
+    </div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+  
+  <div class="page">
+    <div class="dia-kick">Treino UL Costas · Fase 2.0</div>
+    <h2>DIA 1<span> · Superiores (A)</span></h2>
+    <div class="dia-sub">10 exercícios · toca no nome do exercício pra abrir o vídeo</div>
+    <div class="tbl">
+      <table>
+        <tr><th>Exercício</th><th class="c">Séries</th><th>Repetições</th><th>Descanso</th></tr>
+        <tr>
+          <td class="ex"><a href="https://youtube.com/shorts/aKnnaE4Srik?feature=share"><span class="play">▶</span>Remada Pronada na Máquina</a></td>
+          <td class="ser c">2X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">90 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/PH15eTd1gz8?feature=share"><span class="play">▶</span>Remada Curvada Pronada</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">6 a 10</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/TkrV_XAWkWQ?feature=share"><span class="play">▶</span>Puxada Alta Pronada</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/18zzI-hIBmI?feature=share"><span class="play">▶</span>Remada Baixa Aberta</a></td>
+          <td class="ser c">3X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">90 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/7E9d83utgeQ?feature=share"><span class="play">▶</span>Supino Inclinado na Máquina</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://www.youtube.com/shorts/nVOhlOZleYU"><span class="play">▶</span>Crucifixo Inclinado no Cross</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">10 a 15</td>
+          <td class="itv">60 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/CB2ILB5Cxt8?feature=share"><span class="play">▶</span>Desenvolvimento na Máquina</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/_JmPPXSEu7g?feature=share"><span class="play">▶</span>Elevação Lateral</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">12 a 15</td>
+          <td class="itv">60 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/2FITOCQL9tg?feature=share"><span class="play">▶</span>Rosca Direta no Cross</a></td>
+          <td class="ser c">3X</td>
+          <td class="rep">10 a 15</td>
+          <td class="itv">60 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/B6XoThm5WV8?feature=share"><span class="play">▶</span>Tríceps Pulley com Corda</a></td>
+          <td class="ser c">3X</td>
+          <td class="rep">10 a 15</td>
+          <td class="itv">60 seg</td>
+          
+        </tr>
+      </table>
+    </div>
+    <div class="video-hint">Primeira série do primeiro exercício de cada grupo sempre leve: é o teu aquecimento.</div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+  <div class="page">
+    <div class="dia-kick">Treino UL Costas · Fase 2.0</div>
+    <h2>DIA 2<span> · Inferiores</span></h2>
+    <div class="dia-sub">9 exercícios · toca no nome do exercício pra abrir o vídeo</div>
+    <div class="tbl">
+      <table>
+        <tr><th>Exercício</th><th class="c">Séries</th><th>Repetições</th><th>Descanso</th></tr>
+        <tr>
+          <td class="ex"><a href="https://youtube.com/shorts/GU50bAdOVSE?feature=share"><span class="play">▶</span>Agachamento Livre</a></td>
+          <td class="ser c">2X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/YQUOhH7WS8k?feature=share"><span class="play">▶</span>Agachamento Smith</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">6 a 10</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/6FmL-TtSfCw?feature=share"><span class="play">▶</span>Leg Press 45º</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/f8DGVIRmoII?feature=share"><span class="play">▶</span>Cadeira Extensora</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">10 a 15</td>
+          <td class="itv">60 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/qU3LrpKOjeM?feature=share"><span class="play">▶</span>Mesa Flexora</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">10 a 15</td>
+          <td class="itv">90 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/81NOh8FbDhw?feature=share"><span class="play">▶</span>Cadeira Flexora</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">10 a 15</td>
+          <td class="itv">90 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/9Mciz8WEufw?feature=share"><span class="play">▶</span>Elevação Pélvica na Máquina</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/fFYs_tMI2Og?feature=share"><span class="play">▶</span>Panturrilha em Pé</a></td>
+          <td class="ser c">5X</td>
+          <td class="rep">15 a 20</td>
+          <td class="itv">60 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/vm_dOH7OUxU?feature=share"><span class="play">▶</span>Abdominal no Banco Declinado</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">15</td>
+          <td class="itv">60 seg</td>
+          
+        </tr>
+      </table>
+    </div>
+    <div class="video-hint">Primeira série do primeiro exercício de cada grupo sempre leve: é o teu aquecimento.</div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+  <div class="page">
+    <div class="dia-kick">Treino UL Costas · Fase 2.0</div>
+    <h2>DIA 3<span> · Superiores (B)</span></h2>
+    <div class="dia-sub">9 exercícios · toca no nome do exercício pra abrir o vídeo</div>
+    <div class="tbl">
+      <table>
+        <tr><th>Exercício</th><th class="c">Séries</th><th>Repetições</th><th>Descanso</th></tr>
+        <tr>
+          <td class="ex"><a href="https://youtube.com/shorts/PH15eTd1gz8?feature=share"><span class="play">▶</span>Remada Curvada Pronada</a></td>
+          <td class="ser c">2X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/aKnnaE4Srik?feature=share"><span class="play">▶</span>Remada Pronada na Máquina</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">6 a 10</td>
+          <td class="itv">90 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/Kdsb7qeG438?feature=share"><span class="play">▶</span>Puxada Alta Supinada</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/KH1I8eWYIFk?feature=share"><span class="play">▶</span>Supino Inclinado com Halteres</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/TDbrCjGA684?feature=share"><span class="play">▶</span>Crucifixo Inclinado</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">10 a 15</td>
+          <td class="itv">60 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/e1o-hdUnlug?feature=share"><span class="play">▶</span>Desenvolvimento com Halteres</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">8 a 12</td>
+          <td class="itv">120 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/_s2ateLp2OA?feature=share"><span class="play">▶</span>Elevação Lateral Parcial no Cross</a></td>
+          <td class="ser c">4X</td>
+          <td class="rep">12 a 15</td>
+          <td class="itv">60 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/pPzzZ2YNcuA?feature=share"><span class="play">▶</span>Rosca Scott Fechada</a></td>
+          <td class="ser c">3X</td>
+          <td class="rep">10 a 15</td>
+          <td class="itv">60 seg</td>
+          
+        </tr><tr>
+          <td class="ex"><a href="https://youtube.com/shorts/TMayrk10ovs?feature=share"><span class="play">▶</span>Tríceps Pulley com Barra</a></td>
+          <td class="ser c">3X</td>
+          <td class="rep">10 a 15</td>
+          <td class="itv">60 seg</td>
+          
+        </tr>
+      </table>
+    </div>
+    <div class="video-hint">Primeira série do primeiro exercício de cada grupo sempre leve: é o teu aquecimento.</div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+  
+  <div class="page">
+    <div class="dia-kick">Leitura obrigatória</div>
+    <h2>Como executar <span>cada série</span></h2>
+    <div class="dia-sub"></div>
+    <div class="box"><div class="bt">A FÍSICA DO MOVIMENTO</div><ul></ul><p>Fase Positiva (Concêntrica): Explosão em 1 segundo. SOPRE o ar.</p><ul></ul><p>Fase Negativa (Excêntrica): Controle em 2 a 3 segundos. PUXE o ar. Nunca despenque o peso.</p><ul></ul><div class="sh">DICIONÁRIO DE INTENSIDADE</div><ul><li>Isometria: Pausar e segurar o movimento travado no ponto de maior tensão. Esmague o músculo por 2 segundos.</li><li>Bi-Set: Dois exercícios na sequência, SEM descanso entre eles. Só descansa ao terminar os dois.</li><li>Drop-Set: Falha total → Reduzir carga (20-30%) → Falha novamente. Execução contínua sem descanso.</li><li>Drop Mecânico: Falha com postura estrita → mude levemente a biomecânica → faça reps extras com a MESMA carga. Aqui você NÃO diminui o peso.</li></ul><div class="sh">PROTOCOLOS DE SÉRIES</div><ul><li>Padrão de Margem (Ex: 4X 8-12): 1ª série = aquecimento (carga leve). 2ª = ajuste (carga média). 3ª e 4ª = AS VALENDO (carga pesada, falha entre 8-12 reps). Se fez 13, aumente.</li><li>Piramidal (Ex: 15-20 | 10-15 | 8-12 | 6-10): Repetições caem, peso sobe OBRIGATORIAMENTE. Última série = carga MÁXIMA possível.</li><li>Aclimatização (Ex: 12-15 | 4-6 | 8-12): Aquecimento leve → O Truque Neuro (4-6 reps com carga PESADA) → A Principal (8-12 reps, carga alta + falha total).</li><li>Progressão Pura (Ex: 4X10): Carga SOBE a cada série. Repetições NÃO diminuem (tem que bater as 10). Roubar é permitido nas últimas reps.</li></ul><div class="sh">AQUECIMENTO INTELIGENTE</div><ul><li>Articulação fria (1º exercício do grupo)? → 1ª série OBRIGATORIAMENTE leve.</li><li>Articulação já aquecida (já trabalhou hoje)? → Pule o peso leve, inicie com carga média/alta.</li></ul><div class="sh">REGISTRO E ANOTAÇÕES</div><ul></ul><p>Anote APENAS a carga da ÚLTIMA SÉRIE (a série da falha total).</p><ul></ul><p>Essa será sua meta de peso a ser batida no próximo treino.</p><ul></ul></div><div class="box"><div class="bt">RESUMO</div><ul><li>Subida: 1 segundo (explosão), SOPRE</li><li>Descida: 2-3 segundos (controle), PUXE o ar</li><li>Séries SEMPRE progressivas (carga aumenta)</li><li>Anote a carga da última série</li></ul></div>
+    <div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>
+  </div>
+</body></html>
