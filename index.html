@@ -1550,11 +1550,12 @@
     <div class="progress-dot" data-step="7"></div>
     <div class="progress-dot" data-step="8"></div>
     <div class="progress-dot" data-step="9"></div>
+    <div class="progress-dot" data-step="10"></div>
   </div>
 
   <div class="screen active" id="o1">
     <h1>Monta teu protocolo em 1 minuto</h1>
-    <p class="hint">Responde 7 perguntas. Vou te indicar a dieta e o treino certos pro teu perfil, na ordem certa de rodar a semana. Depois é só seguir.</p>
+    <p class="hint">Responde 8 perguntas. Vou te indicar a dieta e o treino certos pro teu perfil, na ordem certa de rodar a semana. Depois é só seguir.</p>
     <button class="btn" onclick="oNext()">Começar</button>
     <button class="btn ghost" onclick="logout()">Sair</button>
   </div>
@@ -1627,6 +1628,18 @@
   </div>
 
   <div class="screen" id="o6">
+    <h2>Como tu prefere dividir a semana?</h2>
+    <p class="hint">Isso define o formato do teu treino. A divisão escolhida libera as frequências que fazem sentido pra ela.</p>
+    <button class="option" onclick="selectSplit(this, null)"><strong>Divisão por grupo</strong><span class="desc">O padrão do Método: cada dia foca um grupo. Libera 3x a 6x por semana.</span></button>
+    <button class="option" onclick="selectSplit(this, 'PPL')"><strong>Push Pull Legs</strong><span class="desc">Empurrar, puxar e pernas em ciclo. Libera 3x ou 6x por semana.</span></button>
+    <button class="option" onclick="selectSplit(this, 'UL')"><strong>Upper Lower</strong><span class="desc">Superiores e inferiores alternados. Libera 4x por semana.</span></button>
+    <div class="btn-group">
+      <button class="btn secondary" onclick="oPrev()">Voltar</button>
+      <button class="btn" onclick="validateSplit()">Continuar</button>
+    </div>
+  </div>
+
+  <div class="screen" id="o7">
     <h2>Quantos dias por semana você vai treinar?</h2>
     <p class="hint">Escolhe o que cabe na tua rotina, não o que tu gostaria.</p>
     <button class="option" onclick="selectDays(this,3)"><strong>3x por semana</strong><span class="desc">Rotina apertada, recuperação maior entre treinos</span></button>
@@ -1639,7 +1652,7 @@
     </div>
   </div>
 
-  <div class="screen" id="o7">
+  <div class="screen" id="o8">
     <h2>Qual músculo tu quer priorizar?</h2>
     <p class="hint">O grupo escolhido abre a semana e ganha um segundo dia de estímulo. O resto do corpo continua treinando normal, só não puxa a fila.</p>
     <div id="o-priority-options"></div>
@@ -1649,7 +1662,7 @@
     </div>
   </div>
 
-  <div class="screen" id="o8">
+  <div class="screen" id="o9">
     <h2>Qual teu nível de treino?</h2>
     <p class="hint">Seja honesto, isso define onde teu protocolo começa.</p>
     <button class="option" onclick="selectLevel(this,'iniciante')"><strong>Iniciante</strong><span class="desc">Nunca treinei sério, voltando depois de muito tempo parado, ou treino sem orientação. Começo do zero, aprendo padrão de execução.</span></button>
@@ -1661,7 +1674,7 @@
     </div>
   </div>
 
-  <div class="screen" id="o9">
+  <div class="screen" id="o10">
     <h2>Teu protocolo</h2>
     <div class="result-grid">
       <div class="result-card"><h3>TMB</h3><div class="big white" id="r-tmb">—</div><div class="small">em repouso</div></div>
@@ -2214,12 +2227,13 @@ let onboard = {
   bf: null, bfAdjust: 0,
   goal: null, goalAdjust: 0,
   days: null,
+  split: null, splitTouched: false,
   priority: null, priorityLabel: null,
   level: null
 };
 
 function initOnboarding() {
-  onboard = { sex: null, age: null, weight: null, height: null, activity: null, activityFactor: null, bf: null, bfAdjust: 0, goal: null, goalAdjust: 0, days: null, priority: null, priorityLabel: null, level: null };
+  onboard = { sex: null, age: null, weight: null, height: null, activity: null, activityFactor: null, bf: null, bfAdjust: 0, goal: null, goalAdjust: 0, days: null, split: null, splitTouched: false, priority: null, priorityLabel: null, level: null };
   state.oScreen = 1;
   document.querySelectorAll('#onboard-screen .screen').forEach(s => s.classList.remove('active'));
   document.getElementById('o1').classList.add('active');
@@ -2239,7 +2253,8 @@ function showOnboardScreen(n) {
   document.querySelectorAll('#onboard-screen .screen').forEach(s => s.classList.remove('active'));
   document.getElementById('o' + n).classList.add('active');
   state.oScreen = n;
-  if (n === 7) renderPriorities();
+  if (n === 8) renderPriorities();
+  if (n === 7) gateDias();
   updateProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -2264,7 +2279,7 @@ const PRIORITY_NONE = { code: 'EQUILIBRADO', label: 'Sem prioridade', desc: 'Div
 
 function renderPriorities() {
   const box = document.getElementById('o-priority-options');
-  const list = (PRIORITIES[onboard.sex] || PRIORITIES.Homem).concat([PRIORITY_NONE]);
+  const list = (PRIORITIES[onboard.sex] || PRIORITIES.Homem).concat(onboard.split ? [] : [PRIORITY_NONE]);
   if (onboard.priority && !list.some(p => p.code === onboard.priority)) {
     onboard.priority = null; onboard.priorityLabel = null; // trocou o sexo no voltar
   }
@@ -2290,8 +2305,41 @@ function validatePriority() {
   oNext();
 }
 
-function oNext() { showOnboardScreen(state.oScreen + 1); }
-function oPrev() { if (state.oScreen > 1) showOnboardScreen(state.oScreen - 1); }
+// Modalidade (o6) é só masculina: mulher pula a tela (split fica null = divisão padrão)
+function skipSplitScreen() { return onboard.sex === 'Mulher'; }
+function oNext() {
+  let n = state.oScreen + 1;
+  if (n === 6 && skipSplitScreen()) { onboard.split = null; n = 7; }
+  showOnboardScreen(n);
+}
+function oPrev() {
+  if (state.oScreen <= 1) return;
+  let n = state.oScreen - 1;
+  if (n === 6 && skipSplitScreen()) n = 5;
+  showOnboardScreen(n);
+}
+const SPLIT_DAYS = { PPL: [3, 6], UL: [4] };
+function selectSplit(el, split) {
+  document.querySelectorAll('#o6 .option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  onboard.split = split;
+  onboard.splitTouched = true;
+  if (onboard.days && split && !SPLIT_DAYS[split].includes(onboard.days)) onboard.days = null;
+}
+function validateSplit() {
+  if (!onboard.splitTouched) { alert('Escolhe como tu prefere dividir a semana.'); return; }
+  oNext();
+}
+function gateDias() {
+  const allowed = onboard.split ? SPLIT_DAYS[onboard.split] : [3, 4, 5, 6];
+  document.querySelectorAll('#o7 .option').forEach(o => {
+    const d = parseInt((o.querySelector('strong') || {}).textContent);
+    const ok = allowed.includes(d);
+    o.style.display = ok ? '' : 'none';
+    if (!ok && onboard.days === d) onboard.days = null;
+    if (ok && onboard.days === d) o.classList.add('selected');
+  });
+}
 
 function selectSex(el, v) {
   document.querySelectorAll('[data-sex]').forEach(o => o.classList.remove('selected'));
@@ -2317,7 +2365,7 @@ function selectGoal(el, name, adj) {
   onboard.goalAdjust = adj;
 }
 function selectDays(el, d) {
-  document.querySelectorAll('#o6 .option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('#o7 .option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   onboard.days = d;
 }
@@ -2327,7 +2375,7 @@ function validateDays() {
 }
 
 function selectLevel(el, v) {
-  document.querySelectorAll('#o8 .option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('#o9 .option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   onboard.level = v;
 }
@@ -2380,7 +2428,7 @@ async function calculate() {
   const femSuffix = onboard.sex === 'Mulher' ? ' FEM' : '';
   const isPrio = onboard.priority && onboard.priority !== 'EQUILIBRADO';
   const workout = isPrio
-    ? 'TREINO ' + onboard.priorityLabel.toUpperCase() + ' ' + onboard.days + 'X 1.0'
+    ? 'TREINO ' + (onboard.split ? onboard.split + ' ' : '') + onboard.priorityLabel.toUpperCase() + ' ' + onboard.days + 'X 1.0'
     : 'TREINO' + femSuffix + ' ' + onboard.days + 'X 1.0';
 
   // Macros
@@ -3257,7 +3305,7 @@ function getTreinoKey(p) {
   // Sem prioridade (aluno antigo ou "Sem prioridade"): "F_4X_2.0" / "M_4X_1.0", caminho antigo INTOCADO.
   const sex = p.sex === 'Mulher' ? 'F' : 'M';
   const phase = p.treinoPhase || p.phase || '1.0';
-  if (p.priority && p.priority !== 'EQUILIBRADO') return `${sex}_${p.priority}_${p.days}X_${phase}`;
+  if (p.priority && p.priority !== 'EQUILIBRADO') return `${sex}_${p.split ? p.split + '_' : ''}${p.priority}_${p.days}X_${phase}`;
   return `${sex}_${p.days}X_${phase}`;
 }
 
@@ -3347,10 +3395,10 @@ function renderTreino() {
   const hasPrio = p.priority && p.priority !== 'EQUILIBRADO';
   const sex = p.sex === 'Mulher' ? 'FEM_' : '';
   const pdfUrl = hasPrio
-    ? `pdfs/treinos/${p.priority}_${p.days}X_${treinoPhase}.pdf`
+    ? `pdfs/treinos/${p.split ? p.split + '_' : ''}${p.priority}_${p.days}X_${treinoPhase}.pdf`
     : `pdfs/treinos/TREINO_${sex}${p.days}X_${treinoPhase}.pdf`;
   const pdfFile = hasPrio
-    ? `TREINO ${(p.priorityLabel || p.priority).toUpperCase()} ${p.days}X ${treinoPhase}.pdf`
+    ? `TREINO ${p.split ? p.split + ' ' : ''}${(p.priorityLabel || p.priority).toUpperCase()} ${p.days}X ${treinoPhase}.pdf`
     : `TREINO ${p.sex === 'Mulher' ? 'FEM ' : ''}${p.days}X ${treinoPhase}.pdf`;
 
   c.innerHTML = `
