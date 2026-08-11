@@ -1682,7 +1682,7 @@
       </div>
     </div>
     <div class="result-card"><h3>🍽️ TUA DIETA</h3><div class="big" id="r-diet">—</div><div class="small">Vai aparecer formatada na aba DIETA do app.</div></div>
-    <div class="result-card"><h3>💪 TEU TREINO</h3><div class="big" id="r-workout">—</div><div class="small">Vai aparecer formatado na aba TREINO. Começa na versão 1.0. Troca a cada 4 meses.</div></div>
+    <div class="result-card"><h3>💪 TEU TREINO</h3><div class="big" id="r-workout">—</div><div class="small">Vai aparecer formatado na aba TREINO. Começa na versão 1.0. Troca a cada 90 dias, são 4 níveis no ano.</div></div>
     <button class="btn" onclick="finishOnboarding()">Acessar meu protocolo</button>
     <button class="btn secondary" onclick="restartOnboarding()">Recalcular</button>
   </div>
@@ -2955,8 +2955,13 @@ const FTW_SUPLEMENTOS = [
 // FOTOS DE PROGRESSO (4 ângulos por FASE do protocolo, igual Peitão)
 // Local no aparelho (IndexedDB); backup no Drive via /api/fotos quando configurado.
 // ═══════════════════════════════════════════════════════════
+// TREINO: 4 blocos de 90 dias no ano (1.0 → 2.0 → 3.0 → 4.0).
+// DIETA: segue em 3 fases (decisão do GH: o degrau de kcal não acompanha o trimestre).
+const PHASES_TREINO = ['1.0', '2.0', '3.0', '4.0'];
+const PHASES_DIETA = ['1.0', '2.0', '3.0'];
+
 const FOTO_ANGLES = [{ k: 'frente', l: 'Frente' }, { k: 'costas', l: 'Costas' }, { k: 'ladoD', l: 'Lado D' }, { k: 'ladoE', l: 'Lado E' }];
-const FOTO_FASES = ['1.0', '2.0', '3.0'];
+const FOTO_FASES = PHASES_TREINO; // 4 registros no ano, um por bloco de 90 dias
 let _fdb = null;
 function fotosDB() {
   return new Promise((res, rej) => {
@@ -3068,7 +3073,7 @@ function fotosSecHtml() {
   return `
     <div class="foto-card">
       <div class="foto-sec-title">📸 Fotos de progresso</div>
-      <div class="foto-sec-sub">Registra os 4 ângulos no começo de cada fase (a cada 4 meses, quando o protocolo troca). Mesma roupa, mesma luz, mesmo lugar: é assim que a evolução aparece.</div>
+      <div class="foto-sec-sub">Registra os 4 ângulos no começo de cada fase (a cada 90 dias, quando o treino troca). Mesma roupa, mesma luz, mesmo lugar: é assim que a evolução aparece.</div>
       <div class="foto-fases">${FOTO_FASES.map(x => `<button class="foto-fase-chip${x === f ? ' on' : ''}" onclick="setFotoFase('${x}')">Fase ${x}</button>`).join('')}</div>
       <div class="foto-grid">
         ${FOTO_ANGLES.map(a => `<div class="foto-slot" id="fslot-${a.k}"><span class="foto-slot-plus">+</span><span class="foto-slot-label">${a.l}</span></div>`).join('')}
@@ -3081,7 +3086,7 @@ function fotosSecHtml() {
 // Offline-first no localStorage + backup por conta em /api/sets.
 // Caminho de carga é sagrado: snapshot + log append-only no servidor.
 // ═══════════════════════════════════════════════════════════
-const WEEKS_MAX = 18; // fase dura 4 meses
+const WEEKS_MAX = 13; // bloco de treino dura 90 dias
 
 function setsEmail() { return (state.user && state.user.email) || 'anon'; }
 function currentWeekDefault() {
@@ -3313,7 +3318,7 @@ function renderTreino() {
 
   // Card de avançar fase DO TREINO (só aparece se tiver próxima fase)
   const treinoPhase = p.treinoPhase || p.phase || '1.0';
-  const next = getNextPhase(treinoPhase);
+  const next = getNextPhase(treinoPhase, 'treino');
   const tInfo = getPhaseUnlockInfo('treino');
   let phaseUpgradeHtml;
   if (next) {
@@ -3332,8 +3337,8 @@ function renderTreino() {
     phaseUpgradeHtml = `
       <div class="phase-upgrade-card">
         <div class="phase-upgrade-title">FASE MÁXIMA DE TREINO</div>
-        <div class="phase-upgrade-headline">Treino 3.0 🏆</div>
-        <div class="phase-upgrade-desc">Esse é o nível mais alto de treino do método. Roda enquanto tiver evoluindo.</div>
+        <div class="phase-upgrade-headline">Treino ${treinoPhase} 🏆</div>
+        <div class="phase-upgrade-desc">Esse é o nível mais alto de treino do método, a especialização final na tua prioridade. Roda enquanto tiver evoluindo.</div>
       </div>
     `;
   }
@@ -3802,10 +3807,10 @@ document.addEventListener('click', e => {
 const DIET_ORDER = ['1.3K','1.5K','1.8K','2K','2.2K','2.5K','2.7K','3K','3.2K','3.5K'];
 const DIET_KCAL  = { '1.3K':1300, '1.5K':1500, '1.8K':1800, '2K':2000, '2.2K':2200, '2.5K':2500, '2.7K':2700, '3K':3000, '3.2K':3200, '3.5K':3500 };
 
-function getNextPhase(cur) {
-  if (cur === '1.0') return '2.0';
-  if (cur === '2.0') return '3.0';
-  return null;
+function getNextPhase(cur, kind) {
+  const list = kind === 'dieta' ? PHASES_DIETA : PHASES_TREINO;
+  const i = list.indexOf(cur);
+  return (i >= 0 && i < list.length - 1) ? list[i + 1] : null;
 }
 
 // Janela inicial de 8 dias após cadastro, sai da garantia 7d Greenn,
@@ -4086,7 +4091,7 @@ function renderDieta() {
 
   // Card de avançar fase DA DIETA
   const dietaPhase = p.dietaPhase || p.phase || '1.0';
-  const nextDieta = getNextPhase(dietaPhase);
+  const nextDieta = getNextPhase(dietaPhase, 'dieta');
   const dInfo = getPhaseUnlockInfo('dieta');
   let dietaUpgradeHtml;
   if (nextDieta) {
