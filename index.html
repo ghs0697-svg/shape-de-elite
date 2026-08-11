@@ -1632,7 +1632,8 @@
     <p class="hint">Isso define o formato do teu treino. A divisão escolhida libera as frequências que fazem sentido pra ela.</p>
     <button class="option" onclick="selectSplit(this, null)"><strong>Divisão por grupo</strong><span class="desc">O padrão do Método: cada dia foca um grupo. Libera 3x a 6x por semana.</span></button>
     <button class="option" onclick="selectSplit(this, 'PPL')"><strong>Push Pull Legs</strong><span class="desc">Empurrar, puxar e pernas em ciclo. Libera 3x ou 6x por semana.</span></button>
-    <button class="option" onclick="selectSplit(this, 'UL')"><strong>Upper Lower</strong><span class="desc">Superiores e inferiores alternados. Libera 4x por semana.</span></button>
+    <button class="option" onclick="selectSplit(this, 'UL')"><strong>Upper Lower</strong><span class="desc">Superiores e inferiores alternados. Libera 3x a 6x por semana.</span></button>
+    <button class="option" onclick="selectSplit(this, 'FULL')"><strong>Full body</strong><span class="desc">Corpo inteiro em cada treino. Pra quem só consegue 2x por semana.</span></button>
     <div class="btn-group">
       <button class="btn secondary" onclick="oPrev()">Voltar</button>
       <button class="btn" onclick="validateSplit()">Continuar</button>
@@ -1642,10 +1643,12 @@
   <div class="screen" id="o7">
     <h2>Quantos dias por semana você vai treinar?</h2>
     <p class="hint">Escolhe o que cabe na tua rotina, não o que tu gostaria.</p>
+    <button class="option" onclick="selectDays(this,2)"><strong>2x por semana</strong><span class="desc">Full body: corpo inteiro nos dois treinos</span></button>
     <button class="option" onclick="selectDays(this,3)"><strong>3x por semana</strong><span class="desc">Rotina apertada, recuperação maior entre treinos</span></button>
     <button class="option" onclick="selectDays(this,4)"><strong>4x por semana</strong><span class="desc">Equilíbrio entre frequência e descanso</span></button>
     <button class="option" onclick="selectDays(this,5)"><strong>5x por semana</strong><span class="desc">Evolução mais rápida, exige disciplina</span></button>
     <button class="option" onclick="selectDays(this,6)"><strong>6x por semana</strong><span class="desc">Volume máximo, pra quem já treina há tempos</span></button>
+    <button class="option" onclick="selectDays(this,7)"><strong>7x por semana</strong><span class="desc">Todos os dias, divisão por grupo</span></button>
     <div class="btn-group">
       <button class="btn secondary" onclick="oPrev()">Voltar</button>
       <button class="btn" onclick="validateDays()">Continuar</button>
@@ -2282,7 +2285,7 @@ function renderPriorities() {
   const box = document.getElementById('o-priority-options');
   let list = (PRIORITIES[onboard.sex] || PRIORITIES.Homem).concat(onboard.split ? [] : [PRIORITY_NONE]);
   // UL feminino: Superiores vira escolha por músculo (costas ou ombro decide qual upper abre)
-  if (onboard.split === 'UL' && onboard.sex === 'Mulher') {
+  if ((onboard.split === 'UL' || onboard.split === 'FULL') && onboard.sex === 'Mulher') {
     list = list.filter(p => p.code !== 'SUPERIORES').concat([
       { code: 'SUPERIORES_COSTAS', label: 'Superiores (Costas)', desc: 'Foco em costas: a semana abre em inferior e o primeiro treino de superiores é de puxar.' },
       { code: 'SUPERIORES_OMBRO', label: 'Superiores (Ombro)', desc: 'Foco em ombro: a semana abre em inferior e o primeiro treino de superiores é de empurrar.' }
@@ -2324,7 +2327,7 @@ function gateSplitOptions() {
   });
   if (onboard.sex === 'Mulher' && onboard.split === 'PPL') { onboard.split = null; onboard.splitTouched = false; opts.forEach(o => o.classList.remove('selected')); }
 }
-const SPLIT_DAYS = { PPL: [3, 4, 5, 6], UL: [3, 4, 5, 6] }; // matriz completa da Criadora (PPL só masc; UL masc e fem)
+const SPLIT_DAYS = { PPL: [3, 4, 5, 6], UL: [3, 4, 5, 6], FULL: [2] }; // PPL só masc; UL e FULL masc e fem; 7x só grupo masc
 function selectSplit(el, split) {
   document.querySelectorAll('#o6 .option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
@@ -2337,7 +2340,7 @@ function validateSplit() {
   oNext();
 }
 function gateDias() {
-  const allowed = onboard.split ? SPLIT_DAYS[onboard.split] : [3, 4, 5, 6];
+  const allowed = onboard.split ? SPLIT_DAYS[onboard.split] : (onboard.sex === 'Mulher' ? [3, 4, 5, 6] : [3, 4, 5, 6, 7]);
   document.querySelectorAll('#o7 .option').forEach(o => {
     const d = parseInt((o.querySelector('strong') || {}).textContent);
     const ok = allowed.includes(d);
@@ -3162,6 +3165,21 @@ function setWeek(w) {
   try { localStorage.setItem('shape_week_' + setsEmail(), String(w)); } catch (e) {}
   renderTreino();
 }
+// ⚡ Modo rápido (backdoor 45min): reduz o descanso exibido/cronometrado. Pisos: composto 60s, isolado 45s.
+const FAST_REST = { '120 seg': '60 seg', '90 seg': '60 seg', '60 seg': '45 seg', '45 seg': '45 seg' };
+function fastModeOn() { try { return localStorage.getItem('shape_fast_' + setsEmail()) === '1'; } catch (e) { return false; } }
+function toggleFastMode() {
+  try { localStorage.setItem('shape_fast_' + setsEmail(), fastModeOn() ? '0' : '1'); } catch (e) {}
+  renderTreino();
+}
+function restDisplay(iv) { return fastModeOn() ? (FAST_REST[String(iv).trim()] || iv) : iv; }
+function fastBarHtml() {
+  const on = fastModeOn();
+  return `<div class="wk-bar" style="margin-bottom:10px;">
+    <div class="wk-label" style="text-align:left;">⚡ <b>Modo rápido</b><br><span style="font-size:10px;">descansos reduzidos, treino em 40 a 50 min</span></div>
+    <button class="wk-nav" style="width:auto;padding:0 14px;font-size:13px;font-weight:800;${on ? 'border-color:var(--red);color:var(--red-hover);background:var(--red-tint);' : ''}" onclick="toggleFastMode()">${on ? 'LIGADO' : 'DESLIGADO'}</button>
+  </div>`;
+}
 function weekBarHtml() {
   const w = getWeek();
   const isNow = w === currentWeekDefault();
@@ -3345,7 +3363,7 @@ function renderTreino() {
         <div class="exercise-meta">
           <div class="exercise-meta-item"><div class="label">SÉRIES</div><div class="val">${ex.series || '—'}</div></div>
           <div class="exercise-meta-item"><div class="label">REPS</div><div class="val">${ex.reps || '—'}</div></div>
-          <div class="exercise-meta-item rest-clickable" onclick="openTimer(${parseRestSeconds(ex.intervalo)}, '${escapeAttr(ex.exercicio)}')" title="Tocar pra iniciar cronômetro"><div class="label">⏱ DESCANSO</div><div class="val">${ex.intervalo || '—'}</div></div>
+          <div class="exercise-meta-item rest-clickable" onclick="openTimer(${parseRestSeconds(restDisplay(ex.intervalo))}, '${escapeAttr(ex.exercicio)}')" title="Tocar pra iniciar cronômetro"><div class="label">⏱ DESCANSO</div><div class="val">${restDisplay(ex.intervalo) || '—'}</div></div>
         </div>
         ${ex.obs ? `<div class="exercise-obs">${ex.obs}</div>` : ''}
         ${setsGridHtml(key + '_d' + state.currentDay, idx, ex.series, ex.exercicio)}
@@ -3411,6 +3429,7 @@ function renderTreino() {
     <h2>${p.workout}</h2>
     <p class="hint">${t.dias.length} dias por semana · Treino Fase ${treinoPhase}</p>
     <a class="btn secondary" href="${pdfUrl}" download="${pdfFile}" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF do treino</a>
+    ${fastBarHtml()}
     ${weekBarHtml()}
     <div class="day-tabs">${dayBtns}</div>
     ${concludeBarHtml}
