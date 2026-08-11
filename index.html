@@ -2280,7 +2280,14 @@ const PRIORITY_NONE = { code: 'EQUILIBRADO', label: 'Sem prioridade', desc: 'Div
 
 function renderPriorities() {
   const box = document.getElementById('o-priority-options');
-  const list = (PRIORITIES[onboard.sex] || PRIORITIES.Homem).concat(onboard.split ? [] : [PRIORITY_NONE]);
+  let list = (PRIORITIES[onboard.sex] || PRIORITIES.Homem).concat(onboard.split ? [] : [PRIORITY_NONE]);
+  // UL feminino: Superiores vira escolha por músculo (costas ou ombro decide qual upper abre)
+  if (onboard.split === 'UL' && onboard.sex === 'Mulher') {
+    list = list.filter(p => p.code !== 'SUPERIORES').concat([
+      { code: 'SUPERIORES_COSTAS', label: 'Superiores (Costas)', desc: 'Foco em costas: a semana abre em inferior e o primeiro treino de superiores é de puxar.' },
+      { code: 'SUPERIORES_OMBRO', label: 'Superiores (Ombro)', desc: 'Foco em ombro: a semana abre em inferior e o primeiro treino de superiores é de empurrar.' }
+    ]);
+  }
   if (onboard.priority && !list.some(p => p.code === onboard.priority)) {
     onboard.priority = null; onboard.priorityLabel = null; // trocou o sexo no voltar
   }
