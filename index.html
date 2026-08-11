@@ -1997,7 +1997,7 @@ function loadState() {
         if (typeof state.protocol.recalcCount !== 'number') state.protocol.recalcCount = 0;
         if (!state.protocol.lockedFromRecalc) state.protocol.lockedFromRecalc = false;
         if (!state.protocol.phaseStartedAt) {
-          // Sem data registrada → assume hoje (legacy users já podem avançar quando completarem 4 meses A PARTIR DE AGORA)
+          // Sem data registrada → assume hoje (legacy users já podem avançar quando completarem o ciclo A PARTIR DE AGORA)
           const now = new Date().toISOString();
           state.protocol.phaseStartedAt = { treino: now, dieta: now };
         }
@@ -2531,7 +2531,7 @@ function restartOnboarding(fromSettings) {
     }
     // Trava 2: já recalculou 1 vez
     if ((p.recalcCount || 0) >= 1) {
-      alert('⛔ RECÁLCULO BLOQUEADO\n\nTu já refez o cálculo uma vez.\n\nCada aluno pode refazer o cálculo APENAS 1 VEZ. Isso evita ficar trocando de protocolo toda hora, o método precisa de pelo menos 4 meses pra mostrar resultado.\n\nSe tu acha que tem algum erro real, fala com o suporte no WhatsApp.');
+      alert('⛔ RECÁLCULO BLOQUEADO\n\nTu já refez o cálculo uma vez.\n\nCada aluno pode refazer o cálculo APENAS 1 VEZ. Isso evita ficar trocando de protocolo toda hora, o método precisa de tempo pra mostrar resultado.\n\nSe tu acha que tem algum erro real, fala com o suporte no WhatsApp.');
       return;
     }
     // Aviso forte antes de prosseguir
@@ -3994,7 +3994,7 @@ async function confirmPhaseUpgrade() {
   const target = phaseUpgrade.targetPhase;
   const kind = phaseUpgrade.kind;
 
-  // Servidor é a fonte de verdade, manda o pedido e ele valida (4 meses, transição, etc)
+  // Servidor é a fonte de verdade, manda o pedido e ele valida (janela, transição, etc)
   const body = { kind, targetPhase: target };
   if (kind === 'treino') {
     if (!phaseUpgrade.newDays) return;
