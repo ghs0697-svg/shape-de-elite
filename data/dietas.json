@@ -2721,7 +2721,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "50g",
+        "quantidade": "40g",
         "obs": "---"
        },
        {
@@ -2736,7 +2736,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "125g",
         "obs": "Livre escolha"
        }
       ],
@@ -2747,7 +2747,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "40g",
+        "quantidade": "25g",
         "obs": "---"
        },
        {
@@ -2757,7 +2757,7 @@
        },
        {
         "alimento": "Ovos",
-        "quantidade": "03 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
@@ -2774,12 +2774,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
+        "obs": "Carne bovina 100g | Frango 100g | Carne suína 110g | Peixe 120g | Atum 120g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
+        "obs": "Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 220g"
        },
        {
         "alimento": "Salada verde",
@@ -2996,7 +2996,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "50g",
+        "quantidade": "40g",
         "obs": "---"
        },
        {
@@ -3011,7 +3011,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "125g",
         "obs": "Livre escolha"
        }
       ],
@@ -3022,7 +3022,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "40g",
+        "quantidade": "25g",
         "obs": "---"
        },
        {
@@ -3032,7 +3032,7 @@
        },
        {
         "alimento": "Ovos",
-        "quantidade": "03 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
@@ -3049,12 +3049,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
+        "obs": "Carne bovina 100g | Frango 100g | Carne suína 110g | Peixe 120g | Atum 120g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
+        "obs": "Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 220g"
        },
        {
         "alimento": "Salada verde",
@@ -3500,7 +3500,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "50g",
         "obs": "---"
        },
        {
@@ -3515,7 +3515,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "125g",
         "obs": "Livre escolha"
        }
       ],
@@ -3526,7 +3526,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "50g",
+        "quantidade": "35g",
         "obs": "---"
        },
        {
@@ -3536,7 +3536,7 @@
        },
        {
         "alimento": "Ovos",
-        "quantidade": "03 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
@@ -3553,12 +3553,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 180g | Frango 185g | Carne suína 190g | Peixe 220g | Atum 220g"
+        "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
+        "obs": "Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 220g"
        },
        {
         "alimento": "Salada verde",
@@ -3775,7 +3775,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "50g",
         "obs": "---"
        },
        {
@@ -3790,7 +3790,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "125g",
         "obs": "Livre escolha"
        }
       ],
@@ -3801,7 +3801,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "50g",
+        "quantidade": "35g",
         "obs": "---"
        },
        {
@@ -3811,7 +3811,7 @@
        },
        {
         "alimento": "Ovos",
-        "quantidade": "03 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
@@ -3828,12 +3828,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 180g | Frango 185g | Carne suína 190g | Peixe 220g | Atum 220g"
+        "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
+        "obs": "Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 220g"
        },
        {
         "alimento": "Salada verde",
@@ -4279,7 +4279,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -4294,7 +4294,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "200g",
+        "quantidade": "175g",
         "obs": "Livre escolha"
        }
       ],
@@ -4305,7 +4305,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "45g",
         "obs": "---"
        },
        {
@@ -4315,7 +4315,7 @@
        },
        {
         "alimento": "Ovos",
-        "quantidade": "03 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
@@ -4332,12 +4332,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 200g | Frango 205g | Carne suína 215g | Peixe 245g | Atum 245g"
+        "obs": "Carne bovina 120g | Frango 130g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 250g | Massa 235g | Mandioca 235g | Batata inglesa 410g"
+        "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 260g"
        },
        {
         "alimento": "Salada verde",
@@ -4554,7 +4554,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -4569,7 +4569,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "200g",
+        "quantidade": "175g",
         "obs": "Livre escolha"
        }
       ],
@@ -4580,7 +4580,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "45g",
         "obs": "---"
        },
        {
@@ -4590,7 +4590,7 @@
        },
        {
         "alimento": "Ovos",
-        "quantidade": "03 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
@@ -4607,12 +4607,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 200g | Frango 205g | Carne suína 215g | Peixe 245g | Atum 245g"
+        "obs": "Carne bovina 120g | Frango 130g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 250g | Massa 235g | Mandioca 235g | Batata inglesa 410g"
+        "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 260g"
        },
        {
         "alimento": "Salada verde",
@@ -5816,7 +5816,7 @@
        },
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -5826,7 +5826,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "125g",
         "obs": "Livre escolha"
        }
       ],
@@ -5837,7 +5837,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "70g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -5852,7 +5852,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "200g",
+        "quantidade": "175g",
         "obs": "Livre escolha"
        }
       ],
@@ -5863,7 +5863,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "45g",
         "obs": "---"
        },
        {
@@ -5873,12 +5873,12 @@
        },
        {
         "alimento": "Ovos",
-        "quantidade": "04 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "100g",
         "obs": "Livre escolha"
        }
       ],
@@ -5890,12 +5890,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+        "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
+        "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
         "alimento": "Salada verde",
@@ -6091,7 +6091,7 @@
        },
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -6101,7 +6101,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "125g",
         "obs": "Livre escolha"
        }
       ],
@@ -6112,7 +6112,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "70g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -6127,7 +6127,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "200g",
+        "quantidade": "175g",
         "obs": "Livre escolha"
        }
       ],
@@ -6138,7 +6138,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "45g",
         "obs": "---"
        },
        {
@@ -6148,12 +6148,12 @@
        },
        {
         "alimento": "Ovos",
-        "quantidade": "04 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "100g",
         "obs": "Livre escolha"
        }
       ],
@@ -6165,12 +6165,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+        "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
+        "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
         "alimento": "Salada verde",
@@ -6590,12 +6590,12 @@
       "alimentos": [
        {
         "alimento": "Whey protein",
-        "quantidade": "2 doses",
+        "quantidade": "1.5 dose",
         "obs": "---"
        },
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -6605,7 +6605,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "125g",
         "obs": "Livre escolha"
        }
       ],
@@ -6616,12 +6616,12 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
         "alimento": "Whey protein",
-        "quantidade": "1.5 dose",
+        "quantidade": "1 dose",
         "obs": "---"
        },
        {
@@ -6631,7 +6631,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "200g",
+        "quantidade": "175g",
         "obs": "Livre escolha"
        }
       ],
@@ -6642,22 +6642,22 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "45g",
         "obs": "---"
        },
        {
         "alimento": "Whey protein",
-        "quantidade": "1.5 dose",
+        "quantidade": "1 dose",
         "obs": "---"
        },
        {
         "alimento": "Ovos",
-        "quantidade": "04 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "100g",
         "obs": "Livre escolha"
        }
       ],
@@ -6669,12 +6669,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+        "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
+        "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
         "alimento": "Salada verde",
@@ -6865,12 +6865,12 @@
       "alimentos": [
        {
         "alimento": "Whey protein",
-        "quantidade": "2 doses",
+        "quantidade": "1.5 dose",
         "obs": "---"
        },
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -6880,7 +6880,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "125g",
         "obs": "Livre escolha"
        }
       ],
@@ -6891,12 +6891,12 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
         "alimento": "Whey protein",
-        "quantidade": "1.5 dose",
+        "quantidade": "1 dose",
         "obs": "---"
        },
        {
@@ -6906,7 +6906,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "200g",
+        "quantidade": "175g",
         "obs": "Livre escolha"
        }
       ],
@@ -6917,22 +6917,22 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "45g",
         "obs": "---"
        },
        {
         "alimento": "Whey protein",
-        "quantidade": "1.5 dose",
+        "quantidade": "1 dose",
         "obs": "---"
        },
        {
         "alimento": "Ovos",
-        "quantidade": "04 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "100g",
         "obs": "Livre escolha"
        }
       ],
@@ -6944,12 +6944,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+        "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
+        "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
         "alimento": "Salada verde",
@@ -7374,7 +7374,7 @@
        },
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -7384,7 +7384,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "125g",
         "obs": "Livre escolha"
        }
       ],
@@ -7395,7 +7395,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "70g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -7410,7 +7410,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "200g",
+        "quantidade": "175g",
         "obs": "Livre escolha"
        }
       ],
@@ -7421,7 +7421,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "45g",
         "obs": "---"
        },
        {
@@ -7431,12 +7431,12 @@
        },
        {
         "alimento": "Ovos",
-        "quantidade": "04 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "100g",
         "obs": "Livre escolha"
        }
       ],
@@ -7448,12 +7448,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+        "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
+        "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
         "alimento": "Salada verde",
@@ -7649,7 +7649,7 @@
        },
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -7659,7 +7659,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "125g",
         "obs": "Livre escolha"
        }
       ],
@@ -7670,7 +7670,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "70g",
+        "quantidade": "55g",
         "obs": "---"
        },
        {
@@ -7685,7 +7685,7 @@
        },
        {
         "alimento": "Frutas",
-        "quantidade": "200g",
+        "quantidade": "175g",
         "obs": "Livre escolha"
        }
       ],
@@ -7696,7 +7696,7 @@
       "alimentos": [
        {
         "alimento": "Aveia",
-        "quantidade": "60g",
+        "quantidade": "45g",
         "obs": "---"
        },
        {
@@ -7706,12 +7706,12 @@
        },
        {
         "alimento": "Ovos",
-        "quantidade": "04 unidades",
+        "quantidade": "02 unidades",
         "obs": "Mexidos ou cozidos"
        },
        {
         "alimento": "Frutas",
-        "quantidade": "150g",
+        "quantidade": "100g",
         "obs": "Livre escolha"
        }
       ],
@@ -7723,12 +7723,12 @@
        {
         "alimento": "Proteína",
         "quantidade": "escolher uma",
-        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+        "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
         "quantidade": "escolher um",
-        "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
+        "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
         "alimento": "Salada verde",
