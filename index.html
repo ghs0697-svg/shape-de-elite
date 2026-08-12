@@ -3384,8 +3384,9 @@ function renderTreino() {
     </div>
   `;
 
+  const noDash = s => String(s || '').replace(/\s*—\s*/g, ', ');
   const extrasHtml = (t.extras || []).map(ex =>
-    `<details class="result-card" style="cursor:pointer;"><summary style="font-weight:700;font-size:13px;color:var(--red);letter-spacing:.5px;">${ex.titulo}</summary><div class="small mt-2" style="white-space:pre-wrap;line-height:1.5;">${ex.conteudo}</div></details>`
+    `<details class="result-card" style="cursor:pointer;"><summary style="font-weight:700;font-size:13px;color:var(--red);letter-spacing:.5px;">${noDash(ex.titulo)}</summary><div class="small mt-2" style="white-space:pre-wrap;line-height:1.5;">${noDash(ex.conteudo)}</div></details>`
   ).join('');
 
   // Card de avançar fase DO TREINO (só aparece se tiver próxima fase)
