@@ -1551,6 +1551,7 @@
     <div class="progress-dot" data-step="8"></div>
     <div class="progress-dot" data-step="9"></div>
     <div class="progress-dot" data-step="10"></div>
+    <div class="progress-dot" data-step="11"></div>
   </div>
 
   <div class="screen active" id="o1">
@@ -1673,11 +1674,23 @@
     <button class="option" onclick="selectLevel(this,'avancado')"><strong>Avançado</strong><span class="desc">Treino sério há vários anos, dominio total da execução, busco performance e estética acima da média. Vou direto pro nível máximo.</span></button>
     <div class="btn-group">
       <button class="btn secondary" onclick="oPrev()">Voltar</button>
-      <button class="btn" onclick="validateLevel()">Calcular meu protocolo</button>
+      <button class="btn" onclick="validateLevel()">Continuar</button>
     </div>
   </div>
 
   <div class="screen" id="o10">
+    <h2>Quantas refeições por dia?</h2>
+    <p class="hint">Mesmas calorias e mesmos macros nas três opções. Escolhe o que cabe na tua rotina de verdade.</p>
+    <button class="option" onclick="selectRefs(this,'3R')"><strong>3 refeições</strong><span class="desc">Café, almoço e janta. Refeições maiores, menos vezes na cozinha.</span></button>
+    <button class="option" onclick="selectRefs(this,'4R')"><strong>4 refeições</strong><span class="desc">O padrão do Método: café, almoço, lanche e janta.</span></button>
+    <button class="option" onclick="selectRefs(this,'5R')"><strong>5 refeições</strong><span class="desc">Com lanche da manhã e da tarde. Refeições menores, come de pouco em pouco.</span></button>
+    <div class="btn-group">
+      <button class="btn secondary" onclick="oPrev()">Voltar</button>
+      <button class="btn" onclick="validateRefs()">Calcular meu protocolo</button>
+    </div>
+  </div>
+
+  <div class="screen" id="o11">
     <h2>Teu protocolo</h2>
     <div class="result-grid">
       <div class="result-card"><h3>TMB</h3><div class="big white" id="r-tmb">—</div><div class="small">em repouso</div></div>
@@ -2390,6 +2403,15 @@ function selectLevel(el, v) {
 }
 function validateLevel() {
   if (!onboard.level) { alert('Selecione teu nível de treino.'); return; }
+  oNext();
+}
+function selectRefs(el, v) {
+  document.querySelectorAll('#o10 .option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  onboard.refeicoes = v;
+}
+function validateRefs() {
+  if (!onboard.refeicoes) { alert('Escolhe quantas refeições por dia.'); return; }
   calculate();
 }
 
@@ -2411,6 +2433,7 @@ async function calculate() {
   if (!onboard.goal) { alert('Selecione o objetivo.'); return; }
   if (!onboard.days) { alert('Selecione quantos dias vai treinar.'); return; }
   if (!onboard.priority) { alert('Escolhe qual músculo tu quer priorizar.'); return; }
+  if (!onboard.refeicoes) { alert('Escolhe quantas refeições por dia.'); return; }
 
   // TMB Mifflin-St Jeor
   let tmb = onboard.sex === 'Homem'
@@ -2455,7 +2478,7 @@ async function calculate() {
   if (onboard.goalAdjust < 0) adjusts.push('−' + Math.abs(onboard.goalAdjust) + ' kcal (' + onboard.goal.toLowerCase() + ')');
   else if (onboard.goalAdjust > 0) adjusts.push('+' + onboard.goalAdjust + ' kcal (' + onboard.goal.toLowerCase() + ')');
   document.getElementById('r-adjusts').textContent = adjusts.length ? 'Ajustes: ' + adjusts.join(' · ') : 'Sem ajustes.';
-  document.getElementById('r-diet').textContent = diet;
+  document.getElementById('r-diet').textContent = diet + ({ '3R': ' · 3 refeições', '4R': ' · 4 refeições', '5R': ' · 5 refeições' }[onboard.refeicoes] || '');
   document.getElementById('r-workout').textContent = workout;
   document.getElementById('r-prot').textContent = protein;
   document.getElementById('r-carb').textContent = carb;
@@ -4113,8 +4136,10 @@ document.addEventListener('keydown', e => {
 // DIETA RENDER
 // ═══════════════════════════════════════════════════════════
 function getDietKey(p) {
-  // Ex: "DIETA 2K" → "2K"; "DIETA 2.5K" → "2.5K"
-  return p.diet.replace(/^DIETA\s+/, '');
+  // Ex: "DIETA 2K" → "2K"; com escolha de refeições vira "2K_3R"/"2K_5R" (sem campo ou 4R = cânon)
+  const base = p.diet.replace(/^DIETA\s+/, '');
+  const refs = p.refeicoes;
+  return (refs === '3R' || refs === '5R') ? `${base}_${refs}` : base;
 }
 
 function renderDieta() {
@@ -4148,6 +4173,13 @@ function renderDieta() {
       </div>
     `;
   }).join('');
+
+  // TOTAL DIÁRIO em campo próprio no JSON novo; no antigo ele vem dentro de refeicoes e já saiu acima
+  const totalHtml = d.total_diario ? `
+      <div class="meal">
+        <div class="meal-name">${d.total_diario.nome}</div>
+        ${(d.total_diario.opcoes || []).map(o => o.macros ? `<div class="meal-macros">${o.macros.split('|').map(m => `<span>${m.trim()}</span>`).join('')}</div>` : '').join('')}
+      </div>` : '';
 
   const regrasHtml = d.regras_gerais
     ? `<details class="result-card" style="cursor:pointer;"><summary style="font-weight:700;font-size:13px;color:var(--red);letter-spacing:.5px;">📋 Regras gerais</summary><div class="small mt-2" style="white-space:pre-wrap;line-height:1.5;">${d.regras_gerais}</div></details>`
@@ -4193,14 +4225,16 @@ function renderDieta() {
     `;
   }
 
+  const refsLabel = { '3R': '3 refeições', '5R': '5 refeições' }[p.refeicoes] || '4 refeições';
   c.innerHTML = `
     <h2>${p.diet}</h2>
-    <p class="hint">~${p.target} kcal/dia · P ${p.protein}g · C ${p.carb}g · G ${p.fat}g · Dieta Fase ${dietaPhase}</p>
+    <p class="hint">~${p.target} kcal/dia · P ${p.protein}g · C ${p.carb}g · G ${p.fat}g · ${refsLabel} · Dieta Fase ${dietaPhase}</p>
     <div style="display:flex;gap:8px;margin-bottom:14px;">
       <a class="btn secondary" href="${dietPdf}" download="${dietFile}" style="text-decoration:none;text-align:center;margin-top:0;flex:1;">📥 Baixar PDF</a>
       <button class="btn secondary" onclick="openShoppingList()" style="margin-top:0;flex:1;">🛒 Lista de compras</button>
     </div>
     ${refsHtml}
+    ${totalHtml}
     ${regrasHtml}${estiloHtml}${orientHtml}
     ${dietaUpgradeHtml}
   `;

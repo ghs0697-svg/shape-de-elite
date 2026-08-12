@@ -1,4 +1,508 @@
 {
+ "1.3K_3R": {
+  "kcal": 1300,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "2 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "2 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "30g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "15g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "175g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 24g | Carboidrato: 35g | Gordura: 12g | Calorias: 342 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 140g | Frango 145g | Carne suína 150g | Peixe 170g | Atum 170g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 90g | Massa 85g | Mandioca 85g | Batata inglesa 150g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "80g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "60g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 51g | Carboidrato: 55g | Gordura: 8g | Calorias: 500 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "3ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 170g | Frango 145g | Atum 170g | Carne bovina magra 140g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 175g | Abóbora 390g | Mandioca 115g | Arroz 125g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 50g | Carboidrato: 47g | Gordura: 8g | Calorias: 458 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 125g | Carboidrato Total: 137g | Gordura Total: 28g | Calorias Totais: 1300 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 3
+ },
+ "1.3K_5R": {
+  "kcal": 1300,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "1 fatia",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "1 fatia",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "25g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "10g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "75g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 16g | Carboidrato: 21g | Gordura: 10g | Calorias: 224 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: LANCHE DA MANHÃ (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Whey com frutas",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "125g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Iogurte com aveia e frutas",
+      "alimentos": [
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "10g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Ovos com frutas",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 18g | Carboidrato: 18g | Gordura: 2g | Calorias: 158 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "3ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 70g | Frango 70g | Carne suína 75g | Peixe 85g | Atum 85g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 20g | Massa 20g | Mandioca 20g | Batata inglesa 35g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "80g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "60g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 29g | Carboidrato: 35g | Gordura: 6g | Calorias: 328 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "4ª REFEIÇÃO: LANCHE DA TARDE (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Iogurte/Leite com Whey",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "20g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Mingau",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "20g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Leite desnatado",
+        "quantidade": "100ml",
+        "obs": "Ou iogurte zero (100g)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Panqueca/Bolinho com frutas",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "20g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 4: Repeteco do almoço",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 100g | Frango 105g | Carne suína 105g | Peixe 125g | Atum 125g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 100g | Massa 95g | Mandioca 95g | Batata inglesa 165g"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 32g | Carboidrato: 33g | Gordura: 3g | Calorias: 288 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "5ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 95g | Frango 80g | Atum 95g | Carne bovina magra 75g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 90g | Abóbora 200g | Mandioca 60g | Arroz 65g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 30g | Carboidrato: 30g | Gordura: 7g | Calorias: 302 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 125g | Carboidrato Total: 137g | Gordura Total: 28g | Calorias Totais: 1300 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 5
+ },
  "1.3K": {
   "kcal": 1300,
   "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
@@ -257,21 +761,526 @@
      }
     ],
     "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 125g | Carboidrato Total: 137g | Gordura Total: 28g | Calorias Totais: 1300 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 4
+ },
+ "1.5K_3R": {
+  "kcal": 1500,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "30g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "30g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "175g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 27g | Carboidrato: 50g | Gordura: 13g | Calorias: 426 kcal"
+     }
+    ],
+    "obs": []
    },
    {
-    "nome": "TOTAL DIÁRIO",
+    "nome": "2ª REFEIÇÃO: ALMOÇO",
     "opcoes": [
      {
       "nome": "",
-      "alimentos": [],
-      "macros": "Proteína Total: 125g | Carboidrato Total: 137g | Gordura Total: 28g | Calorias Totais: 1300 kcal"
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 160g | Frango 165g | Carne suína 170g | Peixe 195g | Atum 195g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 120g | Massa 110g | Mandioca 110g | Batata inglesa 200g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "80g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "60g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 59g | Carboidrato: 61g | Gordura: 10g | Calorias: 572 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "3ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 195g | Frango 165g | Atum 195g | Carne bovina magra 160g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 210g | Abóbora 465g | Mandioca 140g | Arroz 150g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 56g | Carboidrato: 55g | Gordura: 9g | Calorias: 525 kcal"
      }
     ],
     "obs": []
    }
   ],
   "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
-  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo."
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 142g | Carboidrato Total: 166g | Gordura Total: 32g | Calorias Totais: 1523 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 3
+ },
+ "1.5K_5R": {
+  "kcal": 1500,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "2 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "2 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "25g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "25g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "75g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 18g | Carboidrato: 33g | Gordura: 11g | Calorias: 284 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: LANCHE DA MANHÃ (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Whey com frutas",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "175g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Iogurte com aveia e frutas",
+      "alimentos": [
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "200g",
+        "obs": "Ou leite desnatado (400ml)"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "10g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Ovos com frutas",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "175g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 18g | Carboidrato: 22g | Gordura: 2g | Calorias: 180 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "3ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 90g | Frango 95g | Carne suína 95g | Peixe 110g | Atum 110g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 35g | Massa 35g | Mandioca 35g | Batata inglesa 60g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "80g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "60g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 37g | Carboidrato: 38g | Gordura: 7g | Calorias: 381 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "4ª REFEIÇÃO: LANCHE DA TARDE (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Iogurte/Leite com Whey",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "30g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Mingau",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "30g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Leite desnatado",
+        "quantidade": "100ml",
+        "obs": "Ou iogurte zero (100g)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Panqueca/Bolinho com frutas",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "30g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 4: Repeteco do almoço",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 120g | Massa 110g | Mandioca 110g | Batata inglesa 200g"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 33g | Carboidrato: 40g | Gordura: 4g | Calorias: 328 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "5ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 120g | Frango 100g | Atum 120g | Carne bovina magra 100g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 100g | Abóbora 220g | Mandioca 65g | Arroz 70g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 36g | Carboidrato: 33g | Gordura: 8g | Calorias: 350 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 142g | Carboidrato Total: 166g | Gordura Total: 32g | Calorias Totais: 1523 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 5
  },
  "1.5K": {
   "kcal": 1500,
@@ -531,21 +1540,526 @@
      }
     ],
     "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 142g | Carboidrato Total: 166g | Gordura Total: 32g | Calorias Totais: 1523 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 4
+ },
+ "1.8K_3R": {
+  "kcal": 1800,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "30g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "30g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "175g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 26g | Carboidrato: 50g | Gordura: 13g | Calorias: 420 kcal"
+     }
+    ],
+    "obs": []
    },
    {
-    "nome": "TOTAL DIÁRIO",
+    "nome": "2ª REFEIÇÃO: ALMOÇO",
     "opcoes": [
      {
       "nome": "",
-      "alimentos": [],
-      "macros": "Proteína Total: 142g | Carboidrato Total: 166g | Gordura Total: 32g | Calorias Totais: 1523 kcal"
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 190g | Frango 195g | Carne suína 205g | Peixe 235g | Atum 235g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 170g | Massa 160g | Mandioca 160g | Batata inglesa 280g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "80g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "70g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 72g | Carboidrato: 78g | Gordura: 12g | Calorias: 703 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "3ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 235g | Frango 195g | Atum 235g | Carne bovina magra 190g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 300g | Abóbora 665g | Mandioca 200g | Arroz 215g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 68g | Carboidrato: 73g | Gordura: 12g | Calorias: 671 kcal"
      }
     ],
     "obs": []
    }
   ],
   "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
-  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo."
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 166g | Carboidrato Total: 201g | Gordura Total: 37g | Calorias Totais: 1794 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 3
+ },
+ "1.8K_5R": {
+  "kcal": 1800,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "2 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "2 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "25g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "25g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "75g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 18g | Carboidrato: 33g | Gordura: 11g | Calorias: 287 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: LANCHE DA MANHÃ (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Whey com frutas",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "200g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Iogurte com aveia e frutas",
+      "alimentos": [
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "20g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Ovos com frutas",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "200g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 19g | Carboidrato: 25g | Gordura: 3g | Calorias: 202 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "3ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 70g | Massa 65g | Mandioca 65g | Batata inglesa 115g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "80g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "70g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 50g | Carboidrato: 50g | Gordura: 9g | Calorias: 480 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "4ª REFEIÇÃO: LANCHE DA TARDE (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Iogurte/Leite com Whey",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Mingau",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Leite desnatado",
+        "quantidade": "200ml",
+        "obs": "Ou iogurte zero (100g)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Panqueca/Bolinho com frutas",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "30g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 4: Repeteco do almoço",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 150g | Massa 140g | Mandioca 140g | Batata inglesa 245g"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 34g | Carboidrato: 46g | Gordura: 5g | Calorias: 367 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "5ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 145g | Frango 120g | Atum 145g | Carne bovina magra 120g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 170g | Abóbora 380g | Mandioca 115g | Arroz 120g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 45g | Carboidrato: 47g | Gordura: 9g | Calorias: 458 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 166g | Carboidrato Total: 201g | Gordura Total: 37g | Calorias Totais: 1794 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 5
  },
  "1.8K": {
   "kcal": 1800,
@@ -805,21 +2319,526 @@
      }
     ],
     "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 166g | Carboidrato Total: 201g | Gordura Total: 37g | Calorias Totais: 1794 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 4
+ },
+ "2.2K_3R": {
+  "kcal": 2200,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "4 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "4 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "35g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "65g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "250g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 37g | Carboidrato: 73g | Gordura: 19g | Calorias: 610 kcal"
+     }
+    ],
+    "obs": []
    },
    {
-    "nome": "TOTAL DIÁRIO",
+    "nome": "2ª REFEIÇÃO: ALMOÇO",
     "opcoes": [
      {
       "nome": "",
-      "alimentos": [],
-      "macros": "Proteína Total: 166g | Carboidrato Total: 201g | Gordura Total: 37g | Calorias Totais: 1794 kcal"
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "60g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 81g | Carboidrato: 86g | Gordura: 14g | Calorias: 799 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "3ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 290g | Frango 245g | Atum 290g | Carne bovina magra 235g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 340g | Abóbora 755g | Mandioca 225g | Arroz 245g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 84g | Carboidrato: 81g | Gordura: 15g | Calorias: 791 kcal"
      }
     ],
     "obs": []
    }
   ],
   "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
-  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo."
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 202g | Carboidrato Total: 240g | Gordura Total: 48g | Calorias Totais: 2200 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 3
+ },
+ "2.2K_5R": {
+  "kcal": 2200,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "75g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "2 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "30g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "55g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 27g | Carboidrato: 51g | Gordura: 17g | Calorias: 441 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: LANCHE DA MANHÃ (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Whey com frutas",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "225g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Iogurte com aveia e frutas",
+      "alimentos": [
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "150g",
+        "obs": "Ou leite desnatado (300ml)"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "25g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Ovos com frutas",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "225g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 19g | Carboidrato: 29g | Gordura: 3g | Calorias: 216 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "3ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 90g | Massa 85g | Mandioca 85g | Batata inglesa 150g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "60g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 58g | Carboidrato: 56g | Gordura: 11g | Calorias: 578 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "4ª REFEIÇÃO: LANCHE DA TARDE (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Iogurte/Leite com Whey",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Mingau",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "50g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Leite desnatado",
+        "quantidade": "200ml",
+        "obs": "Ou iogurte zero (100g)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Panqueca/Bolinho com frutas",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 4: Repeteco do almoço",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 35g | Carboidrato: 52g | Gordura: 5g | Calorias: 393 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "5ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 210g | Frango 175g | Atum 210g | Carne bovina magra 170g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 195g | Abóbora 435g | Mandioca 130g | Arroz 140g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 63g | Carboidrato: 52g | Gordura: 12g | Calorias: 572 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 202g | Carboidrato Total: 240g | Gordura Total: 48g | Calorias Totais: 2200 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 5
  },
  "2.2K": {
   "kcal": 2200,
@@ -1079,21 +3098,526 @@
      }
     ],
     "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 202g | Carboidrato Total: 240g | Gordura Total: 48g | Calorias Totais: 2200 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 4
+ },
+ "2.5K_3R": {
+  "kcal": 2500,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "5 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "175g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "5 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "40g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "100g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "200g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 39g | Carboidrato: 88g | Gordura: 20g | Calorias: 688 kcal"
+     }
+    ],
+    "obs": []
    },
    {
-    "nome": "TOTAL DIÁRIO",
+    "nome": "2ª REFEIÇÃO: ALMOÇO",
     "opcoes": [
      {
       "nome": "",
-      "alimentos": [],
-      "macros": "Proteína Total: 202g | Carboidrato Total: 240g | Gordura Total: 48g | Calorias Totais: 2200 kcal"
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 260g | Frango 270g | Carne suína 275g | Peixe 320g | Atum 320g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 235g | Massa 220g | Mandioca 220g | Batata inglesa 385g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "60g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 96g | Carboidrato: 96g | Gordura: 17g | Calorias: 919 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "3ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 320g | Frango 270g | Atum 320g | Carne bovina magra 260g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 405g | Abóbora 900g | Mandioca 270g | Arroz 290g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 92g | Carboidrato: 94g | Gordura: 16g | Calorias: 890 kcal"
      }
     ],
     "obs": []
    }
   ],
   "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
-  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo."
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 227g | Carboidrato Total: 278g | Gordura Total: 53g | Calorias Totais: 2497 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 3
+ },
+ "2.5K_5R": {
+  "kcal": 2500,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "40g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "75g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "125g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 29g | Carboidrato: 63g | Gordura: 17g | Calorias: 503 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: LANCHE DA MANHÃ (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Whey com frutas",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "250g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Iogurte com aveia e frutas",
+      "alimentos": [
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "200g",
+        "obs": "Ou leite desnatado (400ml)"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "25g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Ovos com frutas",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "250g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 20g | Carboidrato: 32g | Gordura: 3g | Calorias: 238 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "3ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 190g | Frango 195g | Carne suína 205g | Peixe 235g | Atum 235g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 110g | Massa 105g | Mandioca 105g | Batata inglesa 180g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "60g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 73g | Carboidrato: 62g | Gordura: 14g | Calorias: 672 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "4ª REFEIÇÃO: LANCHE DA TARDE (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Iogurte/Leite com Whey",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "50g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Mingau",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Leite desnatado",
+        "quantidade": "200ml",
+        "obs": "Ou iogurte zero (100g)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Panqueca/Bolinho com frutas",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "50g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 4: Repeteco do almoço",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 180g | Frango 185g | Carne suína 190g | Peixe 220g | Atum 220g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 36g | Carboidrato: 59g | Gordura: 6g | Calorias: 432 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "5ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 230g | Frango 195g | Atum 230g | Carne bovina magra 185g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 245g | Abóbora 545g | Mandioca 165g | Arroz 175g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 69g | Carboidrato: 62g | Gordura: 13g | Calorias: 652 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 227g | Carboidrato Total: 278g | Gordura Total: 53g | Calorias Totais: 2497 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 5
  },
  "2.5K": {
   "kcal": 2500,
@@ -1353,21 +3877,526 @@
      }
     ],
     "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 227g | Carboidrato Total: 278g | Gordura Total: 53g | Calorias Totais: 2497 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 4
+ },
+ "2.7K_3R": {
+  "kcal": 2700,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "5 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "225g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "5 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "40g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "100g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "250g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 39g | Carboidrato: 96g | Gordura: 21g | Calorias: 721 kcal"
+     }
+    ],
+    "obs": []
    },
    {
-    "nome": "TOTAL DIÁRIO",
+    "nome": "2ª REFEIÇÃO: ALMOÇO",
     "opcoes": [
      {
       "nome": "",
-      "alimentos": [],
-      "macros": "Proteína Total: 227g | Carboidrato Total: 278g | Gordura Total: 53g | Calorias Totais: 2497 kcal"
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 265g | Frango 275g | Carne suína 285g | Peixe 325g | Atum 325g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 285g | Massa 265g | Mandioca 265g | Batata inglesa 470g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "70g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 98g | Carboidrato: 111g | Gordura: 17g | Calorias: 993 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "3ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 345g | Frango 290g | Atum 345g | Carne bovina magra 280g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 470g | Abóbora 1045g | Mandioca 315g | Arroz 335g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 100g | Carboidrato: 107g | Gordura: 17g | Calorias: 989 kcal"
      }
     ],
     "obs": []
    }
   ],
   "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
-  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo."
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 237g | Carboidrato Total: 314g | Gordura Total: 55g | Calorias Totais: 2703 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 3
+ },
+ "2.7K_5R": {
+  "kcal": 2700,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "200g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "40g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "75g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "175g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 29g | Carboidrato: 68g | Gordura: 18g | Calorias: 526 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: LANCHE DA MANHÃ (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Whey com frutas",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "275g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Iogurte com aveia e frutas",
+      "alimentos": [
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Ovos com frutas",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "300g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 20g | Carboidrato: 36g | Gordura: 4g | Calorias: 260 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "3ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 190g | Frango 195g | Carne suína 205g | Peixe 235g | Atum 235g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 155g | Massa 145g | Mandioca 145g | Batata inglesa 255g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "70g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 74g | Carboidrato: 74g | Gordura: 13g | Calorias: 724 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "4ª REFEIÇÃO: LANCHE DA TARDE (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Iogurte/Leite com Whey",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Mingau",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Leite desnatado",
+        "quantidade": "200ml",
+        "obs": "Ou iogurte zero (100g)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "200g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Panqueca/Bolinho com frutas",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 4: Repeteco do almoço",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 200g | Frango 205g | Carne suína 215g | Peixe 245g | Atum 245g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 250g | Massa 235g | Mandioca 235g | Batata inglesa 410g"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 37g | Carboidrato: 66g | Gordura: 7g | Calorias: 472 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "5ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 255g | Frango 215g | Atum 255g | Carne bovina magra 205g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 285g | Abóbora 635g | Mandioca 190g | Arroz 205g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 77g | Carboidrato: 70g | Gordura: 13g | Calorias: 721 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 237g | Carboidrato Total: 314g | Gordura Total: 55g | Calorias Totais: 2703 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 5
  },
  "2.7K": {
   "kcal": 2700,
@@ -1627,21 +4656,526 @@
      }
     ],
     "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 237g | Carboidrato Total: 314g | Gordura Total: 55g | Calorias Totais: 2703 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 4
+ },
+ "2K_3R": {
+  "kcal": 2000,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "4 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "4 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "30g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "50g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "200g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 29g | Carboidrato: 65g | Gordura: 14g | Calorias: 500 kcal"
+     }
+    ],
+    "obs": []
    },
    {
-    "nome": "TOTAL DIÁRIO",
+    "nome": "2ª REFEIÇÃO: ALMOÇO",
     "opcoes": [
      {
       "nome": "",
-      "alimentos": [],
-      "macros": "Proteína Total: 237g | Carboidrato Total: 314g | Gordura Total: 55g | Calorias Totais: 2703 kcal"
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 175g | Massa 165g | Mandioca 165g | Batata inglesa 290g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "80g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "60g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 80g | Carboidrato: 79g | Gordura: 13g | Calorias: 758 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "3ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 270g | Frango 225g | Atum 270g | Carne bovina magra 220g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 320g | Abóbora 710g | Mandioca 215g | Arroz 230g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 78g | Carboidrato: 76g | Gordura: 14g | Calorias: 741 kcal"
      }
     ],
     "obs": []
    }
   ],
   "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
-  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo."
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 187g | Carboidrato Total: 220g | Gordura Total: 41g | Calorias Totais: 1999 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 3
+ },
+ "2K_5R": {
+  "kcal": 2000,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "25g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 20g | Carboidrato: 45g | Gordura: 12g | Calorias: 348 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: LANCHE DA MANHÃ (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Whey com frutas",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "225g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Iogurte com aveia e frutas",
+      "alimentos": [
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "150g",
+        "obs": "Ou leite desnatado (300ml)"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "25g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Ovos com frutas",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "225g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 19g | Carboidrato: 29g | Gordura: 3g | Calorias: 216 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "3ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 65g | Massa 60g | Mandioca 60g | Batata inglesa 105g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "80g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "60g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 57g | Carboidrato: 48g | Gordura: 10g | Calorias: 527 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "4ª REFEIÇÃO: LANCHE DA TARDE (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Iogurte/Leite com Whey",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Mingau",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Leite desnatado",
+        "quantidade": "200ml",
+        "obs": "Ou iogurte zero (100g)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Panqueca/Bolinho com frutas",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "100g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 4: Repeteco do almoço",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 180g | Massa 170g | Mandioca 170g | Batata inglesa 295g"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 35g | Carboidrato: 52g | Gordura: 5g | Calorias: 393 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "5ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 185g | Frango 155g | Atum 185g | Carne bovina magra 150g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 170g | Abóbora 380g | Mandioca 115g | Arroz 120g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 56g | Carboidrato: 46g | Gordura: 11g | Calorias: 515 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 187g | Carboidrato Total: 220g | Gordura Total: 41g | Calorias Totais: 1999 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 5
  },
  "2K": {
   "kcal": 2000,
@@ -1901,21 +5435,526 @@
      }
     ],
     "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 187g | Carboidrato Total: 220g | Gordura Total: 41g | Calorias Totais: 1999 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 4
+ },
+ "3.2K_3R": {
+  "kcal": 3200,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "05 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "5 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "5 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "50g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "120g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "175g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 44g | Carboidrato: 87g | Gordura: 26g | Calorias: 752 kcal"
+     }
+    ],
+    "obs": []
    },
    {
-    "nome": "TOTAL DIÁRIO",
+    "nome": "2ª REFEIÇÃO: ALMOÇO",
     "opcoes": [
      {
       "nome": "",
-      "alimentos": [],
-      "macros": "Proteína Total: 187g | Carboidrato Total: 220g | Gordura Total: 41g | Calorias Totais: 1999 kcal"
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 295g | Frango 305g | Carne suína 315g | Peixe 365g | Atum 365g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 410g | Massa 385g | Mandioca 385g | Batata inglesa 675g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "80g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 111g | Carboidrato: 148g | Gordura: 19g | Calorias: 1207 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "3ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 400g | Frango 335g | Atum 400g | Carne bovina magra 325g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 675g | Abóbora 1500g | Mandioca 450g | Arroz 480g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 117g | Carboidrato: 148g | Gordura: 20g | Calorias: 1245 kcal"
      }
     ],
     "obs": []
    }
   ],
   "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
-  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo."
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 272g | Carboidrato Total: 383g | Gordura Total: 65g | Calorias Totais: 3204 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 3
+ },
+ "3.2K_5R": {
+  "kcal": 3200,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "4 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "75g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "50g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "95g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 35g | Carboidrato: 64g | Gordura: 23g | Calorias: 580 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: LANCHE DA MANHÃ (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Whey com frutas",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "275g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Iogurte com aveia e frutas",
+      "alimentos": [
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Ovos com frutas",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "300g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 20g | Carboidrato: 36g | Gordura: 4g | Calorias: 260 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "3ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 270g | Massa 250g | Mandioca 250g | Batata inglesa 445g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "80g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 87g | Carboidrato: 109g | Gordura: 14g | Calorias: 931 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "4ª REFEIÇÃO: LANCHE DA TARDE (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Iogurte/Leite com Whey",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Mingau",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "70g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Leite desnatado",
+        "quantidade": "200ml",
+        "obs": "Ou iogurte zero (100g)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "200g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Panqueca/Bolinho com frutas",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 4: Repeteco do almoço",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 37g | Carboidrato: 66g | Gordura: 7g | Calorias: 472 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "5ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 305g | Frango 255g | Atum 305g | Carne bovina magra 250g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 475g | Abóbora 1055g | Mandioca 315g | Arroz 340g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 93g | Carboidrato: 108g | Gordura: 17g | Calorias: 961 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 272g | Carboidrato Total: 383g | Gordura Total: 65g | Calorias Totais: 3204 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 5
  },
  "3.2K": {
   "kcal": 3200,
@@ -2175,21 +6214,526 @@
      }
     ],
     "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 272g | Carboidrato Total: 383g | Gordura Total: 65g | Calorias Totais: 3204 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 4
+ },
+ "3.5K_3R": {
+  "kcal": 3500,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "5 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "5 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "55g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "105g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "250g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 43g | Carboidrato: 86g | Gordura: 25g | Calorias: 741 kcal"
+     }
+    ],
+    "obs": []
    },
    {
-    "nome": "TOTAL DIÁRIO",
+    "nome": "2ª REFEIÇÃO: ALMOÇO",
     "opcoes": [
      {
       "nome": "",
-      "alimentos": [],
-      "macros": "Proteína Total: 272g | Carboidrato Total: 383g | Gordura Total: 65g | Calorias Totais: 3204 kcal"
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 325g | Frango 335g | Carne suína 345g | Peixe 400g | Atum 400g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 485g | Massa 455g | Mandioca 455g | Batata inglesa 800g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "80g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 122g | Carboidrato: 169g | Gordura: 21g | Calorias: 1352 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "3ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 440g | Frango 370g | Atum 440g | Carne bovina magra 360g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 790g | Abóbora 1755g | Mandioca 525g | Arroz 565g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 130g | Carboidrato: 170g | Gordura: 23g | Calorias: 1405 kcal"
      }
     ],
     "obs": []
    }
   ],
   "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
-  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo."
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 295g | Carboidrato Total: 425g | Gordura Total: 69g | Calorias Totais: 3498 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 3
+ },
+ "3.5K_5R": {
+  "kcal": 3500,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "4 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "75g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "50g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "95g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 35g | Carboidrato: 64g | Gordura: 23g | Calorias: 586 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: LANCHE DA MANHÃ (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Whey com frutas",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "275g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Iogurte com aveia e frutas",
+      "alimentos": [
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Ovos com frutas",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "300g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 20g | Carboidrato: 36g | Gordura: 4g | Calorias: 260 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "3ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 250g | Frango 260g | Carne suína 265g | Peixe 310g | Atum 310g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 340g | Massa 315g | Mandioca 315g | Batata inglesa 560g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "80g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 98g | Carboidrato: 129g | Gordura: 16g | Calorias: 1069 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "4ª REFEIÇÃO: LANCHE DA TARDE (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Iogurte/Leite com Whey",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "2 doses",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Mingau",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Leite desnatado",
+        "quantidade": "200ml",
+        "obs": "Ou iogurte zero (100g)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "200g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Panqueca/Bolinho com frutas",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 4: Repeteco do almoço",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 37g | Carboidrato: 66g | Gordura: 7g | Calorias: 472 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "5ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 340g | Frango 285g | Atum 340g | Carne bovina magra 275g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 590g | Abóbora 1310g | Mandioca 395g | Arroz 420g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 105g | Carboidrato: 130g | Gordura: 19g | Calorias: 1111 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 295g | Carboidrato Total: 425g | Gordura Total: 69g | Calorias Totais: 3498 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 5
  },
  "3.5K": {
   "kcal": 3500,
@@ -2449,21 +6993,526 @@
      }
     ],
     "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 295g | Carboidrato Total: 425g | Gordura Total: 69g | Calorias Totais: 3498 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 4
+ },
+ "3K_3R": {
+  "kcal": 3000,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "05 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "5 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "175g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "5 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "50g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "120g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "200g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 44g | Carboidrato: 89g | Gordura: 26g | Calorias: 761 kcal"
+     }
+    ],
+    "obs": []
    },
    {
-    "nome": "TOTAL DIÁRIO",
+    "nome": "2ª REFEIÇÃO: ALMOÇO",
     "opcoes": [
      {
       "nome": "",
-      "alimentos": [],
-      "macros": "Proteína Total: 295g | Carboidrato Total: 425g | Gordura Total: 69g | Calorias Totais: 3498 kcal"
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 295g | Frango 305g | Carne suína 315g | Peixe 365g | Atum 365g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 325g | Massa 305g | Mandioca 305g | Batata inglesa 535g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "70g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 109g | Carboidrato: 124g | Gordura: 19g | Calorias: 1097 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "3ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 400g | Frango 335g | Atum 400g | Carne bovina magra 325g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 560g | Abóbora 1245g | Mandioca 375g | Arroz 400g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 115g | Carboidrato: 124g | Gordura: 20g | Calorias: 1142 kcal"
      }
     ],
     "obs": []
    }
   ],
   "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
-  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo."
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 268g | Carboidrato Total: 337g | Gordura Total: 65g | Calorias Totais: 3000 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 3
+ },
+ "3K_5R": {
+  "kcal": 3000,
+  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana (tomar Glifage antes)\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "refeicoes": [
+   {
+    "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2:",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "03 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Pão",
+        "quantidade": "3 fatias",
+        "obs": "Ou tapioca (35g por fatia)"
+       },
+       {
+        "alimento": "Requeijão light",
+        "quantidade": "50g",
+        "obs": "Ou ricota (100g) ou queijo muçarela (01 fatia)"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Iogurte com whey e aveia",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "95g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "125g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 35g | Carboidrato: 63g | Gordura: 23g | Calorias: 575 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "2ª REFEIÇÃO: LANCHE DA MANHÃ (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Whey com frutas",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "275g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Iogurte com aveia e frutas",
+      "alimentos": [
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "40g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "50g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Ovos com frutas",
+      "alimentos": [
+       {
+        "alimento": "Ovos",
+        "quantidade": "02 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "300g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 20g | Carboidrato: 36g | Gordura: 4g | Calorias: 260 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "3ª REFEIÇÃO: ALMOÇO",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 195g | Massa 180g | Mandioca 180g | Batata inglesa 320g"
+       },
+       {
+        "alimento": "Feijão",
+        "quantidade": "100g (grãos)",
+        "obs": "---"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "150g",
+        "obs": "Brócolis, cebola, cenoura, pepino, couve-flor, tomate"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "70g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": "Proteína: 86g | Carboidrato: 87g | Gordura: 15g | Calorias: 829 kcal"
+     }
+    ],
+    "obs": [
+     "*Sem feijão: adicionar 50g de qualquer carboidrato"
+    ]
+   },
+   {
+    "nome": "4ª REFEIÇÃO: LANCHE DA TARDE (escolher uma opção)",
+    "opcoes": [
+     {
+      "nome": "Opção 1: Iogurte/Leite com Whey",
+      "alimentos": [
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1.5 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Iogurte zero",
+        "quantidade": "100g",
+        "obs": "Ou leite desnatado (200ml)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 2: Mingau",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "70g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Leite desnatado",
+        "quantidade": "200ml",
+        "obs": "Ou iogurte zero (100g)"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "200g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 3: Panqueca/Bolinho com frutas",
+      "alimentos": [
+       {
+        "alimento": "Aveia",
+        "quantidade": "60g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Whey protein",
+        "quantidade": "1 dose",
+        "obs": "---"
+       },
+       {
+        "alimento": "Ovos",
+        "quantidade": "04 unidades",
+        "obs": "Mexidos ou cozidos"
+       },
+       {
+        "alimento": "Frutas",
+        "quantidade": "150g",
+        "obs": "Livre escolha"
+       }
+      ],
+      "macros": ""
+     },
+     {
+      "nome": "Opção 4: Repeteco do almoço",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Arroz 300g | Massa 280g | Mandioca 280g | Batata inglesa 495g"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 37g | Carboidrato: 66g | Gordura: 7g | Calorias: 472 kcal"
+     }
+    ],
+    "obs": []
+   },
+   {
+    "nome": "5ª REFEIÇÃO: JANTAR",
+    "opcoes": [
+     {
+      "nome": "",
+      "alimentos": [
+       {
+        "alimento": "Proteína",
+        "quantidade": "escolher uma",
+        "obs": "Peixe 305g | Frango 255g | Atum 305g | Carne bovina magra 250g"
+       },
+       {
+        "alimento": "Carboidrato",
+        "quantidade": "escolher um",
+        "obs": "Batata doce 365g | Abóbora 810g | Mandioca 245g | Arroz 260g"
+       },
+       {
+        "alimento": "Legumes",
+        "quantidade": "200g",
+        "obs": "---"
+       },
+       {
+        "alimento": "Salada verde",
+        "quantidade": "à vontade",
+        "obs": "---"
+       }
+      ],
+      "macros": "Proteína: 90g | Carboidrato: 85g | Gordura: 16g | Calorias: 864 kcal"
+     }
+    ],
+    "obs": []
+   }
+  ],
+  "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 268g | Carboidrato Total: 337g | Gordura Total: 65g | Calorias Totais: 3000 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 5
  },
  "3K": {
   "kcal": 3000,
@@ -2723,20 +7772,21 @@
      }
     ],
     "obs": []
-   },
-   {
-    "nome": "TOTAL DIÁRIO",
-    "opcoes": [
-     {
-      "nome": "",
-      "alimentos": [],
-      "macros": "Proteína Total: 268g | Carboidrato Total: 337g | Gordura Total: 65g | Calorias Totais: 3000 kcal"
-     }
-    ],
-    "obs": []
    }
   ],
   "estilo_vida": "AERÓBICOS\n• 5x por semana (bike, esteira, elíptico ou escada)\n• 30 minutos por sessão (pós treino ou turno alternado)\n• Frequência cardíaca: 120 bpm (com ofegância)\n\nSONO\n• Dormir no mínimo 7h por noite, com rotina fixa\n• Evitar telas por pelo menos 1h antes de dormir\n• Preferir ambiente escuro e silencioso\n\nESTRESSE E BEM-ESTAR\n• Praticar respiração profunda, meditação ou alongamento regularmente\n• Buscar pausas ao longo do dia e reduzir sobrecargas\n• Ter momentos prazerosos e interações sociais positivas\n• Fazer alongamento para posterior de coxa a cada 3h de trabalho, 1 série para cada lado\n• Fazer abdução lateral de glúteo, em pé, com uma mini-band, a cada 3h sentado, 1 série de 15 repetições para cada lado\n\nHIGIENE E SAÚDE BUCAL\n• Escovar os dentes após todas as refeições, inclusive lanches\n• Utilizar limpador de língua diariamente\n• Higienizar gengiva, bochechas e céu da boca suavemente\n• Usar enxaguante bucal sem álcool (2x ao dia)\n• Consultar dentista regularmente para avaliar causas do comprometimento do paladar\n• Consumir frutas cítricas para estimular a salivação e recuperar o paladar",
-  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo."
+  "alimentares": "Ordem de ingestão nas refeições:\n\n• 1º Salada: Comece pela salada para fornecer fibras e prebióticos que auxiliam na digestão.\n• 2º Legumes: Em seguida, consuma os legumes, que são ricos em vitaminas e minerais.\n• 3º Proteínas: As proteínas são mais complexas de digerir, portanto, ingeri-las após as saladas e legumes ajuda a desacelerar a digestão e a promover a saciedade.\n• 4º Grãos e demais carboidratos: Por fim, consuma os grãos e outros carboidratos, que fornecem energia para o corpo.",
+  "total_diario": {
+   "nome": "TOTAL DIÁRIO",
+   "opcoes": [
+    {
+     "nome": "",
+     "alimentos": [],
+     "macros": "Proteína Total: 268g | Carboidrato Total: 337g | Gordura Total: 65g | Calorias Totais: 3000 kcal"
+    }
+   ],
+   "obs": []
+  },
+  "num_refeicoes": 4
  }
 }
