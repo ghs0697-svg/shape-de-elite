@@ -2327,7 +2327,7 @@ function gateSplitOptions() {
   });
   if (onboard.sex === 'Mulher' && onboard.split === 'PPL') { onboard.split = null; onboard.splitTouched = false; opts.forEach(o => o.classList.remove('selected')); }
 }
-const SPLIT_DAYS = { PPL: [3, 4, 5, 6], UL: [3, 4, 5, 6], FULL: [2] }; // PPL só masc; UL e FULL masc e fem; 7x só grupo masc
+const SPLIT_DAYS = { PPL: [3, 4, 5, 6, 7], UL: [3, 4, 5, 6, 7], FULL: [2] }; // PPL só masc; UL e FULL masc e fem
 function selectSplit(el, split) {
   document.querySelectorAll('#o6 .option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
