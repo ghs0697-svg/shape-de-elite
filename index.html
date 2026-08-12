@@ -2340,7 +2340,7 @@ function validateSplit() {
   oNext();
 }
 function gateDias() {
-  const allowed = onboard.split ? SPLIT_DAYS[onboard.split] : (onboard.sex === 'Mulher' ? [3, 4, 5, 6] : [3, 4, 5, 6, 7]);
+  const allowed = onboard.split ? SPLIT_DAYS[onboard.split] : [3, 4, 5, 6, 7]; // grupo 3-7x pros dois sexos
   document.querySelectorAll('#o7 .option').forEach(o => {
     const d = parseInt((o.querySelector('strong') || {}).textContent);
     const ok = allowed.includes(d);
