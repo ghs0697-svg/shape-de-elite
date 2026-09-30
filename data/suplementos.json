@@ -72,7 +72,7 @@
       "dose_detalhe": "Começa em 200mg, sobe se sentir pouco efeito.",
       "quando": "Pré-treino. Nunca depois das 16h.",
       "missao": "Melhora desempenho no treino, foco e disposição.",
-      "cuidados": "Em doses altas pode dar tremor, dificuldade pra dormir, queda de pressão ou arritmia. Faz pausa de 1 semana a cada 8 pra resetar a tolerância.",
+      "cuidados": "Não usa se tiver pressão alta, arritmia, ansiedade ou insônia. Em dose alta pode dar tremor, coração acelerado e dificuldade pra dormir. Faz pausa de 1 semana a cada 8 pra resetar a tolerância.",
       "objetivos": [
         "todos"
       ]
@@ -80,7 +80,7 @@
     {
       "nome": "Creatina Monoidratada",
       "icone": "💪",
-      "dose": "Mulher 5g · Homem 10g",
+      "dose": "5g",
       "dose_detalhe": "Creapure (alemã) ou marca nacional séria. Não precisa marca cara.",
       "quando": "Qualquer horário do dia. Todos os dias, inclusive descanso. O importante é constância, não horário.",
       "missao": "Aumenta foco, volume celular e performance cognitiva. Suplemento mais estudado do mundo.",
