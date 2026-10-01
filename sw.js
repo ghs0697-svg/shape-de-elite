@@ -1,4 +1,4 @@
-const CACHE_NAME = 'shape-de-elite-v53';
+const CACHE_NAME = 'shape-de-elite-v54';
 const ASSETS = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const ASSETS = [
   './data/suplementos.json',
   './data/aulas.json',
   './data/upsell.json',
+  './data/sets-legacy-map-v1.json',
   './assets/bf-10.jpg?v=2',
   './assets/bf-15.jpg?v=2',
   './assets/bf-20.jpg?v=2',

@@ -2606,6 +2606,7 @@ async function initDashboard() {
   updatePhaseBadge();
   await loadData();
   renderMghBanner();
+  try { await migrateSetsKeys(); } catch (e) {} // cargas antigas viram identidade por nome antes de aparecer na tela
   showTab('treino');
   startVerifyHeartbeat();
   restoreSetsFromServer(); // backup de cargas da conta (não bloqueia o load)
@@ -3198,18 +3199,66 @@ function setWeek(w) {
   try { localStorage.setItem('shape_week_' + setsEmail(), String(w)); } catch (e) {}
   renderTreino();
 }
-// ⚡ Modo rápido (backdoor 45min): reduz o descanso exibido/cronometrado. Pisos: composto 60s, isolado 45s.
-const FAST_REST = { '120 seg': '60 seg', '90 seg': '60 seg', '60 seg': '45 seg', '45 seg': '45 seg' };
-function fastModeOn() { try { return localStorage.getItem('shape_fast_' + setsEmail()) === '1'; } catch (e) { return false; } }
+// ⚡ Modo rápido. Regra do método desde 02/09/2026 (skill monta-protocolo-inicial §8.A.12):
+// "aluno de 40-50 min fica com teto de 6 por dia e intervalo cheio; ele não treina apressado, treina enxuto".
+// O botão tira EXERCÍCIO e mantém o descanso. Vale só pro dia em que foi ligado: no dia seguinte volta
+// sozinho pro treino completo, pra ninguém ficar treinando com menos volume sem perceber.
+const FAST_TETO = 6;
+function localDay() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function fastModeOn() { try { return localStorage.getItem('shape_fast_' + setsEmail()) === localDay(); } catch (e) { return false; } }
 function toggleFastMode() {
-  try { localStorage.setItem('shape_fast_' + setsEmail(), fastModeOn() ? '0' : '1'); } catch (e) {}
+  try { localStorage.setItem('shape_fast_' + setsEmail(), fastModeOn() ? '0' : localDay()); } catch (e) {}
   renderTreino();
 }
-function restDisplay(iv) { return fastModeOn() ? (FAST_REST[String(iv).trim()] || iv) : iv; }
+function restDisplay(iv) { return iv; } // o descanso NUNCA encurta: o modo rápido tira exercício, não intervalo
+
+// Grupo muscular pelo nome. Porte FIEL do grupo() do linter da consultoria (webfit-mcp/linter/util.mjs),
+// só com braço aberto em bíceps e tríceps. Se a regra mudar lá, muda aqui.
+function exNorm(s) { return String(s == null ? '' : s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+function exGrupo(ex) {
+  const e = exNorm(ex);
+  if (/(desenvolvimento|eleva.ao lateral|eleva.ao frontal|crucifixo inverso|face pull|manguito|deltoid|remada alta)/.test(e)) return 'ombro';
+  if (/(punho|antebra)/.test(e)) return 'antebraco';
+  if (/(supino|crucifixo|voador|crossover|\bfly\b|peitora)/.test(e)) return 'peito';
+  if (/terra sumo/.test(e)) return 'gluteo';
+  if (/levantamento terra/.test(e)) return 'quad';
+  if (/(remada|puxada|pulldown|pull-down|pulley costas|serrote|dorsal|meio terra)/.test(e)) return 'costas';
+  if (/(rosca|scott|biceps)/.test(e)) return 'biceps';
+  if (/(abdomin|prancha|obliquo)/.test(e)) return 'abdomen';
+  if (/(triceps|pulley com corda|pulley com barra|testa|frances|mergulho|paralela)/.test(e)) return 'triceps';
+  if (/(agachament|leg press|leg horizontal|\bhack\b|cadeira extensora|extensora|step ?up)/.test(e)) return 'quad';
+  if (/(flexora|stiff|posterior|hiperext|hiper ext|nordico)/.test(e)) return 'posterior';
+  if (/(bulgaro|afundo)/.test(e)) return 'quad';
+  if (/(adutora|abdutora|abduc|pelvica|gluteo|coice|sumo|terra sumo)/.test(e)) return 'gluteo';
+  if (/(panturrilha)/.test(e)) return 'panturrilha';
+  if (/(abdomin|prancha|core|obliquo|elevacao de pernas)/.test(e)) return 'abdomen';
+  return 'outro';
+}
+// músculos que cada prioridade do aluno protege, e a ordem de desempate (quem vem antes sai primeiro)
+const FAST_PRIO = { PEITO: ['peito'], COSTAS: ['costas'], OMBRO: ['ombro'], BRACO: ['biceps', 'triceps'], COXA: ['quad'], GLUTEO: ['gluteo'], QUADRICEPS: ['quad'], POSTERIOR: ['posterior'], SUPERIORES: ['biceps', 'costas', 'ombro', 'peito', 'triceps'], SUPERIORES_COSTAS: ['costas'], SUPERIORES_OMBRO: ['ombro'] };
+const FAST_RANK = ['outro', 'antebraco', 'triceps', 'biceps', 'ombro', 'gluteo', 'posterior', 'peito', 'costas', 'quad'];
+// Diz, pra cada exercício do dia, se ele fica de fora no modo rápido. Corta até sobrar FAST_TETO, nesta
+// ordem: abdômen, panturrilha, e depois o ÚLTIMO exercício do grupo que tem mais exercícios no dia
+// (no empate, poupa a prioridade do aluno e tira do grupo menor). Nenhum grupo some inteiro antes de outro
+// perder o excedente, e a posição original de cada exercício é preservada (a carga depende dela).
+function fastHidden(exs, prioCode) {
+  const g = exs.map(e => exGrupo(e.exercicio)), vivo = exs.map(() => true), prot = new Set(FAST_PRIO[prioCode] || []);
+  const n = () => vivo.filter(Boolean).length;
+  const tira = alvo => { for (let i = exs.length - 1; i >= 0 && n() > FAST_TETO; i--) if (vivo[i] && g[i] === alvo) vivo[i] = false; };
+  tira('abdomen'); tira('panturrilha');
+  while (n() > FAST_TETO) {
+    const c = {}; g.forEach((x, i) => { if (vivo[i]) c[x] = (c[x] || 0) + 1; });
+    const alvo = Object.keys(c).sort((a, b) => (c[b] - c[a]) || ((prot.has(a) ? 1 : 0) - (prot.has(b) ? 1 : 0)) || (FAST_RANK.indexOf(a) - FAST_RANK.indexOf(b)))[0];
+    let idx = -1; for (let i = exs.length - 1; i >= 0; i--) if (vivo[i] && g[i] === alvo) { idx = i; break; }
+    if (idx < 0) break;
+    vivo[idx] = false;
+  }
+  return vivo.map(v => !v);
+}
 function fastBarHtml() {
   const on = fastModeOn();
   return `<div class="wk-bar" style="margin-bottom:10px;">
-    <div class="wk-label" style="text-align:left;">⚡ <b>Modo rápido</b><br><span style="font-size:10px;">descansos reduzidos, treino em 40 a 50 min</span></div>
+    <div class="wk-label" style="text-align:left;">⚡ <b>Modo rápido</b><br><span style="font-size:10px;">dia corrido? até ${FAST_TETO} exercícios, descanso completo</span></div>
     <button class="wk-nav" style="width:auto;padding:0 14px;font-size:13px;font-weight:800;${on ? 'border-color:var(--red);color:var(--red-hover);background:var(--red-tint);' : ''}" onclick="toggleFastMode()">${on ? 'LIGADO' : 'DESLIGADO'}</button>
   </div>`;
 }
@@ -3223,7 +3272,20 @@ function weekBarHtml() {
   </div>`;
 }
 
-function setsKey(ctxKey, idx, w) { return `shape_sets_${setsEmail()}_${ctxKey}_w${w}_e${idx}`; }
+// ─── Identidade da carga: pelo NOME do exercício, não pela posição no dia ───
+// A chave era ..._e<idx>. Se o catálogo reordena ou tira um exercício do dia, a posição muda e a carga
+// apareceria no exercício errado. Agora é ..._x-<slug do nome>: a carga acompanha o exercício.
+// exSlug/exSlugAt têm cópia idêntica em app-tools/gen_sets_legacy_map.mjs (o retrato usado na migração).
+function exSlug(n) { return String(n || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60); }
+function exSlugAt(exs, idx) { const s = exSlug(exs[idx].exercicio); let n = 0; for (let i = 0; i < idx; i++) if (exSlug(exs[i].exercicio) === s) n++; return n ? s + '.' + (n + 1) : s; }
+function ctxParts(ctxKey) { const m = /^(.+)_d(\d+)$/.exec(ctxKey); return m ? { tk: m[1], day: +m[2] } : null; }
+function ctxExs(ctxKey) { const c = ctxParts(ctxKey), t = c && state.treinoData && state.treinoData[c.tk], d = t && t.dias && t.dias[c.day]; return (d && d.exercicios) || null; }
+function setsPrefix() { return 'shape_sets_' + setsEmail() + '_'; }
+function setsKey(ctxKey, idx, w) {
+  const exs = ctxExs(ctxKey);
+  const id = (exs && exs[idx]) ? 'x-' + exSlugAt(exs, idx) : 'u' + idx; // sem catálogo na mão (não deve acontecer): guarda mesmo assim
+  return `${setsPrefix()}${ctxKey}_w${w}_${id}`;
+}
 function serieCount(seriesStr) {
   const nums = String(seriesStr || '').match(/\d+/g);
   if (nums && nums.length) { const m = Math.max.apply(null, nums.map(Number)); if (m >= 1 && m <= 12) return m; }
@@ -3240,19 +3302,79 @@ function saveSetsLS(ctxKey, idx, w, arr) {
 }
 
 // Sync servidor (best-effort; offline não quebra nada)
-function setsServerKey(localKey) { return localKey.replace('shape_sets_' + setsEmail() + '_', ''); }
+function setsServerKey(localKey) { return localKey.replace(setsPrefix(), ''); }
+// Pendências: chave que mudou no aparelho e o servidor ainda não confirmou. Sem isso, a 2ª série
+// anotada sem sinal ficava só no celular, porque o reenvio só cobria chave que o servidor não tinha.
+function dirtyName() { return 'shape_setsdirty_' + setsEmail(); }
+function dirtyLoad() { try { const a = JSON.parse(localStorage.getItem(dirtyName()) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+function dirtySave(a) { try { localStorage.setItem(dirtyName(), JSON.stringify(a)); } catch (e) {} }
+function dirtyAdd(ks) { const a = dirtyLoad(), s = new Set(a); let ch = false; for (const k of [].concat(ks)) if (!s.has(k)) { s.add(k); a.push(k); ch = true; } if (ch) dirtySave(a); }
+function dirtyDel(ks) { const s = new Set(ks); dirtySave(dirtyLoad().filter(k => !s.has(k))); }
 let _syncTimers = {}, _syncPending = {};
 function queueSetsSync(localKey, sets) {
   if (!state.user) return;
   const k = setsServerKey(localKey);
+  dirtyAdd(k);
   _syncPending[k] = sets;
   clearTimeout(_syncTimers[k]);
   _syncTimers[k] = setTimeout(async () => {
     const payload = _syncPending[k]; delete _syncPending[k];
     try {
-      await api('/api/sets', { method: 'POST', body: JSON.stringify({ key: k, sets: payload }) });
-    } catch (e) { /* offline: fica no localStorage; re-tenta no próximo save */ }
+      const r = await api('/api/sets', { method: 'POST', body: JSON.stringify({ key: k, sets: payload }) });
+      if (r && r.ok && !(k in _syncPending)) dirtyDel([k]);
+    } catch (e) { /* sem sinal: continua pendente e sobe na próxima abertura do app */ }
   }, 1200);
+}
+// Envio em lotes (o servidor aceita até 400 chaves por chamada)
+async function pushSetsBulk(entries) {
+  const keys = Object.keys(entries);
+  for (let i = 0; i < keys.length; i += 300) {
+    const part = {}; keys.slice(i, i + 300).forEach(k => { part[k] = entries[k]; });
+    try {
+      const r = await api('/api/sets', { method: 'POST', body: JSON.stringify({ entries: part }) });
+      if (!r || !r.ok) return false;
+      dirtyDel(Object.keys(part));
+    } catch (e) { return false; }
+  }
+  return true;
+}
+
+// ─── Migração das cargas antigas (por posição) pra identidade por nome ───
+// Cada chave antiga (..._e<idx>) vira a nova (..._x-<slug>) usando o RETRATO do catálogo de 30/09/2026
+// (data/sets-legacy-map-v1.json), que diz qual exercício estava em cada posição quando a carga foi anotada.
+// Nunca sobrescreve chave nova que já existe e nunca apaga dado: a antiga só muda de nome (arquivo morto).
+const SETS_OLD_RE = /^(.+)_d(\d+)_w(\d+)_e(\d+)$/;
+function setsArchiveName(serverKey) { return 'shape_setsv1_' + setsEmail() + '_' + serverKey; }
+let _legacyMap = null;
+async function loadLegacyMap() {
+  if (_legacyMap) return _legacyMap;
+  try { const r = await fetch('data/sets-legacy-map-v1.json'); if (r.ok) { const j = await r.json(); if (j && j.nomes && j.treinos) _legacyMap = j; } } catch (e) {}
+  return _legacyMap;
+}
+async function migrateSetsKeys() {
+  if (!setsEmail()) return 0;
+  const prefix = setsPrefix(), olds = [];
+  try { for (let i = 0; i < localStorage.length; i++) { const lk = localStorage.key(i); if (lk && lk.startsWith(prefix) && SETS_OLD_RE.test(lk.slice(prefix.length))) olds.push(lk); } } catch (e) { return 0; }
+  if (!olds.length) return 0;
+  const map = await loadLegacyMap();
+  if (!map) return 0; // sem o retrato (1ª abertura sem sinal): não mexe em nada e tenta na próxima
+  const novos = [];
+  for (const lk of olds) {
+    const sk = lk.slice(prefix.length), m = SETS_OLD_RE.exec(sk), raw = localStorage.getItem(lk);
+    if (raw === null) continue;
+    const dias = map.treinos[m[1]], dia = dias && dias[+m[2]], ni = dia ? dia[+m[4]] : null;
+    const slug = (ni != null) ? map.nomes[ni] : null;
+    try {
+      if (slug) {
+        const nsk = m[1] + '_d' + m[2] + '_w' + m[3] + '_x-' + slug;
+        if (localStorage.getItem(prefix + nsk) === null) { localStorage.setItem(prefix + nsk, raw); novos.push(nsk); }
+      } else console.warn('carga antiga sem destino no retrato (guardada no arquivo morto):', sk);
+      localStorage.setItem(setsArchiveName(sk), raw);
+      localStorage.removeItem(lk);
+    } catch (e) { /* armazenamento cheio: a chave antiga fica onde está e a migração tenta de novo depois */ }
+  }
+  if (novos.length) dirtyAdd(novos);
+  return novos.length;
 }
 
 // Restore no login: semeia o localStorage com o snapshot da conta
@@ -3262,31 +3384,42 @@ async function restoreSetsFromServer() {
   try {
     const r = await api('/api/sets');
     if (!r || !r.ok || !r.sets) return;
-    const prefix = 'shape_sets_' + setsEmail() + '_';
+    const prefix = setsPrefix();
     for (const k of Object.keys(r.sets)) {
       const lk = prefix + k;
+      // chave antiga que este aparelho já migrou (está no arquivo morto): não semeia de novo
+      if (SETS_OLD_RE.test(k) && localStorage.getItem(setsArchiveName(k)) !== null) continue;
       if (localStorage.getItem(lk) === null) {
         try { localStorage.setItem(lk, JSON.stringify(r.sets[k])); } catch (e) {}
       }
     }
-    // sobe em bulk o que só existe local (primeira sincronização)
-    const missing = {};
+    await migrateSetsKeys(); // o que veio do servidor no formato antigo vira formato novo
+    // sobe o que só existe no aparelho + o que ficou pendente (anotado sem sinal)
+    const up = {}, dirty = new Set(dirtyLoad());
     for (let i = 0; i < localStorage.length; i++) {
       const lk = localStorage.key(i);
       if (lk && lk.startsWith(prefix)) {
         const sk = lk.slice(prefix.length);
-        if (!(sk in r.sets)) { try { missing[sk] = JSON.parse(localStorage.getItem(lk)); } catch (e) {} }
+        if (!(sk in r.sets) || dirty.has(sk)) { try { up[sk] = JSON.parse(localStorage.getItem(lk)); } catch (e) {} }
       }
     }
-    if (Object.keys(missing).length) {
-      await api('/api/sets', { method: 'POST', body: JSON.stringify({ entries: missing }) }).catch(() => {});
-    }
+    dirtySave(dirtyLoad().filter(k => localStorage.getItem(prefix + k) !== null)); // pendência de chave que não existe mais
+    if (Object.keys(up).length) await pushSetsBulk(up);
     const treinoVisivel = document.getElementById('tab-treino') && !document.getElementById('tab-treino').classList.contains('hidden');
     if (treinoVisivel) renderTreino();
   } catch (e) { /* silencioso */ }
 }
 function getPrevSets(ctxKey, idx, w) {
   for (let ww = w - 1; ww >= 1; ww--) { const v = loadSetsLS(ctxKey, idx, ww); if (v) return v; }
+  // exercício que mudou de dia no catálogo: a referência vem do dia em que ele estava antes
+  const c = ctxParts(ctxKey), exs = ctxExs(ctxKey), t = c && state.treinoData && state.treinoData[c.tk];
+  if (c && exs && exs[idx] && t && t.dias) {
+    const id = 'x-' + exSlugAt(exs, idx);
+    for (let ww = w - 1; ww >= 1; ww--) for (let d = 0; d < t.dias.length; d++) {
+      if (d === c.day) continue;
+      try { const a = JSON.parse(localStorage.getItem(`${setsPrefix()}${c.tk}_d${d}_w${ww}_${id}`) || 'null'); if (Array.isArray(a) && a.length) return a; } catch (e) {}
+    }
+  }
   return null;
 }
 function setsGridHtml(ctxKey, idx, seriesStr, nome) {
@@ -3324,15 +3457,13 @@ function readSetsFromDom(gid) {
     reps: (r.querySelector('.set-reps') || {}).value || ''
   }));
 }
-let _setTimers = {};
+// Grava NA HORA. Antes esperava 0,4s, e qualquer redesenho da tela nesse intervalo (marcar exercício
+// feito, trocar de dia ou de semana) lia a grade já redesenhada e perdia o que o aluno tinha digitado.
+// O envio pro servidor continua agrupado em queueSetsSync.
 function onSetField(ctxKey, idx) {
-  const gid = 'sets_' + ctxKey + '_' + idx;
-  clearTimeout(_setTimers[gid]);
-  _setTimers[gid] = setTimeout(() => {
-    const arr = readSetsFromDom(gid);
-    if (!arr) return;
-    saveSetsLS(ctxKey, idx, getWeek(), arr);
-  }, 400);
+  const arr = readSetsFromDom('sets_' + ctxKey + '_' + idx);
+  if (!arr) return;
+  saveSetsLS(ctxKey, idx, getWeek(), arr);
 }
 function reRenderGrid(ctxKey, idx) {
   const gid = 'sets_' + ctxKey + '_' + idx;
@@ -3379,7 +3510,10 @@ function renderTreino() {
     `<button class="day-btn ${i === state.currentDay ? 'active' : ''}" onclick="selectDay(${i})">${d.nome}</button>`
   ).join('');
   const day = t.dias[state.currentDay] || t.dias[0];
+  const fastOn = fastModeOn();
+  const hid = fastOn ? fastHidden(day.exercicios, p.priority) : day.exercicios.map(() => false);
   const exHtml = day.exercicios.map((ex, idx) => {
+    if (hid[idx]) return ''; // fora do modo rápido de hoje; idx original preservado pros demais
     // video_url = resolvido no manifesto (instrutivo no grupo da prioridade, execução no resto);
     // fallback: banco antigo por video_key (alunos pré-prioridade)
     const url = ex.video_url || state.videoMap[ex.video_key];
@@ -3405,9 +3539,16 @@ function renderTreino() {
   }).join('');
 
   // Conclude bar (mostra progresso + botão de conclusão)
-  const totalEx = day.exercicios.length;
-  const doneCount = day.exercicios.reduce((acc, _, i) => acc + (isExerciseDone(state.currentDay, i) ? 1 : 0), 0);
+  const totalEx = hid.filter(h => !h).length;
+  const doneCount = day.exercicios.reduce((acc, _, i) => acc + (!hid[i] && isExerciseDone(state.currentDay, i) ? 1 : 0), 0);
   const allDone = doneCount === totalEx && totalEx > 0;
+  const fora = day.exercicios.filter((_, i) => hid[i]).map(e => e.exercicio);
+  const fastNoteHtml = !fastOn ? '' : `<div class="result-card" style="margin-bottom:10px;border-color:var(--red);">
+      <div style="font-weight:800;font-size:12px;letter-spacing:.5px;color:var(--red);">⚡ MODO RÁPIDO LIGADO</div>
+      <div class="small mt-2" style="line-height:1.5;">${fora.length
+        ? `Hoje ${fora.length === 1 ? 'ficou de fora' : 'ficaram de fora'}: <strong>${fora.join(', ')}</strong>. O descanso continua o mesmo, tu só faz menos exercícios, e amanhã o treino volta completo sozinho.`
+        : `Esse dia já tem ${day.exercicios.length} exercícios, então não precisei tirar nada. Amanhã o modo desliga sozinho.`}</div>
+    </div>`;
   const concludeBarHtml = `
     <div class="conclude-bar">
       <div class="conclude-info">
@@ -3464,6 +3605,7 @@ function renderTreino() {
     <p class="hint">${t.dias.length} dias por semana · Treino Fase ${treinoPhase}</p>
     <a class="btn secondary" href="${pdfUrl}" download="${pdfFile}" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF do treino</a>
     ${fastBarHtml()}
+    ${fastNoteHtml}
     ${weekBarHtml()}
     <div class="day-tabs">${dayBtns}</div>
     ${concludeBarHtml}
@@ -3608,7 +3750,7 @@ document.addEventListener('keydown', e => {
 // ═══════════════════════════════════════════════════════════
 // EXERCISE CHECKBOXES (reset diário)
 // ═══════════════════════════════════════════════════════════
-function checkKey() { return new Date().toISOString().slice(0, 10); } // YYYY-MM-DD
+function checkKey() { return localDay(); } // YYYY-MM-DD no fuso do aluno (em UTC as marcações sumiam às 21h de Brasília)
 
 function isExerciseDone(dayIdx, exIdx) {
   const today = checkKey();
