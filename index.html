@@ -3286,6 +3286,7 @@ function setsKey(ctxKey, idx, w) {
   const id = (exs && exs[idx]) ? 'x-' + exSlugAt(exs, idx) : 'u' + idx; // sem catálogo na mão (não deve acontecer): guarda mesmo assim
   return `${setsPrefix()}${ctxKey}_w${w}_${id}`;
 }
+function exPorTempo(reps) { return /\b(seg|min)\b/i.test(String(reps || '')); }
 function serieCount(seriesStr) {
   const nums = String(seriesStr || '').match(/\d+/g);
   if (nums && nums.length) { const m = Math.max.apply(null, nums.map(Number)); if (m >= 1 && m <= 12) return m; }
@@ -3428,23 +3429,27 @@ function setsGridHtml(ctxKey, idx, seriesStr, nome) {
   if (!sets || !sets.length) { const n = serieCount(seriesStr); sets = Array.from({ length: n }, () => ({ kg: '', pl: '', reps: '' })); }
   const prev = getPrevSets(ctxKey, idx, w);
   const gid = 'sets_' + ctxKey + '_' + idx;
+  const exs0 = ctxExs(ctxKey);
+  const tempo = !!(exs0 && exs0[idx] && exPorTempo(exs0[idx].reps)); // prancha e isometria: o aluno anota segundos
   const rows = sets.map((s, si) => {
     const p = prev && prev[si];
     const ptxt = (p && (p.kg || p.pl || p.reps))
-      ? `<span class="set-prev">ant: ${p.kg ? p.kg + 'kg' : (p.pl ? p.pl + 'pl' : '&mdash;')}${p.reps ? ' &times;' + p.reps : ''}</span>`
+      ? (tempo && p.reps
+          ? `<span class="set-prev">ant: ${p.reps}s${p.kg ? ' +' + p.kg + 'kg' : ''}</span>`
+          : `<span class="set-prev">ant: ${p.kg ? p.kg + 'kg' : (p.pl ? p.pl + 'pl' : '&mdash;')}${p.reps ? ' &times;' + p.reps : ''}</span>`)
       : '<span class="set-prev"></span>';
     return `<div class="set-row">
         <span class="set-num">${si + 1}</span>
         <input class="set-in set-kg" type="number" inputmode="decimal" placeholder="kg" value="${s.kg || ''}" oninput="onSetField('${ctxKey}',${idx})">
         <input class="set-in set-pl" type="number" inputmode="numeric" placeholder="pl" value="${s.pl || ''}" oninput="onSetField('${ctxKey}',${idx})">
-        <input class="set-in set-reps" type="number" inputmode="numeric" placeholder="reps" value="${s.reps || ''}" oninput="onSetField('${ctxKey}',${idx})">
+        <input class="set-in set-reps" type="number" inputmode="numeric" placeholder="${tempo ? 'seg' : 'reps'}" value="${s.reps || ''}" oninput="onSetField('${ctxKey}',${idx})">
         ${ptxt}
         <button type="button" class="set-del" onclick="removeSet('${ctxKey}',${idx},${si})" title="Remover série" aria-label="Remover série">&times;</button>
       </div>`;
   }).join('');
   return `<div class="sets-wrap"><div class="sets-title">Progressão de carga</div>
     <div class="sets-grid" id="${gid}" data-exname="${escapeAttr(nome || '')}">
-      <div class="set-head"><span class="set-num"></span><span class="sh-kg">kg</span><span class="sh-pl">placa</span><span class="sh-reps">reps</span><span class="set-prev"></span><span class="set-del"></span></div>
+      <div class="set-head"><span class="set-num"></span><span class="sh-kg">kg</span><span class="sh-pl">placa</span><span class="sh-reps">${tempo ? 'seg' : 'reps'}</span><span class="set-prev"></span><span class="set-del"></span></div>
       ${rows}
       <button type="button" class="set-add" onclick="addSet('${ctxKey}',${idx})">+ série</button>
     </div></div>`;
@@ -3529,7 +3534,7 @@ function renderTreino() {
         </div>
         <div class="exercise-meta">
           <div class="exercise-meta-item"><div class="label">SÉRIES</div><div class="val">${ex.series || '—'}</div></div>
-          <div class="exercise-meta-item"><div class="label">REPS</div><div class="val">${ex.reps || '—'}</div></div>
+          <div class="exercise-meta-item"><div class="label">${exPorTempo(ex.reps) ? 'TEMPO' : 'REPS'}</div><div class="val">${ex.reps || '—'}</div></div>
           <div class="exercise-meta-item rest-clickable" onclick="openTimer(${parseRestSeconds(restDisplay(ex.intervalo))}, '${escapeAttr(ex.exercicio)}')" title="Tocar pra iniciar cronômetro"><div class="label">⏱ DESCANSO</div><div class="val">${restDisplay(ex.intervalo) || '—'}</div></div>
         </div>
         ${ex.obs ? `<div class="exercise-obs">${ex.obs}</div>` : ''}
