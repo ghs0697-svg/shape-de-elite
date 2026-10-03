@@ -2607,6 +2607,7 @@ async function initDashboard() {
   await loadData();
   renderMghBanner();
   try { await migrateSetsKeys(); } catch (e) {} // cargas antigas viram identidade por nome antes de aparecer na tela
+  try { renameSetsKeys(); } catch (e) {}        // exercício que só mudou de nome leva a carga junto
   showTab('treino');
   startVerifyHeartbeat();
   restoreSetsFromServer(); // backup de cargas da conta (não bloqueia o load)
@@ -3378,6 +3379,36 @@ async function migrateSetsKeys() {
   return novos.length;
 }
 
+// ─── Exercício que mudou de NOME no catálogo (mesmo exercício, nome aposentado) ───
+// A carga é guardada pelo nome, então nome aposentado deixaria a carga órfã. A chave do nome velho vira a do
+// nome novo só no dia em que o catálogo de hoje tem o nome novo e não tem mais o velho.
+// Mesma regra da migração acima: nunca sobrescreve carga que já existe e nunca apaga (a velha vai pro arquivo morto).
+const SETS_RENAMES = { 'desenvolvimento-na-maquina-sentado': 'desenvolvimento-na-maquina' }; // slug velho: slug novo
+const SETS_NAME_RE = /^(.+_d\d+)_w(\d+)_x-(.+?)(\.\d+)?$/;
+function setsRenamed(serverKey) { const m = SETS_NAME_RE.exec(serverKey); return !!(m && SETS_RENAMES[m[3]]); }
+function renameSetsKeys() {
+  if (!state.treinoData) return 0;
+  const prefix = setsPrefix(), hits = [];
+  try { for (let i = 0; i < localStorage.length; i++) { const lk = localStorage.key(i); if (lk && lk.startsWith(prefix) && setsRenamed(lk.slice(prefix.length))) hits.push(lk); } } catch (e) { return 0; }
+  const novos = [];
+  for (const lk of hits) {
+    const sk = lk.slice(prefix.length), m = SETS_NAME_RE.exec(sk), raw = localStorage.getItem(lk);
+    if (raw === null) continue;
+    const exs = ctxExs(m[1]);
+    if (!exs) continue; // treino que não está no catálogo: não mexe
+    const slugs = exs.map(e => exSlug(e.exercicio)), novo = SETS_RENAMES[m[3]];
+    if (slugs.includes(m[3]) || !slugs.includes(novo)) continue; // o dia ainda usa o nome velho, ou não tem o novo
+    const nsk = m[1] + '_w' + m[2] + '_x-' + novo + (m[4] || '');
+    try {
+      if (localStorage.getItem(prefix + nsk) === null) { localStorage.setItem(prefix + nsk, raw); novos.push(nsk); }
+      localStorage.setItem(setsArchiveName(sk), raw);
+      localStorage.removeItem(lk);
+    } catch (e) { /* armazenamento cheio: a chave velha fica onde está e tenta de novo depois */ }
+  }
+  if (novos.length) dirtyAdd(novos);
+  return novos.length;
+}
+
 // Restore no login: semeia o localStorage com o snapshot da conta
 // (só chaves que não existem localmente; o aparelho atual é a versão mais fresca).
 async function restoreSetsFromServer() {
@@ -3389,12 +3420,13 @@ async function restoreSetsFromServer() {
     for (const k of Object.keys(r.sets)) {
       const lk = prefix + k;
       // chave antiga que este aparelho já migrou (está no arquivo morto): não semeia de novo
-      if (SETS_OLD_RE.test(k) && localStorage.getItem(setsArchiveName(k)) !== null) continue;
+      if ((SETS_OLD_RE.test(k) || setsRenamed(k)) && localStorage.getItem(setsArchiveName(k)) !== null) continue;
       if (localStorage.getItem(lk) === null) {
         try { localStorage.setItem(lk, JSON.stringify(r.sets[k])); } catch (e) {}
       }
     }
     await migrateSetsKeys(); // o que veio do servidor no formato antigo vira formato novo
+    renameSetsKeys();        // e o que veio com nome aposentado vai pro nome de hoje
     // sobe o que só existe no aparelho + o que ficou pendente (anotado sem sinal)
     const up = {}, dirty = new Set(dirtyLoad());
     for (let i = 0; i < localStorage.length; i++) {
