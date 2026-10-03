@@ -2761,7 +2761,7 @@ function renderModuloHtml(m) {
             <div class="modulo-titulo">${m.id}. ${m.titulo}</div>
             <div class="modulo-desc">${m.desc}</div>
           </div>
-          <div class="modulo-progress">— em breve —</div>
+          <div class="modulo-progress">em breve</div>
         </div>
       </div>
     `;
@@ -3468,7 +3468,7 @@ function setsGridHtml(ctxKey, idx, seriesStr, nome) {
     const ptxt = (p && (p.kg || p.pl || p.reps))
       ? (tempo && p.reps
           ? `<span class="set-prev">ant: ${p.reps}s${p.kg ? ' +' + p.kg + 'kg' : ''}</span>`
-          : `<span class="set-prev">ant: ${p.kg ? p.kg + 'kg' : (p.pl ? p.pl + 'pl' : '&mdash;')}${p.reps ? ' &times;' + p.reps : ''}</span>`)
+          : `<span class="set-prev">ant: ${p.kg ? p.kg + 'kg' : (p.pl ? p.pl + 'pl' : '')}${p.reps ? ' &times;' + p.reps : ''}</span>`)
       : '<span class="set-prev"></span>';
     return `<div class="set-row">
         <span class="set-num">${si + 1}</span>
