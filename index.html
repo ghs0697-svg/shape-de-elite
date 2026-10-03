@@ -3256,6 +3256,30 @@ function fastHidden(exs, prioCode) {
   }
   return vivo.map(v => !v);
 }
+// ─── Dois dias de perna seguidos ───
+// Alguns treinos têm dois dias de perna um depois do outro (quase todos femininos com prioridade de
+// inferiores). Sem anamnese o catálogo não sabe o dia da semana do aluno, então quem resolve é ele: a dica
+// pede o descanso entre os dois (sugestão da Entregas, Sala #2726). Dia de perna = 3 ou mais exercícios de
+// quadríceps, posterior ou glúteo, a mesma régua do fiscal. Fica de fora quem treina 7x (não tem dia de
+// descanso pra pôr no meio), 2x e Full Body (todo dia tem perna).
+function diaDePerna(dia) { return dia.exercicios.filter(e => ['quad', 'posterior', 'gluteo'].includes(exGrupo(e.exercicio))).length >= 3; }
+// devolve os dias de perna vizinhos do dia d (2 ou mais, em ordem), ou null
+function pernasSeguidas(t, d) {
+  if (!t || !t.dias || t.split === 'FULL' || t.dias.length < 3 || t.dias.length > 6) return null;
+  const p = i => i >= 0 && i < t.dias.length && diaDePerna(t.dias[i]);
+  if (!p(d)) return null;
+  let a = d, b = d;
+  while (p(a - 1)) a--;
+  while (p(b + 1)) b++;
+  if (a === b) return null;
+  const run = []; for (let i = a; i <= b; i++) run.push(i);
+  return run;
+}
+function pernasSeguidasTexto(t, run) {
+  const n = run.map(i => 'o ' + t.dias[i].nome), lista = n.length === 2 ? n.join(' e ') : n.slice(0, -1).join(', ') + ' e ' + n[n.length - 1];
+  return lista.charAt(0).toUpperCase() + lista.slice(1) + ' são treinos de perna. Se eles caírem em dias seguidos na tua semana, '
+    + (run.length === 2 ? 'põe teu dia de descanso entre os dois.' : 'põe teus dias de descanso entre eles.');
+}
 function fastBarHtml() {
   const on = fastModeOn();
   return `<div class="wk-bar" style="margin-bottom:10px;">
@@ -3595,6 +3619,12 @@ function renderTreino() {
     </div>
   `;
 
+  const pernas = pernasSeguidas(t, state.currentDay);
+  const pernaNoteHtml = !pernas ? '' : `<div class="result-card" style="margin-bottom:10px;">
+      <div style="font-weight:800;font-size:12px;letter-spacing:.5px;color:var(--text-dim);">DESCANSO ENTRE AS PERNAS</div>
+      <div class="small mt-2" style="line-height:1.5;">${pernasSeguidasTexto(t, pernas)}</div>
+    </div>`;
+
   const noDash = s => String(s || '').replace(/\s*—\s*/g, ', ');
   const extrasHtml = (t.extras || []).map(ex =>
     `<details class="result-card" style="cursor:pointer;"><summary style="font-weight:700;font-size:13px;color:var(--red);letter-spacing:.5px;">${noDash(ex.titulo)}</summary><div class="small mt-2" style="white-space:pre-wrap;line-height:1.5;">${noDash(ex.conteudo)}</div></details>`
@@ -3645,6 +3675,7 @@ function renderTreino() {
     ${fastNoteHtml}
     ${weekBarHtml()}
     <div class="day-tabs">${dayBtns}</div>
+    ${pernaNoteHtml}
     ${concludeBarHtml}
     ${exHtml}
     ${extrasHtml ? `<h3 style="margin-top:24px;color:var(--text-dim);">📚 Material extra</h3>${extrasHtml}` : ''}
