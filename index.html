@@ -917,12 +917,14 @@
   }
   .ebook-card-desc { font-size: 12px; color: var(--text-dim); line-height: 1.45; margin: 4px 0 10px; }
   .ebook-card-link {
-    display: inline-block;
-    padding: 9px 16px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px; /* alvo de toque: comprar e baixar */
+    padding: 10px 18px;
     background: var(--red);
     color: white;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     text-decoration: none;
     letter-spacing: .3px;
@@ -932,6 +934,12 @@
     color: #1a1505;
   }
   .ebook-card-link:hover { filter: brightness(1.1); }
+  /* e-book que o aluno já comprou */
+  .ebook-card.meu { border-color: #2a7a52; background: linear-gradient(135deg, #0d1a13 0%, var(--surface) 100%); }
+  .ebook-card-badge.ok { background: #1f9d63; color: #fff; }
+  .ebook-card.meu .ebook-card-link { background: #1f9d63; color: #fff; }
+  .ebook-card-aguarde { display: block; font-size: 12px; color: var(--text-dim); line-height: 1.45; }
+  .ebooks-secao { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-dim); margin: 18px 0 8px; }
 
   /* ── Parceiros / Acessórios ── */
   .partner-card {
@@ -2094,7 +2102,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '62';
+const APP_V = '63';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 const SUPL_PDF_URL = 'pdfs/suplementos.pdf'; // manual premium gerado de pdf-src/suplementos.html
@@ -2968,14 +2976,85 @@ function showTab(tab) {
 // ═══════════════════════════════════════════════════════════
 // EBOOKS (aba dedicada, order bumps Método GH)
 // ═══════════════════════════════════════════════════════════
-function renderEbooks() {
+// Os 3 e-books que o aluno pode ter (o Super Combo dá os três). O que ele comprou vem da API e fica guardado
+// no aparelho, por conta, pra aba abrir certa mesmo sem sinal. O PDF não mora no app: sai da API com uma
+// passagem de 5 minutos, tirada com o login.
+const EBOOK_IDS = ['ergo1', 'ergo2', 'pept'];
+function ebooksChave() { return 'shape_ebooks_' + (state.user?.email || ''); }
+function ebooksGuardados() {
+  try {
+    const o = JSON.parse(localStorage.getItem(ebooksChave()) || 'null');
+    if (o && typeof o === 'object') return { ebooks: o.ebooks || {}, noAr: o.noAr || {} };
+  } catch (e) {}
+  return { ebooks: {}, noAr: {} };
+}
+function ebookMeu(id) {
+  const e = ebooksGuardados().ebooks;
+  return id === 'combo' ? EBOOK_IDS.every(i => e[i]) : !!e[id];
+}
+let _ebooksAt = 0, _ebooksBusy = false;
+// pergunta pra API o que o aluno tem e redesenha a aba só se mudou (forca: sem esperar os 20 s entre consultas)
+async function carregaEbooks(forca) {
+  const email = state.user?.email;
+  if (!email || _ebooksBusy || (!forca && Date.now() - _ebooksAt < 20000)) return;
+  _ebooksBusy = true;
+  try {
+    const r = await api('/api/ebook/meus');
+    if (!r || !r.ok || !state.user || state.user.email !== email) return;
+    _ebooksAt = Date.now();
+    const novo = JSON.stringify({ ebooks: r.ebooks || {}, noAr: r.noAr || {} });
+    if (novo === localStorage.getItem(ebooksChave())) return;
+    try { localStorage.setItem(ebooksChave(), novo); } catch (e) {}
+    const aba = document.getElementById('tab-ebooks');
+    if (aba && !aba.classList.contains('hidden')) renderEbooks(true);
+  } catch (e) { /* sem sinal: fica o que estava guardado */ }
+  finally { _ebooksBusy = false; }
+}
+async function baixarEbook(ev, id) {
+  if (ev) ev.preventDefault();
+  const btn = ev && ev.currentTarget;
+  if (btn && btn.dataset.busy) return;
+  const txt = btn ? btn.textContent : '';
+  if (btn) { btn.dataset.busy = '1'; btn.textContent = 'Liberando...'; }
+  try {
+    const r = await api('/api/ebook/ticket', { method: 'POST', body: JSON.stringify({ id }) });
+    if (!r || !r.ok || !r.url) {
+      showToast((r && r.error) || 'Não consegui liberar o e-book agora. Tenta de novo em instantes.', 5000);
+      if (r && (r.code === 'SEM_EBOOK' || r.code === 'SEM_ARQUIVO')) carregaEbooks(true); // o que estava guardado ficou velho
+      return;
+    }
+    // O servidor manda o PDF como anexo: é download, o app continua aberto. Vai nesta mesma janela porque
+    // janela nova aberta DEPOIS da resposta da API é barrada como pop-up no iPhone.
+    location.href = API_BASE + r.url;
+  } catch (e) {
+    if (!e || !e.auth) showToast('Sem sinal agora. Tenta de novo em instantes.', 4000);
+  } finally {
+    if (btn) { delete btn.dataset.busy; btn.textContent = txt; }
+  }
+}
+function renderEbooks(semBuscar) {
   const c = document.getElementById('tab-ebooks');
   const e = state.upsellData?.ebooks;
   if (!e || e.ativo === false || !e.itens?.length) {
     c.innerHTML = '<div class="empty"><p>E-books em breve.</p></div>';
     return;
   }
-  const cards = e.itens.map(it => `
+  const noAr = ebooksGuardados().noAr;
+  const meus = e.itens.filter(it => it.id && it.id !== 'combo' && ebookMeu(it.id));
+  const aVenda = e.itens.filter(it => !(it.id && ebookMeu(it.id))); // quem já tem os três não vê mais o combo
+  const cardMeu = it => `
+    <div class="ebook-card meu">
+      <div class="ebook-card-head">
+        <span class="ebook-card-nome">${it.nome}</span>
+        <span class="ebook-card-badge ok">✓ LIBERADO</span>
+      </div>
+      <div class="ebook-card-desc">${it.desc}</div>
+      ${noAr[it.id]
+        ? `<a class="ebook-card-link" href="#" role="button" onclick="baixarEbook(event,'${it.id}')">📥 Baixar PDF</a>`
+        : '<span class="ebook-card-aguarde">Tá liberado na tua conta. O arquivo entra aqui em breve.</span>'}
+    </div>
+  `;
+  const cardVenda = it => `
     <div class="ebook-card${it.destaque ? ' destaque' : ''}">
       <div class="ebook-card-head">
         <span class="ebook-card-nome">${it.nome}</span>
@@ -2984,12 +3063,15 @@ function renderEbooks() {
       <div class="ebook-card-desc">${it.desc}</div>
       <a class="ebook-card-link" href="${it.link}" target="_blank" rel="noopener">Quero esse ebook →</a>
     </div>
-  `).join('');
+  `;
   c.innerHTML = `
     <h2>${e.titulo}</h2>
     <p class="hint">${e.subtitulo}</p>
-    ${cards}
+    ${meus.length ? '<div class="ebooks-secao">Teus e-books</div>' + meus.map(cardMeu).join('') : ''}
+    ${meus.length && aVenda.length ? '<div class="ebooks-secao">Pra completar a biblioteca</div>' : ''}
+    ${aVenda.map(cardVenda).join('')}
   `;
+  if (!semBuscar) carregaEbooks();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -5420,6 +5502,8 @@ document.addEventListener('visibilitychange', () => {
   if (document.hidden) { if (dirtyLoad().length) flushSets(); return; }
   agendaSync(600);
   if (Date.now() - _verifyAt > 10 * 60 * 1000) verificaSessao(); // em segundo plano o relógio do navegador para
+  // voltou do checkout com a aba de e-books aberta: o que ele acabou de comprar aparece sem fechar o app
+  { const abaEb = document.getElementById('tab-ebooks'); if (abaEb && !abaEb.classList.contains('hidden')) carregaEbooks(true); }
   // virou o dia com o app aberto: a semana e as marcações de feito são as de hoje
   if (treinoVisivel() && state.weekDia && state.weekDia !== localDay()) { state.week = null; renderTreinoSemAtrapalhar(); }
 });
