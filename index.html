@@ -939,6 +939,15 @@
   .ebook-card-badge.ok { background: #1f9d63; color: #fff; }
   .ebook-card.meu .ebook-card-link { background: #1f9d63; color: #fff; }
   .ebook-card-aguarde { display: block; font-size: 12px; color: var(--text-dim); line-height: 1.45; }
+  .ebook-card-acoes { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ebook-card.meu .ebook-card-link.sec { background: transparent; border: 1px solid #2a7a52; color: #9fe0bd; }
+  /* leitor: o e-book em texto abre por cima do app, num quadro fechado */
+  .ebook-leitor { position: fixed; inset: 0; z-index: 99990; background: #14181d; display: none; flex-direction: column; }
+  .ebook-leitor.show { display: flex; }
+  .ebook-leitor-topo { display: flex; align-items: center; gap: 10px; padding: calc(8px + env(safe-area-inset-top, 0px)) 8px 8px 16px; background: #0f1216; border-bottom: 1px solid #323a46; }
+  .ebook-leitor-titulo { flex: 1; min-width: 0; font-size: 14px; font-weight: 700; color: #e9e6dd; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ebook-leitor-fechar { width: 44px; height: 44px; border: 0; border-radius: 8px; background: var(--red); color: #fff; font-size: 18px; cursor: pointer; flex-shrink: 0; }
+  .ebook-leitor-quadro { flex: 1; width: 100%; border: 0; background: #14181d; }
   .ebooks-secao { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-dim); margin: 18px 0 8px; }
 
   /* ── Parceiros / Acessórios ── */
@@ -2084,6 +2093,15 @@
 </div><!-- /container -->
 
 <!-- Video Modal -->
+<!-- Leitor de e-book: o texto abre aqui dentro, num quadro fechado (sem script) -->
+<div class="ebook-leitor" id="ebookLeitor" role="dialog" aria-modal="true" aria-labelledby="ebookLeitorTitulo">
+  <div class="ebook-leitor-topo">
+    <span class="ebook-leitor-titulo" id="ebookLeitorTitulo"></span>
+    <button type="button" class="ebook-leitor-fechar" onclick="fechaLeitor()" aria-label="Fechar a leitura">✕</button>
+  </div>
+  <iframe class="ebook-leitor-quadro" id="ebookLeitorQuadro" sandbox="" title="Texto do e-book"></iframe>
+</div>
+
 <div class="video-modal" id="video-modal" onclick="closeVideoIfBackdrop(event)">
   <div class="video-modal-inner" id="video-modal-inner" role="dialog" aria-modal="true" aria-labelledby="video-modal-title" onclick="event.stopPropagation()">
     <div class="video-modal-header">
@@ -2102,7 +2120,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '63';
+const APP_V = '64';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 const SUPL_PDF_URL = 'pdfs/suplementos.pdf'; // manual premium gerado de pdf-src/suplementos.html
@@ -2984,9 +3002,9 @@ function ebooksChave() { return 'shape_ebooks_' + (state.user?.email || ''); }
 function ebooksGuardados() {
   try {
     const o = JSON.parse(localStorage.getItem(ebooksChave()) || 'null');
-    if (o && typeof o === 'object') return { ebooks: o.ebooks || {}, noAr: o.noAr || {} };
+    if (o && typeof o === 'object') return { ebooks: o.ebooks || {}, noAr: o.noAr || {}, leitura: o.leitura || {} };
   } catch (e) {}
-  return { ebooks: {}, noAr: {} };
+  return { ebooks: {}, noAr: {}, leitura: {} };
 }
 function ebookMeu(id) {
   const e = ebooksGuardados().ebooks;
@@ -3002,7 +3020,10 @@ async function carregaEbooks(forca) {
     const r = await api('/api/ebook/meus');
     if (!r || !r.ok || !state.user || state.user.email !== email) return;
     _ebooksAt = Date.now();
-    const novo = JSON.stringify({ ebooks: r.ebooks || {}, noAr: r.noAr || {} });
+    // texto de e-book que ele não tem mais (devolveu) sai do aparelho
+    for (const id of EBOOK_IDS) if (!(r.ebooks || {})[id]) { try { localStorage.removeItem(ebookHtmlChave(id)); } catch (e) {} }
+    const novo = JSON.stringify({ ebooks: r.ebooks || {}, noAr: r.noAr || {}, leitura: r.leitura || {} });
+    guardaLeituras(r); // em segundo plano: deixa o texto no aparelho pra ler sem sinal
     if (novo === localStorage.getItem(ebooksChave())) return;
     try { localStorage.setItem(ebooksChave(), novo); } catch (e) {}
     const aba = document.getElementById('tab-ebooks');
@@ -3032,6 +3053,80 @@ async function baixarEbook(ev, id) {
     if (btn) { delete btn.dataset.busy; btn.textContent = txt; }
   }
 }
+// LEITURA NA TELA: o e-book em texto (o HTML de onde sai o PDF) abre dentro do app, num quadro fechado, e fica
+// guardado no aparelho, por conta, pra ler sem sinal. A versão (data da importação) diz quando buscar de novo.
+function ebookHtmlChave(id) { return 'shape_ebook_html_' + id + '_' + (state.user?.email || ''); }
+function ebookHtmlGuardado(id, versao) {
+  try {
+    const o = JSON.parse(localStorage.getItem(ebookHtmlChave(id)) || 'null');
+    if (o && o.html && (!versao || o.v === versao)) return o.html;
+  } catch (e) {}
+  return null;
+}
+function ebookHtmlGuarda(id, versao, html) {
+  try { localStorage.setItem(ebookHtmlChave(id), JSON.stringify({ v: versao || 0, html })); } catch (e) { /* aparelho cheio: lê pela rede */ }
+}
+let _leiturasBusy = false;
+async function guardaLeituras(r) {
+  if (_leiturasBusy || !r) return;
+  _leiturasBusy = true;
+  const email = state.user?.email;
+  try {
+    for (const id of EBOOK_IDS) {
+      const v = (r.leitura || {})[id];
+      if (!(r.ebooks || {})[id] || !v || ebookHtmlGuardado(id, v)) continue;
+      const t = await api('/api/ebook/ler?id=' + id);
+      if (!state.user || state.user.email !== email) return;
+      if (t && t.ok && t.html) ebookHtmlGuarda(id, t.versao || v, t.html);
+    }
+  } catch (e) { /* fica pra próxima */ }
+  finally { _leiturasBusy = false; }
+}
+function abreLeitor(titulo, html) {
+  const el = document.getElementById('ebookLeitor'), q = document.getElementById('ebookLeitorQuadro');
+  if (!el || !q) return;
+  document.getElementById('ebookLeitorTitulo').textContent = titulo;
+  // o texto traz o estilo dele; aqui ganha a moldura (tela de celular, tema escuro) e perde o número de página do sumário
+  q.srcdoc = '<!doctype html><html lang="pt-BR" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base target="_blank"></head><body>'
+    + html + '<style>.toc .pg{display:none}.toc .row{grid-template-columns:30px 1fr}body{padding-bottom:48px}</style></body></html>';
+  el.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function fechaLeitor() {
+  const el = document.getElementById('ebookLeitor');
+  if (!el || !el.classList.contains('show')) return;
+  el.classList.remove('show');
+  document.getElementById('ebookLeitorQuadro').srcdoc = '';
+  document.body.style.overflow = '';
+}
+async function lerEbook(ev, id) {
+  if (ev) ev.preventDefault();
+  const btn = ev && ev.currentTarget;
+  if (btn && btn.dataset.busy) return;
+  const it = (state.upsellData?.ebooks?.itens || []).find(x => x.id === id);
+  const titulo = it ? it.nome : 'E-book';
+  const versao = ebooksGuardados().leitura[id] || 0;
+  let html = ebookHtmlGuardado(id, versao);
+  if (html) { abreLeitor(titulo, html); return; }
+  const txt = btn ? btn.textContent : '';
+  if (btn) { btn.dataset.busy = '1'; btn.textContent = 'Abrindo...'; }
+  try {
+    const r = await api('/api/ebook/ler?id=' + encodeURIComponent(id));
+    if (!r || !r.ok || !r.html) {
+      showToast((r && r.error) || 'Não consegui abrir o e-book agora. Tenta de novo em instantes.', 5000);
+      if (r && (r.code === 'SEM_EBOOK' || r.code === 'SEM_ARQUIVO')) carregaEbooks(true); // o que estava guardado ficou velho
+      return;
+    }
+    ebookHtmlGuarda(id, r.versao || versao, r.html);
+    abreLeitor(titulo, r.html);
+  } catch (e) {
+    html = ebookHtmlGuardado(id); // sem sinal: abre a última versão que ficou no aparelho, se houver
+    if (html) abreLeitor(titulo, html);
+    else if (!e || !e.auth) showToast('Sem sinal agora. Tenta de novo em instantes.', 4000);
+  } finally {
+    if (btn) { delete btn.dataset.busy; btn.textContent = txt; }
+  }
+}
 function renderEbooks(semBuscar) {
   const c = document.getElementById('tab-ebooks');
   const e = state.upsellData?.ebooks;
@@ -3039,8 +3134,12 @@ function renderEbooks(semBuscar) {
     c.innerHTML = '<div class="empty"><p>E-books em breve.</p></div>';
     return;
   }
-  const noAr = ebooksGuardados().noAr;
+  const { noAr, leitura } = ebooksGuardados();
   const meus = e.itens.filter(it => it.id && it.id !== 'combo' && ebookMeu(it.id));
+  const acoes = it => [
+    leitura[it.id] ? `<a class="ebook-card-link" href="#" role="button" onclick="lerEbook(event,'${it.id}')">📖 Ler agora</a>` : '',
+    noAr[it.id] ? `<a class="ebook-card-link${leitura[it.id] ? ' sec' : ''}" href="#" role="button" onclick="baixarEbook(event,'${it.id}')">📥 Baixar PDF</a>` : '',
+  ].join('');
   const aVenda = e.itens.filter(it => !(it.id && ebookMeu(it.id))); // quem já tem os três não vê mais o combo
   const cardMeu = it => `
     <div class="ebook-card meu">
@@ -3049,8 +3148,8 @@ function renderEbooks(semBuscar) {
         <span class="ebook-card-badge ok">✓ LIBERADO</span>
       </div>
       <div class="ebook-card-desc">${it.desc}</div>
-      ${noAr[it.id]
-        ? `<a class="ebook-card-link" href="#" role="button" onclick="baixarEbook(event,'${it.id}')">📥 Baixar PDF</a>`
+      ${(leitura[it.id] || noAr[it.id])
+        ? `<div class="ebook-card-acoes">${acoes(it)}</div>`
         : '<span class="ebook-card-aguarde">Tá liberado na tua conta. O arquivo entra aqui em breve.</span>'}
     </div>
   `;
@@ -5476,7 +5575,7 @@ async function confereProtocoloPendente() {
 // Voltar do celular (botão ou gesto do Android) com cronômetro, vídeo, foto ou um aviso aberto fechava o APP.
 // Agora cada camada que abre entra no histórico do navegador, e o voltar fecha a camada de cima.
 const CAMADAS = [['timerModal', () => closeTimer()], ['video-modal', () => closeVideo()], ['fotoViewer', () => closeFotoViewer()], ['achOverlay', () => achClose()],
-  ['shoppingModal', () => closeShoppingList()], ['installModal', () => closeInstallModal()], ['howToModal', () => closeHowToModal()]];
+  ['shoppingModal', () => closeShoppingList()], ['installModal', () => closeInstallModal()], ['howToModal', () => closeHowToModal()], ['ebookLeitor', () => fechaLeitor()]];
 let _camadasNoHistorico = 0;
 function camadasAbertas() { return CAMADAS.filter(([id]) => { const el = document.getElementById(id); return el && el.classList.contains('show'); }); }
 function vigiaCamadas() {
