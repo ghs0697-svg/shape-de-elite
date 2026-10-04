@@ -4,14 +4,14 @@
       "id": 1,
       "titulo": "Bem-vindo",
       "icone": "👋",
-      "desc": "Entenda em 30 segundos como o Shape de Elite funciona.",
+      "desc": "Entende em 30 segundos como o Shape de Elite funciona.",
       "aulas": [
         {
           "id": "1.1",
           "titulo": "Apresentação",
           "youtube": "lHSIQ1eiCvU",
           "duracao": "0:30",
-          "desc": "3 ciclos de 4 meses, calculadora que monta teu protocolo e PDFs que evoluem com você."
+          "desc": "4 fases de treino no ano, calculadora que monta teu protocolo e treinos que evoluem contigo."
         }
       ]
     },
@@ -26,7 +26,7 @@
           "titulo": "Como usar",
           "youtube": "UbicM_I6BNo",
           "duracao": "0:28",
-          "desc": "Calculadora avulsa: preenche teus dados em 1 minuto e ela te mostra qual dieta e treino seriam pro perfil novo. ⚠️ Não altera teu protocolo dentro do app — pra recalcular oficial, vai em CALCULADORA → Recalcular protocolo."
+          "desc": "Calculadora avulsa: preenche teus dados em 1 minuto e ela te mostra qual dieta e treino seriam pro perfil novo. ⚠️ Ela não altera teu protocolo dentro do app. Pra recalcular o oficial, vai na aba CALCULADORA e toca em Recalcular protocolo."
         }
       ]
     },
@@ -41,7 +41,7 @@
           "titulo": "Ler, trocar e ajustar",
           "youtube": "EVK2E1UKfNY",
           "duracao": "0:55",
-          "desc": "Como ler teu PDF de 4 colunas, fazer trocas de alimentos (igualadas em caloria), seguir a ordem do prato e ajustar semanalmente pelo peso e cintura."
+          "desc": "Como ler tua dieta, fazer trocas de alimentos (igualadas em caloria), seguir a ordem do prato e ajustar toda semana pelo peso e pela cintura."
         }
       ]
     },
@@ -56,7 +56,7 @@
           "titulo": "Execução e progressão",
           "youtube": "13ZHD-AEfOs",
           "duracao": "1:18",
-          "desc": "Cadência 1s subindo / 2-3s controlando a descida, padrão de séries, aquecimento inteligente e a regra sagrada: anota a carga da última série — ela é a meta da próxima semana."
+          "desc": "Cadência 1s subindo / 2-3s controlando a descida, padrão de séries, aquecimento inteligente e a regra sagrada: anota a carga da última série, porque ela é a meta da próxima semana."
         }
       ]
     },
@@ -98,10 +98,10 @@
       "aulas": [
         {
           "id": "7.1",
-          "titulo": "Atualiza a cada 4 meses",
+          "titulo": "Atualiza a cada 90 dias",
           "youtube": "Ped0WA8e5m0",
           "duracao": "0:26",
-          "desc": "A regra sagrada: a cada 4 meses tu troca dieta e treino. Treino evolui da versão 1.0 → 2.0 → 3.0. Dieta recalibra pelo teu peso novo na calculadora."
+          "desc": "A regra sagrada: a cada 90 dias tu avança o treino, que evolui da versão 1.0 até a 4.0. A dieta avança em 3 fases e ajusta as calorias pelo teu objetivo."
         }
       ]
     },
@@ -136,14 +136,14 @@
               "Suporte direto comigo",
               "Protocolo 100% personalizado",
               "Plataforma de treino e dieta",
-              "Vídeos instrutivos com um click",
+              "Vídeos instrutivos com um toque",
               "Espaço pra registro de carga e evolução",
               "Interpretação de exames e suplementação 100% individualizada",
               "Ajustes finos sempre que necessário",
               "Atualizações a cada 55 dias, com anamnese pra reajuste e feedback"
             ],
             "cta_label": "Ficou interessado? Chama aqui",
-            "cta_link": "https://wa.me/5520130783?text=E%20a%C3%AD%20GH%2C%20vim%20do%20Shape%20de%20Elite%20e%20quero%20saber%20mais%20sobre%20a%20consultoria%20individual."
+            "cta_link": "https://wa.me/555520130783?text=E%20a%C3%AD%20GH%2C%20vim%20do%20Shape%20de%20Elite%20e%20quero%20saber%20mais%20sobre%20a%20consultoria%20individual."
           }
         }
       ]

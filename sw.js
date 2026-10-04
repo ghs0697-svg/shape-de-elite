@@ -1,14 +1,17 @@
-const CACHE_NAME = 'shape-de-elite-v61';
+const CACHE_NAME = 'shape-de-elite-v62';
+// Os JSON levam a versão no endereço (igual ao APP_V do index.html): o HTML novo nunca roda com dado velho
+// do cache antigo, nem na primeira abertura depois de uma atualização.
+const V = '62';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './data/treinos.json',
-  './data/dietas.json',
-  './data/exercise-videos.json',
-  './data/suplementos.json',
-  './data/aulas.json',
-  './data/upsell.json',
+  './data/treinos.json?v=' + V,
+  './data/dietas.json?v=' + V,
+  './data/exercise-videos.json?v=' + V,
+  './data/suplementos.json?v=' + V,
+  './data/aulas.json?v=' + V,
+  './data/upsell.json?v=' + V,
   './data/sets-legacy-map-v1.json',
   './assets/bf-10.jpg?v=2',
   './assets/bf-15.jpg?v=2',
@@ -30,17 +33,45 @@ self.addEventListener('activate', e => {
   self.clients.claim();
 });
 
+// Abertura do app: rede primeiro, mas com limite de tempo. Com o celular conectado e o sinal travando (o caso
+// da academia), o pedido não falha, fica pendurado, e o app abria em branco até o navegador desistir sozinho.
+// Agora, se a rede não responde em 3 s, abre a cópia guardada; a resposta da rede, quando chegar, renova a cópia.
+const LIMITE_MS = 3000;
+async function abreApp(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const guardada = () => cache.match('./index.html');
+  const rede = fetch(request).then(res => {
+    if (res && res.ok) cache.put('./index.html', res.clone()).catch(() => {});
+    return res;
+  });
+  rede.catch(() => {}); // se perder a corrida e falhar depois, não vira erro solto
+  const limite = new Promise(resolve => setTimeout(() => resolve(null), LIMITE_MS));
+  try {
+    const res = await Promise.race([rede, limite]);
+    if (res && res.ok) return res;
+    return (await guardada()) || res || (await rede); // rede lenta ou erro do servidor: cópia guardada; sem cópia, espera a rede
+  } catch (err) {
+    const c = await guardada();
+    if (c) return c;
+    throw err;
+  }
+}
+
 self.addEventListener('fetch', e => {
-  // API calls (login, etc.) sempre network — sem cache
+  // Chamadas da API (login etc.): sempre pela rede, sem cache
   if (e.request.url.includes('/api/')) {
     e.respondWith(fetch(e.request, { cache: 'no-store' }));
     return;
   }
-  // index.html / navegação: network-first com fallback offline
-  if (e.request.url.includes('index.html') || e.request.mode === 'navigate') {
-    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+  // Abertura do app (a página em si). PDF aberto em outra aba também é "navegação", mas não é o app:
+  // passa direto pra rede, senão ele seria guardado no lugar do index.html.
+  const caminho = new URL(e.request.url).pathname;
+  const raiz = new URL('./', self.registration.scope).pathname;
+  if (caminho === raiz || caminho === raiz + 'index.html') {
+    e.respondWith(abreApp(e.request));
     return;
   }
+  if (e.request.mode === 'navigate') return; // outra página ou PDF: o navegador resolve sozinho
   // Imagens: network-first (nunca fica preso em resposta velha/quebrada do cache)
   if (e.request.destination === 'image' || /\.(jpg|jpeg|png|webp)(\?|$)/.test(e.request.url)) {
     e.respondWith(
