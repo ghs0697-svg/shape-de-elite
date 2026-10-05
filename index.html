@@ -892,6 +892,7 @@
   .mgh-plano { text-align: center; padding: 14px 12px; margin-bottom: 12px; border: 1px solid var(--gh-gold); border-radius: 12px; background: rgba(0, 0, 0, .25); }
   .mgh-plano-nome { font-size: 13px; font-weight: 800; letter-spacing: 2px; color: var(--gh-gold); }
   .mgh-plano-selo { display: inline-block; margin-top: 6px; padding: 3px 10px; border-radius: 50px; background: var(--gh-gold); color: #1a1505; font-size: 11px; font-weight: 800; letter-spacing: .4px; }
+  .mgh-plano-selo.bonus { background: transparent; border: 1px solid var(--gh-gold); color: var(--gh-gold-light); }
   .mgh-plano-de { margin-top: 10px; font-size: 12px; color: var(--text-dim); }
   .mgh-plano-parcela { font-size: 28px; font-weight: 800; line-height: 1.15; color: var(--text); }
   .mgh-plano-avista { margin-top: 2px; font-size: 12px; color: var(--text-dim); }
@@ -2134,7 +2135,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '66';
+const APP_V = '67';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 const SUPL_PDF_URL = 'pdfs/suplementos.pdf'; // manual premium gerado de pdf-src/suplementos.html
@@ -2952,14 +2953,19 @@ function buildMghCard() {
   const c = state.upsellData?.consultoria;
   if (!c || !c.ativo) return '';
   const bullets = (c.bullets || []).map(b => `<li>${b}</li>`).join('');
-  // Com "plano" nos dados o aluno compra direto, com a condição de aluno (R$ 100 off, perene: a promoção do
-  // comercial NÃO entra aqui, ordem do GH em 05/10/2026). O whats vira o caminho de quem quer conversar antes.
+  // Com "plano" nos dados o aluno compra direto, com a condição de aluno (R$ 100 off, perene). O whats vira o
+  // caminho de quem quer conversar antes.
+  // "bonus" é a promoção do comercial que o GH mandou valer aqui também (05/10/2026): o mês a mais da Black, que
+  // a automação do CRM dá a todo trimestral comprado até a data de "ate". Passou dessa data, some sozinho: o app
+  // nunca promete um mês que a planilha não vai dar. Pra prorrogar, muda a data aqui E na automação do CRM.
   const p = c.plano;
+  const b = p && c.bonus && c.bonus.ate && Date.now() <= Date.parse(c.bonus.ate) ? c.bonus : null;
   const compra = p ? `
-      ${c.aluno ? `<div class="mgh-aluno">${c.aluno}</div>` : ''}
+      ${c.aluno ? `<div class="mgh-aluno">${c.aluno}${b && b.texto ? ' ' + b.texto : ''}</div>` : ''}
       <div class="mgh-plano">
         <div class="mgh-plano-nome">${p.nome}</div>
         ${p.selo ? `<div class="mgh-plano-selo">${p.selo}</div>` : ''}
+        ${b && b.selo ? `<div class="mgh-plano-selo bonus">${b.selo}</div>` : ''}
         ${p.de ? `<div class="mgh-plano-de">de <s>${p.de}</s> por</div>` : ''}
         <div class="mgh-plano-parcela">${p.parcela}</div>
         <div class="mgh-plano-avista">ou <b>${p.aVista}</b> à vista</div>
