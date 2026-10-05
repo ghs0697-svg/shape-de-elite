@@ -2135,7 +2135,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '67';
+const APP_V = '68';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 const SUPL_PDF_URL = 'pdfs/suplementos.pdf'; // manual premium gerado de pdf-src/suplementos.html
@@ -2955,9 +2955,10 @@ function buildMghCard() {
   const bullets = (c.bullets || []).map(b => `<li>${b}</li>`).join('');
   // Com "plano" nos dados o aluno compra direto, com a condição de aluno (R$ 100 off, perene). O whats vira o
   // caminho de quem quer conversar antes.
-  // "bonus" é a promoção do comercial que o GH mandou valer aqui também (05/10/2026): o mês a mais da Black, que
-  // a automação do CRM dá a todo trimestral comprado até a data de "ate". Passou dessa data, some sozinho: o app
-  // nunca promete um mês que a planilha não vai dar. Pra prorrogar, muda a data aqui E na automação do CRM.
+  // "bonus" (opcional, hoje NÃO existe nos dados) é o encaixe pra uma promoção com prazo: selo, frase e "ate".
+  // Passou da data de "ate", some sozinho, pra o app nunca prometer o que a planilha não vai dar. Foi usado um
+  // dia só, em 05/10/2026, pro mês a mais da Black; o GH cancelou a Black no mesmo dia e o bloco saiu dos dados.
+  // Se voltar promoção: põe o bloco no upsell.json com a MESMA data da automação do CRM e ajusta o teste T14.
   const p = c.plano;
   const b = p && c.bonus && c.bonus.ate && Date.now() <= Date.parse(c.bonus.ate) ? c.bonus : null;
   const compra = p ? `
