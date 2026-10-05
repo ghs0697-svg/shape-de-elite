@@ -884,6 +884,19 @@
     cursor: pointer;
   }
   .mgh-card-cta:hover { filter: brightness(1.08); }
+  /* condição de aluno na consultoria: R$ 100 off no trimestral, direto no botão (a mesma do app do Peitão) */
+  #mghCard { scroll-margin-top: 130px; }
+  .mgh-aluno { margin: 4px 0 12px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(201, 162, 75, .3); background: rgba(201, 162, 75, .07); font-size: 13px; line-height: 1.55; color: #b0a890; }
+  .mgh-aluno b { color: var(--gh-gold-light); }
+  .mgh-aluno s { color: #8f8878; }
+  .mgh-plano { text-align: center; padding: 14px 12px; margin-bottom: 12px; border: 1px solid var(--gh-gold); border-radius: 12px; background: rgba(0, 0, 0, .25); }
+  .mgh-plano-nome { font-size: 13px; font-weight: 800; letter-spacing: 2px; color: var(--gh-gold); }
+  .mgh-plano-selo { display: inline-block; margin-top: 6px; padding: 3px 10px; border-radius: 50px; background: var(--gh-gold); color: #1a1505; font-size: 11px; font-weight: 800; letter-spacing: .4px; }
+  .mgh-plano-de { margin-top: 10px; font-size: 12px; color: var(--text-dim); }
+  .mgh-plano-parcela { font-size: 28px; font-weight: 800; line-height: 1.15; color: var(--text); }
+  .mgh-plano-avista { margin-top: 2px; font-size: 12px; color: var(--text-dim); }
+  .mgh-plano-avista b { color: var(--text); }
+  .mgh-card-whats { display: flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 8px; padding: 6px 8px; font-size: 12px; line-height: 1.4; text-align: center; color: var(--gh-gold-light); text-decoration: underline; text-underline-offset: 3px; }
 
   /* Ebook cards */
   .ebook-card {
@@ -2121,7 +2134,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '65';
+const APP_V = '66';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 const SUPL_PDF_URL = 'pdfs/suplementos.pdf'; // manual premium gerado de pdf-src/suplementos.html
@@ -2924,7 +2937,14 @@ function renderMghBanner() {
 
 function openMghConsultoria() {
   const c = state.upsellData?.consultoria;
-  if (c?.link) window.open(c.link, '_blank', 'noopener');
+  if (!c) return;
+  if (c.plano) { // a oferta de aluno (preço e botão) mora no card da aba AULAS: a faixa leva até ele
+    showTab('aulas');
+    const el = document.getElementById('mghCard');
+    if (el && el.scrollIntoView) { try { el.scrollIntoView({ block: 'start' }); } catch (e) {} }
+    return;
+  }
+  if (c.link) window.open(c.link, '_blank', 'noopener');
 }
 
 // Card grande Método GH (usado entre aulas e em outros pontos)
@@ -2932,8 +2952,24 @@ function buildMghCard() {
   const c = state.upsellData?.consultoria;
   if (!c || !c.ativo) return '';
   const bullets = (c.bullets || []).map(b => `<li>${b}</li>`).join('');
+  // Com "plano" nos dados o aluno compra direto, com a condição de aluno (R$ 100 off, perene: a promoção do
+  // comercial NÃO entra aqui, ordem do GH em 05/10/2026). O whats vira o caminho de quem quer conversar antes.
+  const p = c.plano;
+  const compra = p ? `
+      ${c.aluno ? `<div class="mgh-aluno">${c.aluno}</div>` : ''}
+      <div class="mgh-plano">
+        <div class="mgh-plano-nome">${p.nome}</div>
+        ${p.selo ? `<div class="mgh-plano-selo">${p.selo}</div>` : ''}
+        ${p.de ? `<div class="mgh-plano-de">de <s>${p.de}</s> por</div>` : ''}
+        <div class="mgh-plano-parcela">${p.parcela}</div>
+        <div class="mgh-plano-avista">ou <b>${p.aVista}</b> à vista</div>
+      </div>
+      <a class="mgh-card-cta" href="${p.link}" target="_blank" rel="noopener">${p.cta} →</a>
+      <a class="mgh-card-whats" href="${c.link}" target="_blank" rel="noopener">${c.whats || 'Prefere falar comigo antes? Me chama no whats'} →</a>`
+    : `
+      <a class="mgh-card-cta" href="${c.link}" target="_blank" rel="noopener">${c.cta} →</a>`;
   return `
-    <div class="mgh-card">
+    <div class="mgh-card" id="mghCard">
       <div class="mgh-card-head">
         <div class="mgh-card-logo">${c.logo || 'GH'}</div>
         <div>
@@ -2947,8 +2983,7 @@ function buildMghCard() {
       <div class="vsl-label">Por que migrar pro Método GH</div>
       <video class="vsl-video" controls playsinline preload="none" poster="assets/vsl-poster.jpg">
         <source src="assets/vsl-metodogh.mp4" type="video/mp4">
-      </video>
-      <a class="mgh-card-cta" href="${c.link}" target="_blank" rel="noopener">${c.cta} →</a>
+      </video>${compra}
     </div>
   `;
 }

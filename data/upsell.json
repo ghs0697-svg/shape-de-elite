@@ -17,6 +17,17 @@
       "Suporte via WhatsApp",
       "Ajuste direto no app, sem fila no WhatsApp. Pediu? Tá resolvido!"
     ],
+    "aluno": "<b>Condição de aluno:</b> tu já tá dentro do Shape de Elite, já faz parte do time. Por isso o Trimestral sai de <s>R$ 597</s> por <b>R$ 497</b>: R$ 100 off aplicado direto no botão, sem cupom.",
+    "plano": {
+      "nome": "TRIMESTRAL",
+      "selo": "R$ 100 off de aluno",
+      "de": "R$ 597",
+      "parcela": "12x de R$ 51,10",
+      "aVista": "R$ 497",
+      "cta": "Quero o trimestral",
+      "link": "https://payfast.greenn.com.br/redirect/302606"
+    },
+    "whats": "Quer um plano mais longo ou falar comigo antes? Me chama no whats",
     "cta": "Quero migrar pro Método GH",
     "link": "https://wa.me/555520130783?text=E%20a%C3%AD%20GH%2C%20vim%20do%20Shape%20de%20Elite%20e%20quero%20saber%20mais%20sobre%20a%20consultoria%20individual."
   },
