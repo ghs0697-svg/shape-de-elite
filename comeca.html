@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <!--
   Comece por aqui: página aberta, sem senha, pra quem acabou de comprar o Shape de Elite.
-  Endereço: app.shapedeelite.com.br/comeca?de=<origem>   (whats | bot | app | pagina | chat | outro)
+  Endereço: app.shapedeelite.com.br/comeca?de=<origem>   (whats | bot | app | pagina | grupo | chat | outro)
   - Vídeo do topo: pôr o id do YouTube em VIDEO_ID (vídeo em pé). Vazio = a página fica sem o bloco.
   - Casos de alunos: lista CASOS. Vazia = a seção não aparece.
   - Preço e condição da consultoria vêm de data/upsell.json, o mesmo arquivo do card do app.
@@ -288,7 +288,7 @@
   var API = 'https://shape-de-elite-api.vercel.app';
   var VIDEO_ID = '';   // id do vídeo de boas-vindas no YouTube (em pé, até 2 minutos); vazio = sem bloco de vídeo
   var CASOS = [];      // [{ img: 'https://...jpg', alt: 'Antes e depois de um aluno do Método GH' }]; vazio = sem a seção
-  var ORIGENS = ['whats', 'bot', 'app', 'pagina', 'chat', 'outro'];
+  var ORIGENS = ['whats', 'bot', 'app', 'pagina', 'grupo', 'chat', 'outro'];
   var de = (new URLSearchParams(location.search).get('de') || 'outro').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20);
   if (ORIGENS.indexOf(de) < 0) de = 'outro';
 
