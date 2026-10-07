@@ -21,6 +21,7 @@
   - Casos de alunos: lista CASOS (fotos que já estão no banner e na página de vendas do Shape). Vazia = a seção não aparece.
     Ficam LOGO NO COMEÇO e PEQUENOS (ordem do GH, 07/10/2026: "as fotos dos cases tem que ser menores e no inicio"); tocar abre a foto grande.
   - Vídeo de oferta da consultoria, NO FIM (mesma ordem dele): VIDEO_OFERTA. Vazio = o bloco não aparece.
+  - Pilha do que a consultoria entrega e linha das vagas, no mesmo bloco final: PILHA_OFERTA.
   - Preço e condição da consultoria vêm de data/upsell.json, o mesmo arquivo do card do app.
   - Contagem: abertura (pela origem), play e toque em cada botão, em /api/clique?para=playbook&de=...
 -->
@@ -124,6 +125,14 @@
   .nivel p { color: var(--text-dim); font-size: 15px; margin: 0 0 10px; }
   .oferta-video { margin: 12px auto 14px; max-width: 280px; }
   .oferta-video video { display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 14px; border: 1px solid var(--border); background: #000; }
+  .nivel .oferta-linha { text-align: center; font-size: 13px; color: var(--text-muted); margin: 8px 0 0; }
+  .pilha { margin: 4px 0 14px; }
+  .nivel .pilha-titulo { color: var(--text); font-weight: 800; margin: 0 0 8px; }
+  .pilha ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .pilha li { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+  .pilha li b { display: block; font-size: 15px; }
+  .pilha li span { display: block; color: var(--text-dim); font-size: 14px; margin-top: 2px; }
+  .nivel .vagas { text-align: center; font-size: 13px; color: var(--text-muted); margin: 12px 0 0; }
   .preco { text-align: center; margin: 14px 0; }
   .preco .selo { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #1d1a12; background: var(--gold); border-radius: 999px; padding: 4px 10px; }
   .preco .de { color: var(--text-muted); font-size: 14px; margin-top: 8px; }
@@ -312,9 +321,23 @@
     <div class="card nivel">
       <div class="kicker" id="nivel-kicker">O próximo nível</div>
       <h2>Do personalizado pro individualizado</h2>
-      <div class="oferta-video" id="oferta-video" hidden><video id="oferta-vid" playsinline controls preload="none"></video></div>
       <p>O Shape de Elite te entrega um protocolo <b>personalizado</b>: a calculadora monta treino e dieta pro teu perfil, e tu aplica no teu ritmo.</p>
       <p>Na consultoria do Método GH o protocolo é <b>individualizado</b>: feito pro teu caso, com acompanhamento direto comigo, anamnese, exames e ajustes sempre que precisar.</p>
+      <div class="oferta-video" id="oferta-video" hidden>
+        <video id="oferta-vid" playsinline controls preload="none"></video>
+        <p class="oferta-linha">É 1 minuto: aperta o play e assiste com som.</p>
+      </div>
+      <div class="pilha" id="oferta-pilha" hidden>
+        <p class="pilha-titulo">Na minha consultoria tu vai ter:</p>
+        <ul>
+          <li><b>Protocolo 100% teu</b><span>Treino, dieta e suplementação do zero pro teu caso, com análise de exames e avaliação corporal. Pronto em até 4 dias úteis. Nada genérico.</span></li>
+          <li><b>App exclusivo, tudo na mão</b><span>Vídeo de execução em todo exercício, gravado por mim. Faltou aparelho? Troca o exercício na hora, pelo app.</span></li>
+          <li><b>Ajuste no mesmo dia</b><span>Trocar exercício, refeição ou série? Pede pelo app e no mesmo dia eu faço.</span></li>
+          <li><b>Reajuste a cada 55 dias</b><span>Fotos, medidas, exames e tudo que tu marcou no app: refaço o protocolo no detalhe, no tempo certo pro corpo evoluir sem estagnar.</span></li>
+          <li><b>Suporte diário comigo no WhatsApp</b><span>Qualquer dúvida no caminho, é só me chamar.</span></li>
+          <li><b>Call semanal em grupo</b><span>Aulas, cases e dúvidas direto comigo, toda semana.</span></li>
+        </ul>
+      </div>
       <p>Faz o Shape rodar primeiro. Quando tu quiser ir além, o caminho já tá aberto.</p>
       <p id="nivel-aluno" style="color:var(--text)"></p>
       <div class="preco">
@@ -325,6 +348,7 @@
       </div>
       <a class="btn ouro" id="nivel-cta" data-clique="link-consultoria" target="_blank" rel="noopener" href="#"></a>
       <a class="btn sec" id="nivel-whats" data-clique="link-consultoria" target="_blank" rel="noopener" href="#">Falar comigo antes</a>
+      <p class="vagas" id="oferta-vagas" hidden>Consultoria individual tem vaga limitada: eu monto e ajusto cada protocolo.</p>
     </div>
   </section>
 
@@ -355,6 +379,9 @@
   // foi gravado pro comprador do PEITÃO e fala nele do começo ao fim ("teu Peitão de Pombo já está sendo liberado", "o
   // valor do Peitão vira crédito"). Aquele arquivo NÃO entra aqui: só um vídeo que sirva pro comprador do Shape.
   var VIDEO_OFERTA = { src: '', capa: '' };
+  // Pilha do que a consultoria entrega (logo abaixo do vídeo) e a linha das vagas (abaixo dos botões). Proposta da QuizPeitao,
+  // dona da copy de oferta (Sala #3215): são as frases que o GH já tem na página de oferta da consultoria. Entra com o sim dele.
+  var PILHA_OFERTA = false;
   var DUVIDAS = true;  // bloco "Paguei, e agora?" (plano B do lançamento: página parada não cai). LIGADO em 07/10/2026 pelo GH ("Pode ligar tudo sim").
   var ORIGENS = ['whats', 'bot', 'app', 'pagina', 'grupo', 'chat', 'outro'];
   var de = (new URLSearchParams(location.search).get('de') || 'outro').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20);
@@ -420,6 +447,7 @@
     ov.addEventListener('play', function () { if (!ofertaContada) { ofertaContada = true; conta('play-consultoria'); } });
     document.getElementById('oferta-video').hidden = false;
   }
+  if (PILHA_OFERTA) { document.getElementById('oferta-pilha').hidden = false; document.getElementById('oferta-vagas').hidden = false; }
 
   // próximo nível: preço e condição vêm do mesmo arquivo do card do app; sem ele, o bloco não aparece
   fetch('data/upsell.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
