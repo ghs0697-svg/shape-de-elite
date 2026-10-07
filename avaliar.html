@@ -55,6 +55,7 @@ audio{width:100%;margin-top:8px}
 <div class="wrap">
   <h1>🎖 Avaliações do Shape de Elite</h1>
   <div class="sub">Fotos e medidas de cada aluno. Grava o áudio e ele aparece no app do aluno na hora. O prazo prometido é de 7 dias úteis.</div>
+  <div class="sub" id="janela" style="display:none"></div>
 
   <div id="login" class="card" style="max-width:420px">
     <div class="tag">ACESSO</div>
@@ -126,6 +127,7 @@ async function carregar(){
     if (r.status === 401){ document.getElementById('loginMsg').textContent = 'Chave errada.'; try { localStorage.removeItem(GUARDA); } catch (e) {} CHAVE = ''; return; }
     const d = await r.json();
     AVALS = d.avaliacoes || [];
+    mostraJanela(d.janela);
     document.getElementById('login').style.display = 'none';
     document.getElementById('painel').style.display = '';
     resumo();
@@ -133,6 +135,18 @@ async function carregar(){
     const pend = AVALS.findIndex(a => a.status === 'enviada');
     if (pend >= 0) abrir(pend); else if (AVALS.length) abrir(0); else document.getElementById('detalhe').textContent = 'Nenhuma avaliação recebida ainda.';
   }catch(e){ document.getElementById('loginMsg').textContent = 'Sem conexão com a API.'; }
+}
+// desde quando o convite aparece pro aluno (quem decide é a API; aqui é só pra tu conferires)
+function mostraJanela(j){
+  const el = document.getElementById('janela'); if (!el || !j) return;
+  const f = ms => new Date(ms).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(',', ' às');
+  const fim = j.ate ? ' e até ' + f(j.ate) : ', sem data de fim';
+  let t;
+  if (!j.de) t = '⚠ O bônus está FECHADO: nenhum aluno vê o convite da avaliação (a data de começo ainda não foi configurada).';
+  else if (Date.now() < j.de) t = 'O convite aparece no app pra quem comprar a partir de ' + f(j.de) + fim + '. Hoje nenhum aluno vê.';
+  else t = 'O convite aparece no app pra quem comprou a partir de ' + f(j.de) + fim + '.';
+  if (j.contasDeTeste) t += ' Contas de teste liberadas: ' + Number(j.contasDeTeste) + '.';
+  el.textContent = t; el.style.display = '';
 }
 function resumo(){ document.getElementById('resumo').textContent = `${AVALS.filter(x=>x.status==='enviada').length} PENDENTES · ${AVALS.length} NO TOTAL`; }
 // em que dia do prazo de 7 dias úteis a avaliação está (só pras pendentes)
