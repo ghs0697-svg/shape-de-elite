@@ -1656,6 +1656,7 @@
     </form>
     <button class="btn secondary" type="button" onclick="showAuth('first')">Primeiro acesso? Criar senha</button>
     <button class="btn ghost" type="button" onclick="showAuth('reset')">Esqueci minha senha</button>
+    <a class="entrada-grupo hidden" id="entrada-comeca" href="comeca?de=app" target="_blank" rel="noopener">👉 Primeira vez aqui? Comece por aqui</a>
     <a class="entrada-grupo" id="entrada-grupo" href="https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA" target="_blank" rel="noopener" onclick="contaToque('grupo', 'entrada')">💬 Entrar no grupo do Shape de Elite</a>
     <button class="btn ghost" type="button" onclick="openHowToModal()" style="color:var(--gold);">📖 Como acessar pela primeira vez</button>
   </div>
@@ -2147,7 +2148,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '74';
+const APP_V = '75';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2168,7 +2169,13 @@ const GRUPO = { ligado: true, link: 'https://chat.whatsapp.com/LC3IMc7OffCHQar1G
 // LIGADO em 07/10/2026: o GH viu as duas telas do Shape (começo e fim do treino) e respondeu "Sim".
 // Pra desligar: ligado = false (a linha e o botão somem na hora; quem já pediu continua registrado no bot).
 const GUARDIAO = { ligado: true, whats: '5555999717530', chamada: 'Quer que a gente te cobre o treino toda semana?', nome: 'Quero ser cobrado', explica: 'O guardião te cobra o treino toda semana, pelo WhatsApp do Shape.', pedido: '✅ Guardião pedido. Ele te chama no WhatsApp.', frase: 'Quero o guardião do Shape de Elite pra me cobrar o treino.' };
+// COMECE POR AQUI (ordem do GH, 07/10/2026): página aberta com o caminho do aluno novo, em comeca.html. A página
+// responde no endereço dela; o ATALHO de dentro do app fica desligado até o GH aprovar a página.
+// O botão do passo 1 da página abre o app com ?criar=1, que cai direto na tela de criar senha (ver boot).
+const COMECA = { ligado: false };
 function previaLigada(qual) { try { return localStorage.getItem('shape_previa_' + qual) === '1'; } catch (e) { return false; } }
+function querCriarSenha() { try { return new URLSearchParams(location.search).get('criar') === '1'; } catch (e) { return false; } }
+function comecaAtalho() { try { const a = document.getElementById('entrada-comeca'); if (a) a.classList.toggle('hidden', !(COMECA.ligado || previaLigada('comeca'))); } catch (e) {} }
 // Código curto da conta, S-XXXX: a MESMA conta que a API faz (lib/alunos.js, codigoDoEmail). Não é segredo.
 function codigoDoAluno() {
   const em = String((state.user && state.user.email) || '').trim().toLowerCase();
@@ -5722,9 +5729,10 @@ function boot() {
   if (state.user && state.user.token) {
     afterLogin();
   } else {
-    showAuth('login');
+    showAuth(querCriarSenha() ? 'first' : 'login');
     showScreen('auth-screen');
   }
+  comecaAtalho();
 }
 
 // Protocolo criado sem sinal: quando a internet volta, confere com o servidor antes de subir (se a conta já
