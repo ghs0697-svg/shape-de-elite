@@ -2135,7 +2135,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '68';
+const APP_V = '69';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 const SUPL_PDF_URL = 'pdfs/suplementos.pdf'; // manual premium gerado de pdf-src/suplementos.html
@@ -2375,6 +2375,7 @@ async function afterLogin() {
   const seq = ++_loginSeq, email = state.user.email;
   trocaDeDono();
   saveState();
+  try { agendaDiasTreino(5000); } catch (e) {} // dia de treino que ficou na fila sem sinal
   const jaAbriu = !!state.protocol;
   if (jaAbriu) initDashboard(); else bootMsg('Buscando teu protocolo...', false);
 
@@ -4609,6 +4610,7 @@ function toggleExerciseCheck(dayIdx, exIdx) {
   hoje[g] = hoje[g] || {};
   hoje[g][id] = !hoje[g][id];
   saveState();
+  if (hoje[g][id]) { try { anotaDiaDeTreino(); } catch (e) {} } // só um aviso pro servidor: nunca atrapalha a marcação
   // atualiza só o cartão e o contador: redesenhar a aba inteira fechava o material extra aberto, devolvia a
   // faixa de dias pro começo e fazia as fotos piscarem a cada marcação
   const card = document.getElementById('ex-card-' + exIdx);
@@ -4617,6 +4619,47 @@ function toggleExerciseCheck(dayIdx, exIdx) {
   card.classList.toggle('done', done);
   if (b) { b.classList.toggle('on', done); b.textContent = done ? '✓' : ''; b.setAttribute('aria-pressed', done ? 'true' : 'false'); }
   document.querySelectorAll('.conclude-slot').forEach(el => { el.innerHTML = concludeInner(); });
+}
+
+// ─── Dia de treino pro servidor ───
+// A marca de "feito" mora só no aparelho, então quem treinava sem anotar carga não aparecia em lugar nenhum como
+// quem treinou (a carga anotada já carimba o dia sozinha, no servidor). Quando o aluno marca um exercício, o dia
+// entra numa fila e sobe pra /api/treino/dia quando der sinal. É só um aviso: se falhar, nada do treino muda. E não
+// passa pelo api() de propósito: aviso em segundo plano nunca pode ser o que mostra "sessão expirou" e desloga.
+function diasFilaName() { return 'shape_diastreino_' + setsEmail(); }
+function diasFilaLoad() {
+  try { const o = JSON.parse(localStorage.getItem(diasFilaName()) || 'null'); if (o && Array.isArray(o.pend)) return { ok: String(o.ok || ''), pend: o.pend.map(String) }; } catch (e) {}
+  return { ok: '', pend: [] };
+}
+function diasFilaSave(o) { try { localStorage.setItem(diasFilaName(), JSON.stringify(o)); } catch (e) {} }
+function anotaDiaDeTreino() {
+  if (!state.user) return;
+  const d = localDay(), f = diasFilaLoad();
+  if (f.ok === d || f.pend.includes(d)) return; // o dia de hoje já subiu ou já está na fila
+  f.pend = f.pend.concat(d).slice(-14);
+  diasFilaSave(f);
+  agendaDiasTreino(1500);
+}
+let _diasTimer = null, _diasBusy = false;
+function agendaDiasTreino(ms) { clearTimeout(_diasTimer); _diasTimer = setTimeout(flushDiasTreino, ms); }
+async function flushDiasTreino() {
+  clearTimeout(_diasTimer);
+  if (!state.user || !state.user.token || _diasBusy) return false;
+  const email = state.user.email, dias = diasFilaLoad().pend.slice();
+  if (!dias.length) return true;
+  _diasBusy = true;
+  try {
+    const res = await fetchComLimite(API_BASE + '/api/treino/dia', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.user.token }, body: JSON.stringify({ dias }) }, 15000);
+    if (!state.user || state.user.email !== email) return false; // trocou de conta com o aviso em voo
+    // 400 = o servidor não aceitou nenhuma dessas datas (velhas demais): insistir não adianta, sai da fila
+    if (!res.ok && res.status !== 400) return false;
+    const f = diasFilaLoad(), ultimo = dias.slice().sort().pop();
+    f.pend = f.pend.filter(x => !dias.includes(x));
+    if (res.ok && ultimo > f.ok) f.ok = ultimo;
+    diasFilaSave(f);
+    return true;
+  } catch (e) { return false; } // sem sinal: segue na fila e sobe na próxima marcação ou na próxima abertura
+  finally { _diasBusy = false; }
 }
 
 // ═══════════════════════════════════════════════════════════
