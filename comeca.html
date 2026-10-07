@@ -97,6 +97,7 @@
 
   /* casos */
   .casos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0 10px; }
+  .casos.n3 { grid-template-columns: repeat(3, 1fr); }
   .casos img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); }
 
   /* próximo nível */
@@ -287,11 +288,11 @@
 (function () {
   var API = 'https://shape-de-elite-api.vercel.app';
   var VIDEO_ID = '';   // id do vídeo de boas-vindas no YouTube (em pé, até 2 minutos); vazio = sem bloco de vídeo
-  // Casos: os do banner do Shape que não aparecem no material dos outros produtos (cada página usa casos diferentes).
+  // Casos: os do material do Shape que NÃO aparecem nas páginas dos outros produtos (cada página usa casos diferentes).
+  // Ficaram de fora por isso: shape-09 (está no banner da consultoria), shape-12 (é o passa-01 do Peitão) e rodrigo (é o passa-06 do Peitão).
   var BASE_CASOS = 'https://shapedeelite.com.br/img/cases/';
   var CASOS = [
     { img: BASE_CASOS + 'shape-01.jpg', alt: 'Antes e depois de um aluno do Método GH' },
-    { img: BASE_CASOS + 'shape-09.jpg', alt: 'Antes e depois de uma aluna do Método GH' },
     { img: BASE_CASOS + 'shape-02.jpg', alt: 'Antes e depois de um aluno do Método GH' },
     { img: BASE_CASOS + 'radames.jpg', alt: 'Antes e depois de um aluno do Método GH' }
   ];                   // vazio = sem a seção
@@ -327,6 +328,7 @@
   // casos: só entram os que forem escolhidos; foto que não carregar some
   if (CASOS.length) {
     var lista = document.getElementById('casos-lista');
+    lista.className = 'casos n' + CASOS.length;
     CASOS.forEach(function (c) {
       var img = document.createElement('img'); img.src = c.img; img.alt = c.alt || 'Antes e depois de um aluno do Método GH'; img.loading = 'lazy';
       img.addEventListener('error', function () { img.remove(); if (!lista.querySelector('img')) document.getElementById('casos').hidden = true; });
