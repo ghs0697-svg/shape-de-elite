@@ -17,7 +17,7 @@
   Comece por aqui: página aberta, sem senha, pra quem acabou de comprar o Shape de Elite.
   Endereço: app.shapedeelite.com.br/comeca?de=<origem>   (whats | bot | app | pagina | grupo | chat | outro)
   - Vídeo do topo: pôr o id do YouTube em VIDEO_ID (vídeo em pé). Vazio = a página fica sem o bloco.
-  - Casos de alunos: lista CASOS. Vazia = a seção não aparece.
+  - Casos de alunos: lista CASOS (fotos que já estão no banner e na página de vendas do Shape). Vazia = a seção não aparece.
   - Preço e condição da consultoria vêm de data/upsell.json, o mesmo arquivo do card do app.
   - Contagem: abertura (pela origem), play e toque em cada botão, em /api/clique?para=playbook&de=...
 -->
@@ -287,7 +287,14 @@
 (function () {
   var API = 'https://shape-de-elite-api.vercel.app';
   var VIDEO_ID = '';   // id do vídeo de boas-vindas no YouTube (em pé, até 2 minutos); vazio = sem bloco de vídeo
-  var CASOS = [];      // [{ img: 'https://...jpg', alt: 'Antes e depois de um aluno do Método GH' }]; vazio = sem a seção
+  // Casos: os do banner do Shape que não aparecem no material dos outros produtos (cada página usa casos diferentes).
+  var BASE_CASOS = 'https://shapedeelite.com.br/img/cases/';
+  var CASOS = [
+    { img: BASE_CASOS + 'shape-01.jpg', alt: 'Antes e depois de um aluno do Método GH' },
+    { img: BASE_CASOS + 'shape-09.jpg', alt: 'Antes e depois de uma aluna do Método GH' },
+    { img: BASE_CASOS + 'shape-02.jpg', alt: 'Antes e depois de um aluno do Método GH' },
+    { img: BASE_CASOS + 'radames.jpg', alt: 'Antes e depois de um aluno do Método GH' }
+  ];                   // vazio = sem a seção
   var ORIGENS = ['whats', 'bot', 'app', 'pagina', 'grupo', 'chat', 'outro'];
   var de = (new URLSearchParams(location.search).get('de') || 'outro').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20);
   if (ORIGENS.indexOf(de) < 0) de = 'outro';
