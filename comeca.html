@@ -24,6 +24,7 @@
   - Pilha do que a consultoria entrega e linha das vagas, no mesmo bloco final: PILHA_OFERTA.
   - Preço e condição da consultoria vêm de data/upsell.json, o mesmo arquivo do card do app.
   - Contagem: abertura (pela origem), play e toque em cada botão, em /api/clique?para=playbook&de=...
+  - Número do botão de suporte: vem da API (GET /api/config), pra poder trocar na hora se o oficial cair. O do HTML é a reserva.
 -->
 <style>
   :root {
@@ -302,7 +303,7 @@
       <h3 class="t">💬 Suporte no WhatsApp</h3>
       <p class="c">Travou em alguma parte? Dúvida de execução, de troca de alimento ou de ajuste? Chama no WhatsApp do Shape.</p>
       <p class="c" id="quem-responde">É um <b>WhatsApp inteligente, que responde na hora</b>, 24 horas por dia.</p>
-      <a class="btn whats" data-clique="link-suporte" target="_blank" rel="noopener" href="https://api.whatsapp.com/send?phone=5555999717530&text=Ol%C3%A1%2C%20sou%20aluno%20do%20Shape%20de%20Elite%20e%20preciso%20de%20suporte.">Chamar o suporte</a>
+      <a class="btn whats" data-clique="link-suporte" target="_blank" rel="noopener" data-suporte href="https://api.whatsapp.com/send?phone=5555999717530&text=Ol%C3%A1%2C%20sou%20aluno%20do%20Shape%20de%20Elite%20e%20preciso%20de%20suporte.">Chamar o suporte</a>
     </div>
 
     <div class="card">
@@ -397,6 +398,19 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-clique]'), function (a) {
     a.addEventListener('click', function () { conta(a.getAttribute('data-clique')); });
   });
+
+  // suporte por variável (plano B: se o número oficial cair, o botão troca de número sem publicar nada). O número vem da
+  // API; sem resposta vale o último lido neste aparelho e, sem nenhum, o oficial, que segue no HTML.
+  var numeroOk = function (n) { return typeof n === 'string' && /^55\d{10,11}$/.test(n); };
+  var poeSuporte = function (n) {
+    if (!numeroOk(n)) return false;
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-suporte]'), function (a) { a.setAttribute('href', String(a.getAttribute('href') || '').replace(/phone=\d+/, 'phone=' + n)); });
+    return true;
+  };
+  try { poeSuporte(localStorage.getItem('shape_suporte_whats')); } catch (e) {}
+  fetch(API + '/api/config', { cache: 'no-store' }).then(function (r) { return r && r.ok ? r.json() : null; }).then(function (j) {
+    if (j && poeSuporte(j.suporteWhats)) { try { localStorage.setItem('shape_suporte_whats', j.suporteWhats); } catch (e) {} }
+  }).catch(function () {});
 
   // dúvidas: o bloco só aparece com a chave ligada; a pergunta da avaliação corporal, só da abertura do carrinho em diante
   if (DUVIDAS) {

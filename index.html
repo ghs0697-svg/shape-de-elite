@@ -1976,7 +1976,7 @@
       <button type="button" class="float-opt" id="float-install" onclick="event.stopPropagation(); openInstallModal()">
         <span class="ic">📱</span><span>Instalar o app na tela de início</span>
       </button>
-      <a class="float-opt whatsapp" href="https://api.whatsapp.com/send?phone=5555999717530&text=Ol%C3%A1%2C%20sou%20aluno%20do%20Shape%20de%20Elite%20e%20preciso%20de%20suporte." target="_blank" rel="noopener">
+      <a class="float-opt whatsapp" data-suporte href="https://api.whatsapp.com/send?phone=5555999717530&text=Ol%C3%A1%2C%20sou%20aluno%20do%20Shape%20de%20Elite%20e%20preciso%20de%20suporte." target="_blank" rel="noopener">
         <span class="ic">💬</span><span>Falar no WhatsApp</span>
       </a>
     </div>
@@ -2138,7 +2138,7 @@
     <div id="settings-profile" class="small mt-2"></div>
   </div>
   <button type="button" class="btn" onclick="showScreen('dash-screen')">← Voltar pro treino</button>
-  <a class="btn secondary" style="text-decoration:none;text-align:center;" href="https://api.whatsapp.com/send?phone=5555999717530&text=Ol%C3%A1%2C%20sou%20aluno%20do%20Shape%20de%20Elite%20e%20preciso%20de%20suporte." target="_blank" rel="noopener">💬 Falar com o suporte no WhatsApp</a>
+  <a class="btn secondary" style="text-decoration:none;text-align:center;" data-suporte href="https://api.whatsapp.com/send?phone=5555999717530&text=Ol%C3%A1%2C%20sou%20aluno%20do%20Shape%20de%20Elite%20e%20preciso%20de%20suporte." target="_blank" rel="noopener">💬 Falar com o suporte no WhatsApp</a>
   <button type="button" class="btn secondary" id="settings-install" onclick="openInstallModal()">📱 Instalar o app na tela de início</button>
   <button type="button" class="btn secondary" onclick="restartOnboarding(true)">Refazer o cálculo do protocolo (1 vez só)</button>
   <button type="button" class="btn ghost" onclick="logout()">Sair da conta</button>
@@ -2174,7 +2174,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '77';
+const APP_V = '78';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2195,6 +2195,28 @@ const GRUPO = { ligado: true, link: 'https://chat.whatsapp.com/LC3IMc7OffCHQar1G
 // LIGADO em 07/10/2026: o GH viu as duas telas do Shape (começo e fim do treino) e respondeu "Sim".
 // Pra desligar: ligado = false (a linha e o botão somem na hora; quem já pediu continua registrado no bot).
 const GUARDIAO = { ligado: true, whats: '5555999717530', chamada: 'Quer que a gente te cobre o treino toda semana?', nome: 'Quero ser cobrado', explica: 'O guardião te cobra o treino toda semana, pelo WhatsApp do Shape.', pedido: '✅ Guardião pedido. Ele te chama no WhatsApp.', frase: 'Quero o guardião do Shape de Elite pra me cobrar o treino.' };
+// SUPORTE POR VARIÁVEL (plano B do Meteórico, pedido da CRM na Sala #3210, 07/10/2026): se o número oficial do WhatsApp cair,
+// o atendimento muda de número. O número dos botões de suporte e do botão do guardião vem da API (GET /api/config), pra
+// poder ser trocado NA HORA, sem versão nova do app. Sem resposta vale o último lido neste aparelho e, sem nenhum, o
+// oficial, que segue escrito no HTML. Só aceita número no formato 55 + DDD + número; a API só entrega número da lista
+// fechada da empresa. Mesmo contrato do Peitão.
+const SUPORTE = { oficial: '5555999717530', atual: '5555999717530', chave: 'shape_suporte_whats' };
+function suporteValido(n) { return typeof n === 'string' && /^55\d{10,11}$/.test(n); }
+function suporteAplica(n) {
+  if (!suporteValido(n)) return false;
+  SUPORTE.atual = n;
+  try { document.querySelectorAll('a[data-suporte]').forEach(a => { a.setAttribute('href', String(a.getAttribute('href') || '').replace(/phone=\d+/, 'phone=' + n)); }); } catch (e) {}
+  try { guardiaoRedesenha(); } catch (e) {}
+  return true;
+}
+async function suporteCarrega() {
+  try { suporteAplica(localStorage.getItem(SUPORTE.chave)); } catch (e) {}
+  try {
+    const r = await fetch(API_BASE + '/api/config', { cache: 'no-store' });
+    const j = r && r.ok ? await r.json() : null;
+    if (j && suporteAplica(j.suporteWhats)) { try { localStorage.setItem(SUPORTE.chave, j.suporteWhats); } catch (e) {} }
+  } catch (e) {}
+}
 // COMECE POR AQUI (ordem do GH, 07/10/2026): página aberta com o caminho do aluno novo, em comeca.html. A página
 // responde no endereço dela; o ATALHO da tela de entrar foi LIGADO em 07/10/2026 pelo GH ("Pode ligar tudo sim"). Desligar: ligado = false.
 // O botão do passo 1 da página abre o app com ?criar=1, que cai direto na tela de criar senha (ver boot).
@@ -2230,7 +2252,7 @@ function guardiaoChave() { return 'shape_guardiao_' + ((state.user && state.user
 function guardiaoPedido() { try { return !!localStorage.getItem(guardiaoChave()); } catch (e) { return false; } }
 function guardiaoLigado() { return (GUARDIAO.ligado || previaLigada('guardiao')) && !!state.user; }
 function guardiaoVisivel() { return guardiaoLigado() && !guardiaoPedido(); }
-function guardiaoLink() { return 'https://api.whatsapp.com/send?phone=' + GUARDIAO.whats + '&text=' + encodeURIComponent(GUARDIAO.frase + ' Código ' + codigoDoAluno()); }
+function guardiaoLink() { return 'https://api.whatsapp.com/send?phone=' + SUPORTE.atual + '&text=' + encodeURIComponent(GUARDIAO.frase + ' Código ' + codigoDoAluno()); }
 function guardiaoHtml(de) {
   if (!guardiaoLigado()) return '';
   // no começo do treino: uma linha fina; no fim, depois dos exercícios: o botão com a explicação
@@ -6035,6 +6057,7 @@ function boot() {
     showScreen('auth-screen');
   }
   comecaAtalho();
+  suporteCarrega(); // não espera: o app abre igual com ou sem resposta
 }
 
 // Protocolo criado sem sinal: quando a internet volta, confere com o servidor antes de subir (se a conta já
