@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Grupo do Shape de Elite</title>
+<!--
+  Endereço NOSSO pro convite do grupo do Shape (Sala #3059): registra o toque com a origem
+  (?de=whats | bot | chat | pagina | outro) na API e manda pro convite do WhatsApp.
+  Serve pra boas-vindas (do bot e a de reserva da API), pro bot e pra qualquer link fora do app.
+  Dentro do app o registro é direto (contaToque), sem passar por aqui.
+  Quem não roda script (robô de prévia de link) não conta e cai no refresh abaixo.
+  Se o grupo mudar: troca o convite AQUI (3 lugares) e no GRUPO.link do index.html.
+-->
+<noscript><meta http-equiv="refresh" content="0;url=https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA"></noscript>
+<style>
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0A0A0B; color: #F2F2F2; font-family: -apple-system, system-ui, Segoe UI, Roboto, sans-serif; text-align: center; padding: 24px; box-sizing: border-box; }
+  h1 { font-size: 18px; margin: 10px 0 4px; }
+  p { color: #AAA; font-size: 14px; margin: 0; }
+  a { display: inline-block; margin-top: 18px; padding: 13px 22px; border-radius: 10px; background: #25D366; color: #062b16; font-weight: 800; text-decoration: none; }
+</style>
+</head>
+<body>
+<div>
+  <div style="font-size:34px">🔥</div>
+  <h1>Abrindo o grupo do Shape de Elite…</h1>
+  <p>Se não abrir sozinho, toca no botão.</p>
+  <a href="https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA">ENTRAR NO GRUPO</a>
+</div>
+<script>
+(function () {
+  var GRUPO = 'https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA';
+  var API = 'https://shape-de-elite-api.vercel.app';
+  var de = (new URLSearchParams(location.search).get('de') || 'outro').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20) || 'outro';
+  try { fetch(API + '/api/clique?para=grupo&de=' + encodeURIComponent(de), { method: 'POST', keepalive: true }).catch(function () {}); } catch (e) {}
+  setTimeout(function () { location.replace(GRUPO); }, 150);
+})();
+</script>
+</body>
+</html>

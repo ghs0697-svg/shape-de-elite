@@ -1127,8 +1127,9 @@
   .guardiao-linha { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: -4px 0 14px; padding: 10px 12px; border: 1px dashed var(--border); border-radius: 8px; font-size: 13px; line-height: 1.35; color: var(--text-dim); }
   .guardiao-btn { flex: none; min-height: 44px; padding: 8px 12px; background: none; border: 1px solid var(--red); border-radius: 6px; color: var(--red-text); font-size: 12px; font-weight: 800; cursor: pointer; }
   /* no começo do treino é uma linha só, sem caixa, pra não empurrar os exercícios pra baixo */
-  .guardiao-fina { margin: -8px 0 8px; }
-  .guardiao-fina button { min-height: 44px; padding: 0 4px; background: none; border: none; color: var(--text-dim); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .guardiao-fina { margin: -8px 0 8px; font-size: 13px; line-height: 1.4; color: var(--text-dim); }
+  .guardiao-fina button { min-height: 44px; padding: 0 2px; background: none; border: none; color: var(--red-text); font-size: 13px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .entrada-grupo { display: block; margin-top: 14px; min-height: 44px; padding: 12px; border: 1px solid #1f7a45; background: rgba(37, 211, 102, .10); border-radius: 8px; color: #4ade80; font-size: 13px; font-weight: 800; text-align: center; text-decoration: none; }
 
   /* ── Achievement overlay (share card) ── */
   .ach-overlay {
@@ -1654,6 +1655,7 @@
     </form>
     <button class="btn secondary" type="button" onclick="showAuth('first')">Primeiro acesso? Criar senha</button>
     <button class="btn ghost" type="button" onclick="showAuth('reset')">Esqueci minha senha</button>
+    <a class="entrada-grupo" id="entrada-grupo" href="https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA" target="_blank" rel="noopener" onclick="contaToque('grupo', 'entrada')">💬 Entrar no grupo do Shape de Elite</a>
     <button class="btn ghost" type="button" onclick="openHowToModal()" style="color:var(--gold);">📖 Como acessar pela primeira vez</button>
   </div>
 
@@ -2025,8 +2027,8 @@
 
     <div class="howto-tip" style="border-left-color:#25d366;background:#0d1f15;">
       <div class="howto-tip-title" style="color:#25d366;">🔥 GRUPO DO WHATSAPP</div>
-      <div class="howto-tip-body" style="margin-bottom:10px;">Entra no grupo exclusivo do Shape de Elite, onde rola dúvida, dica, motivação e avisos. Vale demais.</div>
-      <a href="https://chat.whatsapp.com/B8U4QhFV4x8KDmKXvOpahR?mode=gi_t" target="_blank" rel="noopener" style="display:inline-block;background:#25d366;color:white;padding:9px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Entrar no grupo →</a>
+      <div class="howto-tip-body" style="margin-bottom:10px;">Grupo fechado pra receber minhas novidades, descontos, upgrades e aulas ao vivo.</div>
+      <a href="https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA" target="_blank" rel="noopener" onclick="contaToque('grupo', 'entrada')" style="display:inline-block;background:#25d366;color:white;padding:9px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Entrar no grupo →</a>
     </div>
 
     <button class="btn" onclick="closeHowToModal(); showAuth('first');" style="margin-top:16px;">Entendi, vou criar minha senha</button>
@@ -2144,19 +2146,25 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '70';
+const APP_V = '71';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
 // ─── Convite do grupo e botão de pedir o guardião ───
-// Os dois saem DESLIGADOS até o GH aprovar lugar, nome e frase (Sala #3040 e #3043). Pra ver num aparelho sem ligar
-// pra todo mundo: localStorage shape_previa_grupo = '1' e shape_previa_guardiao = '1'.
-// GRUPO: uma linha no começo da aba TREINO. Some quando o aluno toca pra entrar; o X esconde por 30 dias.
+// Cada um tem a sua chave (ligado). Pra ver num aparelho com a chave desligada: localStorage shape_previa_grupo = '1'
+// ou shape_previa_guardiao = '1'.
+// GRUPO, LIGADO em 07/10/2026: o GH mandou o link do grupo do Shape e a frase é a aprovada pra todo produto
+// (Sala #3059 e #3061). O grupo é de mão única: recado, aviso de live e novidade. NUNCA escrever que lá se tira
+// dúvida, se pega dica ou motivação: dúvida é no privado. Uma linha no começo da aba TREINO (some quando o aluno
+// toca pra entrar; o X esconde por 30 dias) e uma na tela de entrar, que é pra onde a Greenn manda quem comprou.
+// Fora do app (boas-vindas, bot, página) o convite passa por grupo.html, que conta o toque e redireciona:
+// se o grupo mudar, troca AQUI e em grupo.html, e o endereço que está nas mensagens não muda.
 // GUARDIÃO (ordem do GH, 06/10/2026): o aluno pede pra ser cobrado. O botão abre o whats oficial com a frase pronta
 // e o código da conta; o bot reconhece a frase por regra e passa a cobrar o treino toda semana. A frase e o formato
 // do código são contrato com a Agentes (#3048): não mudar sem avisar.
-const GRUPO = { ligado: false, link: 'https://chat.whatsapp.com/B8U4QhFV4x8KDmKXvOpahR', faixa: 'Entrar no grupo do Shape de Elite' };
-const GUARDIAO = { ligado: false, whats: '5555999717530', chamada: 'Quer que eu te cobre o treino pelo whats?', nome: 'Quero ser cobrado', frase: 'Quero o guardião do Shape de Elite pra me cobrar o treino.' };
+const GRUPO = { ligado: true, link: 'https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA', faixa: 'Entrar no grupo do Shape de Elite', frase: 'Grupo fechado pra receber minhas novidades, descontos, upgrades e aulas ao vivo.' };
+// Textos do botão: os mesmos que o GH aprovou no app do Peitão em 07/10/2026 (Sala #3062 e #3063).
+const GUARDIAO = { ligado: false, whats: '5555999717530', chamada: 'Quer que a gente te cobre o treino toda semana?', nome: 'Quero ser cobrado', explica: 'O guardião te cobra o treino toda semana, pelo WhatsApp do Shape.', pedido: '✅ Guardião pedido. Ele te chama no WhatsApp.', frase: 'Quero o guardião do Shape de Elite pra me cobrar o treino.' };
 function previaLigada(qual) { try { return localStorage.getItem('shape_previa_' + qual) === '1'; } catch (e) { return false; } }
 // Código curto da conta, S-XXXX: a MESMA conta que a API faz (lib/alunos.js, codigoDoEmail). Não é segredo.
 function codigoDoAluno() {
@@ -2184,19 +2192,25 @@ function tocouGrupo() { try { localStorage.setItem(grupoChave(), JSON.stringify(
 function fechouGrupo() { try { localStorage.setItem(grupoChave(), JSON.stringify({ fechou: Date.now() })); } catch (e) {} grupoRedesenha(); }
 function guardiaoChave() { return 'shape_guardiao_' + ((state.user && state.user.email) || 'anon'); }
 function guardiaoPedido() { try { return !!localStorage.getItem(guardiaoChave()); } catch (e) { return false; } }
-function guardiaoVisivel() { return (GUARDIAO.ligado || previaLigada('guardiao')) && !!state.user && !guardiaoPedido(); }
+function guardiaoLigado() { return (GUARDIAO.ligado || previaLigada('guardiao')) && !!state.user; }
+function guardiaoVisivel() { return guardiaoLigado() && !guardiaoPedido(); }
 function guardiaoLink() { return 'https://api.whatsapp.com/send?phone=' + GUARDIAO.whats + '&text=' + encodeURIComponent(GUARDIAO.frase + ' Código ' + codigoDoAluno()); }
 function guardiaoHtml(de) {
-  if (!guardiaoVisivel()) return '';
-  // no começo do treino: uma linha fina; no fim, depois dos exercícios: a pergunta com o botão
-  if (de === 'primeiro-treino') return `<div class="guardiao-fina"><button type="button" onclick="pedirGuardiao('${de}')">🔔 ${GUARDIAO.nome} pelo whats</button></div>`;
-  return `<div class="guardiao-linha"><span>${GUARDIAO.chamada}</span><button type="button" class="guardiao-btn" onclick="pedirGuardiao('${de}')">${GUARDIAO.nome}</button></div>`;
+  if (!guardiaoLigado()) return '';
+  // no começo do treino: uma linha fina; no fim, depois dos exercícios: o botão com a explicação
+  if (de === 'primeiro-treino') {
+    if (guardiaoPedido()) return '';
+    return `<div class="guardiao-fina">${GUARDIAO.chamada} <button type="button" onclick="pedirGuardiao('${de}')">${GUARDIAO.nome} →</button></div>`;
+  }
+  if (guardiaoPedido()) return `<div class="guardiao-linha"><span>${GUARDIAO.pedido}</span></div>`;
+  return `<div class="guardiao-linha"><span>${GUARDIAO.explica}</span><button type="button" class="guardiao-btn" onclick="pedirGuardiao('${de}')">💬 ${GUARDIAO.nome} no WhatsApp</button></div>`;
 }
+function guardiaoRedesenha() { document.querySelectorAll('.guardiao-slot').forEach(el => { el.innerHTML = guardiaoHtml(el.getAttribute('data-de') || 'fim-do-treino'); }); }
 function pedirGuardiao(de) {
   const link = guardiaoLink();
   try { localStorage.setItem(guardiaoChave(), String(Date.now())); } catch (e) {}
   contaToque('guardiao', de);
-  document.querySelectorAll('.guardiao-slot').forEach(el => { el.innerHTML = ''; });
+  guardiaoRedesenha();
   window.open(link, '_blank', 'noopener');
 }
 const SUPL_PDF_URL = 'pdfs/suplementos.pdf'; // manual premium gerado de pdf-src/suplementos.html
@@ -4473,10 +4487,10 @@ function renderTreino() {
     ${fastNoteHtml}
     ${pernaNoteHtml}
     <div class="conclude-bar conclude-slot">${concludeInner()}</div>
-    <div class="guardiao-slot">${guardiaoHtml('primeiro-treino')}</div>
+    <div class="guardiao-slot" data-de="primeiro-treino">${guardiaoHtml('primeiro-treino')}</div>
     ${exHtml}
     <div class="conclude-bar conclude-slot">${concludeInner()}</div>
-    <div class="guardiao-slot">${guardiaoHtml('fim-do-treino')}</div>
+    <div class="guardiao-slot" data-de="fim-do-treino">${guardiaoHtml('fim-do-treino')}</div>
     ${extrasHtml ? `<h3 style="margin-top:24px;color:var(--text-dim);">📚 Material extra</h3>${extrasHtml}` : ''}
     <a class="btn secondary" href="${pdfUrl}" target="_blank" rel="noopener" download="${escapeHtml(pdfFile)}" style="text-decoration:none;text-align:center;margin-top:18px;">📥 Baixar PDF do treino</a>
     ${phaseUpgradeHtml}
