@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Avaliações · Shape de Elite</title>
+<!--
+  Painel do GH pra responder as avaliações corporais do Shape de Elite.
+  A chave de administração é digitada aqui, fica só neste aparelho e vai sempre no cabeçalho do pedido, nunca no endereço.
+  Fotos e áudio são buscados com a chave e mostrados a partir do aparelho. O painel fala com a API pelo NÚMERO da avaliação.
+-->
+<style>
+:root{--bg:#0F0F11;--surface:#15151A;--card:#1A1A1D;--border:#2A2A2D;--accent:#B41E1E;--accent-hi:#FF6B6B;--gold:#F5C542;--text:#EFEFEF;--dim:#AAA;--mute:#888;--ok:#4CAF7D}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:1080px;margin:0 auto;padding:18px 16px 80px}
+h1{font-size:20px;margin:6px 0 2px}
+.sub{color:var(--dim);font-size:13px;margin-bottom:16px}
+input,button,select{font-family:inherit;font-size:14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:10px 12px}
+button{cursor:pointer}
+button.primary{background:var(--accent);color:#fff;font-weight:800;border:0}
+button.rec{background:#C0392B;color:#fff;font-weight:800;border:0;font-size:16px;padding:14px 18px;border-radius:14px;width:100%}
+button.rec.gravando{background:#7f1d12;animation:pulsa 1.2s ease-in-out infinite}
+button.leve{background:transparent;color:var(--mute);font-size:12px;border-color:var(--border)}
+@keyframes pulsa{50%{opacity:.6}}
+.grid{display:grid;grid-template-columns:290px 1fr;gap:14px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px}
+.lista{max-height:70vh;overflow-y:auto}
+.item{padding:10px 12px;border-radius:10px;cursor:pointer;border:1px solid transparent;margin-bottom:4px}
+.item:hover{background:var(--surface)}
+.item.ativo{border-color:var(--accent);background:var(--surface)}
+.item .n{font-weight:800;color:var(--gold)}
+.item .st{font-size:11px;color:var(--mute)}
+.item.feita .st{color:var(--ok)}
+.prazo{font-weight:800}
+.prazo.perto{color:var(--gold)}
+.prazo.vence{color:var(--accent-hi)}
+.medidas{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+@media(max-width:800px){.medidas{grid-template-columns:repeat(2,1fr)}}
+.med{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
+.med b{display:block;font-size:16px}
+.med span{font-size:10.5px;color:var(--mute);letter-spacing:.04em}
+.fotos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+@media(max-width:800px){.fotos{grid-template-columns:repeat(2,1fr)}}
+.fotos img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;border:1px solid var(--border);cursor:zoom-in;background:var(--surface)}
+.nav{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tag{font-size:11px;font-weight:800;letter-spacing:.05em;color:var(--gold)}
+.msg{color:var(--dim);font-size:13px;margin-top:8px;min-height:18px}
+#zoom{position:fixed;inset:0;background:#000E;display:none;align-items:center;justify-content:center;z-index:50;cursor:zoom-out}
+#zoom img{max-width:96vw;max-height:96vh;border-radius:8px}
+.feito{color:var(--ok);font-weight:800}
+audio{width:100%;margin-top:8px}
+</style></head><body>
+<div class="wrap">
+  <h1>🎖 Avaliações do Shape de Elite</h1>
+  <div class="sub">Fotos e medidas de cada aluno. Grava o áudio e ele aparece no app do aluno na hora. O prazo prometido é de 7 dias úteis.</div>
+
+  <div id="login" class="card" style="max-width:420px">
+    <div class="tag">ACESSO</div>
+    <p style="font-size:13px;color:var(--dim)">Cola a tua chave de admin do Shape (fica salva só neste aparelho).</p>
+    <input id="secret" type="password" placeholder="chave" autocomplete="off" style="width:100%">
+    <button class="primary" style="margin-top:10px;width:100%" onclick="entrar()">Entrar</button>
+    <div id="loginMsg" class="msg"></div>
+  </div>
+
+  <div id="painel" style="display:none">
+    <div class="grid">
+      <div class="card">
+        <div class="tag" id="resumo">CARREGANDO…</div>
+        <div class="lista" id="lista"></div>
+        <button class="leve" style="width:100%;margin-top:10px" onclick="sair()">Sair deste aparelho</button>
+      </div>
+      <div class="card" id="detalhe">Escolhe um aluno na lista.</div>
+    </div>
+  </div>
+</div>
+<div id="zoom" onclick="this.style.display='none'"><img id="zoomImg" alt=""></div>
+<script>
+const API = 'https://shape-de-elite-api.vercel.app';
+const GUARDA = 'shape_aval_chave';
+let CHAVE = ''; try { CHAVE = localStorage.getItem(GUARDA) || ''; } catch (e) {}
+let AVALS = [], IDX = -1;
+let mediaRec = null, chunks = [], gravando = false, audioBlob = null;
+let pausadoRec = false, descartaStop = false;
+let _blobUrls = [];
+// A chave vai por CABEÇALHO, nunca no endereço: endereço completo fica em registro de pedido e no histórico do navegador.
+const AH = () => ({ Authorization: 'Bearer ' + CHAVE });
+// Qualquer dado vindo do servidor passa por aqui antes de entrar na tela: o NOME é digitado pelo aluno.
+function esc(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function primeiroNome(a){ return String(a.nome||a.email||'aluno').trim().split(/\s+/)[0]; }
+
+// Fotos e áudio: busca com a chave e mostra a partir do aparelho
+async function carregaMidias(a){
+  for (const u of _blobUrls) URL.revokeObjectURL(u);
+  _blobUrls = [];
+  document.querySelectorAll('#detalhe img[data-ang]').forEach(img => {
+    fetch(`${API}/api/admin/aval/foto?n=${a.numero}&angle=${img.dataset.ang}`, { headers: AH() })
+      .then(r => r.ok ? r.blob() : null)
+      .then(b => { if (!b) { img.style.opacity = .25; img.alt = 'sem ' + img.dataset.ang; return; } const u = URL.createObjectURL(b); _blobUrls.push(u); img.src = u; })
+      .catch(() => { img.style.opacity = .25; });
+  });
+  const au = document.querySelector('#detalhe audio[data-enviado]');
+  if (au) {
+    fetch(`${API}/api/admin/aval/audio?n=${a.numero}`, { headers: AH() })
+      .then(r => r.ok ? r.blob() : null)
+      .then(b => { if (b) { const u = URL.createObjectURL(b); _blobUrls.push(u); au.src = u; } })
+      .catch(() => {});
+  }
+}
+
+function entrar(){
+  const v = document.getElementById('secret').value.trim();
+  if (!v) return;
+  CHAVE = v; try { localStorage.setItem(GUARDA, v); } catch (e) {}
+  carregar();
+}
+function sair(){
+  if ((gravando || audioBlob) && !confirm('Tem uma gravação AINDA NÃO ENVIADA. Sair apaga essa gravação. Sair mesmo?')) return;
+  try { localStorage.removeItem(GUARDA); } catch (e) {}
+  location.reload();
+}
+async function carregar(){
+  try{
+    const r = await fetch(`${API}/api/admin/aval`, { headers: AH() });
+    if (r.status === 401){ document.getElementById('loginMsg').textContent = 'Chave errada.'; try { localStorage.removeItem(GUARDA); } catch (e) {} CHAVE = ''; return; }
+    const d = await r.json();
+    AVALS = d.avaliacoes || [];
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('painel').style.display = '';
+    resumo();
+    montaLista();
+    const pend = AVALS.findIndex(a => a.status === 'enviada');
+    if (pend >= 0) abrir(pend); else if (AVALS.length) abrir(0); else document.getElementById('detalhe').textContent = 'Nenhuma avaliação recebida ainda.';
+  }catch(e){ document.getElementById('loginMsg').textContent = 'Sem conexão com a API.'; }
+}
+function resumo(){ document.getElementById('resumo').textContent = `${AVALS.filter(x=>x.status==='enviada').length} PENDENTES · ${AVALS.length} NO TOTAL`; }
+// em que dia do prazo de 7 dias úteis a avaliação está (só pras pendentes)
+function prazoTxt(a){
+  if (a.status !== 'enviada') return '';
+  const d = Number(a.diasUteis || 0), p = Number(a.prazo || 7);
+  if (d > p) return `<span class="prazo vence">ATRASADA (${d} dias úteis)</span>`;
+  if (d === p) return '<span class="prazo vence">VENCE HOJE</span>';
+  return `<span class="prazo ${d >= p - 2 ? 'perto' : ''}">dia ${d} de ${p}</span>`;
+}
+function montaLista(){
+  document.getElementById('lista').innerHTML = AVALS.map((a,i)=>`
+    <div class="item ${i===IDX?'ativo':''} ${a.status!=='enviada'?'feita':''}" onclick="abrir(${i})">
+      <span class="n">#${Number(a.numero)}</span> ${esc(a.nome || a.email)}
+      <div class="st">${a.status==='enviada' ? 'pendente · ' + prazoTxt(a) : '✓ avaliada'} · ${esc(a.email)}</div>
+    </div>`).join('');
+}
+function abrir(i){
+  // gravação no meio ou gravação pronta e não enviada: trocar de aluno apagaria; avisa antes
+  if ((gravando || audioBlob) && IDX >= 0 && i !== IDX){
+    const quem = primeiroNome(AVALS[IDX]);
+    if (!confirm(`Tem uma gravação AINDA NÃO ENVIADA pro ${quem}. Trocar de aluno apaga essa gravação. Trocar mesmo?`)) return;
+    audioBlob = null;
+  }
+  IDX = i; montaLista();
+  pararGravacao(true);
+  const a = AVALS[i];
+  const d = a.dados || {};
+  const meds = [
+    ['IDADE', d.idade], ['PESO', (d.peso||'?')+' kg'], ['ALTURA', (d.altura||'?')+' cm'], ['CINTURA', (d.cintura||'?')+' cm'],
+    ['ABDÔMEN', (d.abdomen||'?')+' cm'], ['QUADRIL', (d.quadril||'?')+' cm'], ['BRAÇO D', (d.braco||'?')+' cm'], ['COXA D', (d.coxa||'?')+' cm'],
+  ].map(([l,v])=>`<div class="med"><span>${l}</span><b>${esc(v||'?')}</b></div>`).join('');
+  const fotos = ['frente','costas','ladoD','ladoE'].map(ang=>`
+    <img loading="lazy" alt="${ang}" data-ang="${ang}" onclick="if(this.src)zoom(this.src)">`).join('');
+  document.getElementById('detalhe').innerHTML = `
+    <div class="nav">
+      <button onclick="anterior()">← anterior</button>
+      <div><span class="tag">#${Number(a.numero)}</span> <b>${esc(a.nome || a.email)}</b>
+        ${a.status!=='enviada' ? `<span class="feito"> · ✓ já avaliada${janelaAudio(a)}</span>` : ' · ' + prazoTxt(a)}</div>
+      <button onclick="proxima()">próxima →</button>
+    </div>
+    <div class="medidas">${meds}</div>
+    <div class="fotos">${fotos}</div>
+    <button class="rec" id="btnRec" onclick="toggleGravacao()">🎙 ${a.temAudio ? 'Regravar o áudio (substitui o que está no app)' : 'Gravar áudio pra ' + esc(primeiroNome(a))}</button>
+    <div id="preview"></div>
+    <div class="msg" id="msg"></div>
+    ${a.temAudio ? `
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)">
+      <div style="font-size:12px;opacity:.65;margin-bottom:6px">ÁUDIO QUE ESTÁ NO APP DO ALUNO</div>
+      <audio controls style="width:100%" data-enviado></audio>
+      <button style="width:100%;margin-top:8px" onclick="apagarAudioEnviado()">🗑 Apagar do app do aluno</button>
+    </div>` : ''}
+    <button class="leve" style="width:100%;margin-top:18px" onclick="apagarAvaliacao()">Apagar esta avaliação inteira (só pra teste ou envio errado)</button>`;
+  carregaMidias(a);
+}
+async function apagarAudioEnviado(){
+  const a = AVALS[IDX];
+  if (!a || !a.temAudio) return;
+  if (!confirm(`Apagar o áudio do app do ${primeiroNome(a)}? Ele volta pra fila de pendentes até tu gravar outro. O arquivo vai pra lixeira do teu Drive.`)) return;
+  document.getElementById('msg').textContent = 'Apagando…';
+  try{
+    const r = await fetch(`${API}/api/admin/aval?n=${a.numero}&audio=1`, { method:'DELETE', headers: AH() });
+    const d = await r.json();
+    if (d.ok){
+      a.temAudio = false; a.audioEm = null; a.audioNoAppAte = null; a.status = 'enviada';
+      abrir(IDX); montaLista(); resumo();
+      document.getElementById('msg').textContent = 'Áudio apagado do app. Grava outro quando quiser.';
+    } else {
+      document.getElementById('msg').textContent = 'Falhou: ' + (d.error||'erro');
+    }
+  }catch(e){ document.getElementById('msg').textContent = 'Sem conexão. Tenta de novo.'; }
+}
+async function apagarAvaliacao(){
+  const a = AVALS[IDX];
+  if (!a) return;
+  if (!confirm(`Apagar a avaliação #${a.numero} (${primeiroNome(a)}) INTEIRA? Ela some do teu painel e do app do aluno, e não dá pra desfazer. As fotos e o áudio continuam no teu Drive.`)) return;
+  document.getElementById('msg').textContent = 'Apagando…';
+  try{
+    const r = await fetch(`${API}/api/admin/aval?n=${a.numero}`, { method:'DELETE', headers: AH() });
+    const d = await r.json();
+    if (d.ok){ audioBlob = null; AVALS.splice(IDX, 1); IDX = -1; resumo(); montaLista(); document.getElementById('detalhe').textContent = 'Avaliação apagada. Escolhe um aluno na lista.'; }
+    else document.getElementById('msg').textContent = 'Falhou: ' + (d.error||'erro');
+  }catch(e){ document.getElementById('msg').textContent = 'Sem conexão. Tenta de novo.'; }
+}
+// O aluno ouve o áudio por 7 dias; o arquivo fica pra sempre no teu Drive.
+function janelaAudio(a){
+  if (!a.audioEm) return '';
+  const ate = new Date(a.audioNoAppAte || (a.audioEm + 7*86400000));
+  const txt = `${String(ate.getDate()).padStart(2,'0')}/${String(ate.getMonth()+1).padStart(2,'0')}`;
+  return Date.now() > ate.getTime() ? ' (áudio já saiu do app; o arquivo segue no Drive)' : ` (áudio no app até ${txt})`;
+}
+function anterior(){ if (IDX>0) abrir(IDX-1); }
+function proxima(){ if (IDX<AVALS.length-1) abrir(IDX+1); }
+function zoom(src){ document.getElementById('zoomImg').src = src; document.getElementById('zoom').style.display = 'flex'; }
+
+async function toggleGravacao(){
+  if (gravando) { pararGravacao(); return; }
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const tipos = ['audio/mp4','audio/webm;codecs=opus','audio/webm',''];
+    const mime = tipos.find(t => !t || MediaRecorder.isTypeSupported(t)) || '';
+    mediaRec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
+    chunks = [];
+    mediaRec.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+    mediaRec.onstop = async () => {
+      stream.getTracks().forEach(t=>t.stop());
+      // parada silenciosa (trocou de aluno no meio): descarta a gravação
+      if (descartaStop){ descartaStop = false; return; }
+      const tipoBruto = (mediaRec.mimeType || 'audio/webm').split(';')[0];
+      const bruto = new Blob(chunks, { type: tipoBruto });
+      if (/mp4|aac|mpeg/.test(tipoBruto)) {
+        audioBlob = bruto;                             // AAC nativo: pequeno e toca em iPhone
+      } else {
+        document.getElementById('msg').textContent = 'Convertendo…';
+        try { audioBlob = await paraWav(bruto); }      // webm/opus vira WAV (iPhone não toca opus)
+        catch(e){ audioBlob = bruto; }                 // se falhar, sobe o original
+      }
+      mostraPreview();
+    };
+    mediaRec.start();
+    gravando = true; pausadoRec = false;
+    const b = document.getElementById('btnRec');
+    b.classList.add('gravando'); b.textContent = '⏹ Parar (gravando…)';
+    document.getElementById('preview').innerHTML =
+      `<button class="rec" id="btnPause" onclick="pausaGravacao()" style="margin-top:8px">⏸ Pausar a gravação</button>`;
+  }catch(e){
+    document.getElementById('msg').textContent = 'Não consegui acessar o microfone: ' + (e.message||e);
+  }
+}
+function pararGravacao(silencioso){
+  if (mediaRec && gravando) { gravando = false; pausadoRec = false; descartaStop = !!silencioso; mediaRec.stop(); }
+  if (silencioso){ audioBlob = null; const p = document.getElementById('preview'); if (p) p.innerHTML = ''; }
+}
+// pausa e retoma a MESMA gravação (errou uma palavra? pausa, respira, continua)
+function pausaGravacao(){
+  if (!mediaRec || !gravando) return;
+  const b = document.getElementById('btnPause');
+  if (!pausadoRec){ mediaRec.pause(); pausadoRec = true; if (b) b.textContent = '▶ Continuar a gravação (pausado)'; }
+  else { mediaRec.resume(); pausadoRec = false; if (b) b.textContent = '⏸ Pausar a gravação'; }
+}
+function mostraPreview(){
+  const b = document.getElementById('btnRec');
+  if (b){ b.classList.remove('gravando'); b.textContent = '🎙 Gravar de novo'; }
+  const url = URL.createObjectURL(audioBlob);
+  document.getElementById('preview').innerHTML = `
+    <audio controls src="${url}"></audio>
+    <button class="primary" style="width:100%;margin-top:8px" onclick="enviarAudio()">✅ Enviar pro aluno</button>
+    <button style="width:100%;margin-top:8px" onclick="descartarAudio()">🗑 Apagar essa gravação</button>`;
+  document.getElementById('msg').textContent = '⚠ Ainda NÃO foi enviado. Escuta e toca em ENVIAR PRO ALUNO. Ficou ruim? Grava de novo ou apaga.';
+}
+function descartarAudio(){
+  audioBlob = null;
+  document.getElementById('preview').innerHTML = '';
+  const b = document.getElementById('btnRec');
+  if (b && IDX >= 0) b.textContent = '🎙 Gravar áudio pra ' + primeiroNome(AVALS[IDX]);
+  document.getElementById('msg').textContent = 'Gravação apagada, nada foi enviado.';
+}
+// converte pra WAV 16kHz mono: toca em qualquer aparelho (iPhone não abre webm/opus)
+async function paraWav(blob){
+  const ctx = new (window.AudioContext||window.webkitAudioContext)();
+  const abuf = await ctx.decodeAudioData(await blob.arrayBuffer());
+  const sr = 16000;
+  const off = new OfflineAudioContext(1, Math.ceil(abuf.duration*sr), sr);
+  const src = off.createBufferSource(); src.buffer = abuf; src.connect(off.destination); src.start();
+  const out = await off.startRendering();
+  const pcm = out.getChannelData(0);
+  const dv = new DataView(new ArrayBuffer(44 + pcm.length*2));
+  const wstr = (o,s)=>{ for(let i=0;i<s.length;i++) dv.setUint8(o+i, s.charCodeAt(i)); };
+  wstr(0,'RIFF'); dv.setUint32(4, 36+pcm.length*2, true); wstr(8,'WAVEfmt ');
+  dv.setUint32(16,16,true); dv.setUint16(20,1,true); dv.setUint16(22,1,true);
+  dv.setUint32(24,sr,true); dv.setUint32(28,sr*2,true); dv.setUint16(32,2,true); dv.setUint16(34,16,true);
+  wstr(36,'data'); dv.setUint32(40, pcm.length*2, true);
+  for (let i=0;i<pcm.length;i++){ const s = Math.max(-1, Math.min(1, pcm[i])); dv.setInt16(44+i*2, s<0? s*0x8000 : s*0x7FFF, true); }
+  ctx.close();
+  return new Blob([dv.buffer], { type: 'audio/wav' });
+}
+async function enviarAudio(){
+  if (!audioBlob || IDX<0) return;
+  const a = AVALS[IDX];
+  const inicio = Date.now();
+  document.getElementById('msg').textContent = 'Enviando…';
+  let d = null, semConexao = false;
+  const mime = (audioBlob.type || 'audio/wav').split(';')[0];
+  // Caminho principal: o arquivo vai DIRETO pro Drive. O corpo não passa pelo servidor, que corta pedido acima
+  // de 4,5 MB (áudio de verdade, de minutos, morria aí).
+  try{
+    const u = await fetch(`${API}/api/admin/aval/upload-url`, {
+      method:'POST', headers:{'Content-Type':'application/json', ...AH()},
+      body: JSON.stringify({ n: a.numero, mime, bytes: audioBlob.size })
+    }).then(r=>r.json());
+    if (u && u.ok && u.uploadUrl){
+      const put = await fetch(u.uploadUrl, { method:'PUT', headers:{'Content-Type':mime}, body: audioBlob });
+      if (put.ok){
+        const criado = await put.json();
+        d = await fetch(`${API}/api/admin/aval`, {
+          method:'POST', headers:{'Content-Type':'application/json', ...AH()},
+          body: JSON.stringify({ n: a.numero, fileId: criado.id })
+        }).then(r=>r.json());
+      }
+    } else if (u && u.error) { d = u; }
+  }catch(e){ semConexao = true; }
+  // Reserva: áudio pequeno ainda pode ir no corpo do pedido
+  if ((!d || !d.ok) && audioBlob.size < 3*1024*1024){
+    try{
+      const dataUrl = await new Promise(res => { const fr = new FileReader(); fr.onload = ()=>res(fr.result); fr.readAsDataURL(audioBlob); });
+      const r = await fetch(`${API}/api/admin/aval`, {
+        method:'POST', headers:{'Content-Type':'application/json', ...AH()},
+        body: JSON.stringify({ n: a.numero, dataUrl: String(dataUrl).replace(/^data:([^;,]+)[^,]*,/, 'data:$1;base64,') })
+      });
+      d = await r.json();
+      semConexao = false;
+    }catch(e){ semConexao = true; }
+  }
+  // Envio grande pode SALVAR e a confirmação se perder no caminho. Antes de acusar falha (e te fazer regravar à toa),
+  // confere no servidor se o áudio chegou.
+  if (!d || !d.ok){
+    const chegouEm = await confereSeChegou(a.numero, inicio);
+    if (chegouEm) d = { ok: true, audioEm: chegouEm };
+  }
+  if (d && d.ok){
+    a.status = 'avaliada'; a.temAudio = true; a.audioEm = d.audioEm || Date.now(); a.audioNoAppAte = a.audioEm + 7*86400000; audioBlob = null;
+    document.getElementById('preview').innerHTML = '';
+    document.getElementById('msg').innerHTML = '<span class="feito">✓ Áudio enviado pro app do aluno.</span>';
+    resumo(); montaLista();
+    setTimeout(()=>{ const prox = AVALS.findIndex(x=>x.status==='enviada'); if (prox>=0) abrir(prox); }, 900);
+  } else if (d) {
+    document.getElementById('msg').textContent = 'Falhou: ' + (d.error||'erro');
+  } else {
+    document.getElementById('msg').textContent = semConexao ? 'Sem conexão. O áudio segue aqui, tenta de novo.' : 'Falhou. O áudio segue aqui, tenta de novo.';
+  }
+}
+// Consulta a lista no servidor e diz se o áudio dessa avaliação chegou DEPOIS do início do envio.
+async function confereSeChegou(numero, inicio){
+  try{
+    const r = await fetch(`${API}/api/admin/aval`, { headers: AH() });
+    const d = await r.json();
+    const a = (d.avaliacoes||[]).find(x=>x.numero===numero);
+    if (a && a.temAudio && a.audioEm && a.audioEm >= inicio - 120000) return a.audioEm;
+  }catch(e){}
+  return null;
+}
+if (CHAVE) carregar();
+</script>
+</body></html>

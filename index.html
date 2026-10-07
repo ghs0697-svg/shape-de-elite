@@ -1474,6 +1474,32 @@
   .wk-label b { color: var(--text); font-size: 16px; }
   .wk-now { font-size: 11px; font-weight: 800; color: var(--red-text); background: var(--red-tint); padding: 2px 6px; border-radius: 6px; margin-left: 5px; text-transform: uppercase; letter-spacing: .3px; }
 
+  /* ════════ Avaliação corporal pelo GH (cartão na aba TREINO e formulário) ════════ */
+  .aval-slot:empty { display: none; }
+  .aval-card { display: block; width: 100%; text-align: left; font-family: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin: 0 0 14px; }
+  button.aval-card { cursor: pointer; }
+  .aval-card.convite { border-color: rgba(245,197,66,.45); background: linear-gradient(180deg, rgba(245,197,66,.08), var(--surface)); }
+  .aval-card.chegou { border-color: rgba(80,200,120,.5); background: rgba(80,200,120,.07); }
+  .aval-tag { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: .5px; color: var(--gold); margin-bottom: 4px; }
+  .aval-card.chegou .aval-tag { color: #6fd695; }
+  .aval-main { display: block; font-size: 14px; line-height: 1.45; }
+  .aval-sub { display: block; font-size: 12px; color: var(--text-dim); margin-top: 8px; line-height: 1.4; }
+  .aval-sub:empty { display: none; }
+  .aval-sub b { color: var(--text); }
+  .aval-link { display: block; background: none; border: 0; padding: 8px 0 0; color: var(--gold); font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; text-align: left; }
+  .aval-meds { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; }
+  .aval-meds div { background: rgba(255,255,255,.04); border-radius: 8px; padding: 6px 8px; }
+  .aval-meds span { display: block; font-size: 10px; color: var(--text-muted); }
+  .aval-meds b { font-size: 13px; }
+  .aval-fotos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 8px; }
+  .aval-fotos img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 8px; background: var(--surface-2); }
+  .aval-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: end; }
+  .aval-campo label { font-size: 12px; font-weight: 800; display: block; margin-bottom: 3px; }
+  .aval-hint { font-size: 10.5px; color: var(--text-muted); margin-bottom: 4px; line-height: 1.3; }
+  .aval-campo input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font: inherit; font-size: 16px; padding: 10px 12px; }
+  .aval-campo input:focus { outline: none; border-color: var(--red); }
+  .aval-fotos-titulo { font-weight: 800; font-size: 13px; margin: 16px 0 6px; }
+  #avalBody .foto-slot { font: inherit; color: inherit; padding: 0; cursor: pointer; width: 100%; }
   /* ════════ Fotos de progresso (4 ângulos por fase, igual Peitão) ════════ */
   .foto-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-top: 14px; }
   .foto-sec-title { font-size: 12px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase; color: var(--red-text); margin-bottom: 3px; }
@@ -2148,7 +2174,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '75';
+const APP_V = '76';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2459,6 +2485,7 @@ let _loginSeq = 0;
 async function afterLogin() {
   const seq = ++_loginSeq, email = state.user.email;
   trocaDeDono();
+  avalZera();
   saveState();
   try { agendaDiasTreino(5000); } catch (e) {} // dia de treino que ficou na fila sem sinal
   const jaAbriu = !!state.protocol;
@@ -2510,6 +2537,7 @@ function logout() {
   clearTimeout(_syncTimer);
   _loginSeq++;
   _fotoFlushed = null; _fotoCache.clear();
+  avalZera();
   // Mantém protocolo no localStorage (vinculado ao email), só limpa sessão
   state.user = null;
   state.oScreen = 1;
@@ -2981,6 +3009,7 @@ async function initDashboard() {
   startVerifyHeartbeat();
   restoreSetsFromServer(); // backup de cargas da conta (não bloqueia o load)
   flushFotoUploads();      // sobe fotos pendentes pro Drive (se backend configurado)
+  avalAoEntrar();          // avaliação corporal: o servidor diz se este aluno tem o bônus e em que pé está
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -3721,6 +3750,7 @@ async function onFotoPicked(input) {
     const ok = await fotoPutK(k, { dataUrl, f, angle, date: fotoDateBR(), ts: Date.now(), uploaded: false });
     if (!ok) throw new Error('o aparelho não guardou a foto');
     await hydrateFotos();
+    if (avalAberta()) hydrateAvalFotos();
     fotoToast('✓ Foto salva no teu aparelho');
     uploadFoto(k);
   } catch (e) { fotoToast('Não consegui salvar essa foto (pode ser falta de espaço no aparelho). Tenta de novo.', 4500); }
@@ -3795,6 +3825,275 @@ function fotosSecHtml() {
       </div>
     </div>`;
 }
+
+// ═══════════════════════════════════════════════════════════
+// AVALIAÇÃO CORPORAL PELO GH (bônus do lançamento)
+// Ordem do GH de 07/10/2026: só os compradores novos, 7 dias úteis como no Peitão, igual ao do Peitão.
+// O aluno manda idade, peso, altura, 5 medidas e as 4 fotos de progresso da fase; o GH olha e responde com um áudio,
+// que fica no app por 7 dias. É LEITURA do ponto de partida: nunca "ajuste" nem "personalizado" (isso é a consultoria).
+// QUEM VÊ: só quem o SERVIDOR diz que é elegível (GET /api/aval). Sem resposta do servidor não aparece nada: mostrar
+// o convite enquanto carrega prometeria o bônus pra quem não tem.
+// A sessão vai sempre no cabeçalho: o áudio e as fotos são baixados e tocam do aparelho, nunca por endereço com a sessão.
+// ═══════════════════════════════════════════════════════════
+let _avalStatus = null;     // resposta do GET /api/aval (null = ainda não sei)
+let _avalVerEnvio = false;  // bloco "ver o que tu enviou" aberto ou fechado
+let _avalBlobs = [];        // endereços locais do áudio e das fotos revistas, pra soltar ao sair
+let _avalAudioEl = null, _avalAudioDe = null, _avalBuscando = false;
+const AVAL_CAMPOS = [
+  { k: 'idade',   l: 'Idade',                       ph: 'anos',     hint: '' },
+  { k: 'peso',    l: 'Peso (kg)',                   ph: 'ex: 82,5', hint: '' },
+  { k: 'altura',  l: 'Altura (cm)',                 ph: 'ex: 178',  hint: '' },
+  { k: 'cintura', l: 'Cintura (cm)',                ph: 'cm', hint: 'Acima do umbigo.' },
+  { k: 'abdomen', l: 'Abdômen (cm)',                ph: 'cm', hint: 'Maior circunferência abaixo do umbigo.' },
+  { k: 'quadril', l: 'Quadril/glúteo (cm)',         ph: 'cm', hint: 'Maior circunferência do glúteo.' },
+  { k: 'braco',   l: 'Braço direito relaxado (cm)', ph: 'cm', hint: 'Ponto médio entre ombro e cotovelo.' },
+  { k: 'coxa',    l: 'Coxa direita (cm)',           ph: 'cm', hint: 'Parte mais grossa, ponto médio entre joelho e quadril.' },
+];
+const avalDiaMes = ms => { const d = new Date(ms); return String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0'); };
+
+function avalSoltaBlobs() { for (const u of _avalBlobs) { try { URL.revokeObjectURL(u); } catch (e) {} } _avalBlobs = []; }
+// troca de conta ou saída: nada da avaliação de um aluno pode sobrar pra outro no mesmo aparelho
+function avalZera() {
+  _avalStatus = null; _avalVerEnvio = false; _avalAudioDe = null; _avalBuscando = false;
+  if (_avalAudioEl) { try { _avalAudioEl.pause(); _avalAudioEl.removeAttribute('src'); _avalAudioEl.load(); } catch (e) {} }
+  avalSoltaBlobs();
+  try { fecharAval(); fecharAvalAudioModal(); } catch (e) {}
+}
+async function carregarAvalStatus() {
+  if (!state.user || !state.user.token) return null;
+  const email = state.user.email;
+  try {
+    const r = await api('/api/aval');
+    if (r && r.ok && state.user && state.user.email === email) { _avalStatus = r; return r; }
+  } catch (e) {}
+  return null;
+}
+// redesenha SÓ o cartão (redesenhar o treino inteiro fecharia o que o aluno está fazendo)
+function avalRedesenha() {
+  document.querySelectorAll('.aval-slot').forEach(s => { s.innerHTML = avalCardHtml(); });
+  avalPoeAudio();
+}
+function avalAoEntrar() { carregarAvalStatus().then(r => { if (r) avalRedesenha(); }); }
+// voltou pro app: o GH pode ter gravado o áudio enquanto ele estava fora
+function avalAoVoltar() {
+  if (!state.user) return;
+  const antes = JSON.stringify(_avalStatus);
+  carregarAvalStatus().then(() => { if (JSON.stringify(_avalStatus) !== antes) avalRedesenha(); });
+}
+
+// ─── o áudio ───
+// O tocador é UM só e mora fora do desenho da tela: a aba TREINO é redesenhada toda hora, e um tocador recriado a
+// cada desenho parava o áudio no meio. Depois de cada desenho ele volta pro cartão na mesma hora (sem espera).
+function avalAudioEl() {
+  if (!_avalAudioEl) {
+    _avalAudioEl = document.createElement('audio');
+    _avalAudioEl.id = 'avalAudioPlayer'; _avalAudioEl.controls = true; _avalAudioEl.preload = 'none';
+    _avalAudioEl.style.cssText = 'width:100%;margin-top:10px;';
+    _avalAudioEl.addEventListener('play', marcarAvalOuvido);
+  }
+  return _avalAudioEl;
+}
+function avalAudioDisponivel() { const s = _avalStatus; return !!(s && s.existe && s.temAudio && !s.audioExpirado && s.audioEm); }
+function avalPoeAudio() {
+  const host = document.getElementById('avalAudioHost');
+  if (!host || !avalAudioDisponivel()) return;
+  const el = avalAudioEl();
+  if (el.parentNode !== host) host.appendChild(el);
+  avalBuscaAudio();
+}
+function avalAudioMsg(t) { const m = document.getElementById('avalAudioMsg'); if (m) m.textContent = t || ''; }
+async function avalBuscaAudio() {
+  if (!avalAudioDisponivel() || !state.user || _avalBuscando) return;
+  const de = _avalStatus.audioEm, token = state.user.token;
+  if (_avalAudioDe === de) return; // este áudio já está no tocador
+  _avalBuscando = true;
+  avalAudioMsg('Carregando o áudio...');
+  try {
+    const r = await fetchComLimite(API_BASE + '/api/aval/audio', { headers: { Authorization: 'Bearer ' + token } }, 90000);
+    if (!r.ok) throw new Error('resposta ' + r.status);
+    const b = await r.blob();
+    if (!b || !b.size) throw new Error('vazio');
+    if (!state.user || state.user.token !== token || !avalAudioDisponivel() || _avalStatus.audioEm !== de) return;
+    const u = URL.createObjectURL(b); _avalBlobs.push(u);
+    avalAudioEl().src = u; _avalAudioDe = de;
+    avalAudioMsg('');
+    avalAvisoTelaCheia(); // só agora: o botão OUVIR AGORA precisa do áudio pronto pra tocar dentro do toque
+  } catch (e) {
+    avalAudioMsg('Não consegui carregar o áudio. Confere a internet e toca aqui pra tentar de novo.');
+  } finally { _avalBuscando = false; }
+}
+function avalChaveOuvido() { return 'shape_avalOuvido_' + setsEmail(); }
+function avalChaveVisto() { return 'shape_avalAviso_' + setsEmail(); }
+function marcarAvalOuvido() { const s = _avalStatus; if (!s || !s.audioEm) return; try { localStorage.setItem(avalChaveOuvido(), String(s.audioEm)); } catch (e) {} }
+function avalAudioNaoOuvido() {
+  if (!avalAudioDisponivel()) return false;
+  try { return localStorage.getItem(avalChaveOuvido()) !== String(_avalStatus.audioEm); } catch (e) { return true; }
+}
+// Aviso em tela cheia: UMA vez por áudio (regravou, avisa de novo) e nunca por cima de outra janela aberta.
+function avalAvisoTelaCheia() {
+  try {
+    if (!avalAudioNaoOuvido()) return;
+    const s = _avalStatus;
+    let visto = ''; try { visto = localStorage.getItem(avalChaveVisto()) || ''; } catch (e) {}
+    if (visto === String(s.audioEm) || document.querySelector('.install-modal.show, .foto-viewer.show, .timer-modal.show, .video-modal.show, .ach-overlay.show')) return;
+    try { localStorage.setItem(avalChaveVisto(), String(s.audioEm)); } catch (e) {}
+    const txt = document.getElementById('avalAudioModalTxt');
+    if (txt) txt.innerHTML = '<b>O GH gravou tua avaliação.</b> Ele olhou tuas fotos e medidas e mandou um áudio só pra ti.' + (s.audioAte ? '<br><span style="opacity:.75;font-size:13px;">Fica no app até ' + avalDiaMes(s.audioAte) + '.</span>' : '');
+    const m = document.getElementById('avalAudioModal');
+    if (m) m.classList.add('show');
+  } catch (e) {}
+}
+function ouvirAvalAgora() {
+  // play() DENTRO do toque: o iPhone bloqueia áudio que começa fora de um gesto
+  try { const p = avalAudioEl().play(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
+  fecharAvalAudioModal();
+  showTab('treino');
+  setTimeout(() => { const c = document.getElementById('avalCard'); if (c && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 80);
+}
+function fecharAvalAudioModal() { const m = document.getElementById('avalAudioModal'); if (m) m.classList.remove('show'); }
+
+// ─── o cartão na aba TREINO ───
+// O aluno revê o que mandou (medidas e as 4 fotos, vindas do servidor: funciona até em aparelho trocado).
+function avalEnvioHtml() {
+  const s = _avalStatus;
+  if (!s || !s.existe || !s.dados || !state.user) return '';
+  if (!_avalVerEnvio) return `<button type="button" class="aval-link" onclick="avalVerEnvio(true)">Ver as medidas e fotos que tu enviou →</button>`;
+  const rot = [['idade', 'Idade', ''], ['peso', 'Peso', ' kg'], ['altura', 'Altura', ' cm'], ['cintura', 'Cintura', ' cm'], ['abdomen', 'Abdômen', ' cm'], ['quadril', 'Quadril', ' cm'], ['braco', 'Braço D', ' cm'], ['coxa', 'Coxa D', ' cm']];
+  return `<div class="aval-envio">
+    <div class="aval-meds">${rot.map(([k, l, un]) => `<div><span>${l}</span><b>${escapeHtml(s.dados[k] || '?')}${un}</b></div>`).join('')}</div>
+    <div class="aval-fotos">${FOTO_ANGLES.map(a => `<img alt="${a.l}" data-aval-ang="${a.k}">`).join('')}</div>
+    <button type="button" class="aval-link" onclick="avalVerEnvio(false)">esconder ↑</button>
+  </div>`;
+}
+function avalVerEnvio(v) { _avalVerEnvio = !!v; avalRedesenha(); if (v) avalCarregaFotosEnviadas(); }
+async function avalCarregaFotosEnviadas() {
+  if (!state.user) return;
+  const token = state.user.token;
+  for (const img of document.querySelectorAll('img[data-aval-ang]')) {
+    try {
+      const r = await fetchComLimite(API_BASE + '/api/aval/foto?angle=' + encodeURIComponent(img.dataset.avalAng), { headers: { Authorization: 'Bearer ' + token } }, 30000);
+      if (!r.ok) { img.style.display = 'none'; continue; }
+      const u = URL.createObjectURL(await r.blob()); _avalBlobs.push(u);
+      if (state.user && state.user.token === token) img.src = u;
+    } catch (e) { img.style.display = 'none'; }
+  }
+}
+function avalCardHtml() {
+  if (!state.user) return '';
+  const s = _avalStatus;
+  if (!s) return '';
+  if (avalAudioDisponivel()) {
+    return `<div class="aval-card chegou" id="avalCard">
+      <div class="aval-tag">🎙 TUA AVALIAÇÃO CHEGOU</div>
+      <div class="aval-main">O GH olhou tuas fotos e medidas e gravou um áudio pra ti.</div>
+      <div id="avalAudioHost"></div>
+      <div class="aval-sub" id="avalAudioMsg" onclick="avalBuscaAudio()"></div>
+      ${s.audioAte ? `<div class="aval-sub">O áudio fica no app até <b>${avalDiaMes(s.audioAte)}</b>, depois sai. Escuta enquanto está aqui.</div>` : ''}
+      ${avalEnvioHtml()}
+    </div>`;
+  }
+  if (s.existe && s.temAudio && s.audioExpirado) {
+    return `<div class="aval-card" id="avalCard">
+      <div class="aval-tag">🎙 AVALIAÇÃO RESPONDIDA</div>
+      <div class="aval-main">O áudio do GH ficou disponível por 7 dias e já saiu do app.</div>
+      ${avalEnvioHtml()}
+    </div>`;
+  }
+  if (s.existe) {
+    return `<div class="aval-card" id="avalCard">
+      <div class="aval-tag">🎖 AVALIAÇÃO ENVIADA</div>
+      <div class="aval-main">Recebi teus dados. O GH vai olhar tuas fotos e medidas e te responder com um áudio aqui no app em até <b>7 dias úteis</b>.</div>
+      ${avalEnvioHtml()}
+    </div>`;
+  }
+  if (!s.elegivel) return '';
+  return `<button type="button" class="aval-card convite" id="avalCard" onclick="abrirAval()">
+    <span class="aval-tag">🎖 AVALIAÇÃO CORPORAL PELO GH</span>
+    <span class="aval-main">Manda tuas fotos e medidas que o GH olha e te responde com um áudio, anexado aqui no teu app em até 7 dias úteis.</span>
+    <span class="aval-sub"><b>Toca aqui pra preencher →</b></span>
+  </button>`;
+}
+
+// ─── o formulário ───
+function avalAberta() { const m = document.getElementById('avalModal'); return !!(m && m.classList.contains('show')); }
+function abrirAval() {
+  const m = document.getElementById('avalModal');
+  if (!m) return;
+  state.fotoFase = null; // as fotos da avaliação são as da fase em que o aluno está
+  document.getElementById('avalBody').innerHTML = avalFormHtml();
+  m.classList.add('show');
+  hydrateAvalFotos();
+}
+function fecharAval() { const m = document.getElementById('avalModal'); if (m) m.classList.remove('show'); }
+function avalFormHtml() {
+  const campos = AVAL_CAMPOS.map(c => `
+    <div class="aval-campo">
+      <label for="aval-${c.k}">${c.l}</label>
+      ${c.hint ? `<div class="aval-hint">${c.hint}</div>` : ''}
+      <input id="aval-${c.k}" inputmode="decimal" placeholder="${c.ph}" maxlength="8" autocomplete="off">
+    </div>`).join('');
+  return `
+    <p class="hint" style="margin:0 0 14px;">Preenche as medidas e anexa as 4 fotos. O GH olha tudo e te responde com um áudio aqui no app em até <b>7 dias úteis</b>.</p>
+    <div class="aval-campo" style="margin-bottom:10px;">
+      <label for="aval-nome">Teu nome (como o GH deve te chamar no áudio)</label>
+      <input id="aval-nome" maxlength="60" placeholder="ex: Fábio" autocomplete="off" value="${escapeHtml(state.user && state.user.name ? state.user.name : '')}">
+    </div>
+    <div class="aval-grid">${campos}</div>
+    <div class="aval-fotos-titulo">📸 As 4 fotos (corpo inteiro, luz boa, roupa de treino ou de banho)</div>
+    <div class="foto-grid">
+      ${FOTO_ANGLES.map(a => `<button type="button" class="foto-slot" id="avslot-${a.k}" aria-label="Adicionar foto: ${a.l}" onclick="pickFoto('${a.k}')"><span class="foto-slot-plus">+</span><span class="foto-slot-label">${a.l}</span></button>`).join('')}
+    </div>
+    <div class="aval-sub" style="margin:8px 0 14px;">Se tu já tirou as fotos de progresso desta fase, elas aparecem aqui e valem pra avaliação.</div>
+    <button class="btn" type="button" id="avalEnviar" onclick="enviarAval()">Enviar pra avaliação do GH</button>
+    <div id="avalMsg" class="form-msg hidden" role="alert"></div>`;
+}
+// os quadros do formulário mostram as fotos de progresso da fase atual (mesmo lugar onde elas já são guardadas)
+async function hydrateAvalFotos() {
+  const f = fotoFase();
+  for (const a of FOTO_ANGLES) {
+    const rec = await fotoGet(f, a.k);
+    const slot = document.getElementById('avslot-' + a.k);
+    if (!slot) continue;
+    if (rec && rec.dataUrl) { slot.className = 'foto-slot set'; slot.innerHTML = `<img src="${rec.dataUrl}" alt=""><span class="foto-slot-ok">✓</span><span class="foto-slot-label">${a.l} · ${escapeHtml(rec.date)}</span>`; }
+    else { slot.className = 'foto-slot'; slot.innerHTML = `<span class="foto-slot-plus">+</span><span class="foto-slot-label">${a.l}</span>`; }
+  }
+}
+async function enviarAval() {
+  const msg = document.getElementById('avalMsg'), bt = document.getElementById('avalEnviar');
+  const diz = t => { if (msg) { msg.textContent = t || ''; msg.classList.toggle('hidden', !t); } };
+  diz('');
+  const corpo = {};
+  for (const c of AVAL_CAMPOS) {
+    const v = String((document.getElementById('aval-' + c.k) || {}).value || '').trim();
+    if (!/\d/.test(v)) { diz('Preenche o campo: ' + c.l); return; }
+    corpo[c.k] = v;
+  }
+  corpo.nome = String((document.getElementById('aval-nome') || {}).value || '').trim();
+  if (bt) bt.disabled = true;
+  try {
+    // as 4 fotos precisam existir E já ter subido pro servidor (senão o GH não vê)
+    const f = fotoFase(), fotos = {};
+    for (const a of FOTO_ANGLES) {
+      let rec = await fotoGet(f, a.k);
+      if (!rec || !rec.dataUrl) { diz('Falta a foto: ' + a.l); return; }
+      if (!rec.uploaded) { diz('Subindo a foto ' + a.l + '...'); await uploadFoto(fotoKey(f, a.k)); rec = await fotoGet(f, a.k); }
+      if (!rec || !rec.uploaded) { diz('A foto ' + a.l + ' ainda não subiu. Confere tua internet e tenta de novo.'); return; }
+      fotos[a.k] = { date: rec.date, fase: rec.f || f };
+    }
+    corpo.fotos = fotos;
+    diz('Enviando...');
+    const r = await api('/api/aval', { method: 'POST', timeout: 45000, body: JSON.stringify(corpo) });
+    if (r && r.ok) {
+      const antes = _avalStatus || {};
+      _avalStatus = { ok: true, existe: true, elegivel: true, status: r.status || 'enviada', enviadaEm: r.enviadaEm || Date.now(), temAudio: !!antes.temAudio, audioExpirado: !!antes.audioExpirado, audioAte: antes.audioAte || null, audioEm: antes.audioEm || null, dados: corpo };
+      fecharAval();
+      showToast('🎖 Avaliação enviada! O GH te responde em áudio aqui, em até 7 dias úteis.', 5000);
+      avalRedesenha();
+    } else diz((r && (r.error || r._error)) || 'Não consegui enviar. Tenta de novo.');
+  } catch (e) { if (!(e && e.auth)) diz('Sem conexão. Tenta de novo.'); }
+  finally { if (bt) bt.disabled = false; }
+}
+// ═══ fim da avaliação corporal ═══
 
 // ═══════════════════════════════════════════════════════════
 // PROGRESSÃO DE CARGA (grade de séries kg/placa/reps, igual Peitão)
@@ -4490,6 +4789,7 @@ function renderTreino() {
     <p class="hint">${t.dias.length} dias por semana · Treino Fase ${t.nivel || treinoPhase}</p>
     ${desvioHtml}
     <div class="grupo-slot">${grupoFaixaHtml()}</div>
+    <div class="aval-slot">${avalCardHtml()}</div>
     <div class="day-tabs" style="--dias:${t.dias.length};">${dayBtns}</div>
     ${resumo ? `<p class="dia-resumo">${escapeHtml(day.nome)}: ${resumo}</p>` : ''}
     ${weekBarHtml()}
@@ -4507,6 +4807,8 @@ function renderTreino() {
     ${fotosSecHtml()}
   `;
   hydrateFotos();
+  avalPoeAudio(); // na mesma hora (sem espera): o áudio da avaliação não para quando a tela é redesenhada
+  if (_avalVerEnvio) avalCarregaFotosEnviadas();
 }
 
 function selectDay(i) {
@@ -5776,6 +6078,7 @@ document.addEventListener('visibilitychange', () => {
   if (!state.user) return;
   if (document.hidden) { if (dirtyLoad().length) flushSets(); return; }
   agendaSync(600);
+  avalAoVoltar();
   if (Date.now() - _verifyAt > 10 * 60 * 1000) verificaSessao(); // em segundo plano o relógio do navegador para
   // voltou do checkout com a aba de e-books aberta: o que ele acabou de comprar aparece sem fechar o app
   { const abaEb = document.getElementById('tab-ebooks'); if (abaEb && !abaEb.classList.contains('hidden')) carregaEbooks(true); }
@@ -5797,6 +6100,23 @@ if ('serviceWorker' in navigator) {
 
 document.addEventListener('DOMContentLoaded', boot);
 </script>
+<!-- Avaliação corporal: formulário -->
+<div class="install-modal" id="avalModal" onclick="if(event.target.id==='avalModal')fecharAval()">
+  <div class="install-modal-box">
+    <h3>🎖 Avaliação corporal pelo GH</h3>
+    <div id="avalBody"></div>
+    <button class="btn ghost" type="button" onclick="fecharAval()" style="margin-top:8px;">Fechar</button>
+  </div>
+</div>
+<!-- Avaliação corporal: aviso de que o áudio chegou (uma vez por áudio) -->
+<div class="install-modal" id="avalAudioModal">
+  <div class="install-modal-box" style="text-align:center;">
+    <div style="font-size:44px;line-height:1;">🎙</div>
+    <p id="avalAudioModalTxt" style="margin:12px 0 16px;line-height:1.5;"><b>O GH gravou tua avaliação.</b></p>
+    <button class="btn" type="button" style="background:#2f9e63;" onclick="ouvirAvalAgora()">▶ OUVIR AGORA</button>
+    <button class="btn ghost" type="button" onclick="fecharAvalAudioModal()">Depois</button>
+  </div>
+</div>
 <input type="file" id="fotoInput" accept="image/*" style="display:none;" onchange="onFotoPicked(this)">
 <div class="foto-viewer" id="fotoViewer" onclick="if(event.target.id==='fotoViewer')closeFotoViewer()">
   <button type="button" class="foto-viewer-x" onclick="closeFotoViewer()" aria-label="Fechar a foto">✕</button>
