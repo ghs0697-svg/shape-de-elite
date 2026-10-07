@@ -1120,6 +1120,15 @@
     white-space: nowrap;
   }
   .conclude-bar .conclude-btn:disabled { background: var(--border); cursor: not-allowed; }
+  /* Convite do grupo (uma linha) e pedido de guardião */
+  .grupo-faixa { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; border: 1px solid #1f7a45; background: rgba(37, 211, 102, .10); border-radius: 8px; }
+  .grupo-faixa a { flex: 1; min-height: 44px; display: flex; align-items: center; padding: 6px 12px; color: #4ade80; font-size: 13px; font-weight: 800; text-decoration: none; }
+  .grupo-faixa button { min-width: 44px; min-height: 44px; background: none; border: none; color: var(--text-dim); font-size: 14px; cursor: pointer; }
+  .guardiao-linha { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: -4px 0 14px; padding: 10px 12px; border: 1px dashed var(--border); border-radius: 8px; font-size: 13px; line-height: 1.35; color: var(--text-dim); }
+  .guardiao-btn { flex: none; min-height: 44px; padding: 8px 12px; background: none; border: 1px solid var(--red); border-radius: 6px; color: var(--red-text); font-size: 12px; font-weight: 800; cursor: pointer; }
+  /* no começo do treino é uma linha só, sem caixa, pra não empurrar os exercícios pra baixo */
+  .guardiao-fina { margin: -8px 0 8px; }
+  .guardiao-fina button { min-height: 44px; padding: 0 4px; background: none; border: none; color: var(--text-dim); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
   /* ── Achievement overlay (share card) ── */
   .ach-overlay {
@@ -2135,9 +2144,61 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '69';
+const APP_V = '70';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
+
+// ─── Convite do grupo e botão de pedir o guardião ───
+// Os dois saem DESLIGADOS até o GH aprovar lugar, nome e frase (Sala #3040 e #3043). Pra ver num aparelho sem ligar
+// pra todo mundo: localStorage shape_previa_grupo = '1' e shape_previa_guardiao = '1'.
+// GRUPO: uma linha no começo da aba TREINO. Some quando o aluno toca pra entrar; o X esconde por 30 dias.
+// GUARDIÃO (ordem do GH, 06/10/2026): o aluno pede pra ser cobrado. O botão abre o whats oficial com a frase pronta
+// e o código da conta; o bot reconhece a frase por regra e passa a cobrar o treino toda semana. A frase e o formato
+// do código são contrato com a Agentes (#3048): não mudar sem avisar.
+const GRUPO = { ligado: false, link: 'https://chat.whatsapp.com/B8U4QhFV4x8KDmKXvOpahR', faixa: 'Entrar no grupo do Shape de Elite' };
+const GUARDIAO = { ligado: false, whats: '5555999717530', chamada: 'Quer que eu te cobre o treino pelo whats?', nome: 'Quero ser cobrado', frase: 'Quero o guardião do Shape de Elite pra me cobrar o treino.' };
+function previaLigada(qual) { try { return localStorage.getItem('shape_previa_' + qual) === '1'; } catch (e) { return false; } }
+// Código curto da conta, S-XXXX: a MESMA conta que a API faz (lib/alunos.js, codigoDoEmail). Não é segredo.
+function codigoDoAluno() {
+  const em = String((state.user && state.user.email) || '').trim().toLowerCase();
+  let h = 5381;
+  for (let i = 0; i < em.length; i++) h = ((h * 33) ^ em.charCodeAt(i)) >>> 0;
+  return 'S-' + h.toString(36).toUpperCase().slice(-4).padStart(4, '0');
+}
+// Conta o toque no servidor, com a origem. É só medida: se falhar, o link abre igual.
+function contaToque(para, de) { try { fetch(API_BASE + '/api/clique?para=' + para + '&de=' + encodeURIComponent(de), { method: 'POST', keepalive: true }).catch(() => {}); } catch (e) {} }
+function grupoChave() { return 'shape_grupo_' + ((state.user && state.user.email) || 'anon'); }
+function grupoEstado() { try { return JSON.parse(localStorage.getItem(grupoChave()) || 'null') || {}; } catch (e) { return {}; } }
+function grupoVisivel() {
+  if (!(GRUPO.ligado || previaLigada('grupo'))) return false;
+  const e = grupoEstado();
+  if (e.entrou) return false;
+  return !(e.fechou && Date.now() - e.fechou < 30 * 864e5);
+}
+function grupoFaixaHtml() {
+  if (!grupoVisivel()) return '';
+  return `<div class="grupo-faixa"><a href="${GRUPO.link}" target="_blank" rel="noopener" onclick="tocouGrupo()">💬 ${GRUPO.faixa}</a><button type="button" onclick="fechouGrupo()" aria-label="Agora não, esconder o convite do grupo">✕</button></div>`;
+}
+function grupoRedesenha() { document.querySelectorAll('.grupo-slot').forEach(el => { el.innerHTML = grupoFaixaHtml(); }); }
+function tocouGrupo() { try { localStorage.setItem(grupoChave(), JSON.stringify({ entrou: Date.now() })); } catch (e) {} contaToque('grupo', 'faixa'); setTimeout(grupoRedesenha, 600); }
+function fechouGrupo() { try { localStorage.setItem(grupoChave(), JSON.stringify({ fechou: Date.now() })); } catch (e) {} grupoRedesenha(); }
+function guardiaoChave() { return 'shape_guardiao_' + ((state.user && state.user.email) || 'anon'); }
+function guardiaoPedido() { try { return !!localStorage.getItem(guardiaoChave()); } catch (e) { return false; } }
+function guardiaoVisivel() { return (GUARDIAO.ligado || previaLigada('guardiao')) && !!state.user && !guardiaoPedido(); }
+function guardiaoLink() { return 'https://api.whatsapp.com/send?phone=' + GUARDIAO.whats + '&text=' + encodeURIComponent(GUARDIAO.frase + ' Código ' + codigoDoAluno()); }
+function guardiaoHtml(de) {
+  if (!guardiaoVisivel()) return '';
+  // no começo do treino: uma linha fina; no fim, depois dos exercícios: a pergunta com o botão
+  if (de === 'primeiro-treino') return `<div class="guardiao-fina"><button type="button" onclick="pedirGuardiao('${de}')">🔔 ${GUARDIAO.nome} pelo whats</button></div>`;
+  return `<div class="guardiao-linha"><span>${GUARDIAO.chamada}</span><button type="button" class="guardiao-btn" onclick="pedirGuardiao('${de}')">${GUARDIAO.nome}</button></div>`;
+}
+function pedirGuardiao(de) {
+  const link = guardiaoLink();
+  try { localStorage.setItem(guardiaoChave(), String(Date.now())); } catch (e) {}
+  contaToque('guardiao', de);
+  document.querySelectorAll('.guardiao-slot').forEach(el => { el.innerHTML = ''; });
+  window.open(link, '_blank', 'noopener');
+}
 const SUPL_PDF_URL = 'pdfs/suplementos.pdf'; // manual premium gerado de pdf-src/suplementos.html
 
 // ═══════════════════════════════════════════════════════════
@@ -3363,7 +3424,7 @@ function renderAcessorios() {
     <h3 style="margin-top:18px;margin-bottom:8px;color:#ffa726;font-size:12px;letter-spacing:.5px;">🛒 SHOPEE (econômico)</h3>
     <div class="partner-card">
       <div class="partner-card-head"><span class="partner-name">Balança de precisão</span><span class="partner-discount" style="background:#3a2e1f;color:#ffa726;">SHOPEE</span></div>
-      <div class="partner-desc">Balança digital, pesar carne crua, arroz, suplementos. Fundamental pra ser preciso na dieta.</div>
+      <div class="partner-desc">Balança digital, pra pesar a comida pronta (carne, arroz) e os suplementos. Fundamental pra ser preciso na dieta.</div>
       <a class="partner-link" href="https://s.shopee.com.br/W3DVo4Iae?share_channel_code=1" target="_blank" rel="noopener">Acessar →</a>
     </div>
     <div class="partner-card">
@@ -4404,6 +4465,7 @@ function renderTreino() {
     <h2>${escapeHtml(titulo)}</h2>
     <p class="hint">${t.dias.length} dias por semana · Treino Fase ${t.nivel || treinoPhase}</p>
     ${desvioHtml}
+    <div class="grupo-slot">${grupoFaixaHtml()}</div>
     <div class="day-tabs" style="--dias:${t.dias.length};">${dayBtns}</div>
     ${resumo ? `<p class="dia-resumo">${escapeHtml(day.nome)}: ${resumo}</p>` : ''}
     ${weekBarHtml()}
@@ -4411,8 +4473,10 @@ function renderTreino() {
     ${fastNoteHtml}
     ${pernaNoteHtml}
     <div class="conclude-bar conclude-slot">${concludeInner()}</div>
+    <div class="guardiao-slot">${guardiaoHtml('primeiro-treino')}</div>
     ${exHtml}
     <div class="conclude-bar conclude-slot">${concludeInner()}</div>
+    <div class="guardiao-slot">${guardiaoHtml('fim-do-treino')}</div>
     ${extrasHtml ? `<h3 style="margin-top:24px;color:var(--text-dim);">📚 Material extra</h3>${extrasHtml}` : ''}
     <a class="btn secondary" href="${pdfUrl}" target="_blank" rel="noopener" download="${escapeHtml(pdfFile)}" style="text-decoration:none;text-align:center;margin-top:18px;">📥 Baixar PDF do treino</a>
     ${phaseUpgradeHtml}
