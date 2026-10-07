@@ -1124,8 +1124,9 @@
   .grupo-faixa { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; border: 1px solid #1f7a45; background: rgba(37, 211, 102, .10); border-radius: 8px; }
   .grupo-faixa a { flex: 1; min-height: 44px; display: flex; align-items: center; padding: 6px 12px; color: #4ade80; font-size: 13px; font-weight: 800; text-decoration: none; }
   .grupo-faixa button { min-width: 44px; min-height: 44px; background: none; border: none; color: var(--text-dim); font-size: 14px; cursor: pointer; }
-  .guardiao-linha { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: -4px 0 14px; padding: 10px 12px; border: 1px dashed var(--border); border-radius: 8px; font-size: 13px; line-height: 1.35; color: var(--text-dim); }
-  .guardiao-btn { flex: none; min-height: 44px; padding: 8px 12px; background: none; border: 1px solid var(--red); border-radius: 6px; color: var(--red-text); font-size: 12px; font-weight: 800; cursor: pointer; }
+  /* fim do treino: o botão em cima, na largura toda, e a explicação embaixo (lado a lado o texto ficava espremido) */
+  .guardiao-linha { display: flex; flex-direction: column; gap: 8px; margin: -4px 0 14px; padding: 12px; border: 1px dashed var(--border); border-radius: 8px; font-size: 13px; line-height: 1.4; color: var(--text-dim); text-align: center; }
+  .guardiao-btn { width: 100%; min-height: 46px; padding: 10px 12px; background: none; border: 1px solid var(--red); border-radius: 6px; color: var(--red-text); font-size: 14px; font-weight: 800; cursor: pointer; }
   /* no começo do treino é uma linha só, sem caixa, pra não empurrar os exercícios pra baixo */
   .guardiao-fina { margin: -8px 0 8px; font-size: 13px; line-height: 1.4; color: var(--text-dim); }
   .guardiao-fina button { min-height: 44px; padding: 0 2px; background: none; border: none; color: var(--red-text); font-size: 13px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
@@ -2146,7 +2147,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '71';
+const APP_V = '72';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2203,7 +2204,7 @@ function guardiaoHtml(de) {
     return `<div class="guardiao-fina">${GUARDIAO.chamada} <button type="button" onclick="pedirGuardiao('${de}')">${GUARDIAO.nome} →</button></div>`;
   }
   if (guardiaoPedido()) return `<div class="guardiao-linha"><span>${GUARDIAO.pedido}</span></div>`;
-  return `<div class="guardiao-linha"><span>${GUARDIAO.explica}</span><button type="button" class="guardiao-btn" onclick="pedirGuardiao('${de}')">💬 ${GUARDIAO.nome} no WhatsApp</button></div>`;
+  return `<div class="guardiao-linha"><button type="button" class="guardiao-btn" onclick="pedirGuardiao('${de}')">💬 ${GUARDIAO.nome} no WhatsApp</button><span>${GUARDIAO.explica}</span></div>`;
 }
 function guardiaoRedesenha() { document.querySelectorAll('.guardiao-slot').forEach(el => { el.innerHTML = guardiaoHtml(el.getAttribute('data-de') || 'fim-do-treino'); }); }
 function pedirGuardiao(de) {
