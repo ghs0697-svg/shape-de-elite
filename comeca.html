@@ -19,6 +19,8 @@
   - Vídeo do topo: pôr o id do YouTube em VIDEO_ID (vídeo em pé). Vazio = a página fica sem o bloco.
   - Dúvidas de quem acabou de entrar ("Paguei, e agora?"): chave DUVIDAS.
   - Casos de alunos: lista CASOS (fotos que já estão no banner e na página de vendas do Shape). Vazia = a seção não aparece.
+    Ficam LOGO NO COMEÇO e PEQUENOS (ordem do GH, 07/10/2026: "as fotos dos cases tem que ser menores e no inicio"); tocar abre a foto grande.
+  - Vídeo de oferta da consultoria, NO FIM (mesma ordem dele): VIDEO_OFERTA. Vazio = o bloco não aparece.
   - Preço e condição da consultoria vêm de data/upsell.json, o mesmo arquivo do card do app.
   - Contagem: abertura (pela origem), play e toque em cada botão, em /api/clique?para=playbook&de=...
 -->
@@ -106,15 +108,22 @@
   .duvidas details[open] summary::after { transform: rotate(45deg); }
   .duvidas details p { margin: 8px 0 0; color: var(--text-dim); font-size: 14.5px; }
 
-  /* casos */
-  .casos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0 10px; }
-  .casos.n3 { grid-template-columns: repeat(3, 1fr); }
-  .casos img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); }
+  /* casos: logo no começo e pequenos; tocar na foto abre ela grande */
+  #casos { margin-top: 22px; text-align: center; }
+  .casos-titulo { font-size: 16px; line-height: 1.25; margin: 0 0 10px; }
+  .casos { display: flex; justify-content: center; gap: 8px; margin: 0 0 8px; }
+  .casos button { flex: 0 1 88px; padding: 0; border: 0; background: none; border-radius: 10px; cursor: zoom-in; }
+  .casos img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); }
+  #casos .miudo { margin: 0 auto; max-width: 34em; font-size: 12px; }
+  .zoom { position: fixed; inset: 0; z-index: 40; width: 100%; border: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; padding: 16px; cursor: zoom-out; }
+  .zoom img { max-width: 100%; max-height: 100%; border-radius: 12px; }
 
   /* próximo nível */
   .nivel { border-color: #4a3c14; background: linear-gradient(180deg, #1d1a12, var(--surface)); }
   .nivel .kicker { color: var(--gold); }
   .nivel p { color: var(--text-dim); font-size: 15px; margin: 0 0 10px; }
+  .oferta-video { margin: 12px auto 14px; max-width: 280px; }
+  .oferta-video video { display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 14px; border: 1px solid var(--border); background: #000; }
   .preco { text-align: center; margin: 14px 0; }
   .preco .selo { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #1d1a12; background: var(--gold); border-radius: 999px; padding: 4px 10px; }
   .preco .de { color: var(--text-muted); font-size: 14px; margin-top: 8px; }
@@ -140,6 +149,13 @@
       <div class="quadro" id="quadro"><button type="button" id="play" aria-label="Assistir o vídeo de boas-vindas"><span class="play"></span><span class="rot">Vídeo de boas-vindas do GH</span></button></div>
     </div>
   </header>
+
+  <section id="casos" hidden>
+    <div class="kicker">Quem aplicou</div>
+    <h2 class="casos-titulo">O esforço deles era o mesmo. O que mudou foi o método.</h2>
+    <div class="casos" id="casos-lista"></div>
+    <p class="miudo">Cases reais de alunos do Método GH (mesma estrutura, ajuste individual). O Shape de Elite é a versão auto-aplicável do que rodou com mais de mil alunos. Toca na foto pra ver maior.</p>
+  </section>
 
   <section id="caminho">
     <div class="kicker">Teu caminho</div>
@@ -292,17 +308,11 @@
     </div>
   </section>
 
-  <section id="casos" hidden>
-    <div class="kicker">Quem aplicou</div>
-    <h2>O esforço deles era o mesmo. O que mudou foi o método.</h2>
-    <div class="casos" id="casos-lista"></div>
-    <p class="miudo" style="margin-top:0">Cases reais de alunos do Método GH (mesma estrutura, ajuste individual). O Shape de Elite é a versão auto-aplicável do que rodou com mais de mil alunos.</p>
-  </section>
-
   <section id="nivel" hidden>
     <div class="card nivel">
       <div class="kicker" id="nivel-kicker">O próximo nível</div>
       <h2>Do personalizado pro individualizado</h2>
+      <div class="oferta-video" id="oferta-video" hidden><video id="oferta-vid" playsinline controls preload="none"></video></div>
       <p>O Shape de Elite te entrega um protocolo <b>personalizado</b>: a calculadora monta treino e dieta pro teu perfil, e tu aplica no teu ritmo.</p>
       <p>Na consultoria do Método GH o protocolo é <b>individualizado</b>: feito pro teu caso, com acompanhamento direto comigo, anamnese, exames e ajustes sempre que precisar.</p>
       <p>Faz o Shape rodar primeiro. Quando tu quiser ir além, o caminho já tá aberto.</p>
@@ -340,6 +350,11 @@
     { img: BASE_CASOS + 'shape-02.jpg', alt: 'Antes e depois de um aluno do Método GH' },
     { img: BASE_CASOS + 'radames.jpg', alt: 'Antes e depois de um aluno do Método GH' }
   ];                   // vazio = sem a seção
+  // Vídeo de oferta da consultoria, no fim da página (ordem do GH, 07/10/2026). É arquivo nosso em pé (MP4), não YouTube.
+  // Vazio = o bloco não aparece. ATENÇÃO: o vídeo de oferta da consultoria que existe (o da página de oferta do Peitão)
+  // foi gravado pro comprador do PEITÃO e fala nele do começo ao fim ("teu Peitão de Pombo já está sendo liberado", "o
+  // valor do Peitão vira crédito"). Aquele arquivo NÃO entra aqui: só um vídeo que sirva pro comprador do Shape.
+  var VIDEO_OFERTA = { src: '', capa: '' };
   var DUVIDAS = true;  // bloco "Paguei, e agora?" (plano B do lançamento: página parada não cai). LIGADO em 07/10/2026 pelo GH ("Pode ligar tudo sim").
   var ORIGENS = ['whats', 'bot', 'app', 'pagina', 'grupo', 'chat', 'outro'];
   var de = (new URLSearchParams(location.search).get('de') || 'outro').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20);
@@ -376,16 +391,34 @@
     });
   }
 
-  // casos: só entram os que forem escolhidos; foto que não carregar some
+  // casos: só entram os que forem escolhidos; foto que não carregar some. São miniaturas: o toque abre a foto grande por cima da página.
   if (CASOS.length) {
     var lista = document.getElementById('casos-lista');
-    lista.className = 'casos n' + CASOS.length;
+    var abreFoto = function (src, alt) {
+      var z = document.createElement('button'); z.type = 'button'; z.className = 'zoom'; z.setAttribute('aria-label', 'Fechar a foto');
+      var g = document.createElement('img'); g.src = src; g.alt = alt; z.appendChild(g);
+      var tecla = function (e) { if (e.key === 'Escape') fecha(); };
+      var fecha = function () { z.remove(); document.removeEventListener('keydown', tecla); };
+      z.addEventListener('click', fecha); document.addEventListener('keydown', tecla);
+      document.body.appendChild(z); z.focus();
+    };
     CASOS.forEach(function (c) {
-      var img = document.createElement('img'); img.src = c.img; img.alt = c.alt || 'Antes e depois de um aluno do Método GH'; img.loading = 'lazy';
-      img.addEventListener('error', function () { img.remove(); if (!lista.querySelector('img')) document.getElementById('casos').hidden = true; });
-      lista.appendChild(img);
+      var alt = c.alt || 'Antes e depois de um aluno do Método GH';
+      var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Ver a foto maior');
+      var img = document.createElement('img'); img.src = c.img; img.alt = alt;
+      img.addEventListener('error', function () { b.remove(); if (!lista.querySelector('img')) document.getElementById('casos').hidden = true; });
+      b.addEventListener('click', function () { abreFoto(c.img, alt); });
+      b.appendChild(img); lista.appendChild(b);
     });
     document.getElementById('casos').hidden = false;
+  }
+
+  // vídeo de oferta (no fim, dentro do próximo nível): só carrega quando a pessoa dá o play, e o primeiro play é contado
+  if (VIDEO_OFERTA.src) {
+    var ov = document.getElementById('oferta-vid'), ofertaContada = false;
+    ov.src = VIDEO_OFERTA.src; if (VIDEO_OFERTA.capa) ov.poster = VIDEO_OFERTA.capa;
+    ov.addEventListener('play', function () { if (!ofertaContada) { ofertaContada = true; conta('play-consultoria'); } });
+    document.getElementById('oferta-video').hidden = false;
   }
 
   // próximo nível: preço e condição vêm do mesmo arquivo do card do app; sem ele, o bloco não aparece
