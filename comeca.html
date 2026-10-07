@@ -376,13 +376,18 @@
     { img: BASE_CASOS + 'radames.jpg', alt: 'Antes e depois de um aluno do Método GH' }
   ];                   // vazio = sem a seção
   // Vídeo de oferta da consultoria, no fim da página (ordem do GH, 07/10/2026). É arquivo nosso em pé (MP4), não YouTube.
-  // Vazio = o bloco não aparece. ATENÇÃO: o vídeo de oferta da consultoria que existe (o da página de oferta do Peitão)
+  // Vazio = o bloco não aparece. ATENÇÃO: o vídeo de oferta da consultoria ORIGINAL (o da página de oferta do Peitão)
   // foi gravado pro comprador do PEITÃO e fala nele do começo ao fim ("teu Peitão de Pombo já está sendo liberado", "o
-  // valor do Peitão vira crédito"). Aquele arquivo NÃO entra aqui: só um vídeo que sirva pro comprador do Shape.
-  var VIDEO_OFERTA = { src: '', capa: '' };
+  // valor do Peitão vira crédito"). Aquele arquivo NÃO entra aqui.
+  // LIGADO em 07/10/2026: é o CORTE de 63 s que a QuizPeitao fez sem essas falas. O GH assistiu e aprovou às 15h56, palavra
+  // por palavra: "Bom, acho que por ora, vamos usar esse corte que tu fez, olhei aqui e achei bom, por ora vai servir!".
+  // É provisório: ele quer regravar uma versão falando com o aluno do Shape. Quando existir, troca-se só este endereço.
+  var VIDEO_OFERTA = { src: 'https://shapedeelite.com.br/vsl-consultoria-web.mp4', capa: 'https://shapedeelite.com.br/vsl-consultoria-poster.jpg' };
   // Pilha do que a consultoria entrega (logo abaixo do vídeo) e a linha das vagas (abaixo dos botões). Proposta da QuizPeitao,
-  // dona da copy de oferta (Sala #3215): são as frases que o GH já tem na página de oferta da consultoria. Entra com o sim dele.
-  var PILHA_OFERTA = false;
+  // dona da copy de oferta (Sala #3215): são as frases que o GH já tem na página de oferta da consultoria.
+  // LIGADA em 07/10/2026 junto com o vídeo: eu tinha dito a ele, com a imagem do bloco ligado na frente, que o sim no corte
+  // ligava "o vídeo e a lista". Se ele quiser a lista fora, é só voltar pra false.
+  var PILHA_OFERTA = true;
   var DUVIDAS = true;  // bloco "Paguei, e agora?" (plano B do lançamento: página parada não cai). LIGADO em 07/10/2026 pelo GH ("Pode ligar tudo sim").
   var ORIGENS = ['whats', 'bot', 'app', 'pagina', 'grupo', 'chat', 'outro'];
   var de = (new URLSearchParams(location.search).get('de') || 'outro').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20);
