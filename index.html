@@ -2147,7 +2147,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '72';
+const APP_V = '73';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2165,7 +2165,9 @@ const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa exte
 // do código são contrato com a Agentes (#3048): não mudar sem avisar.
 const GRUPO = { ligado: true, link: 'https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA', faixa: 'Entrar no grupo do Shape de Elite', frase: 'Grupo fechado pra receber minhas novidades, descontos, upgrades e aulas ao vivo.' };
 // Textos do botão: os mesmos que o GH aprovou no app do Peitão em 07/10/2026 (Sala #3062 e #3063).
-const GUARDIAO = { ligado: false, whats: '5555999717530', chamada: 'Quer que a gente te cobre o treino toda semana?', nome: 'Quero ser cobrado', explica: 'O guardião te cobra o treino toda semana, pelo WhatsApp do Shape.', pedido: '✅ Guardião pedido. Ele te chama no WhatsApp.', frase: 'Quero o guardião do Shape de Elite pra me cobrar o treino.' };
+// LIGADO em 07/10/2026: o GH viu as duas telas do Shape (começo e fim do treino) e respondeu "Sim".
+// Pra desligar: ligado = false (a linha e o botão somem na hora; quem já pediu continua registrado no bot).
+const GUARDIAO = { ligado: true, whats: '5555999717530', chamada: 'Quer que a gente te cobre o treino toda semana?', nome: 'Quero ser cobrado', explica: 'O guardião te cobra o treino toda semana, pelo WhatsApp do Shape.', pedido: '✅ Guardião pedido. Ele te chama no WhatsApp.', frase: 'Quero o guardião do Shape de Elite pra me cobrar o treino.' };
 function previaLigada(qual) { try { return localStorage.getItem('shape_previa_' + qual) === '1'; } catch (e) { return false; } }
 // Código curto da conta, S-XXXX: a MESMA conta que a API faz (lib/alunos.js, codigoDoEmail). Não é segredo.
 function codigoDoAluno() {
