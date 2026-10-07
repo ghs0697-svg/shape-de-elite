@@ -340,7 +340,7 @@
     { img: BASE_CASOS + 'shape-02.jpg', alt: 'Antes e depois de um aluno do Método GH' },
     { img: BASE_CASOS + 'radames.jpg', alt: 'Antes e depois de um aluno do Método GH' }
   ];                   // vazio = sem a seção
-  var DUVIDAS = false; // bloco "Paguei, e agora?" (plano B do lançamento: página parada não cai). Liga com o sim do GH nos textos.
+  var DUVIDAS = true;  // bloco "Paguei, e agora?" (plano B do lançamento: página parada não cai). LIGADO em 07/10/2026 pelo GH ("Pode ligar tudo sim").
   var ORIGENS = ['whats', 'bot', 'app', 'pagina', 'grupo', 'chat', 'outro'];
   var de = (new URLSearchParams(location.search).get('de') || 'outro').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20);
   if (ORIGENS.indexOf(de) < 0) de = 'outro';
