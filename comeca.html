@@ -17,6 +17,7 @@
   Comece por aqui: página aberta, sem senha, pra quem acabou de comprar o Shape de Elite.
   Endereço: app.shapedeelite.com.br/comeca?de=<origem>   (whats | bot | app | pagina | grupo | chat | outro)
   - Vídeo do topo: pôr o id do YouTube em VIDEO_ID (vídeo em pé). Vazio = a página fica sem o bloco.
+  - Dúvidas de quem acabou de entrar ("Paguei, e agora?"): chave DUVIDAS.
   - Casos de alunos: lista CASOS (fotos que já estão no banner e na página de vendas do Shape). Vazia = a seção não aparece.
   - Preço e condição da consultoria vêm de data/upsell.json, o mesmo arquivo do card do app.
   - Contagem: abertura (pela origem), play e toque em cada botão, em /api/clique?para=playbook&de=...
@@ -94,6 +95,16 @@
   .item h3 { margin: 6px 0 2px; font-size: 13px; letter-spacing: .08em; }
   .item p { margin: 0; font-size: 13.5px; color: var(--text-dim); line-height: 1.4; }
   .miudo { font-size: 13px; color: var(--text-muted); margin: 10px 0 0; }
+
+  /* dúvidas de quem acabou de entrar */
+  .duvidas details { border-top: 1px solid var(--border); padding: 12px 0; }
+  .duvidas details:first-of-type { border-top: 0; padding-top: 4px; }
+  .duvidas details:last-of-type { padding-bottom: 2px; }
+  .duvidas summary { cursor: pointer; font-weight: 700; font-size: 15px; line-height: 1.35; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+  .duvidas summary::-webkit-details-marker { display: none; }
+  .duvidas summary::after { content: '+'; color: var(--gold); font-weight: 800; display: inline-block; transition: transform .15s; }
+  .duvidas details[open] summary::after { transform: rotate(45deg); }
+  .duvidas details p { margin: 8px 0 0; color: var(--text-dim); font-size: 14.5px; }
 
   /* casos */
   .casos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0 10px; }
@@ -229,6 +240,39 @@
     <h2>Tu não tá sozinho</h2>
     <p class="lead">O método é auto-aplicável, mas tu tem apoio do começo ao fim.</p>
 
+    <div class="card duvidas" id="duvidas" hidden>
+      <h3 class="t">Paguei, e agora?</h3>
+      <p class="c">As dúvidas de quem acabou de entrar.</p>
+      <details>
+        <summary>Com qual e-mail eu entro?</summary>
+        <p>Com o mesmo e-mail que tu usou na compra. Com outro e-mail a conta não abre. Não lembra qual foi? É o e-mail em que chegou a confirmação do pagamento.</p>
+      </details>
+      <details>
+        <summary>Não recebi mensagem no WhatsApp. Perdi o acesso?</summary>
+        <p>Não. Teu acesso já tá liberado, com ou sem a mensagem. Toca em “Criar minha senha e entrar”, no passo 1, e usa o e-mail da compra.</p>
+      </details>
+      <details>
+        <summary>Já criei a senha e não consigo entrar</summary>
+        <p>Na tela de entrar do app, toca em “Esqueci minha senha”. Chega um código de 6 números no WhatsApp do telefone que tu pôs na compra, e com ele tu cria uma senha nova.</p>
+      </details>
+      <details>
+        <summary>Comprei e-book junto. Onde ele aparece?</summary>
+        <p>Na aba E-BOOKS do app, liberado pra ler e baixar. Vale o e-mail da compra.</p>
+      </details>
+      <details>
+        <summary>O que é “placa” na hora de anotar a carga?</summary>
+        <p>É o número da placa em que tu pôs o pino na máquina. Em máquina, anota a placa. Com halter, barra ou anilha, anota os quilos.</p>
+      </details>
+      <details data-desde="2026-10-27T09:00:00-03:00" hidden>
+        <summary>Onde está a avaliação corporal?</summary>
+        <p>Se a tua compra veio com a avaliação, o cartão “Avaliação corporal pelo GH” aparece no começo da aba TREINO do app. Tu manda as medidas e as 4 fotos por ali, e a resposta chega em áudio, no próprio app.</p>
+      </details>
+      <details>
+        <summary>Como entro no grupo?</summary>
+        <p>Pelo botão “Entrar no grupo”, logo aqui embaixo.</p>
+      </details>
+    </div>
+
     <div class="card">
       <h3 class="t">💬 Suporte no WhatsApp</h3>
       <p class="c">Travou em alguma parte? Dúvida de execução, de troca de alimento ou de ajuste? Chama no WhatsApp do Shape.</p>
@@ -296,6 +340,7 @@
     { img: BASE_CASOS + 'shape-02.jpg', alt: 'Antes e depois de um aluno do Método GH' },
     { img: BASE_CASOS + 'radames.jpg', alt: 'Antes e depois de um aluno do Método GH' }
   ];                   // vazio = sem a seção
+  var DUVIDAS = false; // bloco "Paguei, e agora?" (plano B do lançamento: página parada não cai). Liga com o sim do GH nos textos.
   var ORIGENS = ['whats', 'bot', 'app', 'pagina', 'grupo', 'chat', 'outro'];
   var de = (new URLSearchParams(location.search).get('de') || 'outro').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20);
   if (ORIGENS.indexOf(de) < 0) de = 'outro';
@@ -310,6 +355,12 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-clique]'), function (a) {
     a.addEventListener('click', function () { conta(a.getAttribute('data-clique')); });
   });
+
+  // dúvidas: o bloco só aparece com a chave ligada; a pergunta da avaliação corporal, só da abertura do carrinho em diante
+  if (DUVIDAS) {
+    document.getElementById('duvidas').hidden = false;
+    Array.prototype.forEach.call(document.querySelectorAll('#duvidas details[data-desde]'), function (d) { if (Date.now() >= Date.parse(d.getAttribute('data-desde'))) d.hidden = false; });
+  }
 
   // vídeo: o toque no play é contado e só então o YouTube carrega
   if (VIDEO_ID) {
