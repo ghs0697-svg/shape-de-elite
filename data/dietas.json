@@ -1,7 +1,7 @@
 {
  "1.3K_3R": {
   "kcal": 1300,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -85,12 +85,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 140g | Frango 145g | Carne suína 150g | Peixe 170g | Atum 170g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 90g | Massa 85g | Mandioca 85g | Batata inglesa 150g"
        },
        {
@@ -129,12 +129,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 170g | Frango 145g | Atum 170g | Carne bovina magra 140g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 175g | Abóbora 390g | Mandioca 115g | Arroz 125g"
        },
        {
@@ -171,7 +171,7 @@
  },
  "1.3K_5R": {
   "kcal": 1300,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -314,12 +314,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 70g | Frango 70g | Carne suína 75g | Peixe 85g | Atum 85g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 20g | Massa 20g | Mandioca 20g | Batata inglesa 35g"
        },
        {
@@ -436,12 +436,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 100g | Frango 105g | Carne suína 105g | Peixe 125g | Atum 125g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 100g | Massa 95g | Mandioca 95g | Batata inglesa 165g"
        },
        {
@@ -463,12 +463,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 95g | Frango 80g | Atum 95g | Carne bovina magra 75g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 90g | Abóbora 200g | Mandioca 60g | Arroz 65g"
        },
        {
@@ -505,7 +505,7 @@
  },
  "1.3K": {
   "kcal": 1300,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -589,12 +589,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 100g | Frango 105g | Carne suína 105g | Peixe 125g | Atum 125g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 45g | Massa 40g | Mandioca 40g | Batata inglesa 75g"
        },
        {
@@ -711,12 +711,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 100g | Frango 105g | Carne suína 105g | Peixe 125g | Atum 125g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 100g | Massa 95g | Mandioca 95g | Batata inglesa 165g"
        },
        {
@@ -738,12 +738,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 125g | Frango 105g | Atum 125g | Carne bovina magra 100g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 120g | Abóbora 265g | Mandioca 80g | Arroz 85g"
        },
        {
@@ -780,7 +780,7 @@
  },
  "1.5K_3R": {
   "kcal": 1500,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -864,12 +864,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 160g | Frango 165g | Carne suína 170g | Peixe 195g | Atum 195g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 120g | Massa 110g | Mandioca 110g | Batata inglesa 200g"
        },
        {
@@ -908,12 +908,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 195g | Frango 165g | Atum 195g | Carne bovina magra 160g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 210g | Abóbora 465g | Mandioca 140g | Arroz 150g"
        },
        {
@@ -950,7 +950,7 @@
  },
  "1.5K_5R": {
   "kcal": 1500,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -1093,12 +1093,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 90g | Frango 95g | Carne suína 95g | Peixe 110g | Atum 110g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 35g | Massa 35g | Mandioca 35g | Batata inglesa 60g"
        },
        {
@@ -1215,12 +1215,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 120g | Massa 110g | Mandioca 110g | Batata inglesa 200g"
        },
        {
@@ -1242,12 +1242,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 120g | Frango 100g | Atum 120g | Carne bovina magra 100g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 100g | Abóbora 220g | Mandioca 65g | Arroz 70g"
        },
        {
@@ -1284,7 +1284,7 @@
  },
  "1.5K": {
   "kcal": 1500,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -1368,12 +1368,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 65g | Massa 60g | Mandioca 60g | Batata inglesa 105g"
        },
        {
@@ -1490,12 +1490,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 120g | Massa 110g | Mandioca 110g | Batata inglesa 200g"
        },
        {
@@ -1517,12 +1517,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 150g | Frango 125g | Atum 150g | Carne bovina magra 120g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 140g | Abóbora 310g | Mandioca 95g | Arroz 100g"
        },
        {
@@ -1559,7 +1559,7 @@
  },
  "1.8K_3R": {
   "kcal": 1800,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -1643,12 +1643,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 190g | Frango 195g | Carne suína 205g | Peixe 235g | Atum 235g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 170g | Massa 160g | Mandioca 160g | Batata inglesa 280g"
        },
        {
@@ -1687,12 +1687,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 235g | Frango 195g | Atum 235g | Carne bovina magra 190g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 300g | Abóbora 665g | Mandioca 200g | Arroz 215g"
        },
        {
@@ -1729,7 +1729,7 @@
  },
  "1.8K_5R": {
   "kcal": 1800,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -1872,12 +1872,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 70g | Massa 65g | Mandioca 65g | Batata inglesa 115g"
        },
        {
@@ -1994,12 +1994,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 150g | Massa 140g | Mandioca 140g | Batata inglesa 245g"
        },
        {
@@ -2021,12 +2021,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 145g | Frango 120g | Atum 145g | Carne bovina magra 120g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 170g | Abóbora 380g | Mandioca 115g | Arroz 120g"
        },
        {
@@ -2063,7 +2063,7 @@
  },
  "1.8K": {
   "kcal": 1800,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -2147,12 +2147,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 105g | Massa 100g | Mandioca 100g | Batata inglesa 175g"
        },
        {
@@ -2269,12 +2269,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 125g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 150g | Massa 140g | Mandioca 140g | Batata inglesa 245g"
        },
        {
@@ -2296,12 +2296,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 185g | Frango 155g | Atum 185g | Carne bovina magra 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 215g | Abóbora 480g | Mandioca 145g | Arroz 155g"
        },
        {
@@ -2338,7 +2338,7 @@
  },
  "2.2K_3R": {
   "kcal": 2200,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -2422,12 +2422,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
        },
        {
@@ -2466,12 +2466,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 290g | Frango 245g | Atum 290g | Carne bovina magra 235g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 340g | Abóbora 755g | Mandioca 225g | Arroz 245g"
        },
        {
@@ -2508,7 +2508,7 @@
  },
  "2.2K_5R": {
   "kcal": 2200,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -2651,12 +2651,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 90g | Massa 85g | Mandioca 85g | Batata inglesa 150g"
        },
        {
@@ -2773,12 +2773,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 100g | Frango 100g | Carne suína 110g | Peixe 120g | Atum 120g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 220g"
        },
        {
@@ -2800,12 +2800,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 210g | Frango 175g | Atum 210g | Carne bovina magra 170g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 195g | Abóbora 435g | Mandioca 130g | Arroz 140g"
        },
        {
@@ -2842,7 +2842,7 @@
  },
  "2.2K": {
   "kcal": 2200,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -2926,12 +2926,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 180g | Frango 185g | Carne suína 190g | Peixe 220g | Atum 220g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 215g"
        },
        {
@@ -3048,12 +3048,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 100g | Frango 100g | Carne suína 110g | Peixe 120g | Atum 120g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 220g"
        },
        {
@@ -3075,12 +3075,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 245g | Frango 205g | Atum 245g | Carne bovina magra 200g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 245g | Abóbora 545g | Mandioca 165g | Arroz 175g"
        },
        {
@@ -3117,7 +3117,7 @@
  },
  "2.5K_3R": {
   "kcal": 2500,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -3201,12 +3201,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 260g | Frango 270g | Carne suína 275g | Peixe 320g | Atum 320g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 235g | Massa 220g | Mandioca 220g | Batata inglesa 385g"
        },
        {
@@ -3245,12 +3245,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 320g | Frango 270g | Atum 320g | Carne bovina magra 260g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 405g | Abóbora 900g | Mandioca 270g | Arroz 290g"
        },
        {
@@ -3287,7 +3287,7 @@
  },
  "2.5K_5R": {
   "kcal": 2500,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -3430,12 +3430,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 190g | Frango 195g | Carne suína 205g | Peixe 235g | Atum 235g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 110g | Massa 105g | Mandioca 105g | Batata inglesa 180g"
        },
        {
@@ -3552,12 +3552,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 220g"
        },
        {
@@ -3579,12 +3579,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 230g | Frango 195g | Atum 230g | Carne bovina magra 185g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 245g | Abóbora 545g | Mandioca 165g | Arroz 175g"
        },
        {
@@ -3621,7 +3621,7 @@
  },
  "2.5K": {
   "kcal": 2500,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -3705,12 +3705,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 155g | Massa 145g | Mandioca 145g | Batata inglesa 255g"
        },
        {
@@ -3827,12 +3827,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 130g | Massa 120g | Mandioca 120g | Batata inglesa 220g"
        },
        {
@@ -3854,12 +3854,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 270g | Frango 225g | Atum 270g | Carne bovina magra 220g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 300g | Abóbora 670g | Mandioca 200g | Arroz 215g"
        },
        {
@@ -3896,7 +3896,7 @@
  },
  "2.7K_3R": {
   "kcal": 2700,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -3980,12 +3980,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 265g | Frango 275g | Carne suína 285g | Peixe 325g | Atum 325g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 285g | Massa 265g | Mandioca 265g | Batata inglesa 470g"
        },
        {
@@ -4024,12 +4024,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 345g | Frango 290g | Atum 345g | Carne bovina magra 280g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 470g | Abóbora 1045g | Mandioca 315g | Arroz 335g"
        },
        {
@@ -4066,7 +4066,7 @@
  },
  "2.7K_5R": {
   "kcal": 2700,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -4209,12 +4209,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 190g | Frango 195g | Carne suína 205g | Peixe 235g | Atum 235g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 155g | Massa 145g | Mandioca 145g | Batata inglesa 255g"
        },
        {
@@ -4331,12 +4331,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 130g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 260g"
        },
        {
@@ -4358,12 +4358,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 255g | Frango 215g | Atum 255g | Carne bovina magra 205g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 285g | Abóbora 635g | Mandioca 190g | Arroz 205g"
        },
        {
@@ -4400,7 +4400,7 @@
  },
  "2.7K": {
   "kcal": 2700,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -4484,12 +4484,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 200g | Massa 185g | Mandioca 185g | Batata inglesa 330g"
        },
        {
@@ -4606,12 +4606,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 130g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 260g"
        },
        {
@@ -4633,12 +4633,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 295g | Frango 250g | Atum 295g | Carne bovina magra 240g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 350g | Abóbora 780g | Mandioca 235g | Arroz 250g"
        },
        {
@@ -4675,7 +4675,7 @@
  },
  "2K_3R": {
   "kcal": 2000,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -4759,12 +4759,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 175g | Massa 165g | Mandioca 165g | Batata inglesa 290g"
        },
        {
@@ -4803,12 +4803,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 270g | Frango 225g | Atum 270g | Carne bovina magra 220g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 320g | Abóbora 710g | Mandioca 215g | Arroz 230g"
        },
        {
@@ -4845,7 +4845,7 @@
  },
  "2K_5R": {
   "kcal": 2000,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -4988,12 +4988,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 65g | Massa 60g | Mandioca 60g | Batata inglesa 105g"
        },
        {
@@ -5110,12 +5110,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 180g | Massa 170g | Mandioca 170g | Batata inglesa 295g"
        },
        {
@@ -5137,12 +5137,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 185g | Frango 155g | Atum 185g | Carne bovina magra 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 170g | Abóbora 380g | Mandioca 115g | Arroz 120g"
        },
        {
@@ -5179,7 +5179,7 @@
  },
  "2K": {
   "kcal": 2000,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -5263,12 +5263,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 180g | Frango 185g | Carne suína 190g | Peixe 220g | Atum 220g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 105g | Massa 100g | Mandioca 100g | Batata inglesa 175g"
        },
        {
@@ -5385,12 +5385,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 150g | Frango 155g | Carne suína 160g | Peixe 185g | Atum 185g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 180g | Massa 170g | Mandioca 170g | Batata inglesa 295g"
        },
        {
@@ -5412,12 +5412,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 220g | Frango 185g | Atum 220g | Carne bovina magra 180g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 225g | Abóbora 500g | Mandioca 150g | Arroz 160g"
        },
        {
@@ -5454,7 +5454,7 @@
  },
  "3.2K_3R": {
   "kcal": 3200,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -5538,12 +5538,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 295g | Frango 305g | Carne suína 315g | Peixe 365g | Atum 365g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 410g | Massa 385g | Mandioca 385g | Batata inglesa 675g"
        },
        {
@@ -5582,12 +5582,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 400g | Frango 335g | Atum 400g | Carne bovina magra 325g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 675g | Abóbora 1500g | Mandioca 450g | Arroz 480g"
        },
        {
@@ -5624,7 +5624,7 @@
  },
  "3.2K_5R": {
   "kcal": 3200,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -5767,12 +5767,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 270g | Massa 250g | Mandioca 250g | Batata inglesa 445g"
        },
        {
@@ -5889,12 +5889,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
@@ -5916,12 +5916,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 305g | Frango 255g | Atum 305g | Carne bovina magra 250g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 475g | Abóbora 1055g | Mandioca 315g | Arroz 340g"
        },
        {
@@ -5958,7 +5958,7 @@
  },
  "3.2K": {
   "kcal": 3200,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -6042,12 +6042,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 250g | Frango 260g | Carne suína 265g | Peixe 310g | Atum 310g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 320g | Massa 300g | Mandioca 300g | Batata inglesa 525g"
        },
        {
@@ -6164,12 +6164,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
@@ -6191,12 +6191,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 345g | Frango 290g | Atum 345g | Carne bovina magra 280g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 545g | Abóbora 1215g | Mandioca 365g | Arroz 390g"
        },
        {
@@ -6233,7 +6233,7 @@
  },
  "3.5K_3R": {
   "kcal": 3500,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -6317,12 +6317,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 325g | Frango 335g | Carne suína 345g | Peixe 400g | Atum 400g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 485g | Massa 455g | Mandioca 455g | Batata inglesa 800g"
        },
        {
@@ -6361,12 +6361,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 440g | Frango 370g | Atum 440g | Carne bovina magra 360g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 790g | Abóbora 1755g | Mandioca 525g | Arroz 565g"
        },
        {
@@ -6403,7 +6403,7 @@
  },
  "3.5K_5R": {
   "kcal": 3500,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -6546,12 +6546,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 250g | Frango 260g | Carne suína 265g | Peixe 310g | Atum 310g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 340g | Massa 315g | Mandioca 315g | Batata inglesa 560g"
        },
        {
@@ -6668,12 +6668,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
@@ -6695,12 +6695,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 340g | Frango 285g | Atum 340g | Carne bovina magra 275g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 590g | Abóbora 1310g | Mandioca 395g | Arroz 420g"
        },
        {
@@ -6737,7 +6737,7 @@
  },
  "3.5K": {
   "kcal": 3500,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -6821,12 +6821,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 280g | Frango 290g | Carne suína 300g | Peixe 345g | Atum 345g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 390g | Massa 365g | Mandioca 365g | Batata inglesa 640g"
        },
        {
@@ -6943,12 +6943,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
@@ -6970,12 +6970,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 380g | Frango 320g | Atum 380g | Carne bovina magra 310g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 660g | Abóbora 1460g | Mandioca 440g | Arroz 470g"
        },
        {
@@ -7012,7 +7012,7 @@
  },
  "3K_3R": {
   "kcal": 3000,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 3 refeições = 2,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -7096,12 +7096,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 295g | Frango 305g | Carne suína 315g | Peixe 365g | Atum 365g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 325g | Massa 305g | Mandioca 305g | Batata inglesa 535g"
        },
        {
@@ -7140,12 +7140,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 400g | Frango 335g | Atum 400g | Carne bovina magra 325g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 560g | Abóbora 1245g | Mandioca 375g | Arroz 400g"
        },
        {
@@ -7182,7 +7182,7 @@
  },
  "3K_5R": {
   "kcal": 3000,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 5 refeições = 1,5g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -7325,12 +7325,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 220g | Frango 225g | Carne suína 235g | Peixe 270g | Atum 270g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 195g | Massa 180g | Mandioca 180g | Batata inglesa 320g"
        },
        {
@@ -7447,12 +7447,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
@@ -7474,12 +7474,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 305g | Frango 255g | Atum 305g | Carne bovina magra 250g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 365g | Abóbora 810g | Mandioca 245g | Arroz 260g"
        },
        {
@@ -7516,7 +7516,7 @@
  },
  "3K": {
   "kcal": 3000,
-  "regras_gerais": "• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
+  "regras_gerais": "• Pesagem: tudo que vai ao fogo (carne, frango, peixe, arroz, massa, batata, mandioca) se pesa PRONTO, do jeito que vai pro prato\n• Sal: fragmentar 8g ao longo do dia (ex: 4 refeições = 2g cada)\n• Café: somente até às 16h, sem açúcar\n• Vinagre de maçã: 1 colher antes do almoço e janta\n• Refeição livre: 1x por semana\n• Gordura para preparo: utilizar apenas sprays ou limpar a panela com guardanapo após derreter manteiga/margarina\n• Permitidos: adoçantes zero calorias, refrigerantes zero, sucos/chás zero, gelatina zero, condimentos (cacau, canela, temperos)\n• Não consumir: refrigerantes comuns, suco de caixinha, açúcar refinado",
   "refeicoes": [
    {
     "nome": "1ª REFEIÇÃO: DESJEJUM (escolher uma opção)",
@@ -7600,12 +7600,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 250g | Frango 260g | Carne suína 265g | Peixe 310g | Atum 310g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 240g | Massa 225g | Mandioca 225g | Batata inglesa 395g"
        },
        {
@@ -7722,12 +7722,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Carne bovina 120g | Frango 120g | Carne suína 130g | Peixe 150g | Atum 150g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Arroz 160g | Massa 150g | Mandioca 150g | Batata inglesa 270g"
        },
        {
@@ -7749,12 +7749,12 @@
       "alimentos": [
        {
         "alimento": "Proteína",
-        "quantidade": "escolher uma",
+        "quantidade": "escolher uma (peso pronto)",
         "obs": "Peixe 345g | Frango 290g | Atum 345g | Carne bovina magra 280g"
        },
        {
         "alimento": "Carboidrato",
-        "quantidade": "escolher um",
+        "quantidade": "escolher um (peso pronto)",
         "obs": "Batata doce 435g | Abóbora 965g | Mandioca 290g | Arroz 310g"
        },
        {
