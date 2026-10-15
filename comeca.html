@@ -13,6 +13,9 @@
 <meta property="og:image" content="https://app.shapedeelite.com.br/assets/icon-512.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <!--
   Comece por aqui: página aberta, sem senha, pra quem acabou de comprar o Shape de Elite.
   Endereço: app.shapedeelite.com.br/comeca?de=<origem>   (whats | bot | app | pagina | grupo | chat | outro)
@@ -145,15 +148,79 @@
   .fixo { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: rgba(15,15,17,.94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-top: 1px solid var(--border); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); }
   .fixo .btn { max-width: 528px; margin: 0 auto; }
   [hidden] { display: none !important; }
+
+/* ===== Padrão comum dos três "Comece por aqui" (consultoria, Shape, Peitão), cada um nas SUAS cores. GH em 14/10/2026:
+   "quero que todas tenham o mesmo padrao de playbook, tipo meio que marca propria" e "algo parecido com o liquid glass que
+   adicionamos no quiz"; e em 15/10, corrigindo: "cada produto tem suas proprias cores". O padrão é a forma: fundo escuro com
+   brilho e quadriculado numa camada presa à tela, Inter, selo, última palavra do título na cor do produto, cartões de vidro
+   e o botão principal em degradê com brilho por dentro. Os tokens do vidro são os do quiz, copiados como estão
+   (02-produtos/metodogh/quiz/index.html, bloco "Vidro líquido", da LandingPage). A cor é a do Shape (vermelho; dourado só
+   de apoio, como no app). O bloco final da consultoria segue dourado: é a cor do Método GH. Fica no fim de propósito. ===== */
+:root {
+  --marca: #B41E1E; --marca-clara: #F05252; --marca-escura: #7E1414; --marca-suave: rgba(180,30,30,.12);
+  --vidro: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.03) 100%);
+  --vidro-forte: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.05) 100%);
+  --vidro-borda: rgba(255,255,255,0.20);
+  --vidro-brilho: inset 0 1px 0 rgba(255,255,255,0.34), inset 0 -1px 0 rgba(255,255,255,0.05);
+  --vidro-sombra: 0 10px 30px rgba(0,0,0,0.30);
+  --vidro-fosco: blur(18px) saturate(170%);
+  --red: var(--marca); --red-hover: var(--marca-escura); --red-text: var(--marca-clara); --gold: #F5C542;
+  --bg: #0F0F11; --surface: rgba(28,28,30,.78); --surface-2: rgba(255,255,255,.05); --border: #2E2E32;
+  --text: #F4F4F4; --text-dim: #A8A8AE; --text-muted: #8A8A90;
+}
+html { background: var(--bg); }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); -webkit-font-smoothing: antialiased; }
+.fundo { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(180,30,30,.34) 0%, rgba(74,14,14,.44) 30%, transparent 70%), radial-gradient(ellipse 100% 60% at 100% 90%, rgba(180,30,30,.14), transparent 55%), linear-gradient(180deg, #1A0808 0%, var(--bg) 60%); }
+.fundo::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%); }
+body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(circle 230px at 10% 26%, rgba(240,82,82,0.26), transparent 70%), radial-gradient(circle 270px at 94% 50%, rgba(180,30,30,0.26), transparent 70%), radial-gradient(circle 220px at 26% 86%, rgba(126,20,20,0.32), transparent 70%); }
+.wrap, footer { position: relative; z-index: 1; }
+.marca { font-size: 15px; font-weight: 900; letter-spacing: .06em; color: var(--text); }
+.marca b { color: var(--marca-clara); }
+.check { width: 64px; height: 64px; margin: 22px auto 0; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #E84848, var(--marca-escura)); box-shadow: 0 0 0 8px var(--marca-suave), 0 12px 32px rgba(180,30,30,.40); color: #FFFFFF; font-size: 32px; font-weight: 900; animation: pop 600ms cubic-bezier(.16,1,.3,1) both; }
+@keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .check { animation: none; } }
+h1 { font-weight: 900; line-height: 1.12; font-size: clamp(28px, 7.4vw, 38px); margin: 16px 0 10px; }
+h1 .hl { color: var(--marca-clara); }
+.sub { text-wrap: balance; }
+h2 { font-weight: 900; letter-spacing: -.01em; }
+.kicker { color: var(--marca-clara); letter-spacing: .08em; font-size: 11.5px; }
+.card, .item, .pilha li { background: var(--vidro); border: 1px solid var(--vidro-borda); border-radius: 18px; box-shadow: var(--vidro-brilho), var(--vidro-sombra); -webkit-backdrop-filter: var(--vidro-fosco); backdrop-filter: var(--vidro-fosco); }
+.pilha li { border-radius: 14px; box-shadow: var(--vidro-brilho); }
+.depois { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10); }
+.dica { border-color: rgba(255,255,255,.18); }
+.passo .n { background: var(--marca-suave); border: 1px solid rgba(240,82,82,.45); color: #FF7A7A; }
+.marco::before { background: var(--marca-clara); box-shadow: 0 0 0 2px var(--marca); }
+.linha::before { background: rgba(255,255,255,.14); }
+.btn { background: linear-gradient(135deg, rgba(232,72,72,0.95) 0%, rgba(180,30,30,0.90) 50%, rgba(126,20,20,0.92) 100%); border: 1px solid rgba(255,190,190,0.50); border-radius: 18px; color: #FFFFFF; box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -10px 18px rgba(60,0,0,0.25), 0 12px 36px rgba(180,30,30,0.38); }
+.btn:active { transform: scale(.98); background: linear-gradient(135deg, rgba(210,60,60,0.96), rgba(150,24,24,0.94)); }
+.btn.sec { background: var(--marca-suave); border: 1px solid rgba(240,82,82,.50); color: #FF7A7A; box-shadow: var(--vidro-brilho); }
+.btn.whats { background: var(--green); border: 1px solid rgba(255,255,255,.18); color: #06260F; box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 28px rgba(37,211,102,.28); }
+.video { max-width: none; margin: 20px 0 0; }
+.video .quadro { aspect-ratio: 16 / 9; border-radius: 18px; border: 1px solid var(--vidro-borda); box-shadow: var(--vidro-brilho), 0 12px 32px rgba(0,0,0,.45); background: radial-gradient(ellipse at center, rgba(180,30,30,.20), rgba(0,0,0,0) 62%), #0b0b0d; background-size: cover; background-position: center; }
+.video .play { background: linear-gradient(135deg, #E84848, var(--marca-escura)); box-shadow: 0 0 0 8px var(--marca-suave), 0 12px 32px rgba(180,30,30,.40); }
+.video .play::before { border-color: transparent transparent transparent #FFFFFF; }
+.video .rot { text-shadow: 0 1px 6px rgba(0,0,0,.8); }
+.video video { position: absolute; inset: 0; width: 100%; height: 100%; background: #000; display: block; }
+.casos img { border: 1px solid var(--vidro-borda); border-radius: 12px; }
+/* o bloco final é a consultoria do Método GH: fica na cor dela (dourado), como já era */
+.nivel { background: linear-gradient(135deg, rgba(201,162,75,.16), rgba(20,20,20,.7)); border: 1px solid rgba(201,162,75,.45); }
+.nivel .kicker { color: #E6C76A; }
+.btn.ouro { background: linear-gradient(135deg, rgba(248,226,154,0.94) 0%, rgba(216,178,90,0.86) 50%, rgba(172,136,52,0.88) 100%); border: 1px solid rgba(255,244,205,0.68); color: #1A1405; box-shadow: inset 0 1px 0 rgba(255,255,255,0.68), inset 0 -10px 18px rgba(120,88,18,0.22), 0 12px 36px rgba(201,162,75,0.38); }
+.oferta-video video { border: 1px solid var(--vidro-borda); border-radius: 18px; }
+.preco .selo { background: linear-gradient(135deg, #E6C76A, #9C7C2E); color: #1A1405; }
+.duvidas details { border-top-color: rgba(255,255,255,.12); }
+.fixo { background: rgba(15,15,17,.62); border-top: 1px solid var(--vidro-borda); -webkit-backdrop-filter: var(--vidro-fosco); backdrop-filter: var(--vidro-fosco); }
 </style>
 </head>
 <body>
+<div class="fundo" aria-hidden="true"></div>
 
 <div class="wrap">
 
   <header class="topo">
     <div class="marca"><b>SHAPE DE ELITE</b> · MÉTODO GH</div>
-    <h1>Comece por aqui</h1>
+    <div class="check" aria-hidden="true">✓</div>
+    <h1>Comece por <span class="hl">aqui</span></h1>
     <p class="sub">Bem-vindo ao Shape de Elite. Aqui tá o teu caminho: o que fazer hoje, o que tu tem no app, o que esperar e onde pedir ajuda. Leva 5 minutos.</p>
     <div class="video" id="video" hidden>
       <div class="quadro" id="quadro"><button type="button" id="play" aria-label="Assistir o vídeo de boas-vindas"><span class="play"></span><span class="rot">Vídeo de boas-vindas do GH</span></button></div>
@@ -366,7 +433,12 @@
 <script>
 (function () {
   var API = 'https://shape-de-elite-api.vercel.app';
-  var VIDEO_ID = '';   // id do vídeo de boas-vindas no YouTube (em pé, até 2 minutos); vazio = sem bloco de vídeo
+  var VIDEO_ID = ''; // reserva: id do YouTube, se um dia ele mandar (o padrão é o MP4 abaixo)
+    // Vídeo de boas-vindas: MP4 nosso, DEITADO (16:9), com capa (JPG). Vazio = sem bloco. "desde" = a partir de quando pode
+    // aparecer: o do Shape fala da avaliação corporal, que só abre em 27/10 às 9h (antes disso ela não existe pro aluno).
+    var VIDEO_BOAS_VINDAS = { src: 'assets/boas-vindas/shape-720.mp4', capa: 'assets/boas-vindas/shape-poster.jpg', desde: '2026-10-27T09:00:00-03:00' };
+    // A prévia (comeca-previa) não conta nada e mostra o vídeo já, sem esperar o "desde", pro GH conferir.
+    var PREVIA = /previa/.test(location.pathname);   // id do vídeo de boas-vindas no YouTube (em pé, até 2 minutos); vazio = sem bloco de vídeo
   // Casos: os do material do Shape que NÃO aparecem nas páginas dos outros produtos (cada página usa casos diferentes).
   // Ficaram de fora por isso: shape-09 (está no banner da consultoria), shape-12 (é o passa-01 do Peitão) e rodrigo (é o passa-06 do Peitão).
   var BASE_CASOS = 'https://shapedeelite.com.br/img/cases/';
@@ -396,7 +468,7 @@
   // só contagem (abriu, deu play, tocou em cada botão), sem dado de ninguém; em endereço de teste não conta
   var local = /^(localhost|127\.|\[::1\])/.test(location.hostname);
   function conta(o) {
-    if (local) return;
+    if (local || PREVIA) return;
     try { fetch(API + '/api/clique?para=playbook&de=' + encodeURIComponent(o), { method: 'POST', keepalive: true }).catch(function () {}); } catch (e) {}
   }
   conta(de);
@@ -424,20 +496,27 @@
   }
 
   // vídeo: o toque no play é contado e só então o YouTube carrega
-  if (VIDEO_ID) {
-    document.getElementById('video').hidden = false;
-    document.getElementById('play').addEventListener('click', function () {
-      conta('play');
-      var f = document.createElement('iframe');
-      f.src = 'https://www.youtube.com/embed/' + VIDEO_ID + '?autoplay=1&rel=0&playsinline=1&modestbranding=1';
-      f.title = 'Vídeo de boas-vindas do GH';
-      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-      f.allowFullscreen = true;
-      var q = document.getElementById('quadro'); q.innerHTML = ''; q.appendChild(f);
-    });
-  }
-
-  // casos: só entram os que forem escolhidos; foto que não carregar some. São miniaturas: o toque abre a foto grande por cima da página.
+  var videoPode = !!VIDEO_BOAS_VINDAS.src && (PREVIA || !VIDEO_BOAS_VINDAS.desde || Date.now() >= Date.parse(VIDEO_BOAS_VINDAS.desde));
+    if (videoPode || VIDEO_ID || PREVIA) {
+      var quadro = document.getElementById('quadro');
+      document.getElementById('video').hidden = false;
+      if (videoPode && VIDEO_BOAS_VINDAS.capa) quadro.style.backgroundImage = 'url("' + VIDEO_BOAS_VINDAS.capa + '")';
+      document.getElementById('play').addEventListener('click', function () {
+        if (!videoPode && !VIDEO_ID) return;
+        conta('play');
+        var el;
+        if (videoPode) {
+          el = document.createElement('video'); el.src = VIDEO_BOAS_VINDAS.src; el.controls = true; el.autoplay = true;
+          el.playsInline = true; el.setAttribute('playsinline', ''); if (VIDEO_BOAS_VINDAS.capa) el.poster = VIDEO_BOAS_VINDAS.capa;
+        } else {
+          el = document.createElement('iframe'); el.src = 'https://www.youtube.com/embed/' + VIDEO_ID + '?autoplay=1&rel=0&playsinline=1&modestbranding=1';
+          el.title = 'Vídeo de boas-vindas do GH'; el.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'; el.allowFullscreen = true;
+        }
+        quadro.innerHTML = ''; quadro.appendChild(el);
+        if (videoPode) { var tocar = el.play(); if (tocar && tocar.catch) tocar.catch(function () {}); }
+      });
+    }
+    // casos: só entram os que forem escolhidos; foto que não carregar some. São miniaturas: o toque abre a foto grande por cima da página.
   if (CASOS.length) {
     var lista = document.getElementById('casos-lista');
     var abreFoto = function (src, alt) {
