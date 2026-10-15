@@ -433,8 +433,8 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
   var VIDEO_ID = ''; // reserva: id do YouTube, se um dia ele mandar (o padrão é o MP4 abaixo)
     // Vídeo de boas-vindas: MP4 nosso, DEITADO (16:9), com capa (JPG). Vazio = sem bloco. "desde" = a partir de quando pode
     // aparecer: o do Shape fala da avaliação corporal, que só abre em 27/10 às 9h (antes disso ela não existe pro aluno).
-    var VIDEO_BOAS_VINDAS = { src: '', capa: '', desde: '2026-10-27T09:00:00-03:00' };
-    // A prévia (comeca-previa) não conta nada e mostra o bloco do vídeo mesmo vazio, pra ver onde ele entra.
+    var VIDEO_BOAS_VINDAS = { src: 'assets/boas-vindas/shape-720.mp4', capa: 'assets/boas-vindas/shape-poster.jpg', desde: '2026-10-27T09:00:00-03:00' };
+    // A prévia (comeca-previa) não conta nada e mostra o vídeo já, sem esperar o "desde", pro GH conferir.
     var PREVIA = /previa/.test(location.pathname);   // id do vídeo de boas-vindas no YouTube (em pé, até 2 minutos); vazio = sem bloco de vídeo
   // Casos: os do material do Shape que NÃO aparecem nas páginas dos outros produtos (cada página usa casos diferentes).
   // Ficaram de fora por isso: shape-09 (está no banner da consultoria), shape-12 (é o passa-01 do Peitão) e rodrigo (é o passa-06 do Peitão).
@@ -493,7 +493,7 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
   }
 
   // vídeo: o toque no play é contado e só então o YouTube carrega
-  var videoPode = !!VIDEO_BOAS_VINDAS.src && (!VIDEO_BOAS_VINDAS.desde || Date.now() >= Date.parse(VIDEO_BOAS_VINDAS.desde));
+  var videoPode = !!VIDEO_BOAS_VINDAS.src && (PREVIA || !VIDEO_BOAS_VINDAS.desde || Date.now() >= Date.parse(VIDEO_BOAS_VINDAS.desde));
     if (videoPode || VIDEO_ID || PREVIA) {
       var quadro = document.getElementById('quadro');
       document.getElementById('video').hidden = false;
