@@ -11,6 +11,25 @@
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
 <title>Shape de Elite · Método GH</title>
+<script>
+// Idioma do app. O texto é escrito em português; em outro idioma o dicionário i18n/<lang>.js entra ANTES do resto
+// da página (síncrono, pra tela nunca piscar em português) e o tradutor do script principal troca o texto na tela.
+// Ordem: ?lang= no link (fica guardado) > escolha guardada no aparelho > português. A versão é a MESMA do APP_V.
+(function () {
+  var IDIOMAS_APP = ['pt', 'en', 'es'], L = 'pt';
+  try {
+    var q = (new URLSearchParams(location.search).get('lang') || '').toLowerCase().slice(0, 2);
+    if (IDIOMAS_APP.indexOf(q) >= 0) { localStorage.setItem('shape_lang', q); L = q; }
+    else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
+  } catch (e) {}
+  window.APP_LANG = L;
+  window.APP_LANG_V = '81';
+  if (L !== 'pt') {
+    document.documentElement.lang = L;
+    document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
+  }
+})();
+</script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
@@ -1130,6 +1149,14 @@
   /* no começo do treino é uma linha só, sem caixa, pra não empurrar os exercícios pra baixo */
   .guardiao-fina { margin: -8px 0 8px; font-size: 13px; line-height: 1.4; color: var(--text-dim); }
   .guardiao-fina button { min-height: 44px; padding: 0 2px; background: none; border: none; color: var(--red-text); font-size: 13px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  /* Idioma: o que só existe no Brasil (grupo, lojas, parceiros, áudio do GH) some quando o app está em outro idioma */
+  html:not([lang="pt-BR"]) .so-brasil:not(.fica) { display: none !important; }
+  html[lang="pt-BR"] .so-fora { display: none !important; }
+  .idioma-escolha { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin: 10px 0 4px; font-size: 13px; color: var(--text-dim); }
+  .idioma-escolha button, .unidade-escolha button { min-height: 36px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-dim); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .idioma-escolha button.on, .unidade-escolha button.on { border-color: var(--red); color: var(--text); background: var(--red-tint); }
+  .unidade-escolha { display: flex; gap: 8px; margin-bottom: 14px; }
+  .unidade-escolha button { flex: 1; }
   .entrada-grupo { display: block; margin-top: 14px; min-height: 44px; padding: 12px; border: 1px solid #1f7a45; background: rgba(37, 211, 102, .10); border-radius: 8px; color: #4ade80; font-size: 13px; font-weight: 800; text-align: center; text-decoration: none; }
 
   /* ── Achievement overlay (share card) ── */
@@ -1664,6 +1691,7 @@
     <div class="logo">SHAPE DE <span>ELITE</span></div>
     <div class="subtitle">MÉTODO GH</div>
   </header>
+  <div id="auth-idioma"></div>
 
   <div id="auth-login">
     <h2>Entrar</h2>
@@ -1683,7 +1711,7 @@
     <button class="btn secondary" type="button" onclick="showAuth('first')">Primeiro acesso? Criar senha</button>
     <button class="btn ghost" type="button" onclick="showAuth('reset')">Esqueci minha senha</button>
     <a class="entrada-grupo hidden" id="entrada-comeca" href="comeca?de=app" target="_blank" rel="noopener">👉 Primeira vez aqui? Comece por aqui</a>
-    <a class="entrada-grupo" id="entrada-grupo" href="https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA" target="_blank" rel="noopener" onclick="contaToque('grupo', 'entrada')">💬 Entrar no grupo do Shape de Elite</a>
+    <a class="entrada-grupo so-brasil" id="entrada-grupo" href="https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA" target="_blank" rel="noopener" onclick="contaToque('grupo', 'entrada')">💬 Entrar no grupo do Shape de Elite</a>
     <button class="btn ghost" type="button" onclick="openHowToModal()" style="color:var(--gold);">📖 Como acessar pela primeira vez</button>
   </div>
 
@@ -1789,13 +1817,24 @@
       <label>IDADE</label>
       <input type="number" id="o-age" min="18" max="80" placeholder="Ex: 35" inputmode="numeric">
     </div>
-    <div class="input-group">
-      <label>PESO (KG)</label>
-      <input type="number" id="o-weight" min="40" max="200" step="0.1" placeholder="Ex: 85" inputmode="decimal">
+    <div class="unidade-escolha so-fora" id="o-unidade" translate="no">
+      <button type="button" data-u="kg" onclick="calcUnidade('kg')">kg · cm</button>
+      <button type="button" data-u="lb" onclick="calcUnidade('lb')">lb · ft</button>
     </div>
     <div class="input-group">
+      <label id="o-weight-lbl">PESO (KG)</label>
+      <input type="number" id="o-weight" min="40" max="200" step="0.1" placeholder="Ex: 85" inputmode="decimal">
+    </div>
+    <div class="input-group" id="o-height-cm">
       <label>ALTURA (CM)</label>
       <input type="number" id="o-height" min="140" max="220" placeholder="Ex: 178" inputmode="numeric">
+    </div>
+    <div class="input-group hidden" id="o-height-pes">
+      <label>ALTURA (PÉS E POLEGADAS)</label>
+      <div class="grid-2">
+        <input type="number" id="o-height-ft" min="4" max="7" placeholder="pés, ex: 5" inputmode="numeric" aria-label="Altura: pés">
+        <input type="number" id="o-height-in" min="0" max="11" placeholder="polegadas, ex: 10" inputmode="numeric" aria-label="Altura: polegadas">
+      </div>
     </div>
     <div class="btn-group">
       <button class="btn secondary" onclick="oPrev()">Voltar</button>
@@ -1949,9 +1988,9 @@
     <button class="tab-btn" data-tab="dieta" onclick="showTab('dieta')">DIETA</button>
     <button class="tab-btn" data-tab="supl" onclick="showTab('supl')">SUPLEMENTOS</button>
     <button class="tab-btn" data-tab="aulas" onclick="showTab('aulas')">AULAS</button>
-    <button class="tab-btn" data-tab="ebooks" onclick="showTab('ebooks')">E-BOOKS</button>
-    <button class="tab-btn" data-tab="acess" onclick="showTab('acess')">ACESSÓRIOS</button>
-    <button class="tab-btn" data-tab="parc" onclick="showTab('parc')">PARCEIROS</button>
+    <button class="tab-btn so-brasil" data-tab="ebooks" onclick="showTab('ebooks')">E-BOOKS</button>
+    <button class="tab-btn so-brasil" data-tab="acess" onclick="showTab('acess')">ACESSÓRIOS</button>
+    <button class="tab-btn so-brasil" data-tab="parc" onclick="showTab('parc')">PARCEIROS</button>
     <button class="tab-btn" data-tab="calc" onclick="showTab('calc')">CALCULADORA</button>
   </div>
   </div><!-- /dash-top -->
@@ -2053,7 +2092,7 @@
       <div class="howto-tip-body">Salva o app na tela de início do celular pra virar ícone igual qualquer app: no navegador, clica em <strong>Compartilhar</strong> (iPhone) ou <strong>3 pontinhos</strong> (Android) → <strong>"Adicionar à tela inicial"</strong>.</div>
     </div>
 
-    <div class="howto-tip" style="border-left-color:#25d366;background:#0d1f15;">
+    <div class="howto-tip so-brasil" style="border-left-color:#25d366;background:#0d1f15;">
       <div class="howto-tip-title" style="color:#25d366;">🔥 GRUPO DO WHATSAPP</div>
       <div class="howto-tip-body" style="margin-bottom:10px;">Grupo fechado pra receber minhas novidades, descontos, upgrades e aulas ao vivo.</div>
       <a href="https://chat.whatsapp.com/LC3IMc7OffCHQar1G2UfhA" target="_blank" rel="noopener" onclick="contaToque('grupo', 'entrada')" style="display:inline-block;background:#25d366;color:white;padding:9px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Entrar no grupo →</a>
@@ -2136,6 +2175,10 @@
   <div class="result-card">
     <h3>PERFIL</h3>
     <div id="settings-profile" class="small mt-2"></div>
+  </div>
+  <div class="result-card">
+    <h3>IDIOMA</h3>
+    <div id="settings-idioma"></div>
   </div>
   <button type="button" class="btn" onclick="showScreen('dash-screen')">← Voltar pro treino</button>
   <a class="btn secondary" style="text-decoration:none;text-align:center;" data-suporte href="https://api.whatsapp.com/send?phone=5555999717530&text=Ol%C3%A1%2C%20sou%20aluno%20do%20Shape%20de%20Elite%20e%20preciso%20de%20suporte." target="_blank" rel="noopener">💬 Falar com o suporte no WhatsApp</a>
@@ -2223,7 +2266,7 @@ async function suporteCarrega() {
 const COMECA = { ligado: true };
 function previaLigada(qual) { try { return localStorage.getItem('shape_previa_' + qual) === '1'; } catch (e) { return false; } }
 function querCriarSenha() { try { return new URLSearchParams(location.search).get('criar') === '1'; } catch (e) { return false; } }
-function comecaAtalho() { try { const a = document.getElementById('entrada-comeca'); if (a) a.classList.toggle('hidden', !(COMECA.ligado || previaLigada('comeca'))); } catch (e) {} }
+function comecaAtalho() { try { const a = document.getElementById('entrada-comeca'); if (a) { a.classList.toggle('hidden', !(COMECA.ligado || previaLigada('comeca'))); if (!soBrasil()) a.setAttribute('href', 'comeca?de=app&lang=' + LANG); } } catch (e) {} }
 // Código curto da conta, S-XXXX: a MESMA conta que a API faz (lib/alunos.js, codigoDoEmail). Não é segredo.
 function codigoDoAluno() {
   const em = String((state.user && state.user.email) || '').trim().toLowerCase();
@@ -2236,7 +2279,7 @@ function contaToque(para, de) { try { fetch(API_BASE + '/api/clique?para=' + par
 function grupoChave() { return 'shape_grupo_' + ((state.user && state.user.email) || 'anon'); }
 function grupoEstado() { try { return JSON.parse(localStorage.getItem(grupoChave()) || 'null') || {}; } catch (e) { return {}; } }
 function grupoVisivel() {
-  if (!(GRUPO.ligado || previaLigada('grupo'))) return false;
+  if (!soBrasil() || !(GRUPO.ligado || previaLigada('grupo'))) return false;
   const e = grupoEstado();
   if (e.entrou) return false;
   return !(e.fechou && Date.now() - e.fechou < 30 * 864e5);
@@ -2250,7 +2293,7 @@ function tocouGrupo() { try { localStorage.setItem(grupoChave(), JSON.stringify(
 function fechouGrupo() { try { localStorage.setItem(grupoChave(), JSON.stringify({ fechou: Date.now() })); } catch (e) {} grupoRedesenha(); }
 function guardiaoChave() { return 'shape_guardiao_' + ((state.user && state.user.email) || 'anon'); }
 function guardiaoPedido() { try { return !!localStorage.getItem(guardiaoChave()); } catch (e) { return false; } }
-function guardiaoLigado() { return (GUARDIAO.ligado || previaLigada('guardiao')) && !!state.user; }
+function guardiaoLigado() { return soBrasil() && (GUARDIAO.ligado || previaLigada('guardiao')) && !!state.user; }
 function guardiaoVisivel() { return guardiaoLigado() && !guardiaoPedido(); }
 function guardiaoLink() { return 'https://api.whatsapp.com/send?phone=' + SUPORTE.atual + '&text=' + encodeURIComponent(GUARDIAO.frase + ' Código ' + codigoDoAluno()); }
 function guardiaoHtml(de) {
@@ -2276,6 +2319,151 @@ const SUPL_PDF_URL = 'pdfs/suplementos.pdf'; // manual premium gerado de pdf-src
 // ═══════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// IDIOMA (aluno de fora do Brasil, GH 26/10/2026)
+// ═══════════════════════════════════════════════════════════
+// O app segue escrito em português, que é a fonte única. Com outro idioma, o dicionário i18n/<lang>.js (carregado no
+// <head>) liga o tradutor: frase exata, depois regra com número/nome no meio, aplicado na tela inteira no começo e em
+// tudo que for desenhado depois (MutationObserver), mais alert/confirm/prompt. Em português o tradutor NEM LIGA: zero
+// mudança pros alunos do Brasil. Idioma novo = um arquivo novo em i18n/ e uma linha em IDIOMAS e no <head>.
+// O que só existe no Brasil (grupo, guardião e avaliação em áudio do GH, lojas e parceiros que só entregam aqui) some
+// em outro idioma: ver soBrasil().
+const IDIOMAS = {
+  pt: { nome: 'Português', locale: 'pt-BR' },
+  en: { nome: 'English', locale: 'en-US' },
+  es: { nome: 'Español', locale: 'es' },
+};
+const LANG = IDIOMAS[window.APP_LANG] ? window.APP_LANG : 'pt';
+const LOCALE = IDIOMAS[LANG].locale;
+const I18N = { on: false, ex: new Map(), rx: [], memo: new Map(), faltas: new Set(), feito: new WeakMap(), attrs: new WeakMap() };
+const I18N_ATTRS = ['placeholder', 'title', 'aria-label', 'alt'];
+function soBrasil() { return LANG === 'pt'; }
+// {1} na regra = o pedaço capturado TAMBÉM traduzido (nome de exercício, de músculo); $1 = o pedaço como veio.
+function i18nRegra(re, para) {
+  return [re, (...m) => para.replace(/\{(\d)\}|\$(\d)/g, (_, t, c) => (t ? T(m[+t] || '') : (m[+c] || '')))];
+}
+function i18nLiga(dic) {
+  if (!dic || LANG === 'pt') return;
+  for (const k in dic.exato || {}) I18N.ex.set(k.replace(/\s+/g, ' ').trim(), dic.exato[k]);
+  I18N.rx = (dic.regras || []).map(([fonte, para]) => i18nRegra(new RegExp('^' + fonte + '$', 'u'), para));
+  I18N.on = true;
+}
+// Traduz uma frase. O espaço das pontas fica (o HTML junta pedaços); com quebra de linha traduz linha a linha.
+function T(s) {
+  if (!I18N.on || s == null) return s;
+  const str = String(s);
+  if (I18N.memo.has(str)) return I18N.memo.get(str);
+  const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(str);
+  const miolo = m[2];
+  let out = str;
+  if (miolo && /\p{L}/u.test(miolo)) {
+    const chave = miolo.replace(/[ \t\r\f\v ]+/g, ' ').replace(/ ?\n ?/g, '\n');
+    let t = I18N.ex.get(chave.replace(/\s+/g, ' '));
+    if (t === undefined && /\n/.test(chave)) t = chave.split('\n').map(l => T(l)).join('\n');
+    if (t === undefined) for (const [re, fn] of I18N.rx) { if (re.test(chave)) { t = chave.replace(re, fn); break; } }
+    if (t === undefined) I18N.faltas.add(chave);
+    else out = m[1] + t + m[3];
+  }
+  if (I18N.memo.size < 20000) I18N.memo.set(str, out);
+  return out;
+}
+function i18nPula(el) { return !el || el.nodeName === 'SCRIPT' || el.nodeName === 'STYLE' || el.nodeName === 'TEXTAREA' || !!(el.closest && el.closest('[translate="no"]')); }
+function i18nTexto(n) {
+  if (i18nPula(n.parentNode)) return;
+  const v = n.nodeValue;
+  if (I18N.feito.get(n) === v) return;
+  const t = T(v);
+  I18N.feito.set(n, t);
+  if (t !== v) n.nodeValue = t;
+}
+function i18nAttr(el, a) {
+  if (a === 'value' && !(el.nodeName === 'INPUT' && /^(button|submit)$/i.test(el.type))) return; // valor digitado nunca
+  const v = el.getAttribute(a);
+  if (v == null || i18nPula(el)) return;
+  const visto = I18N.attrs.get(el) || {};
+  if (visto[a] === v) return;
+  const t = T(v);
+  visto[a] = t; I18N.attrs.set(el, visto);
+  if (t !== v) el.setAttribute(a, t);
+}
+// Mensagem pronta do WhatsApp (?text= do link): vai no idioma do aluno.
+function i18nZap(el) {
+  const h = el.getAttribute('href') || '';
+  if (!/whatsapp\.com\/send|wa\.me\//.test(h) || !/[?&]text=/.test(h)) return;
+  const visto = I18N.attrs.get(el) || {};
+  if (visto.href === h) return;
+  let novo = h;
+  try { const u = new URL(h); const t = u.searchParams.get('text'); if (t) { u.searchParams.set('text', T(t)); novo = u.toString(); } } catch (e) {}
+  visto.href = novo; I18N.attrs.set(el, visto);
+  if (novo !== h) el.setAttribute('href', novo);
+}
+function i18nArvore(raiz) {
+  if (raiz.nodeType === 3) { i18nTexto(raiz); return; }
+  if (raiz.nodeType !== 1 || i18nPula(raiz)) return;
+  for (const el of [raiz, ...raiz.querySelectorAll('*')]) {
+    for (const a of I18N_ATTRS) if (el.hasAttribute(a)) i18nAttr(el, a);
+    if (el.nodeName === 'INPUT' && /^(button|submit)$/i.test(el.type)) i18nAttr(el, 'value');
+    if (el.nodeName === 'A' && el.hasAttribute('href')) i18nZap(el);
+  }
+  const w = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT);
+  for (let n = w.nextNode(); n; n = w.nextNode()) i18nTexto(n);
+}
+function i18nInicia() {
+  if (!I18N.on || i18nInicia.feito) return;
+  i18nInicia.feito = true;
+  document.title = T(document.title);
+  i18nArvore(document.body);
+  new MutationObserver(lista => {
+    for (const mu of lista) {
+      if (mu.type === 'childList') mu.addedNodes.forEach(i18nArvore);
+      else if (mu.type === 'characterData') i18nTexto(mu.target);
+      else if (mu.type === 'attributes') { if (mu.attributeName === 'href') { if (mu.target.nodeName === 'A') i18nZap(mu.target); } else i18nAttr(mu.target, mu.attributeName); }
+    }
+  }).observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: [...I18N_ATTRS, 'value', 'href'] });
+  const a = window.alert.bind(window), c = window.confirm.bind(window), p = window.prompt.bind(window);
+  window.alert = msg => a(T(String(msg)));
+  window.confirm = msg => c(T(String(msg)));
+  window.prompt = (msg, d) => p(T(String(msg)), d);
+}
+i18nLiga(window.I18N_DIC);
+i18nInicia(); // o HTML de cima já está na página; o que vier depois o observador pega
+// Escolha do idioma (tela de entrar e Configurações): guarda no aparelho, avisa a conta e recarrega a página.
+function trocaIdioma(l) {
+  if (!IDIOMAS[l] || l === LANG) return;
+  try { localStorage.setItem('shape_lang', l); } catch (e) {}
+  const vai = () => { const u = new URL(location.href); u.searchParams.delete('lang'); location.replace(u.toString()); };
+  if (state.user && state.user.token) api('/api/auth/lang', { method: 'POST', body: JSON.stringify({ lang: l }), timeout: 4000 }).catch(() => {}).finally(vai);
+  else vai();
+}
+function idiomaHtml() {
+  return '<div class="idioma-escolha" translate="no">🌐 ' + Object.keys(IDIOMAS).map(l =>
+    `<button type="button" class="${l === LANG ? 'on' : ''}" onclick="trocaIdioma('${l}')">${IDIOMAS[l].nome}</button>`).join('') + '</div>';
+}
+
+// ─── Unidade de medida: kg e cm, ou lb e pés ───
+// A conta é SEMPRE feita em kg e cm (é o que a API guarda e o que escolhe dieta e treino). Em lb a calculadora
+// converte na entrada e a tela converte na saída. Carga do treino é outra coisa: o aluno anota o número da anilha que
+// ele vê na academia, então em lb só muda o rótulo (o número fica como ele digitou e a sugestão compara com ele mesmo).
+const KG_POR_LB = 0.45359237, CM_POR_POL = 2.54;
+function unidade() {
+  if (soBrasil()) return 'kg'; // em português nada muda
+  try { const u = localStorage.getItem('shape_unidade'); if (u === 'lb' || u === 'kg') return u; } catch (e) {}
+  return (state && state.user && state.user.pais === 'US') ? 'lb' : 'kg';
+}
+function poeUnidade(u) { try { localStorage.setItem('shape_unidade', u === 'lb' ? 'lb' : 'kg'); } catch (e) {} }
+function unPeso(kg) {
+  const n = Number(String(kg).replace(',', '.'));
+  if (unidade() !== 'lb' || !Number.isFinite(n) || !n) return escapeHtml(kg) + ' kg';
+  return Math.round(n / KG_POR_LB) + ' lb';
+}
+function unAltura(cm) {
+  const n = Number(String(cm).replace(',', '.'));
+  if (unidade() !== 'lb' || !Number.isFinite(n) || !n) return escapeHtml(cm) + ' cm';
+  const pol = Math.round(n / CM_POR_POL);
+  return Math.floor(pol / 12) + '′' + (pol % 12) + '″';
+}
+function unCarga() { return unidade() === 'lb' ? 'lb' : 'kg'; }
+
 let state = {
   user: null, // { email, token, name? }
   protocol: null, // resultado da calc { sex, age, weight, height, activity, activityFactor, bf, bfAdjust, goal, goalAdjust, days, tmb, maintenance, target, diet, workout, protein, carb, fat }
@@ -2416,8 +2604,16 @@ async function authCall(msg, textoAndamento, path, body) {
 }
 function entrou(data, msg) {
   state.user = { email: data.email, token: data.token, name: data.name };
+  if (data.pais) state.user.pais = String(data.pais).slice(0, 2);
   saveState();
   msg.classList.add('hidden');
+  // conta comprada em outro idioma e aparelho sem escolha feita: abre no idioma da conta
+  let escolheu = null; try { escolheu = localStorage.getItem('shape_lang'); } catch (e) {}
+  if (!escolheu && data.lang && IDIOMAS[data.lang] && data.lang !== LANG) {
+    try { localStorage.setItem('shape_lang', data.lang); } catch (e) {}
+    location.replace(location.pathname);
+    return;
+  }
   afterLogin();
 }
 
@@ -2426,7 +2622,7 @@ async function doResetRequest() {
   const msg = document.getElementById('reset-msg');
   msg.classList.remove('hidden');
   if (!email) { msg.textContent = 'Digita teu e-mail.'; return; }
-  const data = await authCall(msg, 'Enviando código...', '/api/auth/reset-request', { email });
+  const data = await authCall(msg, 'Enviando código...', '/api/auth/reset-request', { email, ...(soBrasil() ? {} : { lang: LANG }) });
   if (!data) return;
   // Sucesso → vai pra etapa 2
   document.getElementById('reset-phone-masked').textContent = data.phoneMasked || 'teu WhatsApp';
@@ -2462,7 +2658,7 @@ async function doLogin() {
   const msg = document.getElementById('auth-msg');
   msg.classList.remove('hidden');
   if (!email || !pwd) { msg.textContent = 'Preenche e-mail e senha.'; return; }
-  const data = await authCall(msg, 'Verificando...', '/api/auth/login', { email, password: pwd });
+  const data = await authCall(msg, 'Verificando...', '/api/auth/login', { email, password: pwd, ...(soBrasil() ? {} : { lang: LANG }) });
   if (data) entrou(data, msg);
 }
 
@@ -2475,7 +2671,7 @@ async function doFirstAccess() {
   if (!email || !pwd) { msg.textContent = 'Preenche todos os campos.'; return; }
   if (pwd.length < 6) { msg.textContent = 'A senha precisa de no mínimo 6 caracteres.'; return; }
   if (pwd !== pwd2) { msg.textContent = 'As senhas não conferem.'; return; }
-  const data = await authCall(msg, 'Criando senha...', '/api/auth/register', { email, password: pwd });
+  const data = await authCall(msg, 'Criando senha...', '/api/auth/register', { email, password: pwd, ...(soBrasil() ? {} : { lang: LANG }) });
   if (data) entrou(data, msg);
 }
 
@@ -2585,12 +2781,14 @@ function openSettings() {
   const dp = p.dietaPhase || p.phase || '1.0';
   document.getElementById('settings-profile').innerHTML =
     `<strong>${escapeHtml(state.user?.email || '')}</strong><br>` +
-    `${escapeHtml(p.sex)} · ${escapeHtml(p.age)} anos · ${escapeHtml(p.weight)} kg · ${escapeHtml(p.height)} cm<br>` +
+    `${escapeHtml(p.sex)} · ${escapeHtml(p.age)} anos · ${unPeso(p.weight)} · ${unAltura(p.height)}<br>` +
     `${escapeHtml(p.activity)} · ${escapeHtml(p.bf)} · ${escapeHtml(p.goal)}<br>` +
     `<span style="color:var(--red-text);font-weight:700;">Treino Fase ${escapeHtml(tp)}</span> · ${escapeHtml(p.workout)}<br>` +
     `<span style="color:var(--red-text);font-weight:700;">Dieta Fase ${escapeHtml(dp)}</span> · ${escapeHtml(p.diet)}`;
   const inst = document.getElementById('settings-install');
   if (inst) inst.classList.toggle('hidden', appInstalado());
+  document.getElementById('settings-idioma').innerHTML = idiomaHtml() + (soBrasil() ? '' :
+    `<div class="unidade-escolha" style="margin:12px 0 0;">${['kg', 'lb'].map(u => `<button type="button" class="${unidade() === u ? 'on' : ''}" onclick="poeUnidade('${u}'); openSettings()">${u === 'lb' ? 'lb · ft' : 'kg · cm'}</button>`).join('')}</div>`);
   showScreen('settings-screen');
 }
 
@@ -2619,6 +2817,7 @@ function initOnboarding() {
   // refazendo o cálculo: dá pra desistir sem sair da conta
   document.getElementById('o1-cancel').classList.toggle('hidden', !state.protocol);
   document.getElementById('o1-sair').classList.toggle('hidden', !!state.protocol);
+  calcUnidade();
   showScreen('onboard-screen');
 }
 function cancelOnboarding() { if (state.protocol) initDashboard(); }
@@ -2781,14 +2980,31 @@ function validateRefs() {
   calculate();
 }
 
+// kg · cm ou lb · ft (só aparece fora do Brasil). A conta segue em kg e cm: em lb converte aqui na entrada.
+function calcUnidade(u) {
+  if (u) poeUnidade(u);
+  const lb = unidade() === 'lb';
+  document.querySelectorAll('#o-unidade button').forEach(b => b.classList.toggle('on', b.dataset.u === (lb ? 'lb' : 'kg')));
+  const w = document.getElementById('o-weight');
+  if (w) { w.placeholder = lb ? 'Ex: 185' : 'Ex: 85'; w.min = lb ? '88' : '40'; w.max = lb ? '440' : '200'; }
+  const rot = document.getElementById('o-weight-lbl');
+  if (rot) rot.textContent = lb ? 'PESO (LB)' : 'PESO (KG)';
+  document.getElementById('o-height-cm')?.classList.toggle('hidden', lb);
+  document.getElementById('o-height-pes')?.classList.toggle('hidden', !lb);
+}
 function validateDados() {
+  const lb = !soBrasil() && unidade() === 'lb';
   onboard.age = parseInt(document.getElementById('o-age').value);
-  onboard.weight = parseFloat(document.getElementById('o-weight').value);
-  onboard.height = parseFloat(document.getElementById('o-height').value);
+  const peso = parseFloat(String(document.getElementById('o-weight').value).replace(',', '.'));
+  onboard.weight = lb ? Math.round(peso * KG_POR_LB * 10) / 10 : peso;
+  if (lb) {
+    const pes = parseInt(document.getElementById('o-height-ft').value) || 0, pol = parseFloat(document.getElementById('o-height-in').value) || 0;
+    onboard.height = (pes || pol) ? Math.round((pes * 12 + pol) * CM_POR_POL) : NaN;
+  } else onboard.height = parseFloat(document.getElementById('o-height').value);
   if (!onboard.sex) { alert('Escolhe o sexo.'); return; }
   if (!onboard.age || onboard.age < 18 || onboard.age > 80) { alert('A idade precisa ficar entre 18 e 80 anos.'); return; }
-  if (!onboard.weight || onboard.weight < 40 || onboard.weight > 200) { alert('O peso precisa ficar entre 40 e 200 kg.'); return; }
-  if (!onboard.height || onboard.height < 140 || onboard.height > 220) { alert('A altura precisa ficar entre 140 e 220 cm.'); return; }
+  if (!onboard.weight || onboard.weight < 40 || onboard.weight > 200) { alert(lb ? 'O peso precisa ficar entre 88 e 440 lb.' : 'O peso precisa ficar entre 40 e 200 kg.'); return; }
+  if (!onboard.height || onboard.height < 140 || onboard.height > 220) { alert(lb ? 'A altura precisa ficar entre 4\u20327\u2033 e 7\u20322\u2033.' : 'A altura precisa ficar entre 140 e 220 cm.'); return; }
   oNext();
 }
 function validateActivity() { if (!onboard.activity) { alert('Escolhe teu nível de atividade.'); return; } oNext(); }
@@ -3024,6 +3240,7 @@ async function initDashboard() {
     if (seq !== _dashSeq || !state.user) return; // saiu ou reabriu enquanto carregava
   }
   renderMghBanner();
+  abaEbooksFica();
   try { await migrateSetsKeys(); } catch (e) {} // cargas antigas viram identidade por nome antes de aparecer na tela
   try { renameSetsKeys(); } catch (e) {}        // exercício que só mudou de nome leva a carga junto
   if (seq !== _dashSeq || !state.user) return;
@@ -3191,6 +3408,8 @@ function ebookMeu(id) {
   return id === 'combo' ? EBOOK_IDS.every(i => e[i]) : !!e[id];
 }
 let _ebooksAt = 0, _ebooksBusy = false;
+// fora do Brasil a aba de e-books só aparece pra quem tem algum (os e-books são em português)
+function abaEbooksFica() { const b = document.querySelector('.tab-btn[data-tab="ebooks"]'); if (b) b.classList.toggle('fica', Object.values(ebooksGuardados().ebooks || {}).some(Boolean)); }
 // pergunta pra API o que o aluno tem e redesenha a aba só se mudou (forca: sem esperar os 20 s entre consultas)
 async function carregaEbooks(forca) {
   const email = state.user?.email;
@@ -3206,6 +3425,7 @@ async function carregaEbooks(forca) {
     guardaLeituras(r); // em segundo plano: deixa o texto no aparelho pra ler sem sinal
     if (novo === localStorage.getItem(ebooksChave())) return;
     try { localStorage.setItem(ebooksChave(), novo); } catch (e) {}
+    abaEbooksFica();
     const aba = document.getElementById('tab-ebooks');
     if (aba && !aba.classList.contains('hidden')) renderEbooks(true);
   } catch (e) { /* sem sinal: fica o que estava guardado */ }
@@ -3320,7 +3540,7 @@ function renderEbooks(semBuscar) {
     leitura[it.id] ? `<a class="ebook-card-link" href="#" role="button" onclick="lerEbook(event,'${it.id}')">📖 Ler agora</a>` : '',
     noAr[it.id] ? `<a class="ebook-card-link${leitura[it.id] ? ' sec' : ''}" href="#" role="button" onclick="baixarEbook(event,'${it.id}')">📥 Baixar PDF</a>` : '',
   ].join('');
-  const aVenda = e.itens.filter(it => !(it.id && ebookMeu(it.id))); // quem já tem os três não vê mais o combo
+  const aVenda = soBrasil() ? e.itens.filter(it => !(it.id && ebookMeu(it.id))) : []; // quem já tem os três não vê mais o combo; fora do Brasil a aba só mostra o que ele tem
   const cardMeu = it => `
     <div class="ebook-card meu">
       <div class="ebook-card-head">
@@ -3895,7 +4115,7 @@ function avalRedesenha() {
   document.querySelectorAll('.aval-slot').forEach(s => { s.innerHTML = avalCardHtml(); });
   avalPoeAudio();
 }
-function avalAoEntrar() { carregarAvalStatus().then(r => { if (r) avalRedesenha(); }); }
+function avalAoEntrar() { if (!soBrasil()) return; carregarAvalStatus().then(r => { if (r) avalRedesenha(); }); }
 // voltou pro app: o GH pode ter gravado o áudio enquanto ele estava fora
 function avalAoVoltar() {
   if (!state.user) return;
@@ -4001,7 +4221,7 @@ async function avalCarregaFotosEnviadas() {
   }
 }
 function avalCardHtml() {
-  if (!state.user) return '';
+  if (!state.user || !soBrasil()) return ''; // o GH responde em áudio, em português
   const s = _avalStatus;
   if (!s) return '';
   if (avalAudioDisponivel()) {
@@ -4573,13 +4793,13 @@ function setsGridHtml(ctxKey, idx, seriesStr, nome) {
     const p = prev && prev[si];
     const ptxt = (p && (p.kg || p.pl || p.reps))
       ? `<span class="set-prev">${rot}: ${tempo && p.reps
-          ? `${v(p.reps)} s${p.kg ? ' com ' + v(p.kg) + ' kg' : ''}`
-          : `${p.kg ? v(p.kg) + ' kg' : (p.pl ? 'placa ' + v(p.pl) : '')}${p.reps ? ' &times; ' + v(p.reps) : ''}`}</span>`
+          ? `${v(p.reps)} s${p.kg ? ' com ' + v(p.kg) + ' ' + unCarga() : ''}`
+          : `${p.kg ? v(p.kg) + ' ' + unCarga() : (p.pl ? 'placa ' + v(p.pl) : '')}${p.reps ? ' &times; ' + v(p.reps) : ''}`}</span>`
       : '';
     const n = si + 1;
     return `<div class="set-row">
         <span class="set-num">${n}</span>
-        <input class="set-in set-kg" type="number" inputmode="decimal" placeholder="kg" aria-label="Série ${n}: peso em kg" value="${v(s.kg)}" oninput="onSetField('${ctxKey}',${idx})">
+        <input class="set-in set-kg" type="number" inputmode="decimal" placeholder="${unCarga()}" aria-label="Série ${n}: peso em ${unCarga()}" value="${v(s.kg)}" oninput="onSetField('${ctxKey}',${idx})">
         <input class="set-in set-pl" type="number" inputmode="numeric" placeholder="placa" aria-label="Série ${n}: número da placa" value="${v(s.pl)}" oninput="onSetField('${ctxKey}',${idx})">
         <input class="set-in set-reps" type="number" inputmode="numeric" placeholder="${tempo ? 'seg' : 'reps'}" aria-label="Série ${n}: ${tempo ? 'segundos' : 'repetições'}" value="${v(s.reps)}" oninput="onSetField('${ctxKey}',${idx})">
         <button type="button" class="set-del" onclick="removeSet('${ctxKey}',${idx},${si})" aria-label="Remover a série ${n}">&times;</button>
@@ -4588,7 +4808,7 @@ function setsGridHtml(ctxKey, idx, seriesStr, nome) {
   }).join('');
   return `<div class="sets-wrap"><div class="sets-title">Progressão de carga</div>
     <div class="sets-grid" id="${gid}" data-exname="${escapeHtml(nome || '')}" data-series="${escapeHtml(seriesStr || '')}">
-      <div class="set-head" aria-hidden="true"><span class="set-num"></span><span>kg</span><span>placa</span><span>${tempo ? 'seg' : 'reps'}</span><span></span></div>
+      <div class="set-head" aria-hidden="true"><span class="set-num"></span><span>${unCarga()}</span><span>placa</span><span>${tempo ? 'seg' : 'reps'}</span><span></span></div>
       ${rows}
       <button type="button" class="set-add" onclick="addSet('${ctxKey}',${idx})">+ série</button>
     </div></div>`;
@@ -5183,7 +5403,7 @@ function drawAchievementCard() {
   ctx.textAlign = 'center';
   ctx.font = `300 32px ${ACH_FONT}`;
   ctx.fillStyle = 'rgba(212, 60, 60, 0.85)';
-  fillTextSpaced(ctx, 'TREINO  CONCLUÍDO', W / 2, 200, 6);
+  fillTextSpaced(ctx, T('TREINO CONCLUÍDO').replace(/ /g, '  '), W / 2, 200, 6);
 
   // SHAPE DE ELITE big
   ctx.font = `bold 110px ${ACH_FONT}`;
@@ -5200,7 +5420,7 @@ function drawAchievementCard() {
   // Músculos
   ctx.font = `500 30px ${ACH_FONT}`;
   ctx.fillStyle = 'rgba(212, 60, 60, 0.9)';
-  const muscles = _achData.muscles || '';
+  const muscles = (_achData.muscles || '').split(' + ').map(x => T(x)).join(' + ');
   // Texto largo demais: quebra em duas linhas no " + " (só reduzir a fonte deixava a linha passar da borda)
   if (ctx.measureText(muscles).width > W - 160 && muscles.includes(' + ')) {
     ctx.font = `500 26px ${ACH_FONT}`;
@@ -5228,7 +5448,7 @@ function drawAchievementCard() {
   ctx.fillText(_achData.exCount, cardX1 + cardW / 2, cardY + 80);
   ctx.font = `500 16px ${ACH_FONT}`;
   ctx.fillStyle = '#888';
-  fillTextSpaced(ctx, 'EXERCÍCIOS', cardX1 + cardW / 2, cardY + 110, 2);
+  fillTextSpaced(ctx, T('EXERCÍCIOS'), cardX1 + cardW / 2, cardY + 110, 2);
 
   // Card 2: dia
   ctx.fillStyle = 'rgba(255,255,255,0.04)';
@@ -5236,10 +5456,10 @@ function drawAchievementCard() {
   ctx.fill(); ctx.stroke();
   ctx.fillStyle = '#fff';
   ctx.font = `bold 70px ${ACH_FONT}`;
-  ctx.fillText(_achData.dayLabel, cardX2 + cardW / 2, cardY + 80);
+  ctx.fillText(T(_achData.dayLabel), cardX2 + cardW / 2, cardY + 80);
   ctx.font = `500 16px ${ACH_FONT}`;
   ctx.fillStyle = '#888';
-  fillTextSpaced(ctx, 'DIA DO TREINO', cardX2 + cardW / 2, cardY + 110, 2);
+  fillTextSpaced(ctx, T('DIA DO TREINO'), cardX2 + cardW / 2, cardY + 110, 2);
 
   // Footer "@gh.scheuermann"
   ctx.strokeStyle = '#B41E1E';
@@ -5250,7 +5470,7 @@ function drawAchievementCard() {
   ctx.stroke();
   ctx.font = `300 30px ${ACH_FONT}`;
   ctx.fillStyle = '#999';
-  ctx.fillText('Acompanha', W / 2, H - 240);
+  ctx.fillText(T('Acompanha'), W / 2, H - 240);
   ctx.font = `bold 48px ${ACH_FONT}`;
   ctx.fillStyle = '#B41E1E';
   ctx.fillText('@gh.scheuermann', W / 2, H - 175);
@@ -5300,8 +5520,8 @@ async function achShare() {
       try {
         await navigator.share({
           files: [file],
-          title: 'Shape de Elite, Treino concluído',
-          text: 'Mais um treino na conta. @gh.scheuermann'
+          title: T('Shape de Elite, Treino concluído'),
+          text: T('Mais um treino na conta. @gh.scheuermann')
         });
       } catch(e) { if (e.name !== 'AbortError') achSave(); }
     } else {
@@ -5603,7 +5823,7 @@ function openVideo(url, title) {
   document.getElementById('video-modal-inner').classList.toggle('vertical', emPe);
   wrapper.classList.toggle('vertical', emPe);
   // playsinline=1 evita fullscreen forçado no iOS
-  wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0&playsinline=1&modestbranding=1" title="${escapeHtml(title || 'Vídeo')}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0&playsinline=1&modestbranding=1${soBrasil() ? '' : '&hl=' + LANG + '&cc_lang_pref=' + LANG + '&cc_load_policy=1'}" title="${escapeHtml(title || 'Vídeo')}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
   const fora = document.getElementById('video-modal-fora');
   fora.href = emPe ? 'https://www.youtube.com/shorts/' + vid : 'https://www.youtube.com/watch?v=' + vid;
   modal.classList.add('show');
@@ -5866,12 +6086,12 @@ function buildShoppingText() {
   const list = buildShoppingList();
   if (!list) return '';
   const order = ['Proteínas','Lácteos','Leguminosas','Carboidratos','Frutas','Verduras e legumes','Gorduras boas','Outros / Variados'];
-  let text = `🛒 LISTA DE COMPRAS, ${state.protocol.diet}\n(Shape de Elite)\n\n`;
+  let text = `${T('🛒 LISTA DE COMPRAS')}, ${T(state.protocol.diet)}\n(Shape de Elite)\n\n`;
   order.forEach(name => {
     const cat = list[name];
     if (!cat || !cat.items.length) return;
-    text += `${cat.icon} ${name.toUpperCase()}\n`;
-    cat.items.forEach(it => text += `• ${it}\n`);
+    text += `${cat.icon} ${T(name).toUpperCase()}\n`;
+    cat.items.forEach(it => text += `• ${T(it)}\n`);
     text += '\n';
   });
   return text.trim();
@@ -5893,7 +6113,7 @@ async function shareShoppingList() {
   if (!text) return;
   if (navigator.share) {
     try {
-      await navigator.share({ title: 'Lista de compras Shape de Elite', text });
+      await navigator.share({ title: T('Lista de compras Shape de Elite'), text });
     } catch (e) { if (!e || e.name !== 'AbortError') copyShoppingList(); /* não deu pra compartilhar: copia */ }
   } else {
     copyShoppingList();
@@ -5972,7 +6192,7 @@ function renderSupl() {
     <div class="result-card" style="background:var(--surface-2);text-align:center;">
       <div class="small" style="color:var(--text-dim);font-weight:600;letter-spacing:.3px;">${s.rodape}</div>
     </div>
-    ${shopHtml}
+    ${soBrasil() ? shopHtml : ''}
   `;
 }
 
@@ -5981,14 +6201,14 @@ function renderCalc() {
   const hist = Array.isArray(state.history) ? state.history : [];
   const histHtml = hist.length ? hist.slice().reverse().map(h => {
     const s = h.snapshot;
-    const date = new Date(h.date).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const date = new Date(h.date).toLocaleDateString(LOCALE, { day: '2-digit', month: '2-digit', year: 'numeric' });
     return `
       <details class="result-card extra-card">
         <summary>
           ${escapeHtml(h.kind)} <span style="color:var(--text-muted);font-weight:500;font-size:12px;">· ${date}</span>
         </summary>
         <div class="small mt-2" style="line-height:1.6;color:var(--text);">
-          <strong>${escapeHtml(s.sex)} · ${escapeHtml(s.age)} anos · ${escapeHtml(s.weight)} kg · ${escapeHtml(s.height)} cm</strong><br>
+          <strong>${escapeHtml(s.sex)} · ${escapeHtml(s.age)} anos · ${unPeso(s.weight)} · ${unAltura(s.height)}</strong><br>
           ${escapeHtml(s.activity)} · ${escapeHtml(s.bf)} · ${escapeHtml(s.goal)}<br>
           <span style="color:var(--red-text);font-weight:700;">${escapeHtml(s.workout)}</span> ${s.treinoPhase ? `<span style="color:var(--text-muted);font-size:12px;">(fase ${escapeHtml(s.treinoPhase)})</span>` : ''}<br>
           <span style="color:var(--red-text);font-weight:700;">${escapeHtml(s.diet)}</span> ${s.dietaPhase ? `<span style="color:var(--text-muted);font-size:12px;">(fase ${escapeHtml(s.dietaPhase)})</span>` : ''}<br>
@@ -6049,6 +6269,7 @@ function renderCalc() {
 // ═══════════════════════════════════════════════════════════
 function boot() {
   loadState();
+  { const el = document.getElementById('auth-idioma'); if (el) el.innerHTML = idiomaHtml(); }
   try { localStorage.removeItem('shape_week_' + setsEmail()); } catch (e) {} // escolha de semana da versão antiga (era o que congelava a semana)
   if (state.user && state.user.token) {
     afterLogin();
