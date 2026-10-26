@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F0F11">
+<meta name="robots" content="noindex">
+<title>Start here · Shape de Elite</title>
+<meta name="description" content="Your path in Shape de Elite: what to do today, what you have in the app, what to expect and where to get help.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Start here · Shape de Elite">
+<meta property="og:description" content="Your path in Shape de Elite: what to do today, what you have in the app, what to expect and where to get help.">
+<meta property="og:image" content="https://app.shapedeelite.com.br/assets/icon-512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- Comece por aqui do aluno de FORA (inglês e espanhol, ?lang=en|es). Gerado por app-tools/comeca-intl/monta_pagina.py: o texto mora em corpo.html, as cenas do vídeo em cenas.json. Não editar aqui. -->
+<style>
+  :root {
+    --red: #B41E1E; --red-hover: #D12424; --red-text: #FF6B6B;
+    --bg: #0F0F11; --surface: #1A1A1D; --surface-2: #15151A; --border: #2A2A2D;
+    --text: #EFEFEF; --text-dim: #B4B4B8; --text-muted: #8A8A90; --gold: #F5C542; --green: #25D366;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.5; padding-bottom: calc(86px + env(safe-area-inset-bottom)); }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+  a { color: inherit; }
+  header.topo { padding: calc(22px + env(safe-area-inset-top)) 0 6px; text-align: center; }
+  .marca { font-size: 11px; font-weight: 800; letter-spacing: .22em; color: var(--text-muted); }
+  .marca b { color: var(--red-text); }
+  h1 { font-size: clamp(30px, 9vw, 40px); line-height: 1.08; margin: 14px 0 10px; letter-spacing: -.01em; }
+  .sub { color: var(--text-dim); font-size: 16px; margin: 0 auto; max-width: 30em; }
+  section { margin-top: 34px; }
+  .kicker { font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--red-text); margin-bottom: 6px; }
+  h2 { font-size: 23px; line-height: 1.15; margin: 0 0 6px; }
+  .lead { color: var(--text-dim); margin: 0 0 14px; font-size: 15px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; }
+  .card + .card { margin-top: 12px; }
+  .card h3.t { margin: 0 0 4px; font-size: 18px; line-height: 1.25; }
+  .card p.c { margin: 0 0 12px; color: var(--text-dim); font-size: 15px; }
+  .card p.c:last-child { margin-bottom: 0; }
+  b { color: var(--text); }
+
+  /* vídeo em pé: o YouTube só carrega quando a pessoa toca */
+  .video { margin: 20px auto 0; max-width: 300px; }
+  .video .quadro { position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: radial-gradient(120% 80% at 50% 20%, #3a1414, #121214 70%); }
+  .video button { position: absolute; inset: 0; width: 100%; border: 0; background: transparent; color: #fff; font: inherit; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+  .video .play { width: 72px; height: 72px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
+  .video .play::before { content: ''; margin-left: 6px; border-style: solid; border-width: 13px 0 13px 22px; border-color: transparent transparent transparent #fff; }
+  .video .rot { font-weight: 800; font-size: 15px; padding: 0 18px; }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  /* passos */
+  .passo { display: grid; grid-template-columns: 40px 1fr; gap: 12px; }
+  .passo .n { width: 40px; height: 40px; border-radius: 12px; background: var(--red); color: #fff; font-weight: 900; font-size: 19px; display: flex; align-items: center; justify-content: center; }
+  .passo h3 { margin: 0; font-size: 18px; line-height: 1.2; }
+  .tempo { display: inline-block; margin: 5px 0 8px; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); }
+  .passo p { margin: 0 0 10px; color: var(--text-dim); font-size: 15px; }
+  .passo p:last-child { margin-bottom: 0; }
+  .depois { color: var(--text) !important; font-size: 14.5px !important; background: var(--surface-2); border-radius: 10px; padding: 9px 11px; }
+  .depois b { color: var(--gold); }
+  .dica { background: transparent; border: 1px dashed var(--border); border-radius: 12px; padding: 10px 12px; font-size: 13.5px !important; }
+  .regra { border-left: 3px solid var(--gold); padding: 2px 0 2px 12px; color: var(--text) !important; }
+
+  .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px; padding: 13px 18px; border-radius: 12px; border: 0; background: var(--red); color: #fff; font: inherit; font-weight: 800; font-size: 16px; text-decoration: none; text-align: center; cursor: pointer; }
+  .btn:active { background: var(--red-hover); }
+  .btn.sec { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn.whats { background: var(--green); color: #062b16; }
+  .btn.ouro { background: var(--gold); color: #1d1a12; }
+  .btn + .btn { margin-top: 8px; }
+  .passo .btn { margin-bottom: 10px; }
+
+  /* o que esperar */
+  .linha { position: relative; padding-left: 26px; }
+  .linha::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
+  .marco { position: relative; padding: 0 0 18px; }
+  .marco:last-child { padding-bottom: 0; }
+  .marco::before { content: ''; position: absolute; left: -24px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--red); border: 2px solid var(--bg); box-shadow: 0 0 0 2px var(--red); }
+  .marco .q { font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+  .marco h3 { margin: 2px 0 2px; font-size: 17px; }
+  .marco p { margin: 0; color: var(--text-dim); font-size: 15px; }
+
+  /* o que tu tem no app */
+  .grade { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 13px; }
+  .item .ic { font-size: 22px; }
+  .item h3 { margin: 6px 0 2px; font-size: 13px; letter-spacing: .08em; }
+  .item p { margin: 0; font-size: 13.5px; color: var(--text-dim); line-height: 1.4; }
+  .miudo { font-size: 13px; color: var(--text-muted); margin: 10px 0 0; }
+
+  /* dúvidas de quem acabou de entrar */
+  .duvidas details { border-top: 1px solid var(--border); padding: 12px 0; }
+  .duvidas details:first-of-type { border-top: 0; padding-top: 4px; }
+  .duvidas details:last-of-type { padding-bottom: 2px; }
+  .duvidas summary { cursor: pointer; font-weight: 700; font-size: 15px; line-height: 1.35; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+  .duvidas summary::-webkit-details-marker { display: none; }
+  .duvidas summary::after { content: '+'; color: var(--gold); font-weight: 800; display: inline-block; transition: transform .15s; }
+  .duvidas details[open] summary::after { transform: rotate(45deg); }
+  .duvidas details p { margin: 8px 0 0; color: var(--text-dim); font-size: 14.5px; }
+
+  /* casos: logo no começo e pequenos; tocar na foto abre ela grande */
+  #casos { margin-top: 22px; text-align: center; }
+  .casos-titulo { font-size: 16px; line-height: 1.25; margin: 0 0 10px; }
+  .casos { display: flex; justify-content: center; gap: 8px; margin: 0 0 8px; }
+  .casos button { flex: 0 1 88px; padding: 0; border: 0; background: none; border-radius: 10px; cursor: zoom-in; }
+  .casos img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); }
+  #casos .miudo { margin: 0 auto; max-width: 34em; font-size: 12px; }
+  .zoom { position: fixed; inset: 0; z-index: 40; width: 100%; border: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; padding: 16px; cursor: zoom-out; }
+  .zoom img { max-width: 100%; max-height: 100%; border-radius: 12px; }
+
+  /* próximo nível */
+  .nivel { border-color: #4a3c14; background: linear-gradient(180deg, #1d1a12, var(--surface)); }
+  .nivel .kicker { color: var(--gold); }
+  .nivel p { color: var(--text-dim); font-size: 15px; margin: 0 0 10px; }
+  .oferta-video { margin: 12px auto 14px; max-width: 280px; }
+  .oferta-video video { display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 14px; border: 1px solid var(--border); background: #000; }
+  .nivel .oferta-linha { text-align: center; font-size: 13px; color: var(--text-muted); margin: 8px 0 0; }
+  .pilha { margin: 4px 0 14px; }
+  .nivel .pilha-titulo { color: var(--text); font-weight: 800; margin: 0 0 8px; }
+  .pilha ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .pilha li { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+  .pilha li b { display: block; font-size: 15px; }
+  .pilha li span { display: block; color: var(--text-dim); font-size: 14px; margin-top: 2px; }
+  .nivel .vagas { text-align: center; font-size: 13px; color: var(--text-muted); margin: 12px 0 0; }
+  .preco { text-align: center; margin: 14px 0; }
+  .preco .selo { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #1d1a12; background: var(--gold); border-radius: 999px; padding: 4px 10px; }
+  .preco .de { color: var(--text-muted); font-size: 14px; margin-top: 8px; }
+  .preco .parcela { font-size: clamp(30px, 10vw, 40px); font-weight: 900; line-height: 1.1; color: var(--text); }
+  .preco .avista { color: var(--text-dim); font-size: 14px; }
+
+  footer { margin-top: 36px; text-align: center; color: var(--text-muted); font-size: 12.5px; padding-bottom: 8px; }
+  footer p { margin: 6px 0; }
+  .fixo { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: rgba(15,15,17,.94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-top: 1px solid var(--border); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); }
+  .fixo .btn { max-width: 528px; margin: 0 auto; }
+  [hidden] { display: none !important; }
+
+/* ===== Padrão comum dos três "Comece por aqui" (consultoria, Shape, Peitão), cada um nas SUAS cores. GH em 14/10/2026:
+   "quero que todas tenham o mesmo padrao de playbook, tipo meio que marca propria" e "algo parecido com o liquid glass que
+   adicionamos no quiz"; e em 15/10, corrigindo: "cada produto tem suas proprias cores". O padrão é a forma: fundo escuro com
+   brilho e quadriculado numa camada presa à tela, Inter, selo, última palavra do título na cor do produto, cartões de vidro
+   e o botão principal em degradê com brilho por dentro. Os tokens do vidro são os do quiz, copiados como estão
+   (02-produtos/metodogh/quiz/index.html, bloco "Vidro líquido", da LandingPage). A cor é a do Shape (vermelho; dourado só
+   de apoio, como no app). O bloco final da consultoria segue dourado: é a cor do Método GH. Fica no fim de propósito. ===== */
+:root {
+  --marca: #B41E1E; --marca-clara: #F05252; --marca-escura: #7E1414; --marca-suave: rgba(180,30,30,.12);
+  --vidro: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.03) 100%);
+  --vidro-forte: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.05) 100%);
+  --vidro-borda: rgba(255,255,255,0.20);
+  --vidro-brilho: inset 0 1px 0 rgba(255,255,255,0.34), inset 0 -1px 0 rgba(255,255,255,0.05);
+  --vidro-sombra: 0 10px 30px rgba(0,0,0,0.30);
+  --vidro-fosco: blur(18px) saturate(170%);
+  --red: var(--marca); --red-hover: var(--marca-escura); --red-text: var(--marca-clara); --gold: #F5C542;
+  --bg: #0F0F11; --surface: rgba(28,28,30,.78); --surface-2: rgba(255,255,255,.05); --border: #2E2E32;
+  --text: #F4F4F4; --text-dim: #A8A8AE; --text-muted: #8A8A90;
+}
+html { background: var(--bg); }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); -webkit-font-smoothing: antialiased; }
+.fundo { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(180,30,30,.34) 0%, rgba(74,14,14,.44) 30%, transparent 70%), radial-gradient(ellipse 100% 60% at 100% 90%, rgba(180,30,30,.14), transparent 55%), linear-gradient(180deg, #1A0808 0%, var(--bg) 60%); }
+.fundo::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%); }
+body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(circle 230px at 10% 26%, rgba(240,82,82,0.26), transparent 70%), radial-gradient(circle 270px at 94% 50%, rgba(180,30,30,0.26), transparent 70%), radial-gradient(circle 220px at 26% 86%, rgba(126,20,20,0.32), transparent 70%); }
+.wrap, footer { position: relative; z-index: 1; }
+.marca { font-size: 15px; font-weight: 900; letter-spacing: .06em; color: var(--text); }
+.marca b { color: var(--marca-clara); }
+.check { width: 64px; height: 64px; margin: 22px auto 0; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #E84848, var(--marca-escura)); box-shadow: 0 0 0 8px var(--marca-suave), 0 12px 32px rgba(180,30,30,.40); color: #FFFFFF; font-size: 32px; font-weight: 900; animation: pop 600ms cubic-bezier(.16,1,.3,1) both; }
+@keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .check { animation: none; } }
+h1 { font-weight: 900; line-height: 1.12; font-size: clamp(28px, 7.4vw, 38px); margin: 16px 0 10px; }
+h1 .hl { color: var(--marca-clara); }
+.sub { text-wrap: balance; }
+h2 { font-weight: 900; letter-spacing: -.01em; }
+.kicker { color: var(--marca-clara); letter-spacing: .08em; font-size: 11.5px; }
+.card, .item, .pilha li { background: var(--vidro); border: 1px solid var(--vidro-borda); border-radius: 18px; box-shadow: var(--vidro-brilho), var(--vidro-sombra); -webkit-backdrop-filter: var(--vidro-fosco); backdrop-filter: var(--vidro-fosco); }
+.pilha li { border-radius: 14px; box-shadow: var(--vidro-brilho); }
+.depois { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10); }
+.dica { border-color: rgba(255,255,255,.18); }
+.passo .n { background: var(--marca-suave); border: 1px solid rgba(240,82,82,.45); color: #FF7A7A; }
+.marco::before { background: var(--marca-clara); box-shadow: 0 0 0 2px var(--marca); }
+.linha::before { background: rgba(255,255,255,.14); }
+.btn { background: linear-gradient(135deg, rgba(232,72,72,0.95) 0%, rgba(180,30,30,0.90) 50%, rgba(126,20,20,0.92) 100%); border: 1px solid rgba(255,190,190,0.50); border-radius: 18px; color: #FFFFFF; box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -10px 18px rgba(60,0,0,0.25), 0 12px 36px rgba(180,30,30,0.38); }
+.btn:active { transform: scale(.98); background: linear-gradient(135deg, rgba(210,60,60,0.96), rgba(150,24,24,0.94)); }
+.btn.sec { background: var(--marca-suave); border: 1px solid rgba(240,82,82,.50); color: #FF7A7A; box-shadow: var(--vidro-brilho); }
+.btn.whats { background: var(--green); border: 1px solid rgba(255,255,255,.18); color: #06260F; box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 28px rgba(37,211,102,.28); }
+.video { max-width: none; margin: 20px 0 0; }
+.video .quadro { aspect-ratio: 16 / 9; border-radius: 18px; border: 1px solid var(--vidro-borda); box-shadow: var(--vidro-brilho), 0 12px 32px rgba(0,0,0,.45); background: radial-gradient(ellipse at center, rgba(180,30,30,.20), rgba(0,0,0,0) 62%), #0b0b0d; background-size: cover; background-position: center; }
+.video .play { background: linear-gradient(135deg, #E84848, var(--marca-escura)); box-shadow: 0 0 0 8px var(--marca-suave), 0 12px 32px rgba(180,30,30,.40); }
+.video .play::before { border-color: transparent transparent transparent #FFFFFF; }
+.video .rot { text-shadow: 0 1px 6px rgba(0,0,0,.8); }
+.video video { position: absolute; inset: 0; width: 100%; height: 100%; background: #000; display: block; }
+.casos img { border: 1px solid var(--vidro-borda); border-radius: 12px; }
+/* o bloco final é a consultoria do Método GH: fica na cor dela (dourado), como já era */
+.nivel { background: linear-gradient(135deg, rgba(201,162,75,.16), rgba(20,20,20,.7)); border: 1px solid rgba(201,162,75,.45); }
+.nivel .kicker { color: #E6C76A; }
+.btn.ouro { background: linear-gradient(135deg, rgba(248,226,154,0.94) 0%, rgba(216,178,90,0.86) 50%, rgba(172,136,52,0.88) 100%); border: 1px solid rgba(255,244,205,0.68); color: #1A1405; box-shadow: inset 0 1px 0 rgba(255,255,255,0.68), inset 0 -10px 18px rgba(120,88,18,0.22), 0 12px 36px rgba(201,162,75,0.38); }
+.oferta-video video { border: 1px solid var(--vidro-borda); border-radius: 18px; }
+.preco .selo { background: linear-gradient(135deg, #E6C76A, #9C7C2E); color: #1A1405; }
+.duvidas details { border-top-color: rgba(255,255,255,.12); }
+.fixo { background: rgba(15,15,17,.62); border-top: 1px solid var(--vidro-borda); -webkit-backdrop-filter: var(--vidro-fosco); backdrop-filter: var(--vidro-fosco); }
+</style>
+<style>
+/* vídeo do app (fotos do app traduzido + voz): palco em pé, moldura de celular, dedo que toca e legenda */
+.demo { position: relative; margin-top: 18px; border-radius: 22px; overflow: hidden; background: #0B0B0D; border: 1px solid var(--vidro-borda); aspect-ratio: 9 / 14; max-height: 78vh; margin-left: auto; margin-right: auto; }
+.demo .tela { position: absolute; left: 50%; top: 4%; width: 66%; aspect-ratio: 412 / 915; transform: translateX(-50%); border-radius: 26px; overflow: hidden; border: 3px solid #26232A; background: #0F0F11; box-shadow: 0 18px 50px rgba(0,0,0,.55); }
+.demo .tela img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .45s, transform 3.5s cubic-bezier(.2,.7,.2,1); transform-origin: 50% 50%; }
+.demo .tela img.on { opacity: 1; }
+.demo .dedo { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: rgba(255,255,255,.28); border: 2px solid rgba(255,255,255,.85); opacity: 0; transition: left .6s cubic-bezier(.2,.7,.2,1), top .6s cubic-bezier(.2,.7,.2,1), opacity .3s; pointer-events: none; z-index: 2; }
+.demo .dedo.on { opacity: 1; }
+.demo .dedo.toca { animation: toca .5s ease-out; }
+@keyframes toca { 0% { transform: scale(1); } 40% { transform: scale(.7); background: rgba(240,82,82,.6); } 100% { transform: scale(1); } }
+.demo .cartao { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 24px; opacity: 0; transition: opacity .45s; }
+.demo .cartao.on { opacity: 1; }
+.demo .cartao .m { font-weight: 900; font-size: 26px; letter-spacing: .06em; }
+.demo .cartao .m b { color: var(--marca-clara); }
+.demo .cartao .s { margin-top: 6px; font-size: 12px; letter-spacing: .22em; color: var(--muted, #9A929C); }
+.demo .cartao .w { margin-top: 22px; font-size: 15px; color: #CFC8D0; max-width: 300px; line-height: 1.5; }
+.demo .leg { position: absolute; left: 12px; right: 12px; bottom: 14px; z-index: 3; padding: 10px 13px; border-radius: 13px; background: rgba(10,9,11,.92); border: 1px solid #2C2830; font-weight: 700; font-size: 15px; line-height: 1.35; text-align: center; opacity: 0; transform: translateY(8px); transition: opacity .35s, transform .35s; }
+.demo .leg.on { opacity: 1; transform: none; }
+.demo .leg b { color: var(--marca-clara); }
+.demo .barra { position: absolute; left: 0; right: 0; top: 0; height: 3px; background: rgba(255,255,255,.08); z-index: 4; }
+.demo .barra i { display: block; height: 100%; width: 0; background: var(--marca-clara); transition: width .25s linear; }
+.demo .capa { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; border: 0; background: rgba(8,8,10,.62); color: #fff; font: inherit; cursor: pointer; }
+.demo .capa .play { width: 74px; height: 74px; border-radius: 50%; background: linear-gradient(135deg, #E84848, var(--marca-escura)); box-shadow: 0 0 0 8px var(--marca-suave), 0 12px 32px rgba(180,30,30,.40); position: relative; }
+.demo .capa .play::before { content: ''; position: absolute; left: 29px; top: 23px; border-style: solid; border-width: 14px 0 14px 22px; border-color: transparent transparent transparent #fff; }
+.demo .capa .rot { font-weight: 800; font-size: 15px; text-shadow: 0 1px 6px rgba(0,0,0,.8); }
+.demo .pausa { position: absolute; right: 10px; top: 12px; z-index: 4; width: 38px; height: 38px; border-radius: 50%; border: 1px solid #2C2830; background: rgba(10,9,11,.75); color: #fff; font-size: 14px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="fundo" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <header class="topo">
+    <div class="marca"><b>SHAPE DE ELITE</b> · <span data-t="metodo"></span></div>
+    <div class="check" aria-hidden="true">✓</div>
+    <h1 data-t="h1"></h1>
+    <p class="sub" data-t="sub"></p>
+    <div class="demo" id="demo">
+      <div class="barra"><i id="barra"></i></div>
+      <div class="cartao" id="cartao"><div class="m">SHAPE DE <b>ELITE</b></div><div class="s" data-t="metodoUp"></div><div class="w" id="cartao-w"></div></div>
+      <div class="tela" id="tela" hidden><span class="dedo" id="dedo"></span></div>
+      <div class="leg" id="leg"></div>
+      <button type="button" class="pausa" id="pausa" hidden aria-label="Pause">❚❚</button>
+      <button type="button" class="capa" id="capa"><span class="play"></span><span class="rot" data-t="assistir"></span></button>
+    </div>
+  </header>
+
+  <section id="caminho">
+    <div class="kicker" data-t="k1"></div>
+    <h2 data-t="h2a"></h2>
+    <p class="lead" data-t="leadA"></p>
+
+    <div class="card passo"><div class="n">1</div><div>
+      <h3 data-t="p1t"></h3><span class="tempo" data-t="p1m"></span>
+      <p data-t="p1a"></p>
+      <a class="btn" data-app data-clique="link-app" data-t="p1btn"></a>
+      <p class="depois" data-t="p1d"></p>
+      <p class="dica" data-t="p1dica"></p>
+    </div></div>
+
+    <div class="card passo"><div class="n">2</div><div>
+      <h3 data-t="p2t"></h3><span class="tempo" data-t="p2m"></span>
+      <p data-t="p2a"></p>
+      <p class="depois" data-t="p2d"></p>
+    </div></div>
+
+    <div class="card passo"><div class="n">3</div><div>
+      <h3 data-t="p3t"></h3><span class="tempo" data-t="p3m"></span>
+      <p data-t="p3a"></p>
+      <p data-t="p3b"></p>
+      <p class="regra" data-t="p3r"></p>
+      <p class="depois" data-t="p3d"></p>
+    </div></div>
+
+    <div class="card passo"><div class="n">4</div><div>
+      <h3 data-t="p4t"></h3><span class="tempo" data-t="p4m"></span>
+      <p data-t="p4a"></p>
+      <p class="regra" data-t="p4r"></p>
+      <p class="depois" data-t="p4d"></p>
+    </div></div>
+  </section>
+
+  <section id="app">
+    <div class="kicker" data-t="k2"></div>
+    <h2 data-t="h2b"></h2>
+    <p class="lead" data-t="leadB"></p>
+    <div class="grade">
+      <div class="item"><div class="ic">🏋️</div><h3 data-t="g1t"></h3><p data-t="g1"></p></div>
+      <div class="item"><div class="ic">🍚</div><h3 data-t="g2t"></h3><p data-t="g2"></p></div>
+      <div class="item"><div class="ic">⚡</div><h3 data-t="g3t"></h3><p data-t="g3"></p></div>
+      <div class="item"><div class="ic">💊</div><h3 data-t="g4t"></h3><p data-t="g4"></p></div>
+      <div class="item"><div class="ic">🎓</div><h3 data-t="g5t"></h3><p data-t="g5"></p></div>
+      <div class="item"><div class="ic">📸</div><h3 data-t="g6t"></h3><p data-t="g6"></p></div>
+    </div>
+  </section>
+
+  <section id="esperar">
+    <div class="kicker" data-t="k3"></div>
+    <h2 data-t="h2c"></h2>
+    <div class="card" style="margin-top:14px"><div class="linha">
+      <div class="marco"><div class="q" data-t="m1q"></div><h3 data-t="m1t"></h3><p data-t="m1"></p></div>
+      <div class="marco"><div class="q" data-t="m2q"></div><h3 data-t="m2t"></h3><p data-t="m2"></p></div>
+      <div class="marco"><div class="q" data-t="m3q"></div><h3 data-t="m3t"></h3><p data-t="m3"></p></div>
+      <div class="marco"><div class="q" data-t="m4q"></div><h3 data-t="m4t"></h3><p data-t="m4"></p></div>
+    </div></div>
+  </section>
+
+  <section id="ajuda">
+    <div class="kicker" data-t="k4"></div>
+    <h2 data-t="h2d"></h2>
+    <p class="lead" data-t="leadD"></p>
+    <div class="card duvidas">
+      <h3 class="t" data-t="fT"></h3>
+      <p class="c" data-t="fC"></p>
+      <details><summary data-t="f1q"></summary><p data-t="f1"></p></details>
+      <details><summary data-t="f2q"></summary><p data-t="f2"></p></details>
+      <details><summary data-t="f3q"></summary><p data-t="f3"></p></details>
+      <details><summary data-t="f4q"></summary><p data-t="f4"></p></details>
+      <details><summary data-t="f5q"></summary><p data-t="f5"></p></details>
+    </div>
+    <div class="card">
+      <h3 class="t" data-t="sT"></h3>
+      <p class="c" data-t="sC"></p>
+      <p class="c" data-t="sQuem"></p>
+      <a class="btn whats" data-clique="link-suporte" target="_blank" rel="noopener" data-suporte href="https://api.whatsapp.com/send?phone=5555999717530" data-t="sBtn"></a>
+    </div>
+  </section>
+
+  <footer>
+    <p style="font-size:16px;color:var(--text);font-weight:700" data-t="fim"></p>
+    <p data-t="aviso"></p>
+    <p>© 2026 <span data-t="metodoCopy"></span> · Shape de Elite · @gh.scheuermann</p>
+  </footer>
+
+</div>
+
+<div class="fixo"><a class="btn" data-app data-clique="link-app" data-t="abrir"></a></div>
+
+<script src="assets/comeca-intl/cenas.js"></script>
+<script>
+(function () {
+  var API = 'https://shape-de-elite-api.vercel.app';
+  var TXT = {
+    en: {
+      titulo: 'Start here · Shape de Elite', metodo: 'GH METHOD', metodoUp: 'GH METHOD', metodoCopy: 'GH Method',
+      h1: 'Start <span class="hl">here</span>',
+      sub: 'Welcome to Shape de Elite. Here is your path: what to do today, what you have in the app, what to expect and where to get help. It takes 5 minutes.',
+      assistir: 'Watch how the app works (2 min)', abre: 'You can leave here today with your diet and your workout ready.',
+      k1: 'Your path', h2a: '4 steps, in this order', leadA: 'You can do all four today.',
+      p1t: 'Create your password', p1m: '⏱ 2 minutes',
+      p1a: 'Tap the button below: it opens the create password screen. Use the <b>same email you used to buy</b> and create a password with at least 6 characters. With a different email, the account won\'t open.',
+      p1btn: 'Create my password and log in', p1d: '<b>Next:</b> the calculator opens by itself.',
+      p1dica: 'Save the app to your home screen so it becomes an icon. On iPhone: Share and “Add to Home Screen”. On Android: the 3 dots and “Add to Home screen”.',
+      p2t: 'Do the calculator', p2m: '⏱ 1 minute',
+      p2a: 'It\'s <b>9 questions</b>: your details, your goal, how many days you train and the muscle you most want to grow. Got something wrong? Tap “I got something wrong, I want to redo the math”.',
+      p2d: '<b>Next:</b> you get your calorie target, your diet and your workout. Tap “Open my protocol”.',
+      p3t: 'Do your first workout', p3m: '⏱ Today or tomorrow',
+      p3a: 'The app opens on the <b>WORKOUT</b> tab. The days are at the top; the exercises of the day are below. There is no start button: the workout is the list itself.',
+      p3b: 'Tap the exercise name to watch the video, use <b>REST</b> to time your break and log the weight and reps of every set. Finished the exercise? Check the circle next to its name.',
+      p3r: 'The golden rule: log the weight of your last set. It\'s your goal for next week.',
+      p3d: '<b>Next:</b> the app saves your weights, week by week. Next week, look at the last one and try to go up.',
+      p4t: 'Start the diet', p4m: '⏱ At your next meal',
+      p4a: 'The <b>DIET</b> tab has your meal plan, with the amounts. Every meal has options to choose from, so you can swap what you don\'t like and stay on track.',
+      p4r: 'Anything you cook (meat, chicken, fish, rice, pasta, potatoes) is weighed COOKED, the way it goes on your plate.',
+      p4d: '<b>Next:</b> every week, check your weight and your waist. They are what the diet adjusts by.',
+      k2: 'Your access', h2b: 'What you have in the app', leadB: 'Everything in one place, on your phone or your computer.',
+      g1t: 'WORKOUT', g1: 'A video for every exercise, a rest timer and a log of your weights.',
+      g2t: 'DIET', g2: 'Meal plan with amounts and swap options in every meal.',
+      g3t: 'QUICK MODE', g3: 'Busy day? One button trims the day\'s workout and keeps the full rest.',
+      g4t: 'SUPPLEMENTS', g4: 'The 6-Bottle Guide: what to take, how much and when. It speeds things up: you don\'t need it to start.',
+      g5t: 'LESSONS', g5: 'A short lesson for each part of the method. Recorded in Portuguese: turn on the YouTube captions (CC) and pick your language in auto-translate.',
+      g6t: 'PROGRESS PHOTOS', g6: '4 angles at the start of each phase, so you can see your progress.',
+      k3: 'What to expect and when', h2c: 'Results come from the basics, done for long enough',
+      m1q: 'First week', m1t: 'Learn the exercises and find your weights', m1: 'It doesn\'t need to be perfect. It needs to be done and logged. Take the photos from the 4 angles too, at the end of the WORKOUT tab.',
+      m2q: 'Every week', m2t: 'Add weight and check your weight and waist', m2: 'Where you can, more weight or more reps than last week. Before changing the diet, watch the Progress lesson in the LESSONS tab.',
+      m3q: 'Every 90 days', m3t: 'Move up a phase', m3: 'The workout goes up a level and the diet follows. Your body needs this time to adapt: moving up too early doesn\'t speed up results, it only gets in the way.',
+      m4q: '1 year', m4t: 'The complete method', m4: 'That\'s the length of your access. By the end you master the method and know how to keep progressing.',
+      k4: 'Where to get help', h2d: 'You are not alone', leadD: 'The method is self-guided, but you have support from start to finish.',
+      fT: 'I paid, now what?', fC: 'The questions of those who just joined.',
+      f1q: 'Which email do I log in with?', f1: 'The same email you used to buy. With a different email, the account won\'t open. Don\'t remember which one? It\'s the email where the payment confirmation arrived.',
+      f2q: 'I didn\'t get a WhatsApp message. Did I lose my access?', f2: 'No. Your access is already active, with or without the message. Tap “Create my password and log in” in step 1 and use your purchase email.',
+      f3q: 'I already created a password and can\'t log in', f3: 'On the app\'s login screen, tap “I forgot my password”. A 6 digit code arrives on the WhatsApp of the phone you used at checkout, and you use it to create a new password.',
+      f4q: 'Kilos or pounds?', f4: 'Your choice. In the calculator, pick kg or lb, and the app logs your weights in that unit.',
+      f5q: 'What is “plate” when I log the weight?', f5: 'It\'s the number of the plate where you put the pin on the machine. On machines, log the plate. With dumbbells, barbells or plates, log the weight.',
+      sT: '💬 WhatsApp support', sC: 'Stuck on something? A question about form, swapping a food or an adjustment? Message the Shape WhatsApp, in your language.',
+      sQuem: 'It\'s a <b>smart WhatsApp that answers right away</b>, 24 hours a day.', sBtn: 'Message support',
+      zap: 'Hi, I\'m a Shape de Elite student and I need support.',
+      fim: 'Now it\'s up to you. Open the app and do your first workout.', aviso: 'Results vary with application, discipline and individual starting point.',
+      abrir: 'OPEN THE APP', pausa: 'Pause', toca: 'Play'
+    },
+    es: {
+      titulo: 'Empieza aquí · Shape de Elite', metodo: 'MÉTODO GH', metodoUp: 'MÉTODO GH', metodoCopy: 'Método GH',
+      h1: 'Empieza <span class="hl">aquí</span>',
+      sub: 'Bienvenido a Shape de Elite. Aquí está tu camino: qué hacer hoy, qué tienes en la app, qué esperar y dónde pedir ayuda. Toma 5 minutos.',
+      assistir: 'Mira cómo funciona la app (2 min)', abre: 'Hoy mismo puedes salir de aquí con tu dieta y tu entrenamiento listos.',
+      k1: 'Tu camino', h2a: '4 pasos, en este orden', leadA: 'Los cuatro se pueden hacer hoy mismo.',
+      p1t: 'Crea tu contraseña', p1m: '⏱ 2 minutos',
+      p1a: 'Toca el botón de abajo: abre la pantalla para crear tu contraseña. Usa el <b>mismo correo de la compra</b> y crea una contraseña de al menos 6 caracteres. Con otro correo, la cuenta no se abre.',
+      p1btn: 'Crear mi contraseña y entrar', p1d: '<b>Después:</b> la calculadora se abre sola.',
+      p1dica: 'Guarda la app en la pantalla de inicio para que sea un ícono. En iPhone: Compartir y “Agregar a pantalla de inicio”. En Android: los 3 puntos y “Agregar a la pantalla principal”.',
+      p2t: 'Haz la calculadora', p2m: '⏱ 1 minuto',
+      p2a: 'Son <b>9 preguntas</b>: tus datos, tu objetivo, cuántos días entrenas y el músculo que más quieres hacer crecer. ¿Te equivocaste en un dato? Toca “Me equivoqué en un dato, quiero rehacer el cálculo”.',
+      p2d: '<b>Después:</b> sale tu meta de calorías, tu dieta y tu entrenamiento. Toca “Ver mi protocolo”.',
+      p3t: 'Haz tu primer entrenamiento', p3m: '⏱ Hoy o mañana',
+      p3a: 'La app abre en la pestaña <b>ENTRENAMIENTO</b>. Arriba están los días; abajo, los ejercicios del día. No hay botón de empezar: el entrenamiento es la propia lista.',
+      p3b: 'Toca el nombre del ejercicio para ver el video, usa <b>DESCANSO</b> para cronometrar la pausa y anota el peso y las repeticiones de cada serie. ¿Terminaste el ejercicio? Marca el círculo al lado del nombre.',
+      p3r: 'La regla de oro: anota el peso de tu última serie. Es tu meta para la próxima semana.',
+      p3d: '<b>Después:</b> la app guarda tus pesos, semana a semana. En la próxima, mira la anterior e intenta subir.',
+      p4t: 'Empieza la dieta', p4m: '⏱ En tu próxima comida',
+      p4a: 'En la pestaña <b>DIETA</b> está tu menú, con las cantidades. En cada comida eliges entre las opciones, así que puedes cambiar lo que no te gusta sin salirte de la cuenta.',
+      p4r: 'Todo lo que se cocina (carne, pollo, pescado, arroz, pasta, papa) se pesa COCIDO, como va al plato.',
+      p4d: '<b>Después:</b> cada semana revisa tu peso y tu cintura. Con ellos se ajusta la dieta.',
+      k2: 'Tu acceso', h2b: 'Lo que tienes en la app', leadB: 'Todo en un solo lugar, en el celular o en la computadora.',
+      g1t: 'ENTRENAMIENTO', g1: 'Video de cada ejercicio, cronómetro de descanso y registro de tus pesos.',
+      g2t: 'DIETA', g2: 'Menú con cantidades y opciones de cambio en cada comida.',
+      g3t: 'MODO RÁPIDO', g3: '¿Día ocupado? Un botón acorta el entrenamiento del día y mantiene el descanso completo.',
+      g4t: 'SUPLEMENTOS', g4: 'Manual de los 6 Frascos: qué tomar, cuánto y cuándo. Es un acelerador: no lo necesitas para empezar.',
+      g5t: 'CLASES', g5: 'Una clase corta para cada parte del método. Grabadas en portugués: activa los subtítulos de YouTube (CC) y elige tu idioma en traducción automática.',
+      g6t: 'FOTOS DE PROGRESO', g6: '4 ángulos al inicio de cada fase, para que veas tu evolución.',
+      k3: 'Qué esperar y cuándo', h2c: 'El resultado viene de lo básico, hecho por el tiempo suficiente',
+      m1q: 'Primera semana', m1t: 'Aprende los ejercicios y encuentra tus pesos', m1: 'No tiene que salir perfecto. Tiene que hacerse y anotarse. Aprovecha y toma las fotos en los 4 ángulos, al final de la pestaña ENTRENAMIENTO.',
+      m2q: 'Cada semana', m2t: 'Sube el peso y revisa tu peso y tu cintura', m2: 'Donde puedas, más peso o más repeticiones que la semana anterior. Antes de cambiar la dieta, mira la clase Progreso, en la pestaña CLASES.',
+      m3q: 'Cada 90 días', m3t: 'Avanza de fase', m3: 'El entrenamiento sube de nivel y la dieta acompaña. El cuerpo necesita ese tiempo para adaptarse: avanzar antes de tiempo no acelera el resultado, solo estorba.',
+      m4q: '1 año', m4t: 'El método completo', m4: 'Es el tiempo de tu acceso. Al final dominas el método y sabes mantener tu evolución.',
+      k4: 'Dónde pedir ayuda', h2d: 'No estás solo', leadD: 'El método es autoaplicable, pero tienes apoyo de principio a fin.',
+      fT: 'Pagué, ¿y ahora?', fC: 'Las dudas de quien acaba de entrar.',
+      f1q: '¿Con qué correo entro?', f1: 'Con el mismo correo de la compra. Con otro correo, la cuenta no se abre. ¿No recuerdas cuál fue? Es el correo donde llegó la confirmación del pago.',
+      f2q: 'No recibí mensaje por WhatsApp. ¿Perdí el acceso?', f2: 'No. Tu acceso ya está activo, con o sin el mensaje. Toca “Crear mi contraseña y entrar”, en el paso 1, y usa el correo de la compra.',
+      f3q: 'Ya creé la contraseña y no puedo entrar', f3: 'En la pantalla de entrar de la app, toca “Olvidé mi contraseña”. Llega un código de 6 números al WhatsApp del teléfono que pusiste en la compra, y con él creas una contraseña nueva.',
+      f4q: '¿Kilos o libras?', f4: 'Tú eliges. En la calculadora, elige kg o lb, y la app anota tus pesos en esa unidad.',
+      f5q: '¿Qué es “placa” al anotar el peso?', f5: 'Es el número de la placa donde pusiste el pasador en la máquina. En máquina, anota la placa. Con mancuerna, barra o discos, anota el peso.',
+      sT: '💬 Soporte por WhatsApp', sC: '¿Te trabaste en algo? ¿Duda de ejecución, de cambio de alimento o de ajuste? Escribe al WhatsApp del Shape, en tu idioma.',
+      sQuem: 'Es un <b>WhatsApp inteligente que responde al instante</b>, las 24 horas.', sBtn: 'Escribir al soporte',
+      zap: 'Hola, soy alumno de Shape de Elite y necesito soporte.',
+      fim: 'Ahora te toca a ti. Abre la app y haz tu primer entrenamiento.', aviso: 'Los resultados varían según la aplicación, la disciplina y el punto de partida de cada persona.',
+      abrir: 'ABRIR LA APP', pausa: 'Pausa', toca: 'Reproducir'
+    }
+  };
+  var q = new URLSearchParams(location.search);
+  var L = (q.get('lang') || '').toLowerCase().slice(0, 2);
+  if (!TXT[L]) { try { L = localStorage.getItem('shape_lang') || ''; } catch (e) {} }
+  if (!TXT[L]) L = 'en';
+  try { localStorage.setItem('shape_lang', L); } catch (e) {}
+  var t = TXT[L];
+  document.documentElement.lang = L;
+  document.title = t.titulo;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) { var v = t[el.getAttribute('data-t')]; if (v != null) el.innerHTML = v; });
+  // o app abre na mesma língua e na tela de criar senha
+  Array.prototype.forEach.call(document.querySelectorAll('a[data-app]'), function (a) { a.href = './?criar=1&lang=' + L; });
+
+  // contagem: abertura pela língua, play e toque em cada botão (sem dado de ninguém); em endereço de teste não conta
+  var local = /^(localhost|127\.|\[::1\])/.test(location.hostname);
+  function conta(o) {
+    if (local) return;
+    try { fetch(API + '/api/clique?para=playbook&de=' + encodeURIComponent(o), { method: 'POST', keepalive: true }).catch(function () {}); } catch (e) {}
+  }
+  conta('intl-' + L);
+  Array.prototype.forEach.call(document.querySelectorAll('[data-clique]'), function (a) { a.addEventListener('click', function () { conta(a.getAttribute('data-clique')); }); });
+
+  // suporte: o número vem da API (plano B), com o texto pronto na língua do aluno
+  var numeroOk = function (n) { return typeof n === 'string' && /^55\d{10,11}$/.test(n); };
+  var poeSuporte = function (n) {
+    if (!numeroOk(n)) return false;
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-suporte]'), function (a) { a.href = 'https://api.whatsapp.com/send?phone=' + n + '&text=' + encodeURIComponent(t.zap); });
+    return true;
+  };
+  poeSuporte('5555999717530');
+  try { poeSuporte(localStorage.getItem('shape_suporte_whats')); } catch (e) {}
+  fetch(API + '/api/config', { cache: 'no-store' }).then(function (r) { return r && r.ok ? r.json() : null; }).then(function (j) {
+    if (j && poeSuporte(j.suporteWhats)) { try { localStorage.setItem('shape_suporte_whats', j.suporteWhats); } catch (e) {} }
+  }).catch(function () {});
+
+  // ── vídeo do app: cena por cena (foto do app nesta língua, dedo no botão, legenda e voz). As cenas vêm de cenas.js
+  var CENAS = (window.COMECA_CENAS || {})[L] || [];
+  var demo = document.getElementById('demo');
+  if (!CENAS.length) { demo.hidden = true; return; }
+  var tela = document.getElementById('tela'), dedo = document.getElementById('dedo'), leg = document.getElementById('leg');
+  var cartao = document.getElementById('cartao'), capa = document.getElementById('capa'), pausa = document.getElementById('pausa'), barra = document.getElementById('barra');
+  document.getElementById('cartao-w').textContent = t.abre;
+  var imgs = {};
+  CENAS.forEach(function (c) { if (c.img && !imgs[c.img]) { var i = new Image(); i.alt = ''; i.decoding = 'async'; imgs[c.img] = i; tela.insertBefore(i, dedo); } });
+  var audio = new Audio(); audio.preload = 'auto';
+  var TOTAL = CENAS.reduce(function (s, c) { return s + (c.dur || 3) + 0.4; }, 0);
+  var idx = -1, feito = 0, tocando = false, contado = false, timer = null;
+
+  function mostra(i) {
+    var c = CENAS[i];
+    leg.classList.remove('on');
+    setTimeout(function () { leg.innerHTML = c.leg; leg.classList.add('on'); }, 180);
+    if (!c.img) { tela.hidden = true; cartao.classList.add('on'); dedo.classList.remove('on'); document.getElementById('cartao-w').textContent = i === 0 ? t.abre : ''; return; }
+    cartao.classList.remove('on'); tela.hidden = false;
+    Object.keys(imgs).forEach(function (k) { imgs[k].classList.toggle('on', k === c.img); });
+    var img = imgs[c.img], a = c.alvo || [50, 50];
+    // aproxima um pouco do ponto que o dedo toca, pra ler melhor no celular
+    img.style.transformOrigin = a[0] + '% ' + a[1] + '%'; img.style.transform = 'scale(1)';
+    requestAnimationFrame(function () { img.style.transform = 'scale(1.05)'; });
+    dedo.classList.remove('toca'); dedo.style.left = a[0] + '%'; dedo.style.top = a[1] + '%'; dedo.classList.add('on');
+    setTimeout(function () { dedo.classList.add('toca'); }, Math.min(1800, (c.dur || 3) * 400));
+  }
+  function proxima() {
+    if (idx >= 0) feito += (CENAS[idx].dur || 3) + 0.4;
+    idx++;
+    if (idx >= CENAS.length) { termina(); return; }
+    mostra(idx);
+    var c = CENAS[idx];
+    audio.src = c.audio;
+    var p = audio.play(); if (p && p.catch) p.catch(function () { timer = setTimeout(proxima, (c.dur || 3) * 1000); });
+  }
+  audio.addEventListener('ended', function () { if (tocando) timer = setTimeout(proxima, 400); });
+  audio.addEventListener('timeupdate', function () { barra.style.width = Math.min(100, (feito + audio.currentTime) / TOTAL * 100) + '%'; });
+  function termina() {
+    tocando = false; idx = -1; feito = 0; barra.style.width = '100%';
+    pausa.hidden = true; capa.hidden = false; capa.querySelector('.rot').textContent = t.assistir;
+  }
+  capa.addEventListener('click', function () {
+    capa.hidden = true; pausa.hidden = false; pausa.textContent = '❚❚'; pausa.setAttribute('aria-label', t.pausa);
+    if (!contado) { contado = true; conta('play-intl'); }
+    tocando = true;
+    if (idx < 0) { barra.style.width = '0'; proxima(); }
+    else { var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
+  });
+  pausa.addEventListener('click', function () {
+    if (!tocando) return;
+    tocando = false; clearTimeout(timer); audio.pause();
+    pausa.hidden = true; capa.hidden = false; capa.querySelector('.rot').textContent = t.toca;
+  });
+  // capa: a tela do resultado (calorias, dieta e treino) atrás do play, pra mostrar que é o app
+  var capaCena = CENAS.filter(function (c) { return c.id === 'resultado'; })[0];
+  if (capaCena) { tela.hidden = false; imgs[capaCena.img].classList.add('on'); }
+  // fotos carregam só quando a página já abriu (não pesam na abertura)
+  window.addEventListener('load', function () { Object.keys(imgs).forEach(function (k) { imgs[k].src = k; }); });
+})();
+</script>
+</body>
+</html>

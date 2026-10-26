@@ -3278,7 +3278,7 @@ function renderMghBanner() {
   const slot = document.getElementById('mgh-banner-slot');
   if (!slot) return;
   const c = state.upsellData?.consultoria;
-  if (!c || !c.ativo || mghBannerDismissed()) { slot.innerHTML = ''; return; }
+  if (!c || !c.ativo || !consultoriaAqui() || mghBannerDismissed()) { slot.innerHTML = ''; return; }
   slot.innerHTML = `
     <div class="mgh-banner" onclick="openMghConsultoria()">
       <button class="mgh-banner-close" onclick="event.stopPropagation(); dismissMghBanner()" aria-label="Fechar">✕</button>
@@ -3304,10 +3304,14 @@ function openMghConsultoria() {
   if (c.link) window.open(c.link, '_blank', 'noopener');
 }
 
+// A consultoria é em português e cobrada em reais: fora do Brasil a faixa e o card não aparecem, até o GH decidir vender lá.
+const CONSULTORIA_FORA = false;
+function consultoriaAqui() { return soBrasil() || CONSULTORIA_FORA; }
+
 // Card grande Método GH (usado entre aulas e em outros pontos)
 function buildMghCard() {
   const c = state.upsellData?.consultoria;
-  if (!c || !c.ativo) return '';
+  if (!c || !c.ativo || !consultoriaAqui()) return '';
   const bullets = (c.bullets || []).map(b => `<li>${b}</li>`).join('');
   // Com "plano" nos dados o aluno compra direto, com a condição de aluno (R$ 100 off, perene). O whats vira o
   // caminho de quem quer conversar antes.
@@ -5046,7 +5050,7 @@ function renderTreino() {
     <div class="conclude-bar conclude-slot">${concludeInner()}</div>
     <div class="guardiao-slot" data-de="fim-do-treino">${guardiaoHtml('fim-do-treino')}</div>
     ${extrasHtml ? `<h3 style="margin-top:24px;color:var(--text-dim);">📚 Material extra</h3>${extrasHtml}` : ''}
-    <a class="btn secondary" href="${pdfUrl}" target="_blank" rel="noopener" download="${escapeHtml(pdfFile)}" style="text-decoration:none;text-align:center;margin-top:18px;">📥 Baixar PDF do treino</a>
+    <a class="btn secondary so-brasil" href="${pdfUrl}" target="_blank" rel="noopener" download="${escapeHtml(pdfFile)}" style="text-decoration:none;text-align:center;margin-top:18px;">📥 Baixar PDF do treino</a>
     ${phaseUpgradeHtml}
     ${fotosSecHtml()}
   `;
@@ -5979,7 +5983,7 @@ function renderDieta() {
     <h2>${escapeHtml(p.diet)}</h2>
     <p class="hint">${tot ? `${tot.kcal} kcal por dia · proteína ${tot.p} g · carboidrato ${tot.c} g · gordura ${tot.g} g` : `cerca de ${DIET_KCAL[key.replace(/_\dR$/, '')] || p.target} kcal por dia`} · ${refsLabel} · Dieta Fase ${dietaPhase}</p>
     <div style="display:flex;gap:8px;margin-bottom:14px;">
-      <a class="btn secondary" href="${dietPdf}" target="_blank" rel="noopener" download="${escapeHtml(dietFile)}" style="text-decoration:none;text-align:center;margin-top:0;flex:1;">📥 Baixar PDF</a>
+      <a class="btn secondary so-brasil" href="${dietPdf}" target="_blank" rel="noopener" download="${escapeHtml(dietFile)}" style="text-decoration:none;text-align:center;margin-top:0;flex:1;">📥 Baixar PDF</a>
       <button type="button" class="btn secondary" onclick="openShoppingList()" style="margin-top:0;flex:1;">🛒 Lista de compras</button>
     </div>
     ${refsHtml}
@@ -6186,7 +6190,7 @@ function renderSupl() {
   c.innerHTML = `
     <h2>${s.titulo}</h2>
     <p class="hint">${s.subtitulo}</p>
-    <a class="btn secondary" href="pdfs/suplementos.pdf" target="_blank" rel="noopener" download="Shape de Elite - Suplementos.pdf" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF dos suplementos</a>
+    <a class="btn secondary so-brasil" href="pdfs/suplementos.pdf" target="_blank" rel="noopener" download="Shape de Elite - Suplementos.pdf" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF dos suplementos</a>
     <div class="result-card" style="background:var(--red-tint);border-color:var(--red);">
       <div class="small" style="color:var(--text);line-height:1.6;">${s.intro}</div>
     </div>
