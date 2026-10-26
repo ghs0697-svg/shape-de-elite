@@ -2002,8 +2002,8 @@
   <div id="tab-supl" class="tab-content hidden"></div>
   <div id="tab-aulas" class="tab-content hidden"></div>
   <div id="tab-ebooks" class="tab-content hidden"></div>
-  <div id="tab-acess" class="tab-content hidden"></div>
-  <div id="tab-parc" class="tab-content hidden"></div>
+  <div id="tab-acess" class="tab-content hidden" translate="no"></div><!-- só no Brasil: lojas daqui, não se traduz -->
+  <div id="tab-parc" class="tab-content hidden" translate="no"></div>
   <div id="tab-calc" class="tab-content hidden"></div>
 
   <div class="footer">SHAPE DE ELITE · MÉTODO GH · @gh.scheuermann</div>
@@ -2335,7 +2335,7 @@ const IDIOMAS = {
 };
 const LANG = IDIOMAS[window.APP_LANG] ? window.APP_LANG : 'pt';
 const LOCALE = IDIOMAS[LANG].locale;
-const I18N = { on: false, ex: new Map(), rx: [], memo: new Map(), faltas: new Set(), feito: new WeakMap(), attrs: new WeakMap() };
+const I18N = { on: false, ex: new Map(), exi: new Map(), rx: [], memo: new Map(), faltas: new Set(), feito: new WeakMap(), attrs: new WeakMap() };
 const I18N_ATTRS = ['placeholder', 'title', 'aria-label', 'alt'];
 function soBrasil() { return LANG === 'pt'; }
 // {1} na regra = o pedaço capturado TAMBÉM traduzido (nome de exercício, de músculo); $1 = o pedaço como veio.
@@ -2344,7 +2344,7 @@ function i18nRegra(re, para) {
 }
 function i18nLiga(dic) {
   if (!dic || LANG === 'pt') return;
-  for (const k in dic.exato || {}) I18N.ex.set(k.replace(/\s+/g, ' ').trim(), dic.exato[k]);
+  for (const k in dic.exato || {}) { const c = k.replace(/\s+/g, ' ').trim(); I18N.ex.set(c, dic.exato[k]); if (!I18N.exi.has(c.toLowerCase())) I18N.exi.set(c.toLowerCase(), dic.exato[k]); }
   I18N.rx = (dic.regras || []).map(([fonte, para]) => i18nRegra(new RegExp('^' + fonte + '$', 'u'), para));
   I18N.on = true;
 }
@@ -2358,7 +2358,9 @@ function T(s) {
   let out = str;
   if (miolo && /\p{L}/u.test(miolo)) {
     const chave = miolo.replace(/[ \t\r\f\v ]+/g, ' ').replace(/ ?\n ?/g, '\n');
-    let t = I18N.ex.get(chave.replace(/\s+/g, ' '));
+    const plana = chave.replace(/\s+/g, ' ');
+    let t = I18N.ex.get(plana);
+    if (t === undefined) { const ti = I18N.exi.get(plana.toLowerCase()); if (ti !== undefined) t = plana === plana.toUpperCase() ? ti.toUpperCase() : ti; }
     if (t === undefined && /\n/.test(chave)) t = chave.split('\n').map(l => T(l)).join('\n');
     if (t === undefined) for (const [re, fn] of I18N.rx) { if (re.test(chave)) { t = chave.replace(re, fn); break; } }
     if (t === undefined) I18N.faltas.add(chave);
@@ -3025,7 +3027,7 @@ async function calculate() {
   try { await calculateAgora(); }
   finally { _calcBusy = false; btn.disabled = false; btn.textContent = btnTxt; }
 }
-const kcalTxt = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+const kcalTxt = n => Math.round(n).toLocaleString(LOCALE);
 async function calculateAgora() {
   // TMB Mifflin-St Jeor
   let tmb = onboard.sex === 'Homem'
@@ -6169,7 +6171,7 @@ function renderSupl() {
   `).join('');
 
   // Loja Shopee, onde comprar (FTW): a mesma lista da aba de parceiros (FTW_SUPLEMENTOS)
-  const shopHtml = `
+  const shopHtml = `<div translate="no">
     <h3 style="margin-top:28px;margin-bottom:8px;color:#ffa726;font-size:13px;letter-spacing:.5px;">🛒 ONDE COMPRAR</h3>
     <p class="hint" style="margin-bottom:14px;">Marca <strong>FTW</strong>, qualidade nacional com preço justo.</p>
     ${FTW_SUPLEMENTOS.map(x => `
@@ -6179,7 +6181,7 @@ function renderSupl() {
       <a class="partner-link" href="${x.link}" target="_blank" rel="noopener">Acessar →</a>
       <div class="partner-store">Loja oficial FTW</div>
     </div>`).join('')}
-  `;
+  </div>`;
 
   c.innerHTML = `
     <h2>${s.titulo}</h2>

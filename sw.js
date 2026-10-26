@@ -85,6 +85,15 @@ self.addEventListener('fetch', e => {
     );
     return;
   }
+  // Dicionário do idioma (i18n/<lang>.js?v=): só o do aluno é baixado, e fica guardado na primeira vez pra o app
+  // abrir traduzido também sem sinal. A versão no endereço troca a cada publicação, então nunca fica velho.
+  if (caminho.startsWith(raiz + 'i18n/')) {
+    e.respondWith(caches.match(e.request).then(r => (r && r.ok ? r : fetch(e.request).then(res => {
+      if (res && res.ok) { const clone = res.clone(); caches.open(CACHE_NAME).then(c => c.put(e.request, clone)); }
+      return res;
+    }))));
+    return;
+  }
   // Cache-first pros demais assets estáticos (JSONs), só serve resposta válida
   e.respondWith(caches.match(e.request).then(r => (r && r.ok ? r : fetch(e.request))));
 });
