@@ -3304,7 +3304,8 @@ function openMghConsultoria() {
   if (c.link) window.open(c.link, '_blank', 'noopener');
 }
 
-// A consultoria é em português e cobrada em reais: fora do Brasil a faixa e o card não aparecem, até o GH decidir vender lá.
+// Fora do Brasil a faixa e o card da consultoria não aparecem. Decisão do GH em 26/10: a consultoria é pautada em suporte
+// e ele não consegue dar suporte em outra língua, então ela não é vendida pra aluno de fora.
 const CONSULTORIA_FORA = false;
 function consultoriaAqui() { return soBrasil() || CONSULTORIA_FORA; }
 

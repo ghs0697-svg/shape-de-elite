@@ -210,6 +210,10 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
 .preco .selo { background: linear-gradient(135deg, #E6C76A, #9C7C2E); color: #1A1405; }
 .duvidas details { border-top-color: rgba(255,255,255,.12); }
 .fixo { background: rgba(15,15,17,.62); border-top: 1px solid var(--vidro-borda); -webkit-backdrop-filter: var(--vidro-fosco); backdrop-filter: var(--vidro-fosco); }
+/* troca de língua (um Comece por aqui só: padrão português, com inglês e espanhol; GH 27/10) */
+.linguas { margin: 10px 0 0; font-size: 13px; color: var(--text-muted); }
+.linguas a { color: var(--text-muted); text-decoration: none; padding: 4px 2px; }
+.linguas a.on { color: var(--text); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -219,6 +223,17 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
 
   <header class="topo">
     <div class="marca"><b>SHAPE DE ELITE</b> · MÉTODO GH</div>
+    <nav class="linguas" aria-label="Idioma"><a href="#" data-lingua="pt" class="on">Português</a> · <a href="#" data-lingua="en">English</a> · <a href="#" data-lingua="es">Español</a></nav>
+    <script>
+    // troca de língua: a escolha fica guardada (o app abre nela) e a página vai pra versão da língua, levando o resto do endereço
+    (function () { var n = document.currentScript.previousElementSibling; n.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-lingua]'); if (!a) return; e.preventDefault();
+      var l = a.getAttribute('data-lingua'); if (a.classList.contains('on')) return;
+      try { localStorage.setItem('shape_lang', l); } catch (x) {}
+      var q = new URLSearchParams(location.search); q.set('lang', l);
+      location.href = (l === 'pt' ? 'comeca.html' : 'comeca-intl.html') + '?' + q.toString();
+    }); })();
+    </script>
     <div class="check" aria-hidden="true">✓</div>
     <h1>Comece por <span class="hl">aqui</span></h1>
     <p class="sub">Bem-vindo ao Shape de Elite. Aqui tá o teu caminho: o que fazer hoje, o que tu tem no app, o que esperar e onde pedir ajuda. Leva 5 minutos.</p>
