@@ -242,6 +242,9 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
     <div class="check" aria-hidden="true">✓</div>
     <h1 data-t="h1"></h1>
     <p class="sub" data-t="sub"></p>
+    <div class="video" id="video" hidden>
+      <div class="quadro" id="quadro"><button type="button" id="play"><span class="play"></span><span class="rot" data-t="vidRot"></span></button></div>
+    </div>
     <div class="demo" id="demo">
       <div class="barra"><i id="barra"></i></div>
       <div class="cartao" id="cartao"><div class="m">SHAPE DE <b>ELITE</b></div><div class="s" data-t="metodoUp"></div><div class="w" id="cartao-w"></div></div>
@@ -352,7 +355,7 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
       titulo: 'Start here · Shape de Elite', metodo: 'GH METHOD', metodoUp: 'GH METHOD', metodoCopy: 'GH Method',
       h1: 'Start <span class="hl">here</span>',
       sub: 'Welcome to Shape de Elite. Here is your path: what to do today, what you have in the app, what to expect and where to get help. It takes 5 minutes.',
-      assistir: 'Watch how the app works (2 min)', abre: 'You can leave here today with your diet and your workout ready.',
+      vidRot: 'Welcome video from GH', assistir: 'Watch how the app works (1.5 min)', abre: 'You can leave here today with your diet and your workout ready.',
       k1: 'Your path', h2a: '4 steps, in this order', leadA: 'You can do all four today.',
       p1t: 'Create your password', p1m: '⏱ 2 minutes',
       p1a: 'Tap the button below: it opens the create password screen. Use the <b>same email you used to buy</b> and create a password with at least 6 characters. With a different email, the account won\'t open.',
@@ -399,7 +402,7 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
       titulo: 'Empieza aquí · Shape de Elite', metodo: 'MÉTODO GH', metodoUp: 'MÉTODO GH', metodoCopy: 'Método GH',
       h1: 'Empieza <span class="hl">aquí</span>',
       sub: 'Bienvenido a Shape de Elite. Aquí está tu camino: qué hacer hoy, qué tienes en la app, qué esperar y dónde pedir ayuda. Toma 5 minutos.',
-      assistir: 'Mira cómo funciona la app (2 min)', abre: 'Hoy mismo puedes salir de aquí con tu dieta y tu entrenamiento listos.',
+      vidRot: 'Video de bienvenida del GH', assistir: 'Mira cómo funciona la app (1 min y medio)', abre: 'Hoy mismo puedes salir de aquí con tu dieta y tu entrenamiento listos.',
       k1: 'Tu camino', h2a: '4 pasos, en este orden', leadA: 'Los cuatro se pueden hacer hoy mismo.',
       p1t: 'Crea tu contraseña', p1m: '⏱ 2 minutos',
       p1a: 'Toca el botón de abajo: abre la pantalla para crear tu contraseña. Usa el <b>mismo correo de la compra</b> y crea una contraseña de al menos 6 caracteres. Con otro correo, la cuenta no se abre.',
@@ -542,6 +545,27 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
     tocando = false; clearTimeout(timer); audio.pause();
     pausa.hidden = true; capa.hidden = false; capa.querySelector('.rot').textContent = t.toca;
   });
+  // vídeo de boas-vindas do GH dublado na língua (QuizPeitao, Sala #3914), no mesmo lugar do vídeo em português da comeca.
+  // Sem os trechos que não existem pra quem é de fora (guardião, grupo, avaliação, consultoria). Vazio = sem bloco.
+  // vídeo de boas-vindas do GH dublado com a voz dele (Quiz Peitão, 27/10), sem grupo, avaliação e consultoria
+  var VIDEO_BOAS = {
+    en: { src: 'assets/boas-vindas/shape-720-en.mp4', capa: 'assets/boas-vindas/shape-poster-en.jpg' },
+    es: { src: 'assets/boas-vindas/shape-720-es.mp4', capa: 'assets/boas-vindas/shape-poster-es.jpg' }
+  };
+  var vb = VIDEO_BOAS[L];
+  if (vb && vb.src) {
+    var vq = document.getElementById('quadro');
+    document.getElementById('video').hidden = false;
+    if (vb.capa) vq.style.backgroundImage = 'url("' + vb.capa + '")';
+    document.getElementById('play').setAttribute('aria-label', t.vidRot);
+    document.getElementById('play').addEventListener('click', function () {
+      conta('play-boas-intl');
+      var el = document.createElement('video'); el.src = vb.src; el.controls = true; el.autoplay = true;
+      el.playsInline = true; el.setAttribute('playsinline', ''); if (vb.capa) el.poster = vb.capa;
+      vq.innerHTML = ''; vq.appendChild(el);
+      var tocar = el.play(); if (tocar && tocar.catch) tocar.catch(function () {});
+    });
+  }
   // capa: a tela do resultado (calorias, dieta e treino) atrás do play, pra mostrar que é o app
   var capaCena = CENAS.filter(function (c) { return c.id === 'resultado'; })[0];
   if (capaCena) { tela.hidden = false; imgs[capaCena.img].classList.add('on'); }
