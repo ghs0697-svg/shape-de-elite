@@ -23,7 +23,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '83';
+  window.APP_LANG_V = '84';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -903,7 +903,7 @@
     cursor: pointer;
   }
   .mgh-card-cta:hover { filter: brightness(1.08); }
-  /* condição de aluno na consultoria: R$ 100 off no trimestral, direto no botão (a mesma do app do Peitão) */
+  /* condição de aluno na consultoria: R$ 200 off no trimestral, direto no botão */
   #mghCard { scroll-margin-top: 130px; }
   .mgh-aluno { margin: 4px 0 12px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(201, 162, 75, .3); background: rgba(201, 162, 75, .07); font-size: 13px; line-height: 1.55; color: #b0a890; }
   .mgh-aluno b { color: var(--gh-gold-light); }
@@ -2217,7 +2217,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '83';
+const APP_V = '84';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -3314,7 +3314,7 @@ function buildMghCard() {
   const c = state.upsellData?.consultoria;
   if (!c || !c.ativo || !consultoriaAqui()) return '';
   const bullets = (c.bullets || []).map(b => `<li>${b}</li>`).join('');
-  // Com "plano" nos dados o aluno compra direto, com a condição de aluno (R$ 100 off, perene). O whats vira o
+  // Com "plano" nos dados o aluno compra direto, com a condição de aluno (R$ 200 off, perene). O whats vira o
   // caminho de quem quer conversar antes.
   // "bonus" (opcional, hoje NÃO existe nos dados) é o encaixe pra uma promoção com prazo: selo, frase e "ate".
   // Passou da data de "ate", some sozinho, pra o app nunca prometer o que a planilha não vai dar. Foi usado um
