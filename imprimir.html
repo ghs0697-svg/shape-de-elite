@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<!-- página A4 (210 mm, uns 800 px): no celular ela aparece inteira, reduzida, como o PDF vai sair -->
+<meta name="viewport" content="width=840">
+<meta name="robots" content="noindex">
+<title>Shape de Elite · PDF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<!--
+  PDF do aluno (revisão 11/2026). Os PDFs fixos não davam conta do mês do bloco, do nível e das trocas de exercício:
+  o app manda aqui, no endereço (#...), o que está na tela dele, e esta página monta as folhas com a mesma cara dos
+  PDFs antigos (app-tools/gen_treinos_html.mjs, gen_dietas_html.mjs, gen_suplementos_html.mjs). "Salvar em PDF"
+  abre a impressão do aparelho, que salva em PDF. Só em português, como os PDFs antigos (botões so-brasil no app).
+    #{"tipo":"treino", titulo, sub, aviso, dias:[{nome, resumo, exercicios:[{exercicio, series, reps, intervalo, obs, video_url, original}]}], extras}
+    #{"tipo":"dieta", key, nome, objetivo, whey}       lê data/dietas.json
+    #{"tipo":"supl", objetivo, sexo, idade}            lê data/suplementos.json, filtra como a aba do app
+-->
+<style>
+  @page { size: 210mm 297mm; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --bg:#0A0A0A; --bg2:#120C0C; --card:#1A1414; --border:#2C2222; --border-hi:#3A2A2A;
+    --tx:#F5F3F3; --dim:#A09898; --mute:#5E5656;
+    --red:#B91C1C; --red-hi:#E63535; --red-soft:rgba(185,28,28,.12); --red-bd:rgba(185,28,28,.38); --gold:#F5C542; }
+  html, body { background: #000; }
+  body { font-family:'Inter',-apple-system,sans-serif; color:var(--tx); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  a { color: inherit; text-decoration: none; }
+
+  .barra { position: sticky; top: 0; z-index: 5; display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;
+    padding: 12px 16px; background: rgba(10,10,10,.96); border-bottom: 1px solid var(--border-hi); }
+  .barra button { font: inherit; font-size: 16px; font-weight: 800; border: none; border-radius: 10px; padding: 14px 22px; cursor: pointer; }
+  .barra .salva { background: var(--red); color: #fff; }
+  .barra .volta { background: var(--card); color: var(--tx); border: 1px solid var(--border-hi); }
+  .barra .dica { width: 100%; text-align: center; font-size: 13px; color: var(--dim); }
+  .folhas { width: 210mm; margin: 0 auto; }
+  .erro { max-width: 640px; margin: 60px auto; padding: 24px; font-size: 17px; line-height: 1.5; color: var(--dim); text-align: center; }
+  @media print { .barra { display: none; } html, body { background: var(--bg); } }
+
+  .page { width:210mm; height:296mm; page-break-after:always; position:relative; overflow:hidden;
+    background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(185,28,28,.14) 0%, transparent 60%),
+      linear-gradient(180deg, var(--bg2) 0%, var(--bg) 55%);
+    padding:16mm 16mm 20mm; display:flex; flex-direction:column; }
+  @media screen { .page { margin: 0 auto 6mm; } }
+  .page:last-child { page-break-after:auto; }
+  .page::before { content:''; position:absolute; top:0; left:0; right:0; height:1.2mm;
+    background:linear-gradient(90deg, transparent, var(--red) 30% 70%, transparent); opacity:.8; }
+  .brand { position:absolute; bottom:8mm; left:16mm; right:16mm; display:flex; justify-content:space-between;
+    font-size:8.5pt; color:var(--mute); font-weight:700; letter-spacing:.8px; }
+  .brand b { color:var(--red-hi); }
+  .kick { display:inline-block; font-size:9pt; font-weight:800; letter-spacing:2.5px; color:var(--red-hi);
+    text-transform:uppercase; border:1px solid var(--red-bd); background:var(--red-soft);
+    border-radius:6px; padding:2mm 4.5mm; margin-bottom:7mm; width:fit-content; }
+  h1 { font-size:34pt; font-weight:900; line-height:1.02; text-transform:uppercase; letter-spacing:-.5px; }
+  h1 span { color:var(--red-hi); }
+  .fase { display:inline-block; margin-top:4mm; font-size:11pt; font-weight:900; color:var(--gold); letter-spacing:1.5px; text-transform:uppercase; }
+  .rule { width:42mm; height:1.6mm; background:var(--red); border-radius:2mm; margin:7mm 0; }
+  .sub { font-size:12pt; color:var(--dim); line-height:1.5; max-width:158mm; }
+  .semana { margin-top:8mm; background:var(--card); border:1px solid var(--border-hi);
+    border-left:2mm solid var(--red); border-radius:4mm; padding:6mm 7mm; max-width:168mm; }
+  .semana .t { font-size:10.5pt; font-weight:900; letter-spacing:1.6px; color:var(--gold); text-transform:uppercase; margin-bottom:4mm; }
+  .sem-row { display:flex; gap:5mm; padding:2.6mm 0; border-bottom:1px solid var(--border); font-size:10.5pt; line-height:1.4; }
+  .sem-row:last-child { border-bottom:none; }
+  .sem-d { flex:0 0 14mm; font-weight:900; color:var(--red-hi); }
+  .sem-nota { font-size:9pt; color:var(--dim); margin-top:4mm; line-height:1.5; }
+
+  .dia-kick, .ref-kick { font-size:9pt; font-weight:800; letter-spacing:2.2px; color:var(--gold); text-transform:uppercase; margin-bottom:2mm; }
+  h2 { font-size:22pt; font-weight:900; text-transform:uppercase; line-height:1.05; margin-bottom:1.5mm; }
+  h2 span { color:var(--red-hi); }
+  .dia-sub, .ref-note { font-size:10pt; color:var(--dim); font-weight:600; margin-bottom:6mm; }
+  .tbl { background:var(--card); border:1px solid var(--border-hi); border-radius:4mm; padding:5mm 6mm; }
+  table { width:100%; border-collapse:collapse; }
+  th { font-size:7.5pt; font-weight:800; letter-spacing:1.4px; color:var(--mute); text-transform:uppercase;
+    text-align:left; padding:0 2.5mm 2.4mm 0; border-bottom:1px solid var(--border); }
+  th.c, td.c { text-align:center; }
+  td { font-size:10pt; padding:2.6mm 2.5mm 2.6mm 0; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.3; }
+  tr:last-child td { border-bottom:none; }
+  td.ex { font-weight:700; width:40%; }
+  td.ex .play { color:var(--red-hi); font-size:8pt; margin-right:1.5mm; }
+  td.ex .orig { display:block; font-size:8pt; font-weight:600; color:var(--mute); margin-top:.8mm; }
+  td.ser { font-weight:800; color:var(--red-hi); width:10%; white-space:nowrap; }
+  td.rep { width:16%; }
+  td.itv { color:var(--dim); width:12%; }
+  td.obs { color:var(--dim); font-size:8.6pt; }
+  .video-hint { font-size:8.5pt; color:var(--mute); margin-top:3.5mm; }
+
+  .box { background:var(--card); border:1px solid var(--border-hi); border-left:2mm solid var(--red);
+    border-radius:4mm; padding:6mm 7mm; margin-bottom:5mm; }
+  .box .bt { font-size:10.5pt; font-weight:900; letter-spacing:1.6px; color:var(--gold); text-transform:uppercase; margin-bottom:3mm; }
+  .box .sh { font-size:9.5pt; font-weight:900; letter-spacing:1.2px; color:var(--red-hi); text-transform:uppercase; margin:3.5mm 0 2mm; }
+  .box p { font-size:9.8pt; line-height:1.5; margin-bottom:1.6mm; }
+  .box ul { list-style:none; }
+  .box li { font-size:9.8pt; line-height:1.5; padding-left:5mm; position:relative; margin-bottom:1.6mm; }
+  .box li::before { content:''; position:absolute; left:0; top:2mm; width:1.8mm; height:1.8mm; background:var(--red-hi); border-radius:50%; }
+
+  .opt { background:var(--card); border:1px solid var(--border-hi); border-radius:4mm; padding:5mm 5.5mm; margin-bottom:4.5mm; }
+  .opt-title { font-size:10.5pt; font-weight:900; color:var(--red-hi); text-transform:uppercase; letter-spacing:.8px; margin-bottom:3.5mm; }
+  td.ali { font-weight:700; width:34%; }
+  td.qtd { font-weight:800; color:var(--red-hi); width:22%; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:4.5mm; align-items:start; }
+  .grid2 .opt { margin-bottom:0; min-width:0; }
+  .grid2 td { font-size:9pt; }
+  .grid2 td.obs { font-size:8.2pt; }
+  .macros { display:grid; grid-template-columns:repeat(4, 1fr); gap:3.5mm; margin-top:1.5mm; }
+  .macro { background:var(--bg); border:1px solid var(--border); border-radius:3mm; padding:3mm 4mm; }
+  .macro .k { font-size:7.5pt; font-weight:800; letter-spacing:1.2px; color:var(--mute); text-transform:uppercase; margin-bottom:1.2mm; }
+  .macro .v { font-size:12pt; font-weight:900; }
+  .macro.cal .v { color:var(--red-hi); }
+  .ref-macros { margin-top:3mm; }
+  .ref-macros-t { font-size:8pt; font-weight:700; letter-spacing:.4px; text-transform:uppercase; color:var(--dim); }
+  .total { background:var(--card); border:1px solid var(--red-bd); border-radius:4mm; padding:6mm; margin-top:6mm; }
+  .total .t { font-size:12pt; font-weight:900; text-transform:uppercase; color:var(--red-hi); margin-bottom:2mm; letter-spacing:1px; }
+
+  .pote { background:var(--card); border:1px solid var(--border-hi); border-radius:4.5mm; padding:6mm 7mm; margin-bottom:6mm; }
+  .pote-head { display:flex; align-items:center; gap:5mm; margin-bottom:4mm; }
+  .pote-ic { font-size:20pt; width:14mm; height:14mm; background:var(--red-soft); border:1px solid var(--red-bd); border-radius:3.5mm; display:flex; align-items:center; justify-content:center; }
+  .pote-nome { font-size:15pt; font-weight:900; line-height:1.1; }
+  .chips { display:grid; grid-template-columns:1fr 1fr; gap:4mm; margin-bottom:4mm; }
+  .chip { background:var(--bg); border:1px solid var(--border); border-radius:3mm; padding:3.5mm 5mm; }
+  .chip-k { font-size:8pt; font-weight:800; letter-spacing:1.5px; color:var(--mute); text-transform:uppercase; margin-bottom:1.5mm; }
+  .chip-v { font-size:11pt; font-weight:800; color:var(--red-hi); }
+  .sec { margin-top:3mm; }
+  .sec-k { font-size:8.5pt; font-weight:800; letter-spacing:1.8px; color:var(--dim); text-transform:uppercase; margin-bottom:1.5mm; }
+  .sec-v { font-size:10pt; line-height:1.5; }
+  .sec.warn .sec-k { color:var(--gold); }
+  .sec.warn .sec-v { color:#E8DFC8; }
+</style>
+</head>
+<body>
+<div class="barra">
+  <button type="button" class="salva" onclick="window.print()">📥 Salvar em PDF</button>
+  <button type="button" class="volta" onclick="volta()">Voltar ao app</button>
+  <div class="dica">No iPhone, se a tela de salvar não abrir: toca em Compartilhar e depois em Imprimir. Lá dentro, Salvar em Arquivos.</div>
+</div>
+<div class="folhas" id="folhas"></div>
+<script>
+'use strict';
+var V = '86';
+var esc = function (t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+var semTraco = function (t) { return String(t == null ? '' : t).replace(/\s*[\u2014\u2013]\s*/g, ', '); };
+var brand = '<div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>';
+var folha = function (miolo) { return '<div class="page">' + miolo + brand + '</div>'; };
+function volta() { if (history.length > 1) history.back(); else { try { window.close(); } catch (e) {} location.href = './'; } }
+function erro(msg) { document.getElementById('folhas').innerHTML = '<div class="erro">' + esc(msg) + '</div>'; }
+
+// texto com linhas "•" vira lista, linha MAIÚSCULA curta vira subtítulo (igual aos PDFs antigos)
+function corpo(txt) {
+  var out = '', aberta = false;
+  semTraco(txt).split('\n').map(function (l) { return l.trim(); }).filter(Boolean).forEach(function (l) {
+    if (l.charAt(0) === '•') { if (!aberta) { out += '<ul>'; aberta = true; } out += '<li>' + esc(l.replace(/^•\s*/, '')) + '</li>'; return; }
+    if (aberta) { out += '</ul>'; aberta = false; }
+    if (l === l.toUpperCase() && l.length < 60 && /[A-ZÁÉÍÓÚÇ]/.test(l)) out += '<div class="sh">' + esc(l.replace(/:$/, '')) + '</div>';
+    else out += '<p>' + esc(l) + '</p>';
+  });
+  return out + (aberta ? '</ul>' : '');
+}
+// blocos separados por linha em branco, o primeiro de cada um como título (orientações da dieta)
+function caixas(txt) {
+  return String(txt || '').split(/\n\s*\n/).map(function (b) {
+    var linhas = b.trim().split('\n'); if (!linhas[0]) return '';
+    var titulo = linhas[0].trim().charAt(0) !== '•' ? linhas.shift().trim().replace(/:$/, '') : '';
+    return '<div class="box">' + (titulo ? '<div class="bt">' + esc(titulo) + '</div>' : '') + corpo(linhas.join('\n')) + '</div>';
+  }).join('');
+}
+
+// ─── TREINO ───
+// cabe numa folha uns 9 exercícios com observação; dia maior quebra em duas
+function treino(d) {
+  var dias = d.dias || [];
+  var capa = '<div class="kick">Shape de Elite · Protocolo de Treino</div>'
+    + '<h1>' + esc(d.titulo) + '</h1>'
+    + '<div class="fase">' + esc(d.sub) + '</div><div class="rule"></div>'
+    + '<p class="sub">Roda os dias na ordem, anota a carga da última série de cada exercício e respeita os descansos. O treino muda a cada 30 dias: no 2º mês do bloco mais pesado, no 3º mais volume, e a cada 3 meses um treino novo.</p>'
+    + (d.aviso ? '<div class="semana"><div class="t">Este mês</div><div class="sem-nota" style="margin-top:0;color:var(--tx);font-size:10.5pt;">' + esc(semTraco(d.aviso)) + '</div></div>' : '')
+    + '<div class="semana"><div class="t">Ordem da semana</div>'
+    + dias.map(function (x, i) { return '<div class="sem-row"><div class="sem-d">D' + (i + 1) + '</div><div>' + esc(x.resumo || x.nome) + '</div></div>'; }).join('')
+    + '<div class="sem-nota">Toca no nome de qualquer exercício pra abrir o vídeo de execução.</div></div>';
+  var paginas = [folha(capa)];
+  dias.forEach(function (x, i) {
+    var exs = x.exercicios || [], temObs = exs.some(function (e) { return e.obs; });
+    var partes = exs.length > 9 ? [exs.slice(0, Math.ceil(exs.length / 2)), exs.slice(Math.ceil(exs.length / 2))] : [exs];
+    partes.forEach(function (lista, pi) {
+      paginas.push(folha('<div class="dia-kick">' + esc(d.titulo) + ' · ' + esc(d.sub) + '</div>'
+        + '<h2>' + esc(x.nome) + (x.resumo ? '<span> · ' + esc(x.resumo) + '</span>' : '') + (partes.length > 1 ? ' <span>(' + (pi + 1) + '/2)</span>' : '') + '</h2>'
+        + '<div class="dia-sub">' + exs.length + ' exercícios · toca no nome do exercício pra abrir o vídeo</div>'
+        + '<div class="tbl"><table><tr><th>Exercício</th><th class="c">Séries</th><th>Repetições</th><th>Descanso</th>' + (temObs ? '<th>Como fazer</th>' : '') + '</tr>'
+        + lista.map(function (e) {
+          var nome = esc(e.exercicio), url = e.video_url;
+          return '<tr><td class="ex">' + (url ? '<a href="' + esc(url) + '"><span class="play">▶</span>' + nome + '</a>' : nome)
+            + (e.original ? '<span class="orig">no lugar de ' + esc(e.original) + '</span>' : '') + '</td>'
+            + '<td class="ser c">' + esc(e.series) + '</td><td class="rep">' + esc(e.reps) + '</td><td class="itv">' + esc(e.intervalo) + '</td>'
+            + (temObs ? '<td class="obs">' + esc(semTraco(e.obs)) + '</td>' : '') + '</tr>';
+        }).join('') + '</table></div>'
+        + '<div class="video-hint">Primeira série do primeiro exercício de cada grupo sempre leve: é o teu aquecimento.</div>'));
+    });
+  });
+  if (d.extras && d.extras.length) {
+    paginas.push(folha('<div class="dia-kick">Leitura obrigatória</div><h2>Como executar <span>cada série</span></h2><div class="dia-sub"></div>'
+      + d.extras.map(function (x) { return '<div class="box"><div class="bt">' + esc(x.titulo) + '</div>' + corpo(x.conteudo) + '</div>'; }).join('')));
+  }
+  document.title = d.titulo + ' · ' + d.sub + ' · Shape de Elite';
+  return paginas.join('');
+}
+
+// ─── DIETA ───
+function barra(m) {
+  if (!m) return '';
+  return '<div class="macros">' + m.split('|').map(function (p) {
+    var kv = p.split(':'), k = (kv[0] || '').trim(), v = (kv.slice(1).join(':') || '').trim();
+    return '<div class="macro' + (/calorias/i.test(k) ? ' cal' : '') + '"><div class="k">' + esc(k.replace(/ Total/i, '')) + '</div><div class="v">' + esc(v) + '</div></div>';
+  }).join('') + '</div>';
+}
+var semObs = function (o) { return !o || /^[-\s]*$/.test(o); };
+function tabela(als) {
+  return '<table><tr><th style="width:34%">Alimento</th><th style="width:22%">Quantidade</th><th>Observação</th></tr>'
+    + als.map(function (a) { return '<tr><td class="ali">' + esc(a.alimento) + '</td><td class="qtd">' + esc(a.quantidade) + '</td><td class="obs">' + esc(semObs(a.obs) ? '' : a.obs) + '</td></tr>'; }).join('') + '</table>';
+}
+function cabecalho(nome) {
+  var m = String(nome).match(/^(.*?REFEIÇÃO)\s*:\s*([^(]+)(\(.*\))?$/i);
+  if (!m) return '<h2>' + esc(nome) + '</h2><div class="ref-note"></div>';
+  return '<div class="ref-kick">' + esc(m[1]) + '</div><h2>' + esc(m[2].trim()) + '</h2><div class="ref-note">' + (m[3] ? esc(m[3].replace(/[()]/g, '')) : '') + '</div>';
+}
+function dieta(p, D) {
+  var d = D[p.key];
+  if (!d) return null;
+  var refs = d.refeicoes || [], nRef = refs.length + ' refeições';
+  var letra = d.cardapio || 'A', cardio = d.cardio && p.objetivo ? d.cardio[p.objetivo] : null;
+  var capa = '<div class="kick">Shape de Elite · Protocolo Alimentar</div>'
+    + '<h1>' + esc(p.nome || 'Dieta') + '</h1>'
+    + '<div class="fase">Cardápio ' + esc(letra) + ' · ' + nRef + '</div><div class="rule"></div>'
+    + '<p class="sub">' + esc(d.kcal) + ' kcal por dia em ' + nRef + '. Escolhe entre as opções de cada refeição: elas têm as mesmas calorias. Hidratação: 3 a 5 litros de água por dia. Todo mês o cardápio troca e as calorias são recalculadas pelo teu peso.</p>'
+    + '<div style="margin-top:8mm;"><div class="box"><div class="bt">Regras gerais</div>' + corpo(d.regras_gerais) + '</div>'
+    + (cardio ? '<div class="box"><div class="bt">Cardio · ' + esc(cardio.frequencia) + ' · ' + esc(cardio.duracao) + '</div><p>' + esc(cardio.detalhe) + '</p></div>' : '')
+    + (p.whey ? '<div class="box"><div class="bt">Whey a mais</div><p>Pro teu peso, a proteína desta dieta fica um pouco curta. Toma 1 dose de whey (30 g) a mais por dia, num lanche ou depois do treino, além do que já está no cardápio.</p></div>' : '')
+    + '</div>';
+  var paginas = [folha(capa)];
+  refs.forEach(function (r, i) {
+    var numerada = /DESJEJUM|LANCHE/i.test(r.nome), grade = /LANCHE/i.test(r.nome);
+    var cartoes = r.opcoes.map(function (o, j) {
+      var t = (o.nome || (numerada ? 'Opção ' + (j + 1) : '')).replace(/:$/, '');
+      return '<div class="opt">' + (t ? '<div class="opt-title">' + esc(t) + '</div>' : '') + tabela(o.alimentos) + '</div>';
+    }).join('');
+    var mac = r.opcoes.map(function (o) { return o.macros; }).filter(Boolean)[0];
+    var ultima = i === refs.length - 1, tot = d.total_diario && d.total_diario.opcoes && d.total_diario.opcoes[0] && d.total_diario.opcoes[0].macros;
+    paginas.push(folha(cabecalho(r.nome) + (grade ? '<div class="grid2">' + cartoes + '</div>' : cartoes)
+      + (mac ? '<div class="ref-macros"><div class="ref-macros-t">' + (r.opcoes.length > 1 ? 'Macros da refeição, em qualquer opção' : 'Macros da refeição') + '</div>' + barra(mac) + '</div>' : '')
+      + (ultima && tot ? '<div class="total"><div class="t">Total do dia</div>' + barra(tot) + '</div>' : '')));
+  });
+  if (d.estilo_vida) paginas.push(folha('<div class="ref-kick">Pra dieta render</div><h2>Orientações de <span>estilo de vida</span></h2><div class="ref-note"></div>' + caixas(d.estilo_vida)));
+  if (d.alimentares) paginas.push(folha('<div class="ref-kick">Pra dieta render</div><h2>Orientações <span>alimentares</span></h2><div class="ref-note"></div>' + caixas(d.alimentares)));
+  document.title = (p.nome || 'Dieta') + ' · Cardápio ' + letra + ' · Shape de Elite';
+  return paginas.join('');
+}
+
+// ─── MANUAL DOS POTES ───
+function supl(p, S) {
+  var potes = S.potes.filter(function (x) {
+    var l = Array.isArray(x.objetivos) ? x.objetivos : (x.objetivo ? [x.objetivo] : ['todos']);
+    if (!(l.indexOf('todos') >= 0 || l.indexOf(p.objetivo) >= 0)) return false;
+    if (x.sexo === 'F' && p.sexo !== 'Mulher') return false;
+    if (x.idade_min && (Number(p.idade) || 0) < x.idade_min) return false;
+    return true;
+  });
+  var capa = '<div class="kick">Shape de Elite · Material Oficial</div>'
+    + '<h1>Manual <span>dos Potes</span></h1><div class="rule"></div>'
+    + '<p class="sub">' + esc(S.subtitulo) + '</p>'
+    + '<div class="semana"><div class="t">Antes de abrir o primeiro pote</div><div class="sem-nota" style="margin-top:0;color:var(--tx);font-size:11pt;">' + esc(semTraco(S.intro)) + '</div></div>'
+    + '<div class="semana"><div class="t">Os teus ' + potes.length + ' potes</div>'
+    + potes.map(function (x) { return '<div class="sem-row"><div class="sem-d">' + x.icone + '</div><div>' + esc(x.nome) + ' · ' + esc(x.dose) + '</div></div>'; }).join('') + '</div>';
+  var paginas = [folha(capa)];
+  for (var i = 0; i < potes.length; i += 3) {
+    paginas.push(folha(potes.slice(i, i + 3).map(function (x) {
+      return '<div class="pote"><div class="pote-head"><div class="pote-ic">' + x.icone + '</div><div class="pote-nome">' + esc(x.nome) + '</div></div>'
+        + '<div class="chips"><div class="chip"><div class="chip-k">Dose</div><div class="chip-v">' + esc(x.dose) + '</div></div><div class="chip"><div class="chip-k">Quando</div><div class="chip-v">' + esc(x.quando) + '</div></div></div>'
+        + '<div class="sec"><div class="sec-k">Pra quê</div><div class="sec-v">' + esc(semTraco(x.missao)) + '</div></div>'
+        + (x.dose_detalhe ? '<div class="sec"><div class="sec-k">Detalhe da dose</div><div class="sec-v">' + esc(semTraco(x.dose_detalhe)) + '</div></div>' : '')
+        + (x.cuidados ? '<div class="sec warn"><div class="sec-k">Cuidados</div><div class="sec-v">' + esc(semTraco(x.cuidados)) + '</div></div>' : '') + '</div>';
+    }).join('')));
+  }
+  if (S.rodape) paginas.push(folha('<h2>A regra <span>de ouro</span></h2><div class="ref-note"></div><div class="box"><div class="bt">Como comprar</div><p>' + esc(semTraco(S.rodape)) + '</p></div>'
+    + '<div class="box"><div class="bt">Como usar este manual</div><p>Suplemento é acelerador, não fundação. A base do teu resultado é a dieta e o treino do app. Segue as doses daqui, nos horários daqui, e deixa o resto do trabalho com o protocolo.</p></div>'));
+  document.title = 'Manual dos Potes · Shape de Elite';
+  return paginas.join('');
+}
+
+(function () {
+  var p;
+  try { p = JSON.parse(decodeURIComponent(location.hash.slice(1))); } catch (e) { p = null; }
+  if (!p || !p.tipo) { erro('Abre o PDF pelo app do Shape de Elite: o botão de baixar fica no treino, na dieta e nos suplementos.'); return; }
+  var el = document.getElementById('folhas');
+  if (p.tipo === 'treino') { el.innerHTML = treino(p); return; }
+  var arq = p.tipo === 'dieta' ? 'dietas' : 'suplementos';
+  fetch('data/' + arq + '.json?v=' + V).then(function (r) { return r.json(); }).then(function (D) {
+    var h = p.tipo === 'dieta' ? dieta(p, D) : supl(p, D);
+    if (!h) erro('Não achei essa dieta. Volta pro app e toca de novo em baixar.'); else el.innerHTML = h;
+  }).catch(function () { erro('Sem conexão pra montar o PDF agora. Tenta de novo com internet.'); });
+})();
+</script>
+</body>
+</html>

@@ -23,7 +23,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '85';
+  window.APP_LANG_V = '86';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -487,6 +487,17 @@
   .exercise-meta-item .label { font-size: 11px; color: var(--text-muted); letter-spacing: .8px; margin-bottom: 2px; }
   .exercise-meta-item .val { font-size: 13px; font-weight: 700; color: var(--text); }
   .exercise-obs { font-size: 12px; color: var(--text-dim); margin-top: 6px; line-height: 1.4; }
+  .troca-btn { margin-top: 8px; background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: 8px; padding: 6px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .troca-nota { font-size: 12px; color: var(--gold); margin-top: 6px; line-height: 1.4; }
+  .troca-op { display: flex; gap: 8px; align-items: stretch; margin-bottom: 8px; }
+  .troca-escolhe { flex: 1; text-align: left; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .troca-op.on .troca-escolhe { border-color: var(--red); background: var(--red-tint); }
+  .troca-video { background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: 10px; padding: 0 12px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .aviso-mes, .mes-liberado { margin-bottom: 10px; }
+  .mes-liberado { border-color: var(--red); }
+  .cardio-linha { font-size: 15px; margin: 8px 0 4px; }
+  .phase-bf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .phase-bf-grid .option { margin: 0; }
 
   /* ── Dieta renderer ── */
   .meal {
@@ -2037,6 +2048,16 @@
   </div>
 </div>
 
+<!-- Trocar exercício: até 5 do mesmo músculo, com vídeo (abaixo do vídeo, que abre por cima) -->
+<div class="install-modal" id="troca-modal" style="z-index:90;" onclick="if(event.target.id==='troca-modal')fechaTroca()">
+  <div class="install-modal-box" style="max-width:520px;max-height:88vh;overflow-y:auto;" onclick="event.stopPropagation()">
+    <h3 id="troca-titulo">Trocar exercício</h3>
+    <p class="hint" style="margin-bottom:14px;">A máquina está ocupada ou tu não tem esse aparelho? Escolhe outro do mesmo músculo. A troca vale até o teu próximo treino novo, e a carga de cada exercício fica guardada separada.</p>
+    <div id="troca-lista"></div>
+    <button class="btn ghost" onclick="fechaTroca()" style="margin-top:10px;">Fechar</button>
+  </div>
+</div>
+
 <!-- Timer modal, cronômetro de descanso entre séries -->
 <div class="timer-modal" id="timerModal" onclick="timerOnBg(event)">
   <div class="timer-modal-body" role="dialog" aria-modal="true" aria-label="Cronômetro de descanso" onclick="event.stopPropagation()">
@@ -2143,16 +2164,22 @@
 <div class="screen" id="phase-screen">
   <header class="brand">
     <div class="logo">SHAPE DE <span>ELITE</span></div>
-    <div class="subtitle">AVANÇAR DE FASE</div>
+    <div class="subtitle">MÊS NOVO</div>
   </header>
-  <h2 id="phase-title">Avançar pra Fase X.0</h2>
+  <h2 id="phase-title">Começar o mês novo</h2>
   <div class="alert-card visible" style="background:#2A1F0F;border-color:#8B6914;margin-bottom:14px;">
-    <div class="alert-title">⚠️ ANTES DE AVANÇAR</div>
-    <div class="alert-body">O método pede <strong>90 dias em cada fase</strong>. O corpo precisa desse tempo pra se adaptar: pular cedo demais não acelera o resultado, só atrapalha. Avançar <strong>não tem volta</strong> e trava o recálculo do protocolo.</div>
+    <div class="alert-title">📅 A CADA 30 DIAS</div>
+    <div class="alert-body" id="phase-alert-body">Teu protocolo muda todo mês. Começar o mês novo <strong>não tem volta</strong>.</div>
   </div>
-  <p class="hint" id="phase-hint">Confirma os dados abaixo e segue. Só o que aparece aqui vai ser alterado, o resto do teu protocolo continua igual.</p>
 
-  <div id="phase-days-section">
+  <h3 style="margin-bottom: 10px; font-size: 13px; color: var(--text-dim); letter-spacing: .5px;">TEU PESO HOJE (<span id="phase-peso-un">KG</span>)</h3>
+  <input type="number" inputmode="decimal" id="phase-peso" class="input" placeholder="ex.: 78,5" min="30" max="300" step="0.1" oninput="updatePhasePreview()" style="margin-bottom:6px;">
+  <p class="hint" style="margin-top:0;">Pesa de manhã, em jejum e depois do banheiro. A dieta do mês é calculada com esse peso.</p>
+
+  <h3 style="margin: 14px 0 10px; font-size: 13px; color: var(--text-dim); letter-spacing: .5px;">TUA GORDURA HOJE, MAIS OU MENOS</h3>
+  <div id="phase-bf-options" class="phase-bf-grid"></div>
+
+  <div id="phase-days-section" style="margin-top:14px;">
     <h3 style="margin-bottom: 10px; font-size: 13px; color: var(--text-dim); letter-spacing: .5px;">QUANTOS DIAS POR SEMANA?</h3>
     <div id="phase-days-options"></div>
   </div>
@@ -2163,7 +2190,7 @@
     <div class="phase-diff-row" id="pd-kcal-row"><span class="phase-diff-label">Calorias</span><span><span class="phase-diff-from" id="pd-kcal-from">...</span><span class="phase-diff-to" id="pd-kcal-to">...</span></span></div>
   </div>
 
-  <button type="button" class="btn" id="phase-confirm-btn" onclick="confirmPhaseUpgrade()" disabled style="opacity:.5;">Confirmar e avançar</button>
+  <button type="button" class="btn" id="phase-confirm-btn" onclick="confirmPhaseUpgrade()" disabled style="opacity:.5;">Começar o mês novo</button>
   <button type="button" class="btn ghost" id="phase-cancel-btn" onclick="showScreen('dash-screen')">← Cancelar</button>
 </div>
 
@@ -2217,7 +2244,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '85';
+const APP_V = '86';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2314,7 +2341,33 @@ function pedirGuardiao(de) {
   guardiaoRedesenha();
   window.open(link, '_blank', 'noopener');
 }
-const SUPL_PDF_URL = 'pdfs/suplementos.pdf'; // manual premium gerado de pdf-src/suplementos.html
+// PDF do aluno (revisão 11/2026): imprimir.html monta as folhas do que está na tela dele (no treino o mês, o nível e as
+// trocas; na dieta o cardápio do mês, o cardio e o whey a mais; os potes do sexo, idade e objetivo), e o aparelho salva
+// em PDF. Os PDFs fixos de pdfs/ eram do catálogo antigo e não davam conta disso.
+function pdfDados(tipo) {
+  const p = state.protocol || {};
+  if (tipo === 'treino') {
+    const tk = getTreinoKey(p), t = treinoEfetivo(tk);
+    if (!t) return null;
+    const fase = p.treinoPhase || '1.0';
+    return { tipo, titulo: String(p.workout || 'Treino').replace(/\s+\d\.\d$/, ''), sub: 'Fase ' + fase + ' · mês ' + (mesDoBloco(fase) + 1) + ' de 3 · ' + t.dias.length + 'x por semana',
+      aviso: t.aviso_fase || '', extras: t.extras || [],
+      dias: t.dias.map(d => ({ nome: d.nome, resumo: resumoDoDia(d), exercicios: d.exercicios.map(e => ({ exercicio: e.exercicio, series: e.series, reps: e.reps, intervalo: e.intervalo,
+        obs: e.obs || '', original: e.original || '', video_url: e.video_url || (state.videoMap && state.videoMap[e.video_key]) || '' })) })) };
+  }
+  if (tipo === 'dieta') {
+    const key = getDietKey(p), d = state.dietaData && state.dietaData[key], tot = d && dietTotals(d);
+    return d ? { tipo, key, nome: p.diet, objetivo: p.goal, whey: tot ? wheyExtra(Number(p.weight), Number(p.age), tot.p) : 0 } : null;
+  }
+  return { tipo: 'supl', objetivo: p.goal || '', sexo: p.sex || '', idade: Number(p.age) || 0 };
+}
+function abrePdf(tipo) {
+  const d = pdfDados(tipo);
+  if (!d) return;
+  const url = 'imprimir.html#' + encodeURIComponent(JSON.stringify(d));
+  const w = window.open(url, '_blank');
+  if (w) w.opener = null; else location.href = url; // bloqueado: abre no lugar, a página tem o botão de voltar
+}
 
 // ═══════════════════════════════════════════════════════════
 // STATE
@@ -2780,13 +2833,12 @@ function openSettings() {
   const p = state.protocol;
   if (!p) return;
   const tp = p.treinoPhase || p.phase || '1.0';
-  const dp = p.dietaPhase || p.phase || '1.0';
   document.getElementById('settings-profile').innerHTML =
     `<strong>${escapeHtml(state.user?.email || '')}</strong><br>` +
     `${escapeHtml(p.sex)} · ${escapeHtml(p.age)} anos · ${unPeso(p.weight)} · ${unAltura(p.height)}<br>` +
     `${escapeHtml(p.activity)} · ${escapeHtml(p.bf)} · ${escapeHtml(p.goal)}<br>` +
-    `<span style="color:var(--red-text);font-weight:700;">Treino Fase ${escapeHtml(tp)}</span> · ${escapeHtml(p.workout)}<br>` +
-    `<span style="color:var(--red-text);font-weight:700;">Dieta Fase ${escapeHtml(dp)}</span> · ${escapeHtml(p.diet)}`;
+    `<span style="color:var(--red-text);font-weight:700;">Mês ${MESES_TREINO.indexOf(tp) + 1 || 1} · Fase ${escapeHtml(tp)}</span> · ${escapeHtml(p.workout)}<br>` +
+    `<span style="color:var(--red-text);font-weight:700;">Dieta</span> · ${escapeHtml(p.diet)} · cardápio ${letraDoCardapio(p)}`;
   const inst = document.getElementById('settings-install');
   if (inst) inst.classList.toggle('hidden', appInstalado());
   document.getElementById('settings-idioma').innerHTML = idiomaHtml() + (soBrasil() ? '' :
@@ -3029,26 +3081,13 @@ async function calculate() {
 }
 const kcalTxt = n => Math.round(n).toLocaleString(LOCALE);
 async function calculateAgora() {
-  // TMB Mifflin-St Jeor
-  let tmb = onboard.sex === 'Homem'
-    ? (10 * onboard.weight) + (6.25 * onboard.height) - (5 * onboard.age) + 5
-    : (10 * onboard.weight) + (6.25 * onboard.height) - (5 * onboard.age) - 161;
-  tmb = Math.round(tmb);
-  const maintenance = Math.round(tmb * onboard.activityFactor);
-  const target = maintenance - onboard.bfAdjust + onboard.goalAdjust;
-
-  // Direcionamento dieta (mesma régua da calc)
-  let diet;
-  if (target < 1400) diet = 'DIETA 1.3K';
-  else if (target < 1600) diet = 'DIETA 1.5K';
-  else if (target < 1900) diet = 'DIETA 1.8K';
-  else if (target < 2100) diet = 'DIETA 2K';
-  else if (target < 2350) diet = 'DIETA 2.2K';
-  else if (target < 2600) diet = 'DIETA 2.5K';
-  else if (target < 2850) diet = 'DIETA 2.7K';
-  else if (target < 3100) diet = 'DIETA 3K';
-  else if (target < 3350) diet = 'DIETA 3.2K';
-  else diet = 'DIETA 3.5K';
+  // Régua da consultoria (revisão 11/2026): fator um nível abaixo do declarado, ajuste por objetivo x gordura,
+  // déficit de no máximo 25%, piso de 2.000 pro homem. Conta em metaKcal (mesma da API na virada do mês).
+  const calc = metaKcal({ sexo: onboard.sex, idade: onboard.age, peso: onboard.weight, altura: onboard.height, fator: onboard.activityFactor, bfIdx: bfIdxDe(onboard.bf), objetivo: onboard.goal });
+  const tmb = calc.tmb;
+  const maintenance = calc.get;
+  const target = calc.meta;
+  const diet = 'DIETA ' + calc.dieta;
 
   // Nome do treino: com prioridade = "TREINO PEITO 4X 1.0"; sem = padrão antigo "TREINO FEM 4X 1.0"
   const femSuffix = onboard.sex === 'Mulher' ? ' FEM' : '';
@@ -3075,19 +3114,19 @@ async function calculateAgora() {
   document.getElementById('r-tmb').textContent = kcalTxt(tmb);
   document.getElementById('r-maint').textContent = kcalTxt(maintenance);
   document.getElementById('r-target').textContent = kcalTxt(kcalDieta) + ' kcal';
-  const partes = [];
-  if (onboard.bfAdjust > 0) partes.push('menos ' + onboard.bfAdjust + ' kcal pelo percentual de gordura (' + onboard.bf + ')');
-  if (onboard.goalAdjust < 0) partes.push('menos ' + Math.abs(onboard.goalAdjust) + ' kcal pra ' + onboard.goal.toLowerCase());
-  else if (onboard.goalAdjust > 0) partes.push('mais ' + onboard.goalAdjust + ' kcal pra ' + onboard.goal.toLowerCase());
-  let conta = 'Tua conta deu ' + kcalTxt(target) + ' kcal' + (partes.length ? ': manutenção, ' + partes.join(', ') + '. ' : ', igual à manutenção. ');
-  if (target < 1300) conta += 'A menor dieta do método é a de 1.300 kcal, e é ela que tu vai seguir.';
-  else if (target > 3600) conta += 'A maior dieta do método é a de 3.500 kcal, e é ela que tu vai seguir.';
-  else conta += 'A dieta do método mais próxima é a de ' + kcalTxt(kcalDieta) + ' kcal.';
+  // a manutenção que aparece já é a do fator um nível abaixo do declarado: quase todo mundo se acha mais ativo do que é
+  let conta = 'Tua manutenção deu ' + kcalTxt(maintenance) + ' kcal, contando teu dia um pouco mais parado do que tu marcou (quase todo mundo se acha mais ativo do que é). ';
+  const aj = calc.ajuste, objTxt = onboard.goal.toLowerCase();
+  if (calc.motivo.includes('piso')) conta += 'Pra ' + objTxt + ', a conta desceria mais, mas homem não come menos de 2.000 kcal no método: ficou em ' + kcalTxt(target) + ' kcal. ';
+  else if (calc.motivo.length) conta += 'Pra ' + objTxt + ' com teu gasto, o desconto ficou menor pra dieta não ficar pequena demais: ' + kcalTxt(target) + ' kcal. ';
+  else if (aj < 0) conta += 'Pra ' + objTxt + ' com ' + onboard.bf + ' de gordura: menos ' + Math.abs(aj) + ' kcal, ' + kcalTxt(target) + ' kcal. ';
+  else if (aj > 0) conta += 'Pra ' + objTxt + ' com ' + onboard.bf + ' de gordura: mais ' + aj + ' kcal, ' + kcalTxt(target) + ' kcal. ';
+  else conta += 'Pra ' + objTxt + ' com ' + onboard.bf + ' de gordura, tu come a manutenção. ';
+  conta += 'A dieta do método nessa faixa é a de ' + kcalTxt(kcalDieta) + ' kcal. Todo mês tu manda teu peso e ela é recalculada.';
   document.getElementById('r-adjusts').textContent = conta;
   document.getElementById('r-diet').textContent = diet + ({ '3R': ' · 3 refeições', '4R': ' · 4 refeições', '5R': ' · 5 refeições' }[onboard.refeicoes] || '');
   document.getElementById('r-workout').textContent = workout;
-  document.getElementById('r-workout-sub').textContent = 'Teu treino completo tá na aba TREINO. Começa na fase 1.0 e troca a cada 90 dias: são ' + (isPrio ? '4' : '3') + ' fases.'
-    + (onboard.level && onboard.level !== 'iniciante' ? ' Como tu já treina, dá pra avançar de fase antes disso.' : '');
+  document.getElementById('r-workout-sub').textContent = 'Teu treino completo tá na aba TREINO. A cada 30 dias ele muda: no 2º e no 3º mês, os mesmos exercícios com outra forma de treinar, e a cada 3 meses um treino novo. A dieta muda junto, todo mês.';
   document.getElementById('r-prot').textContent = protein;
   document.getElementById('r-carb').textContent = carb;
   document.getElementById('r-fat').textContent = fat;
@@ -3097,14 +3136,14 @@ async function calculateAgora() {
   const alertTitle = document.getElementById('r-alert-title');
   const alertBody = document.getElementById('r-alert-body');
   let showAlert = false;
-  if (onboard.bf === '25% ou mais' && onboard.goal === 'Ganhar massa') {
+  if (onboard.goal === 'Ganhar massa' && (onboard.bf === '25% ou mais' || onboard.bf === 'cerca de 20%')) {
     showAlert = true;
-    alertTitle.textContent = 'RECOMPOSIÇÃO CORPORAL';
-    alertBody.textContent = 'Tu escolheu 25% ou mais de gordura e "ganhar massa". Em vez de um ganho de peso agressivo, vou priorizar recomposição: treino pesado e caloria de manutenção. Tu vai ganhar músculo enquanto a gordura cai um pouco. É mais sustentável nesse nível.';
+    alertTitle.textContent = 'PRIMEIRO A GENTE SECA';
+    alertBody.textContent = 'Tu marcou "ganhar massa" com ' + onboard.bf + ' de gordura. Comer acima da manutenção agora vira mais gordura do que músculo. Por isso tua dieta começa um pouco abaixo da manutenção, com treino pesado: a gordura cai e o músculo continua vindo. Conforme tu seca, a dieta sobe de novo no recálculo do mês.';
   } else if (onboard.bf === '10% ou menos' && onboard.goal === 'Emagrecer') {
     showAlert = true;
-    alertTitle.textContent = 'CUIDADO COM DÉFICIT AGRESSIVO';
-    alertBody.textContent = 'Teu percentual de gordura já é baixo (10% ou menos). Um déficit de 500 kcal nesse nível pode comprometer massa muscular. Se perder peso rápido demais, sobe de 100 a 200 kcal. Prioriza proteína e sono.';
+    alertTitle.textContent = 'DÉFICIT LEVE';
+    alertBody.textContent = 'Teu percentual de gordura já é baixo (10% ou menos), então o desconto é pequeno, pra não perder músculo. Prioriza proteína e sono. No recálculo do mês a dieta acompanha teu peso.';
   }
   alertEl.classList.toggle('visible', showAlert);
 
@@ -3209,8 +3248,9 @@ function loadData() {
   };
   _loadDataP = Promise.all([
     pega('treinos.json'), pega('dietas.json'), pega('exercise-videos.json'),
-    pega('suplementos.json'), pega('aulas.json'), pega('upsell.json', true)
-  ]).then(([treinos, dietas, videos, suplementos, aulas, upsell]) => {
+    pega('suplementos.json'), pega('aulas.json'), pega('upsell.json', true), pega('trocas.json', true)
+  ]).then(([treinos, dietas, videos, suplementos, aulas, upsell, trocas]) => {
+    state.trocasData = trocas || {};
     state.dietaData = dietas;
     state.videoMap = videos;
     state.suplData = suplementos;
@@ -3905,13 +3945,18 @@ const FTW_SUPLEMENTOS = [
 // FOTOS DE PROGRESSO (4 ângulos por FASE do protocolo, igual Peitão)
 // Local no aparelho (IndexedDB); backup no Drive via /api/fotos quando configurado.
 // ═══════════════════════════════════════════════════════════
-// TREINO: 4 blocos de 90 dias no ano (1.0 → 2.0 → 3.0 → 4.0).
-// DIETA: segue em 3 fases (decisão do GH: o degrau de kcal não acompanha o trimestre).
+// Alteração a cada 30 dias (GH 03/11/2026, revisão da Criador, Sala #4161). O TREINO tem blocos de 3 meses
+// (1.0 → 2.0 → 3.0 → 4.0, a chave do treinos.json), e cada bloco tem 3 meses com os mesmos exercícios: x.0, x.1 (força)
+// e x.2 (volume), aplicados por cima do bloco pela periodização. A DIETA anda junto: todo mês o aluno manda o peso,
+// a faixa é recalculada e o cardápio troca (A no x.0, B no x.1, C no x.2).
 const PHASES_TREINO = ['1.0', '2.0', '3.0', '4.0'];
-const PHASES_DIETA = ['1.0', '2.0', '3.0'];
+const MESES_TREINO = PHASES_TREINO.flatMap(b => [b, b.replace(/\.0$/, '.1'), b.replace(/\.0$/, '.2')]);
+const MES_DIAS = 30;
+function blocoDe(f) { return String(f || '1.0').split('.')[0] + '.0'; }
+function mesDoBloco(f) { return Math.min(2, +String(f || '1.0').split('.')[1] || 0); }
 
 const FOTO_ANGLES = [{ k: 'frente', l: 'Frente' }, { k: 'costas', l: 'Costas' }, { k: 'ladoD', l: 'Lado D' }, { k: 'ladoE', l: 'Lado E' }];
-const FOTO_FASES = PHASES_TREINO; // 4 registros no ano, um por bloco de 90 dias
+const FOTO_FASES = PHASES_TREINO; // 4 registros no ano, um por treino novo (bloco de 3 meses)
 let _fdb = null;
 function fotosDB() {
   return new Promise((res, rej) => {
@@ -3938,7 +3983,7 @@ async function fotoOp(modo, fn, padrao) {
   }
   return padrao;
 }
-function fotoFase() { return state.fotoFase || state.protocol?.treinoPhase || '1.0'; }
+function fotoFase() { return state.fotoFase || blocoDe(state.protocol?.treinoPhase); }
 function setFotoFase(f) {
   state.fotoFase = f;
   const card = document.getElementById('foto-card'); // troca só o quadro das fotos: redesenhar o treino inteiro fechava o que estava aberto
@@ -4067,7 +4112,7 @@ function fotosSecHtml() {
   return `
     <div class="foto-card" id="foto-card">
       <div class="foto-sec-title">📸 Fotos de progresso</div>
-      <div class="foto-sec-sub">Registra os 4 ângulos no começo de cada fase (a cada 90 dias, quando o treino troca). Mesma roupa, mesma luz, mesmo lugar: é assim que a evolução aparece.</div>
+      <div class="foto-sec-sub">Registra os 4 ângulos no começo de cada treino novo (a cada 3 meses, quando os exercícios trocam). Mesma roupa, mesma luz, mesmo lugar: é assim que a evolução aparece.</div>
       <div class="foto-fases">${FOTO_FASES.map(x => `<button type="button" class="foto-fase-chip${x === f ? ' on' : ''}" aria-pressed="${x === f ? 'true' : 'false'}" onclick="setFotoFase('${x}')">Fase ${x}</button>`).join('')}</div>
       <div class="foto-grid">
         ${FOTO_ANGLES.map(a => `<div class="foto-slot" id="fslot-${a.k}" role="button" tabindex="0" aria-label="Adicionar foto: ${a.l}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}"><span class="foto-slot-plus">+</span><span class="foto-slot-label">${a.l}</span></div>`).join('')}
@@ -4361,7 +4406,7 @@ async function enviarAval() {
 //     do servidor (situaSemanaPeloServidor), que sabe quando foi a última anotação.
 //  4. Escolher outra semana nas setas é pra olhar ou corrigir. Só vira "a semana de agora" se o aluno anotar
 //     nela, e nunca pra trás.
-const WEEKS_MAX = 52; // a fase dura 90 dias (13 semanas); quem fica mais tempo nela segue ganhando semana nova
+const WEEKS_MAX = 52; // a semana conta pelo treino (bloco de 3 meses, uns 13 semanas); quem fica mais tempo nele segue ganhando semana nova
 const SEMANA_MS = 7 * 864e5;
 function setsEmail() { return (state.user && state.user.email) || 'anon'; }
 function segundaDe(t) { const x = new Date(t); x.setHours(0, 0, 0, 0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x.getTime(); }
@@ -4393,7 +4438,7 @@ function currentWeekDefault() {
   if (rec && rec.tk === tk) return clampWeek(rec.w + Math.max(0, semanasEntre(rec.seg, Date.now())));
   const max = maiorSemanaCom(tk);
   if (max > 0) { weekRecSave(tk, max, Date.now(), true); return clampWeek(max); } // provisório até o servidor dizer a data
-  const started = state.protocol?.phaseStartedAt?.treino || state.protocol?.createdAt;
+  const started = state.protocol?.phaseStartedAt?.bloco || state.protocol?.phaseStartedAt?.treino || state.protocol?.createdAt; // a semana conta do bloco de 3 meses
   const t0 = started ? new Date(started).getTime() : NaN;
   return isFinite(t0) ? clampWeek(semanasEntre(t0, Date.now()) + 1) : 1;
 }
@@ -4528,7 +4573,8 @@ function weekBarHtml() {
 function exSlug(n) { return String(n || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60); }
 function exSlugAt(exs, idx) { const s = exSlug(exs[idx].exercicio); let n = 0; for (let i = 0; i < idx; i++) if (exSlug(exs[i].exercicio) === s) n++; return n ? s + '.' + (n + 1) : s; }
 function ctxParts(ctxKey) { const m = /^(.+)_d(\d+)$/.exec(ctxKey); return m ? { tk: m[1], day: +m[2] } : null; }
-function ctxExs(ctxKey) { const c = ctxParts(ctxKey), t = c && state.treinoData && state.treinoData[c.tk], d = t && t.dias && t.dias[c.day]; return (d && d.exercicios) || null; }
+// os exercícios do dia COMO O ALUNO FAZ (com as trocas): a carga se guarda pelo nome do que está na tela
+function ctxExs(ctxKey) { const c = ctxParts(ctxKey), t = c && treinoEfetivo(c.tk), d = t && t.dias && t.dias[c.day]; return (d && d.exercicios) || null; }
 function setsPrefix() { return 'shape_sets_' + setsEmail() + '_'; }
 function setsKey(ctxKey, idx, w) {
   const exs = ctxExs(ctxKey);
@@ -4655,7 +4701,12 @@ async function migrateSetsKeys() {
 // A carga é guardada pelo nome, então nome aposentado deixaria a carga órfã. A chave do nome velho vira a do
 // nome novo só no dia em que o catálogo de hoje tem o nome novo e não tem mais o velho.
 // Mesma regra da migração acima: nunca sobrescreve carga que já existe e nunca apaga (a velha vai pro arquivo morto).
-const SETS_RENAMES = { 'desenvolvimento-na-maquina-sentado': 'desenvolvimento-na-maquina' }; // slug velho: slug novo
+// slug velho: slug novo. Revisão 11/2026: o "(drop)" saiu do nome (a técnica agora vem do mês) e 3 nomes foram acertados;
+// é o mesmo exercício, então a carga vai junto. Os outros que saíram do catálogo são exercício trocado: a carga fica guardada.
+const SETS_RENAMES = { 'desenvolvimento-na-maquina-sentado': 'desenvolvimento-na-maquina',
+  'cadeira-extensora-drop': 'cadeira-extensora', 'elevacao-lateral-drop': 'elevacao-lateral',
+  'abducao-deitado-com-mini-band': 'abducao-deitada-com-mini-band', 'prancha-para-abdomen-com-retroversao': 'prancha-com-retroversao',
+  'remada-baixa-drop-set-mecanico-com-triangulo': 'remada-baixa-com-triangulo' };
 const SETS_NAME_RE = /^(.+_d\d+)_w(\d+)_x-(.+?)(\.\d+)?$/;
 function setsRenamed(serverKey) { const m = SETS_NAME_RE.exec(serverKey); return !!(m && SETS_RENAMES[m[3]]); }
 function renameSetsKeys() {
@@ -4862,6 +4913,144 @@ function removeSet(ctxKey, idx, si) {
 }
 
 // ═══════════════════════════════════════════════════════════
+// PERIODIZAÇÃO DO MÊS (copiada como está de app-tools/revisao-2026-11/periodizacao.mjs, da Criador, Sala #4161;
+// passou no fiscal da consultoria em 544 treinos x 3 meses x 3 níveis. Se mudar lá, muda aqui.)
+// ═══════════════════════════════════════════════════════════
+const PER_GRUPOS_PRIO = {
+  PEITO: ['peito'], COSTAS: ['costas'], OMBRO: ['ombro'], BRACO: ['biceps', 'triceps'], COXA: ['quad', 'posterior'],
+  QUADRICEPS: ['quad'], POSTERIOR: ['posterior'], GLUTEO: ['gluteo'],
+  SUPERIORES: ['costas', 'ombro'], SUPERIORES_COSTAS: ['costas'], SUPERIORES_OMBRO: ['ombro'],
+};
+const PER_MAIS_PESADO = { '10 a 15': '8 a 12', '8 a 12': '6 a 10', '6 a 10': '6 a 10' };
+const PER_MAIS_DESCANSO = { '45 seg': '60 seg', '60 seg': '75 seg', '75 seg': '90 seg', '90 seg': '120 seg', '120 seg': '120 seg' };
+const PER_SEM_TECNICA = ['abdomen', 'panturrilha'];
+const PER_REST_PAUSE = 'Última série em rest-pause: chegou na falha, descansa 15 segundos e faz mais repetições com o mesmo peso.';
+const PER_DESCIDA = 'Descida em 3 segundos.';
+const PER_DROP = 'Última série com drop-set: chegou na falha, tira 20 a 30% do peso e vai até a falha de novo, sem descanso.';
+const PER_AVISO = [
+  null,
+  'Mês 2 deste treino: os exercícios são os mesmos. Os principais ficam mais pesados, com menos repetições e mais descanso. Teu foco é subir a carga deles.',
+  'Mês 3 deste treino: os exercícios são os mesmos. Os isolados sobem pra 15 a 20 repetições com descida lenta, pra encher o músculo antes da troca de treino.',
+];
+function periodiza(treino, mes, nivel) {
+  const t = JSON.parse(JSON.stringify(treino));
+  if (!mes) return t;
+  const tecnica = nivel !== 'iniciante';
+  const prioG = PER_GRUPOS_PRIO[t.prioridade] || [];
+  const faixa = r => String(r).match(/^(\d+ a \d+)(.*)$/);
+  const nota = (e, txt) => { e.obs = e.obs ? e.obs + ' ' + txt : txt; };
+  for (const d of t.dias) {
+    const ex = d.exercicios;
+    const ultimo = {};
+    ex.forEach((e, i) => { ultimo[e.grupo] = i; });
+    const alvoDrop = prioG.length ? prioG : (ex[0] ? [ex[0].grupo] : []);
+    ex.forEach((e, i) => {
+      const m = faixa(e.reps);
+      if (!m) return;
+      if (mes === 1) {
+        if (e.tipo === 'composto') { e.reps = PER_MAIS_PESADO[m[1]] + m[2]; e.intervalo = PER_MAIS_DESCANSO[e.intervalo] || e.intervalo; }
+        else if (tecnica && ultimo[e.grupo] === i && !PER_SEM_TECNICA.includes(e.grupo)) nota(e, PER_REST_PAUSE);
+      } else {
+        if (e.tipo !== 'composto' && e.grupo !== 'abdomen') { e.reps = '15 a 20' + m[2]; nota(e, PER_DESCIDA); }
+        if (tecnica && e.tipo !== 'composto' && ultimo[e.grupo] === i && alvoDrop.includes(e.grupo) && !PER_SEM_TECNICA.includes(e.grupo)) nota(e, PER_DROP);
+      }
+    });
+  }
+  t.aviso_fase = PER_AVISO[mes];
+  return t;
+}
+const PER_SERIES = s => +String(s).match(/\d+/)[0];
+function porNivel(treino, nivel) {
+  const t = JSON.parse(JSON.stringify(treino));
+  if (nivel !== 'iniciante') return t;
+  for (const d of t.dias) {
+    const conta = {};
+    for (const e of d.exercicios) {
+      conta[e.grupo] = (conta[e.grupo] || 0) + 1;
+      if (conta[e.grupo] >= 4 && e.grupo !== 'posterior' && PER_SERIES(e.series) > 2) e.series = (PER_SERIES(e.series) - 1) + 'X';
+      e.reps = String(e.reps).replace(/^6 a 10/, '8 a 12');
+    }
+  }
+  return t;
+}
+const treinoDoMes = (treinoDoBloco, faseDoApp, nivel) => porNivel(periodiza(treinoDoBloco, mesDoBloco(faseDoApp), nivel), nivel);
+
+// ─── Trocar exercício (lista da Criador, data/trocas.json: até 5 do mesmo músculo, com vídeo) ───
+// A troca vale pro BLOCO inteiro (os 3 meses), só naquele exercício daquele dia, e some no treino novo: a chave leva
+// a chave do treino, que tem o bloco. Ela entra ANTES da periodização, que decide pelo tipo (composto ou isolador).
+// Carga é pelo NOME do exercício: o trocado ganha a grade dele, e a do original fica guardada e volta se desfizer.
+function trocasNome() { return 'shape_trocas_' + setsEmail(); }
+function trocasLoad() { try { const o = JSON.parse(localStorage.getItem(trocasNome()) || '{}'); return (o && typeof o === 'object') ? o : {}; } catch (e) { return {}; } }
+function trocasSave(o) { try { localStorage.setItem(trocasNome(), JSON.stringify(o)); } catch (e) {} _efetivo = null; }
+function trocaChave(tk, day, slugOriginal) { return tk + '_d' + day + '_' + slugOriginal; }
+function opcoesDeTroca(nomeOriginal) {
+  const o = state.trocasData && state.trocasData[nomeOriginal];
+  if (!o || !Array.isArray(o.opcoes)) return [];
+  const mulher = state.protocol?.sex === 'Mulher';
+  return o.opcoes.filter(x => mulher || !x.so_mulher);
+}
+function aplicaTrocas(t, tk) {
+  const tr = trocasLoad();
+  if (!Object.keys(tr).length) return t;
+  const out = JSON.parse(JSON.stringify(t));
+  out.dias.forEach((d, di) => d.exercicios.forEach((e, i) => {
+    const escolha = tr[trocaChave(tk, di, exSlugAt(t.dias[di].exercicios, i))];
+    if (!escolha) return;
+    const op = opcoesDeTroca(e.exercicio).find(x => x.exercicio === escolha);
+    if (!op) return;
+    e.original = e.exercicio;
+    e.exercicio = op.exercicio; e.tipo = op.tipo || e.tipo; e.video_key = op.video_key; e.video_url = op.video_url;
+  }));
+  return out;
+}
+// O treino que o aluno faz este mês: bloco do catálogo + trocas + periodização do mês + nível do cadastro.
+// Guardado até mudar o treino, o mês, o nível ou as trocas (o treino é redesenhado a cada toque).
+let _efetivo = null;
+function treinoEfetivo(tk) {
+  const raw = state.treinoData && state.treinoData[tk];
+  if (!raw) return null;
+  const p = state.protocol || {};
+  const fase = p.treinoPhase || '1.0', nivel = p.level || 'iniciante';
+  const sig = tk + '|' + fase + '|' + nivel + '|' + setsEmail();
+  if (_efetivo && _efetivo.sig === sig && _efetivo.raw === raw) return _efetivo.t;
+  // fase de outro bloco (treino próximo, porque o do perfil não existe): vale o mês 1 desse bloco
+  const mesFase = blocoDe(fase) === raw.nivel ? fase : raw.nivel;
+  const t = treinoDoMes(aplicaTrocas(raw, tk), mesFase, nivel);
+  _efetivo = { sig, raw, t };
+  return t;
+}
+let _trocaAlvo = null;
+function abrirTroca(day, idx) {
+  const tk = getTreinoKey(state.protocol), raw = state.treinoData[tk];
+  const orig = raw.dias[day].exercicios[idx];
+  const atual = treinoEfetivo(tk).dias[day].exercicios[idx];
+  const ops = opcoesDeTroca(orig.exercicio);
+  _trocaAlvo = { tk, day, slug: exSlugAt(raw.dias[day].exercicios, idx) };
+  const linha = (nome, url, ativo, acao) => `<div class="troca-op${ativo ? ' on' : ''}">
+      <button type="button" class="troca-escolhe" onclick="${acao}">${ativo ? '✓ ' : ''}${escapeHtml(nome)}</button>
+      ${url ? `<button type="button" class="troca-video" onclick="openVideo('${escapeAttr(url)}', '${escapeAttr(nome)}')" aria-label="Ver o vídeo: ${escapeHtml(nome)}">▶ vídeo</button>` : ''}
+    </div>`;
+  document.getElementById('troca-titulo').textContent = 'Trocar: ' + orig.exercicio;
+  document.getElementById('troca-lista').innerHTML =
+    linha(orig.exercicio + ' (o do teu treino)', orig.video_url || (state.videoMap && state.videoMap[orig.video_key]), !atual.original, 'escolheTroca(null)')
+    + ops.map((o, i) => linha(o.exercicio, o.video_url, atual.exercicio === o.exercicio && !!atual.original, `escolheTroca(${i})`)).join('');
+  document.getElementById('troca-modal').classList.add('show');
+}
+function fechaTroca() { document.getElementById('troca-modal').classList.remove('show'); _trocaAlvo = null; }
+function escolheTroca(i) {
+  if (!_trocaAlvo) return;
+  const { tk, day, slug } = _trocaAlvo;
+  const orig = state.treinoData[tk].dias[day].exercicios.find((e, j, a) => exSlugAt(a, j) === slug);
+  const tr = trocasLoad(), k = trocaChave(tk, day, slug);
+  if (i === null || !orig) delete tr[k];
+  else { const op = opcoesDeTroca(orig.exercicio)[i]; if (!op) return; tr[k] = op.exercicio; }
+  trocasSave(tr);
+  _crossIdx = null;
+  fechaTroca();
+  renderTreino();
+}
+
+// ═══════════════════════════════════════════════════════════
 // TREINO RENDER
 // ═══════════════════════════════════════════════════════════
 // Chave do treino "de fábrica" pro protocolo, sem conferir se ela existe no catálogo.
@@ -4869,7 +5058,7 @@ function removeSet(ctxKey, idx, si) {
 // Sem prioridade (aluno antigo ou "Sem prioridade"): "F_4X_2.0" / "M_4X_1.0", caminho antigo INTOCADO.
 function treinoKeyOf(p, phase, days) {
   const sex = p.sex === 'Mulher' ? 'F' : 'M';
-  const ph = phase || p.treinoPhase || p.phase || '1.0';
+  const ph = blocoDe(phase || p.treinoPhase || p.phase || '1.0'); // a chave do catálogo é o bloco: 2.1 e 2.2 leem o 2.0
   const d = days || p.days;
   if (p.priority && p.priority !== 'EQUILIBRADO') return `${sex}_${p.split ? p.split + '_' : ''}${p.priority}_${d}X_${ph}`;
   return `${sex}_${d}X_${ph}`;
@@ -4881,7 +5070,7 @@ function getTreinoKey(p) {
   const raw = treinoKeyOf(p);
   const T = state.treinoData;
   if (!T || T[raw]) return raw;
-  const cur = PHASES_TREINO.indexOf(p.treinoPhase || p.phase || '1.0');
+  const cur = PHASES_TREINO.indexOf(blocoDe(p.treinoPhase || p.phase));
   const phases = PHASES_TREINO.slice(0, (cur < 0 ? 0 : cur) + 1).reverse();
   const dias = [p.days, p.days - 1, p.days - 2, p.days + 1, p.days - 3].filter(d => d >= 2 && d <= 7);
   for (const d of dias) for (const ph of phases) { const k = treinoKeyOf(p, ph, d); if (T[k]) return k; }
@@ -4894,7 +5083,7 @@ function treinoDayOptions(p, phase) {
 }
 // Próxima versão do treino, só se ela existir pra esse perfil (senão o botão de avançar levaria a lugar nenhum)
 function nextTreinoPhase(p) {
-  const next = getNextPhase(p.treinoPhase || p.phase || '1.0', 'treino');
+  const next = getNextPhase(p.treinoPhase || p.phase || '1.0');
   return (next && treinoDayOptions(p, next).length) ? next : null;
 }
 
@@ -4925,7 +5114,7 @@ function renderTreino() {
   const c = document.getElementById('tab-treino');
   if (!p || !state.treinoData) { _treinoView = null; return; }
   const key = getTreinoKey(p);
-  const t = state.treinoData[key];
+  const t = treinoEfetivo(key);
   if (!t) {
     _treinoView = null;
     c.innerHTML = `<div class="empty"><p>Não achei o treino do teu perfil. Fala com o suporte pelo botão de ajuda aqui embaixo que a gente resolve.</p></div>`;
@@ -4964,6 +5153,8 @@ function renderTreino() {
           <button type="button" class="exercise-meta-item rest-clickable" onclick="openTimer(${parseRestSeconds(rest)}, '${escapeAttr(ex.exercicio)}')" aria-label="Cronometrar o descanso: ${escapeHtml(rest || '60 seg')}"><div class="label">⏱ DESCANSO</div><div class="val">${escapeHtml(rest || '-')}</div><div class="rest-dica">cronometrar</div></button>
         </div>
         ${ex.obs ? `<div class="exercise-obs">${escapeHtml(ex.obs)}</div>` : ''}
+        ${ex.original ? `<div class="troca-nota">No lugar de ${escapeHtml(ex.original)}. A carga dele continua guardada.</div>` : ''}
+        ${opcoesDeTroca(ex.original || ex.exercicio).length ? `<button type="button" class="troca-btn" onclick="abrirTroca(${state.currentDay}, ${idx})">🔄 Trocar exercício</button>` : ''}
         ${setsGridHtml(key + '_d' + state.currentDay, idx, ex.series, ex.exercicio)}
       </div>
     `;
@@ -4988,46 +5179,51 @@ function renderTreino() {
     `<details class="result-card extra-card"><summary>${escapeHtml(noDash(ex.titulo))}</summary><div class="small mt-2" style="white-space:pre-wrap;line-height:1.5;">${escapeHtml(noDash(ex.conteudo))}</div></details>`
   ).join('');
 
-  // Card de avançar fase DO TREINO (só aparece se tiver próxima fase)
+  // Card do próximo mês (só aparece se tiver próximo mês). A cada 30 dias muda: dentro do bloco, mesmos exercícios com
+  // outra periodização; na troca de bloco, treino novo. A dieta vai junto (peso novo e outro cardápio).
   const treinoPhase = p.treinoPhase || p.phase || '1.0';
   const next = nextTreinoPhase(p);
-  const tInfo = getPhaseUnlockInfo('treino');
-  const diaDaFase = daysSince(p.phaseStartedAt?.treino || p.createdAt) + 1;
-  let phaseUpgradeHtml;
+  const tInfo = getPhaseUnlockInfo();
+  const diaDoMes = daysSince(p.phaseStartedAt?.treino || p.createdAt) + 1;
+  const mesNum = MESES_TREINO.indexOf(treinoPhase) + 1;
+  const oQueMuda = next ? (next.endsWith('.0') ? 'Treino novo, com outros exercícios, e dieta recalculada pelo teu peso.' : 'Mesmos exercícios com outra forma de treinar, e outro cardápio na dieta, recalculada pelo teu peso.') : '';
+  let phaseUpgradeHtml, mesTopoHtml = '';
   if (next) {
     const btnHtml = tInfo.unlocked
-      ? `<button type="button" class="btn secondary" onclick="openPhaseUpgrade('${next}','treino')" style="margin-top:0;">Avançar treino pra Fase ${next}</button>`
+      ? `<button type="button" class="btn secondary" onclick="openPhaseUpgrade('${next}')" style="margin-top:0;">Começar o mês ${mesNum + 1}</button>`
       : `<button type="button" class="btn" disabled style="margin-top:0;opacity:.5;cursor:not-allowed;">Libera em ${tInfo.daysLeft} ${tInfo.daysLeft === 1 ? 'dia' : 'dias'}</button>`;
     phaseUpgradeHtml = `
       <div class="phase-upgrade-card">
-        <div class="phase-upgrade-title">${tInfo.unlocked ? 'PRÓXIMA FASE DO TREINO' : '🔒 PRÓXIMA FASE DO TREINO'}</div>
-        <div class="phase-upgrade-headline">Fase ${next}</div>
-        <div class="phase-upgrade-desc">O método pede <strong>90 dias em cada fase</strong>, e tu tá no dia ${diaDaFase} desta. O corpo precisa desse tempo pra se adaptar. Quem já domina o treino pode avançar antes, mas avançar <strong>não tem volta</strong> e trava o recálculo do protocolo.</div>
+        <div class="phase-upgrade-title">${tInfo.unlocked ? 'PRÓXIMO MÊS' : '🔒 PRÓXIMO MÊS'}</div>
+        <div class="phase-upgrade-headline">Mês ${mesNum + 1} · Fase ${next}</div>
+        <div class="phase-upgrade-desc">Teu protocolo muda <strong>a cada 30 dias</strong>, e tu tá no dia ${diaDoMes} deste mês. ${oQueMuda} Na virada o app pede teu peso de hoje.</div>
         ${btnHtml}
       </div>
     `;
+    if (tInfo.unlocked) mesTopoHtml = `<div class="result-card mes-liberado">
+        <div style="font-weight:800;font-size:12px;letter-spacing:.5px;color:var(--red-text);">🔓 TEU MÊS ${mesNum + 1} JÁ ESTÁ LIBERADO</div>
+        <div class="small mt-2" style="line-height:1.5;">${oQueMuda} Leva 1 minuto: tu manda o peso de hoje e o app monta o mês novo.</div>
+        <button type="button" class="btn" onclick="openPhaseUpgrade('${next}')" style="margin-top:10px;">Começar o mês ${mesNum + 1}</button>
+      </div>`;
   } else {
     phaseUpgradeHtml = `
       <div class="phase-upgrade-card">
-        <div class="phase-upgrade-title">FASE MÁXIMA DE TREINO</div>
-        <div class="phase-upgrade-headline">Treino ${t.nivel || treinoPhase} 🏆</div>
+        <div class="phase-upgrade-title">ÚLTIMO MÊS DO TREINO</div>
+        <div class="phase-upgrade-headline">Fase ${treinoPhase} 🏆</div>
         <div class="phase-upgrade-desc">${t.prioridade ? 'Essa é a fase mais alta de treino do método, a especialização final na tua prioridade.' : 'Essa é a fase mais alta de treino do teu plano.'} Roda enquanto estiver evoluindo.</div>
       </div>
     `;
   }
+  const avisoMesHtml = t.aviso_fase ? `<div class="result-card aviso-mes"><div style="font-weight:800;font-size:12px;letter-spacing:.5px;color:var(--red-text);">📅 MÊS ${mesNum} · FASE ${escapeHtml(treinoPhase)}</div><div class="small mt-2" style="line-height:1.5;">${escapeHtml(t.aviso_fase)}</div></div>` : '';
 
-  // PDF e título saem do treino que está NA TELA (t), não do protocolo: se o app caiu num treino próximo
-  // porque o do protocolo não existe, o PDF e o nome têm que ser os do treino mostrado.
-  // prioridade = PEITO_4X_1.0.pdf; sem prioridade = TREINO_4X_1.0.pdf / TREINO_FEM_4X_1.0.pdf
+  // O título sai do treino que está NA TELA (t), não do protocolo: se o app caiu num treino próximo
+  // porque o do protocolo não existe, o nome tem que ser o do treino mostrado.
   const hasPrio = !!t.prioridade;
-  const pdfUrl = hasPrio
-    ? `pdfs/treinos/${t.split ? t.split + '_' : ''}${t.prioridade}_${t.freq}X_${t.nivel}.pdf`
-    : `pdfs/treinos/TREINO_${t.sexo === 'F' ? 'FEM_' : ''}${t.freq}X_${t.nivel}.pdf`;
-  const pdfFile = hasPrio
-    ? `TREINO ${t.split ? t.split + ' ' : ''}${(p.priorityLabel || t.prioridade).toUpperCase()} ${t.freq}X ${t.nivel}.pdf`
-    : `TREINO ${t.sexo === 'F' ? 'FEM ' : ''}${t.freq}X ${t.nivel}.pdf`;
+  const nomeTreino = hasPrio
+    ? `TREINO ${t.split ? t.split + ' ' : ''}${(p.priorityLabel || t.prioridade).toUpperCase()} ${t.freq}X ${t.nivel}`
+    : `TREINO ${t.sexo === 'F' ? 'FEM ' : ''}${t.freq}X ${t.nivel}`;
   const desviado = key !== treinoKeyOf(p);
-  const titulo = desviado ? pdfFile.replace(/\.pdf$/, '') : (p.workout || pdfFile.replace(/\.pdf$/, ''));
+  const titulo = desviado ? nomeTreino : (p.workout || nomeTreino);
   const desvioHtml = !desviado ? '' : `<div class="result-card" style="margin-bottom:10px;">
       <div class="small" style="line-height:1.5;">Teu cadastro pede ${escapeHtml(p.days)} dias na fase ${escapeHtml(treinoPhase)}, e esse treino não existe no método. Te deixei no mais próximo: <strong>${t.freq} dias, fase ${t.nivel}</strong>. Tuas cargas seguem guardadas.</div>
     </div>`;
@@ -5035,8 +5231,10 @@ function renderTreino() {
 
   c.innerHTML = `
     <h2>${escapeHtml(titulo)}</h2>
-    <p class="hint">${t.dias.length} dias por semana · Treino Fase ${t.nivel || treinoPhase}</p>
+    <p class="hint">${t.dias.length} dias por semana · Fase ${escapeHtml(desviado ? t.nivel : treinoPhase)} · mês ${mesNum} de ${MESES_TREINO.filter(f => f.endsWith('.0') && treinoDayOptions(p, f).length).length * 3}</p>
     ${desvioHtml}
+    ${mesTopoHtml}
+    ${avisoMesHtml}
     <div class="grupo-slot">${grupoFaixaHtml()}</div>
     <div class="aval-slot">${avalCardHtml()}</div>
     <div class="day-tabs" style="--dias:${t.dias.length};">${dayBtns}</div>
@@ -5051,7 +5249,7 @@ function renderTreino() {
     <div class="conclude-bar conclude-slot">${concludeInner()}</div>
     <div class="guardiao-slot" data-de="fim-do-treino">${guardiaoHtml('fim-do-treino')}</div>
     ${extrasHtml ? `<h3 style="margin-top:24px;color:var(--text-dim);">📚 Material extra</h3>${extrasHtml}` : ''}
-    <a class="btn secondary so-brasil" href="${pdfUrl}" target="_blank" rel="noopener" download="${escapeHtml(pdfFile)}" style="text-decoration:none;text-align:center;margin-top:18px;">📥 Baixar PDF do treino</a>
+    <button type="button" class="btn secondary so-brasil" onclick="abrePdf('treino')" style="margin-top:18px;">📥 Baixar PDF do treino deste mês</button>
     ${phaseUpgradeHtml}
     ${fotosSecHtml()}
   `;
@@ -5311,7 +5509,7 @@ let _achData = null;
 const ACH_GRUPO = { peito: 'PEITO', costas: 'COSTAS', ombro: 'OMBRO', biceps: 'BÍCEPS', triceps: 'TRÍCEPS', quad: 'QUADRÍCEPS', posterior: 'POSTERIOR', gluteo: 'GLÚTEO', panturrilha: 'PANTURRILHA', abdomen: 'ABDÔMEN', antebraco: 'ANTEBRAÇO' };
 function openAchievement(dayIdx) {
   const p = state.protocol;
-  const t = state.treinoData[getTreinoKey(p)];
+  const t = treinoEfetivo(getTreinoKey(p));
   if (!t) return;
   const day = t.dias[dayIdx] || t.dias[0];
   const hid = (_treinoView && _treinoView.dayIdx === dayIdx) ? _treinoView.hid : day.exercicios.map(() => false);
@@ -5591,10 +5789,39 @@ document.addEventListener('click', e => {
 const DIET_ORDER = ['1.3K','1.5K','1.8K','2K','2.2K','2.5K','2.7K','3K','3.2K','3.5K'];
 const DIET_KCAL  = { '1.3K':1300, '1.5K':1500, '1.8K':1800, '2K':2000, '2.2K':2200, '2.5K':2500, '2.7K':2700, '3K':3000, '3.2K':3200, '3.5K':3500 };
 
-function getNextPhase(cur, kind) {
-  const list = kind === 'dieta' ? PHASES_DIETA : PHASES_TREINO;
-  const i = list.indexOf(cur);
-  return (i >= 0 && i < list.length - 1) ? list[i + 1] : null;
+// ─── Calculadora, revisão 11/2026 (Criador, app-tools/revisao-2026-11/calcula_kcal.mjs; GH aprovou 03/11) ───
+// A régua da consultoria trazida pro que o cadastro sabe. A API tem a mesma conta (src/lib/calcula.js) pra virada do
+// mês: se mudar aqui, muda lá.
+const CALC_FATORES = [1.2, 1.375, 1.55, 1.725, 1.9];
+const fatorUsado = declarado => CALC_FATORES[Math.max(0, CALC_FATORES.indexOf(Number(declarado)) - 1)] ?? Number(declarado);
+// ajuste por objetivo x card de gordura (0: 10% ou menos, 1: ~15%, 2: ~20%, 3: 25% ou mais)
+const CALC_AJUSTE = { 'Emagrecer': [-250, -300, -500, -800], 'Recompor': [0, -200, -300, -300], 'Ganhar massa': [300, 150, -250, -500] };
+const BF_ROTULOS = ['10% ou menos', 'cerca de 15%', 'cerca de 20%', '25% ou mais'];
+const bfIdxDe = rotulo => { const i = BF_ROTULOS.indexOf(String(rotulo || '')); return i < 0 ? 1 : i; };
+const CALC_FAIXAS = [[1400, '1.3K'], [1650, '1.5K'], [1900, '1.8K'], [2100, '2K'], [2350, '2.2K'], [2600, '2.5K'], [2850, '2.7K'], [3100, '3K'], [3350, '3.2K'], [Infinity, '3.5K']];
+const faixaDeKcal = kc => CALC_FAIXAS.find(([lim]) => kc < lim)[1];
+function metaKcal({ sexo, idade, peso, altura, fator, bfIdx, objetivo }) {
+  const homem = sexo === 'Homem';
+  const tmb = Math.round(10 * peso + 6.25 * altura - 5 * idade + (homem ? 5 : -161));
+  const get = Math.round(tmb * fatorUsado(fator));
+  const ajuste = (CALC_AJUSTE[objetivo] || CALC_AJUSTE.Recompor)[bfIdx];
+  let meta = get + ajuste;
+  const motivo = [];
+  if (meta < Math.round(get * 0.75)) { meta = Math.round(get * 0.75); motivo.push('teto'); }
+  if (homem && get >= 1900 && get <= 2200 && meta < get - 200) { meta = get - 200; motivo.push('gasto-baixo'); }
+  if (!homem && get >= 1500 && get <= 1700 && meta < get) { meta = get; motivo.push('gasto-baixo'); }
+  if (homem && meta < 2000 && !(objetivo === 'Emagrecer' && bfIdx === 3)) { meta = 2000; motivo.push('piso'); }
+  return { tmb, get, ajuste, meta, dieta: faixaDeKcal(meta), motivo };
+}
+// 1 dose de whey a mais por dia quando a proteína da dieta fica mais de 10 g abaixo de 1,8 g/kg (60 anos ou mais: 2 g/kg)
+function wheyExtra(peso, idade, proteinaDaDieta) {
+  if (!(peso > 0) || !(proteinaDaDieta > 0)) return 0;
+  return peso * (idade >= 60 ? 2 : 1.8) > proteinaDaDieta + 10 ? 1 : 0;
+}
+
+function getNextPhase(cur) {
+  const i = MESES_TREINO.indexOf(cur);
+  return (i >= 0 && i < MESES_TREINO.length - 1) ? MESES_TREINO[i + 1] : null;
 }
 
 // Janela inicial de 8 dias após cadastro, sai da garantia 7d Greenn,
@@ -5608,15 +5835,15 @@ function daysSince(isoDate) {
   return Math.floor(ms / (1000 * 60 * 60 * 24));
 }
 
-function getPhaseUnlockInfo(kind) {
+// O próximo mês libera com 30 dias no mês atual (e nunca antes dos 8 dias do cadastro, a garantia). O servidor
+// confere a mesma regra pelo relógio dele.
+function getPhaseUnlockInfo() {
   const p = state.protocol;
   if (!p) return { unlocked: true, daysLeft: 0, daysIn: 0 };
-  // Usa createdAt (cadastro original) como referência. Fallback pra phaseStartedAt.
-  const startedAt = p.createdAt || p.phaseStartedAt?.[kind] || p.phaseStartedAt?.treino;
-  if (!startedAt) return { unlocked: true, daysLeft: 0, daysIn: 0 };
-  const daysIn = daysSince(startedAt);
-  const daysLeft = Math.max(0, INITIAL_GATE_DAYS - daysIn);
-  return { unlocked: daysLeft === 0, daysLeft, daysIn };
+  const daysIn = daysSince(p.createdAt || p.phaseStartedAt?.treino);
+  const daysMes = daysSince(p.phaseStartedAt?.treino || p.createdAt);
+  const daysLeft = Math.max(0, INITIAL_GATE_DAYS - daysIn, MES_DIAS - daysMes);
+  return { unlocked: daysLeft === 0, daysLeft, daysIn, daysMes };
 }
 
 function adjustDietForPhase(currentDietName, goal, phaseStep) {
@@ -5632,25 +5859,27 @@ function adjustDietForPhase(currentDietName, goal, phaseStep) {
   return 'DIETA ' + DIET_ORDER[newIdx];
 }
 
-let phaseUpgrade = { targetPhase: null, kind: null, newDays: null };
+let phaseUpgrade = { targetPhase: null, newDays: null, bf: null };
 
-function openPhaseUpgrade(targetPhase, kind) {
+function openPhaseUpgrade(targetPhase) {
   const p = state.protocol;
   if (!p) return;
-  phaseUpgrade = { targetPhase, kind, newDays: p.days };
+  const trocaBloco = targetPhase.endsWith('.0');
+  phaseUpgrade = { targetPhase, newDays: p.days, bf: BF_ROTULOS.includes(p.bf) ? p.bf : null };
+  const mes = MESES_TREINO.indexOf(targetPhase) + 1;
+  document.getElementById('phase-title').textContent = `Começar o mês ${mes} (fase ${targetPhase})`;
+  document.getElementById('phase-alert-body').innerHTML = (trocaBloco
+    ? 'Mês de <strong>treino novo</strong>, com outros exercícios. Tuas cargas antigas ficam guardadas e aparecem de referência nos exercícios que se repetem.'
+    : 'Os <strong>mesmos exercícios</strong>, com outra forma de treinar. Tuas cargas continuam todas aí.')
+    + ' A dieta troca de cardápio e é recalculada com o peso que tu mandar. Começar o mês novo <strong>não tem volta</strong>.';
+  document.getElementById('phase-peso').value = '';
+  document.getElementById('phase-peso-un').textContent = unCarga().toUpperCase();
+  document.getElementById('phase-bf-options').innerHTML = BF_ROTULOS.map(b =>
+    `<button type="button" class="option${b === phaseUpgrade.bf ? ' selected' : ''}" data-pbf="${escapeHtml(b)}" onclick="selectPhaseBf(this)"><strong>${escapeHtml(b.charAt(0).toUpperCase() + b.slice(1))}</strong></button>`).join('');
 
-  document.getElementById('phase-title').textContent =
-    `Avançar ${kind === 'treino' ? 'TREINO' : 'DIETA'} pra Fase ${targetPhase}`;
-
-  // Mostra/esconde seções conforme o tipo
-  document.getElementById('phase-days-section').style.display = kind === 'treino' ? 'block' : 'none';
-  document.getElementById('pd-treino-row').style.display = kind === 'treino' ? 'flex' : 'none';
-  document.getElementById('pd-dieta-row').style.display = kind === 'dieta' ? 'flex' : 'none';
-  document.getElementById('pd-kcal-row').style.display = kind === 'dieta' ? 'flex' : 'none';
-
-  if (kind === 'treino') {
-    // só oferece frequência que existe no catálogo pra essa divisão, prioridade e versão
-    // (Full Body só tem 2x, sem prioridade só vai até 6x, o resto vai de 3x a 7x)
+  // frequência só muda na troca de bloco: dentro do bloco o treino é o mesmo
+  document.getElementById('phase-days-section').style.display = trocaBloco ? 'block' : 'none';
+  if (trocaBloco) {
     const DESC = { 2: 'Corpo inteiro em cada treino', 3: 'Rotina apertada', 4: 'Equilíbrio', 5: 'Evolução rápida', 6: 'Volume máximo', 7: 'Todos os dias' };
     const dias = treinoDayOptions(p, targetPhase);
     if (!dias.includes(phaseUpgrade.newDays)) phaseUpgrade.newDays = dias.length === 1 ? dias[0] : null;
@@ -5658,9 +5887,15 @@ function openPhaseUpgrade(targetPhase, kind) {
       `<button class="option${d === phaseUpgrade.newDays ? ' selected' : ''}" data-pdays="${d}" onclick="selectPhaseDays(this, ${d})"><strong>${d}x por semana</strong><span class="desc">${DESC[d]}</span></button>`
     ).join('');
   }
-
   updatePhasePreview();
   showScreen('phase-screen');
+}
+
+function selectPhaseBf(el) {
+  document.querySelectorAll('[data-pbf]').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  phaseUpgrade.bf = el.dataset.pbf;
+  updatePhasePreview();
 }
 
 function selectPhaseDays(el, d) {
@@ -5670,38 +5905,44 @@ function selectPhaseDays(el, d) {
   updatePhasePreview();
 }
 
+// em kg sempre (o que a API guarda); quem usa lb digita em lb e a conta converte
+function pesoDoCampo() {
+  let n = Number(String(document.getElementById('phase-peso').value || '').replace(',', '.'));
+  if (unidade() === 'lb') n = Math.round(n * KG_POR_LB * 10) / 10;
+  return (n >= 30 && n <= 300) ? n : null;
+}
+// A dieta do mês novo: mesma conta que o servidor faz na virada, com o peso e o card de gordura de hoje
+function dietaDoMes(p, peso, bf) {
+  return metaKcal({ sexo: p.sex, idade: Number(p.age), peso, altura: Number(p.height), fator: Number(p.activityFactor) || 1.375, bfIdx: bfIdxDe(bf), objetivo: p.goal });
+}
+
 function updatePhasePreview() {
   const p = state.protocol;
   if (!p || !phaseUpgrade.targetPhase) return;
   const target = phaseUpgrade.targetPhase;
-  const kind = phaseUpgrade.kind;
   const btn = document.getElementById('phase-confirm-btn');
-
-  if (kind === 'treino') {
-    if (!phaseUpgrade.newDays) {
-      btn.disabled = true;
-      btn.style.opacity = .5;
-      document.getElementById('phase-preview').classList.add('hidden');
-      return;
-    }
-    const sex = p.sex === 'Mulher' ? ' FEM' : '';
-    const newWorkout = (p.priority && p.priority !== 'EQUILIBRADO')
-      ? `TREINO ${p.split ? p.split + ' ' : ''}${String(p.priorityLabel || p.priority).toUpperCase()} ${phaseUpgrade.newDays}X ${target}`
-      : `TREINO${sex} ${phaseUpgrade.newDays}X ${target}`;
-    document.getElementById('pd-treino-from').textContent = p.workout;
-    document.getElementById('pd-treino-to').textContent = newWorkout;
-  } else if (kind === 'dieta') {
-    const phaseStep = Math.max(1, PHASES_DIETA.indexOf(target));
-    const dietBase = p.dietBase || p.diet;
-    const newDiet = adjustDietForPhase(dietBase, p.goal, phaseStep);
-    const newKcal = DIET_KCAL[newDiet.replace(/^DIETA\s+/, '')] || p.target;
-    document.getElementById('pd-dieta-from').textContent = p.diet;
-    document.getElementById('pd-dieta-to').textContent = newDiet;
-    const kcalDe = n => { const t = dietTotalsByName(n); return (t && t.kcal) || DIET_KCAL[String(n).replace(/^DIETA\s+/, '')] || null; };
-    document.getElementById('pd-kcal-from').textContent = (kcalDe(p.diet) || '?') + ' kcal';
-    document.getElementById('pd-kcal-to').textContent = (kcalDe(newDiet) || newKcal) + ' kcal';
+  const peso = pesoDoCampo();
+  const pronto = !!(peso && phaseUpgrade.bf && phaseUpgrade.newDays);
+  if (!pronto) {
+    btn.disabled = true;
+    btn.style.opacity = .5;
+    document.getElementById('phase-preview').classList.add('hidden');
+    return;
   }
-
+  const sex = p.sex === 'Mulher' ? ' FEM' : '';
+  const newWorkout = (p.priority && p.priority !== 'EQUILIBRADO')
+    ? `TREINO ${p.split ? p.split + ' ' : ''}${String(p.priorityLabel || p.priority).toUpperCase()} ${phaseUpgrade.newDays}X ${target}`
+    : `TREINO${sex} ${phaseUpgrade.newDays}X ${target}`;
+  document.getElementById('pd-treino-from').textContent = p.workout;
+  document.getElementById('pd-treino-to').textContent = newWorkout;
+  const r = dietaDoMes(p, peso, phaseUpgrade.bf);
+  const newDiet = 'DIETA ' + r.dieta;
+  const letra = ['A', 'B', 'C'][mesDoBloco(target)];
+  document.getElementById('pd-dieta-from').textContent = p.diet;
+  document.getElementById('pd-dieta-to').textContent = newDiet + ' · cardápio ' + letra;
+  const kcalDe = n => { const t = dietTotalsByName(n); return (t && t.kcal) || DIET_KCAL[String(n).replace(/^DIETA\s+/, '')] || null; };
+  document.getElementById('pd-kcal-from').textContent = (kcalDe(p.diet) || '?') + ' kcal';
+  document.getElementById('pd-kcal-to').textContent = (kcalDe(newDiet) || r.meta) + ' kcal';
   document.getElementById('phase-preview').classList.remove('hidden');
   btn.disabled = false;
   btn.style.opacity = 1;
@@ -5710,16 +5951,14 @@ function updatePhasePreview() {
 let _phaseBusy = false;
 async function confirmPhaseUpgrade() {
   const p = state.protocol;
-  if (!p || !phaseUpgrade.targetPhase || !phaseUpgrade.kind || _phaseBusy) return;
+  if (!p || !phaseUpgrade.targetPhase || _phaseBusy) return;
   const target = phaseUpgrade.targetPhase;
-  const kind = phaseUpgrade.kind;
+  const kind = 'treino';
+  const peso = pesoDoCampo();
+  if (!peso || !phaseUpgrade.bf || !phaseUpgrade.newDays) return;
 
-  // Servidor é a fonte de verdade, manda o pedido e ele valida (janela, transição, etc)
-  const body = { kind, targetPhase: target };
-  if (kind === 'treino') {
-    if (!phaseUpgrade.newDays) return;
-    body.newDays = phaseUpgrade.newDays;
-  }
+  // Servidor é a fonte de verdade, manda o pedido e ele valida (30 dias no mês, transição, etc) e recalcula a dieta
+  const body = { kind, targetPhase: target, peso, bf: phaseUpgrade.bf, newDays: phaseUpgrade.newDays };
 
   // Avançar não tem volta: enquanto o pedido está em voo os dois botões ficam travados (antes dava pra
   // tocar em "Cancelar" com o pedido já enviado, e a fase avançava mesmo assim)
@@ -5733,7 +5972,7 @@ async function confirmPhaseUpgrade() {
       body: JSON.stringify(body)
     });
     if (r._error) { alert('⛔ ' + r._error); return; }
-    if (!r.ok) { alert('Não consegui avançar a fase' + (r.error ? ' (' + r.error + ')' : '') + '. Tenta de novo em instantes.'); return; }
+    if (!r.ok) { alert(r.error && r.code === 'PHASE_LOCKED' ? r.error : 'Não consegui começar o mês novo' + (r.error ? ' (' + r.error + ')' : '') + '. Tenta de novo em instantes.'); return; }
     faseAvancou(r.protocol, kind, target, email);
   } catch (e) {
     console.error('advance-phase fail:', e);
@@ -5741,10 +5980,10 @@ async function confirmPhaseUpgrade() {
     // a resposta pode ter se perdido com o pedido já aceito: pergunta ao servidor em que fase a conta está
     try {
       const g = await api('/api/protocol/get');
-      const fase = g && g.ok && g.protocol && (kind === 'treino' ? g.protocol.treinoPhase : g.protocol.dietaPhase);
+      const fase = g && g.ok && g.protocol && g.protocol.treinoPhase;
       if (fase === target) { faseAvancou(g.protocol, kind, target, email); return; }
     } catch (e2) {}
-    alert('Sem conexão agora: a fase NÃO foi avançada. Tenta de novo quando a internet voltar.');
+    alert('Sem conexão agora: o mês novo NÃO começou. Tenta de novo quando a internet voltar.');
   } finally {
     _phaseBusy = false;
     btn.textContent = txt; cancel.disabled = false;
@@ -5754,12 +5993,12 @@ async function confirmPhaseUpgrade() {
 function faseAvancou(protocol, kind, target, email) {
   if (!state.user || state.user.email !== email) return;
   state.protocol = { ...protocol, _owner: email };
-  const label = kind === 'treino'
-    ? `Avanço TREINO · Fase ${target} · ${state.protocol.days}x/sem`
-    : `Avanço DIETA · Fase ${target} · ${state.protocol.diet}`;
+  const label = `Mês novo · Fase ${target} · ${state.protocol.days}x/sem · ${state.protocol.diet} · ${state.protocol.weight} kg`;
   pushHistory(label, state.protocol);
-  // fase nova começa no DIA 1 e na semana 1 dela (zerado ANTES de salvar: o dia antigo podia nem existir no treino novo)
+  // mês novo começa no DIA 1 (zerado ANTES de salvar: o dia antigo podia nem existir no treino novo). A semana segue a
+  // conta do treino: dentro do bloco a chave é a mesma e a semana continua, sem escrever por cima de carga anotada.
   state.currentDay = 0; state.week = null; state.fotoFase = null;
+  _efetivo = null;
   saveState();
   initDashboard();
 }
@@ -5797,8 +6036,7 @@ function updatePhaseBadge() {
   const badge = document.getElementById('phase-badge');
   if (!badge) return;
   const tp = state.protocol?.treinoPhase || state.protocol?.phase || '1.0';
-  const dp = state.protocol?.dietaPhase || state.protocol?.phase || '1.0';
-  badge.textContent = tp === dp ? ('FASE ' + tp) : (`TREINO ${tp} · DIETA ${dp}`);
+  badge.textContent = 'MÊS ' + (MESES_TREINO.indexOf(tp) + 1 || 1) + ' · FASE ' + tp;
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -5861,10 +6099,14 @@ document.addEventListener('keydown', e => {
 // ═══════════════════════════════════════════════════════════
 function getDietKey(p) {
   // Ex: "DIETA 2K" → "2K"; com escolha de refeições vira "2K_3R"/"2K_5R" (sem campo ou 4R = cânon)
+  // + o cardápio do mês (Criador, Sala #4161): A no x.0 (sem sufixo), B no x.1 ("2K_B"), C no x.2 ("2K_5R_C")
   const base = String(p.diet || '').replace(/^DIETA\s+/, '');
   const refs = p.refeicoes;
-  return (refs === '3R' || refs === '5R') ? `${base}_${refs}` : base;
+  const k = (refs === '3R' || refs === '5R') ? `${base}_${refs}` : base;
+  const suf = ['', '_B', '_C'][mesDoBloco(p.treinoPhase)];
+  return (suf && state.dietaData && !state.dietaData[k + suf]) ? k : k + suf;
 }
+function letraDoCardapio(p) { return ['A', 'B', 'C'][mesDoBloco(p.treinoPhase)]; }
 
 // Totais que a própria dieta declara (bloco TOTAL DIÁRIO): é o que o aluno come de verdade. Os macros
 // calculados por peso no cadastro não batem com a dieta por faixa, então o que aparece na tela vem daqui.
@@ -5933,62 +6175,46 @@ function renderDieta() {
     ? `<details class="result-card extra-card"><summary>🍽️ Orientações alimentares</summary><div class="small mt-2" style="white-space:pre-wrap;line-height:1.5;">${d.alimentares}</div></details>`
     : '';
 
-  // PDF url: DIETA_2K.pdf, DIETA_2.5K.pdf, etc.
-  const dietPdf = `pdfs/dietas/DIETA_${key}.pdf`;
-  const dietFile = `${p.diet}.pdf`;
 
-  // Card de avançar fase DA DIETA
-  const dietaPhase = p.dietaPhase || p.phase || '1.0';
-  const nextDieta = getNextPhase(dietaPhase, 'dieta');
-  const dInfo = getPhaseUnlockInfo('dieta');
-  // a dieta que o avanço entregaria: se for a mesma de agora, avançar só trocaria o rótulo e travaria o recálculo
-  const dietaSeguinte = nextDieta ? adjustDietForPhase(String(p.dietBase || p.diet || ''), p.goal, PHASES_DIETA.indexOf(nextDieta)) : null;
-  let dietaUpgradeHtml;
-  if (nextDieta && dietaSeguinte !== p.diet) {
-    const goalMsg = p.goal === 'Emagrecer' ? 'Desce 1 faixa de caloria pra forçar nova perda.'
-                   : 'Sobe 1 faixa de caloria pra forçar nova construção.';
-    const btnHtmlDieta = dInfo.unlocked
-      ? `<button type="button" class="btn secondary" onclick="openPhaseUpgrade('${nextDieta}','dieta')" style="margin-top:0;">Avançar dieta pra Fase ${nextDieta}</button>`
-      : `<button type="button" class="btn" disabled style="margin-top:0;opacity:.5;cursor:not-allowed;">Libera em ${dInfo.daysLeft} ${dInfo.daysLeft === 1 ? 'dia' : 'dias'}</button>`;
-    dietaUpgradeHtml = `
+  // A dieta muda junto com o treino, a cada 30 dias: o aluno manda o peso na virada do mês (aba TREINO), a faixa é
+  // recalculada e o cardápio troca. Não tem mais avanço de dieta separado.
+  const nextMes = nextTreinoPhase(p);
+  const mInfo = getPhaseUnlockInfo();
+  const dietaUpgradeHtml = `
       <div class="phase-upgrade-card">
-        <div class="phase-upgrade-title">${dInfo.unlocked ? 'PRÓXIMA FASE DA DIETA' : '🔒 PRÓXIMA FASE DA DIETA'}</div>
-        <div class="phase-upgrade-headline">Fase ${nextDieta}: ${escapeHtml(dietaSeguinte)}</div>
-        <div class="phase-upgrade-desc">${goalMsg} Roda a dieta de agora por <strong>pelo menos 1 semana</strong> antes de avançar: o corpo precisa de tempo pra se adaptar. Avançar <strong>não tem volta</strong> e trava o recálculo do protocolo.</div>
-        ${btnHtmlDieta}
+        <div class="phase-upgrade-title">${nextMes ? (mInfo.unlocked ? 'TEU MÊS NOVO JÁ ESTÁ LIBERADO' : 'PRÓXIMA DIETA') : 'TUA DIETA'}</div>
+        <div class="phase-upgrade-headline">${nextMes ? (mInfo.unlocked ? 'Começa pela aba TREINO' : `Em ${mInfo.daysLeft} ${mInfo.daysLeft === 1 ? 'dia' : 'dias'}`) : escapeHtml(p.diet)}</div>
+        <div class="phase-upgrade-desc">A dieta muda <strong>a cada 30 dias</strong>, junto com o treino: na virada do mês tu manda teu peso de hoje, o app recalcula as calorias e troca o cardápio, com outras comidas e a mesma proteína.</div>
+        ${nextMes && mInfo.unlocked ? `<button type="button" class="btn secondary" onclick="openPhaseUpgrade('${nextMes}')" style="margin-top:0;">Começar o mês novo</button>` : ''}
       </div>
     `;
-  } else if (nextDieta) {
-    dietaUpgradeHtml = `
-      <div class="phase-upgrade-card">
-        <div class="phase-upgrade-title">TUA DIETA NÃO MUDA DE FAIXA</div>
-        <div class="phase-upgrade-headline">${escapeHtml(p.diet)}</div>
-        <div class="phase-upgrade-desc">${p.goal === 'Recompor'
-          ? 'Na recomposição a caloria fica na mesma faixa em todas as fases: quem muda é o treino. Segue nessa dieta.'
-          : 'Tu já tá na ' + (p.goal === 'Emagrecer' ? 'menor' : 'maior') + ' faixa de caloria do método. Segue nessa dieta.'}</div>
-      </div>
-    `;
-  } else {
-    dietaUpgradeHtml = `
-      <div class="phase-upgrade-card">
-        <div class="phase-upgrade-title">FASE MÁXIMA DE DIETA</div>
-        <div class="phase-upgrade-headline">Dieta ${dietaPhase} 🏆</div>
-        <div class="phase-upgrade-desc">Esse é o ajuste máximo da dieta pelo método. Mantém enquanto estiver evoluindo.</div>
-      </div>
-    `;
-  }
+  // cardio do objetivo (saiu do texto de estilo de vida na revisão de 11/2026)
+  const cd = d.cardio && d.cardio[p.goal];
+  const cardioHtml = cd ? `<div class="result-card cardio-card">
+      <div style="font-weight:800;font-size:12px;letter-spacing:.5px;color:var(--red-text);">🏃 CARDIO</div>
+      <div class="cardio-linha"><strong>${escapeHtml(cd.frequencia)}</strong> · ${escapeHtml(cd.duracao)}</div>
+      <div class="small" style="line-height:1.5;">${escapeHtml(cd.detalhe)}</div>
+    </div>` : '';
+  const totW = dietTotals(d);
+  const whey = totW ? wheyExtra(Number(p.weight), Number(p.age), totW.p) : 0;
+  const wheyHtml = whey ? `<div class="result-card">
+      <div style="font-weight:800;font-size:12px;letter-spacing:.5px;color:var(--red-text);">🥤 MAIS 1 DOSE DE WHEY POR DIA</div>
+      <div class="small mt-2" style="line-height:1.5;">Pro teu peso, a proteína desta dieta fica um pouco curta. Toma 1 dose de whey (30 g) a mais por dia, num lanche ou depois do treino, além do que já está no cardápio.</div>
+    </div>` : '';
 
   const refsLabel = { '3R': '3 refeições', '5R': '5 refeições' }[p.refeicoes] || '4 refeições';
   const tot = dietTotals(d);
   c.innerHTML = `
     <h2>${escapeHtml(p.diet)}</h2>
-    <p class="hint">${tot ? `${tot.kcal} kcal por dia · proteína ${tot.p} g · carboidrato ${tot.c} g · gordura ${tot.g} g` : `cerca de ${DIET_KCAL[key.replace(/_\dR$/, '')] || p.target} kcal por dia`} · ${refsLabel} · Dieta Fase ${dietaPhase}</p>
+    <p class="hint">${tot ? `${tot.kcal} kcal por dia · proteína ${tot.p} g · carboidrato ${tot.c} g · gordura ${tot.g} g` : `cerca de ${DIET_KCAL[key.replace(/_\dR$/, '')] || p.target} kcal por dia`} · ${refsLabel} · cardápio ${letraDoCardapio(p)} deste mês</p>
     <div style="display:flex;gap:8px;margin-bottom:14px;">
-      <a class="btn secondary so-brasil" href="${dietPdf}" target="_blank" rel="noopener" download="${escapeHtml(dietFile)}" style="text-decoration:none;text-align:center;margin-top:0;flex:1;">📥 Baixar PDF</a>
+      <button type="button" class="btn secondary so-brasil" onclick="abrePdf('dieta')" style="margin-top:0;flex:1;">📥 Baixar PDF</button>
       <button type="button" class="btn secondary" onclick="openShoppingList()" style="margin-top:0;flex:1;">🛒 Lista de compras</button>
     </div>
+    ${wheyHtml}
     ${refsHtml}
     ${totalHtml}
+    ${cardioHtml}
     ${regrasHtml}${estiloHtml}${orientHtml}
     ${dietaUpgradeHtml}
   `;
@@ -6136,10 +6362,15 @@ function renderSupl() {
   const c = document.getElementById('tab-supl');
   if (!s) { c.innerHTML = '<div class="empty"><p>Carregando suplementos...</p></div>'; return; }
 
-  // Filtra: mostra "todos" + os que casam com o objetivo do aluno (suporta array `objetivos` e legado `objetivo`)
+  // Filtra: "todos" + os do objetivo do aluno (array `objetivos` ou legado `objetivo`), e, desde a revisão de 11/2026,
+  // pelo sexo ('F' = só mulher) e pela idade mínima (cafeína a partir de 18, coenzima Q10 a partir de 40)
+  const sexoF = state.protocol?.sex === 'Mulher', idade = Number(state.protocol?.age) || 0;
   const potes = s.potes.filter(p => {
     const list = Array.isArray(p.objetivos) ? p.objetivos : (p.objetivo ? [p.objetivo] : ['todos']);
-    return list.includes('todos') || list.includes(goal);
+    if (!(list.includes('todos') || list.includes(goal))) return false;
+    if (p.sexo === 'F' && !sexoF) return false;
+    if (p.idade_min && idade < p.idade_min) return false;
+    return true;
   });
 
   const potesHtml = potes.map(p => `
@@ -6191,7 +6422,7 @@ function renderSupl() {
   c.innerHTML = `
     <h2>${s.titulo}</h2>
     <p class="hint">${s.subtitulo}</p>
-    <a class="btn secondary so-brasil" href="pdfs/suplementos.pdf" target="_blank" rel="noopener" download="Shape de Elite - Suplementos.pdf" style="text-decoration:none;text-align:center;margin-bottom:14px;">📥 Baixar PDF dos suplementos</a>
+    <button type="button" class="btn secondary so-brasil" onclick="abrePdf('supl')" style="margin-bottom:14px;">📥 Baixar PDF dos teus potes</button>
     <div class="result-card" style="background:var(--red-tint);border-color:var(--red);">
       <div class="small" style="color:var(--text);line-height:1.6;">${s.intro}</div>
     </div>

@@ -1,0 +1,3173 @@
+{
+ "Supino Inclinado com Halteres": {
+  "grupo": "peito",
+  "opcoes": [
+   {
+    "exercicio": "Supino Inclinado na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO INCLINADO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/7E9d83utgeQ?feature=share"
+   },
+   {
+    "exercicio": "Supino Reto na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO RETO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/5OyPWO2WLWY?feature=share"
+   },
+   {
+    "exercicio": "Supino Reto na Máquina Sentado",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO RETO NA MAQUINA SENTADO",
+    "video_url": "https://youtube.com/shorts/rzXz_sEGG54?feature=share"
+   },
+   {
+    "exercicio": "Supino Declinado na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO DECLINADO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/GQLcl2lN7hg?feature=share"
+   }
+  ]
+ },
+ "Supino Inclinado na Máquina": {
+  "grupo": "peito",
+  "opcoes": [
+   {
+    "exercicio": "Supino Inclinado com Halteres",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO INCLINADO COM HALTERES",
+    "video_url": "https://youtube.com/shorts/KH1I8eWYIFk?feature=share"
+   },
+   {
+    "exercicio": "Supino Reto na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO RETO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/5OyPWO2WLWY?feature=share"
+   },
+   {
+    "exercicio": "Supino Reto na Máquina Sentado",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO RETO NA MAQUINA SENTADO",
+    "video_url": "https://youtube.com/shorts/rzXz_sEGG54?feature=share"
+   },
+   {
+    "exercicio": "Supino Declinado na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO DECLINADO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/GQLcl2lN7hg?feature=share"
+   }
+  ]
+ },
+ "Supino Reto na Máquina": {
+  "grupo": "peito",
+  "opcoes": [
+   {
+    "exercicio": "Supino Reto na Máquina Sentado",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO RETO NA MAQUINA SENTADO",
+    "video_url": "https://youtube.com/shorts/rzXz_sEGG54?feature=share"
+   },
+   {
+    "exercicio": "Supino Declinado na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO DECLINADO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/GQLcl2lN7hg?feature=share"
+   },
+   {
+    "exercicio": "Supino Inclinado com Halteres",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO INCLINADO COM HALTERES",
+    "video_url": "https://youtube.com/shorts/KH1I8eWYIFk?feature=share"
+   },
+   {
+    "exercicio": "Supino Inclinado na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO INCLINADO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/7E9d83utgeQ?feature=share"
+   }
+  ]
+ },
+ "Supino Reto na Máquina Sentado": {
+  "grupo": "peito",
+  "opcoes": [
+   {
+    "exercicio": "Supino Reto na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO RETO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/5OyPWO2WLWY?feature=share"
+   },
+   {
+    "exercicio": "Supino Declinado na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO DECLINADO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/GQLcl2lN7hg?feature=share"
+   },
+   {
+    "exercicio": "Supino Inclinado com Halteres",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO INCLINADO COM HALTERES",
+    "video_url": "https://youtube.com/shorts/KH1I8eWYIFk?feature=share"
+   },
+   {
+    "exercicio": "Supino Inclinado na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO INCLINADO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/7E9d83utgeQ?feature=share"
+   }
+  ]
+ },
+ "Supino Declinado na Máquina": {
+  "grupo": "peito",
+  "opcoes": [
+   {
+    "exercicio": "Supino Reto na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO RETO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/5OyPWO2WLWY?feature=share"
+   },
+   {
+    "exercicio": "Supino Reto na Máquina Sentado",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SUPINO RETO NA MAQUINA SENTADO",
+    "video_url": "https://youtube.com/shorts/rzXz_sEGG54?feature=share"
+   }
+  ]
+ },
+ "Crucifixo Inclinado": {
+  "grupo": "peito",
+  "opcoes": [
+   {
+    "exercicio": "Crucifixo Inclinado no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INCLINADO NO CROSS",
+    "video_url": "https://www.youtube.com/shorts/nVOhlOZleYU"
+   },
+   {
+    "exercicio": "Crossover",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CROSSOVER",
+    "video_url": "https://youtube.com/shorts/r7OPVZeAzjg?feature=share"
+   },
+   {
+    "exercicio": "Crossover Polia Média",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CROSSOVER POLIA MEDIA",
+    "video_url": "https://youtube.com/shorts/r4sQ08_vWSA?feature=share"
+   },
+   {
+    "exercicio": "Voador",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "VOADOR",
+    "video_url": "https://youtube.com/shorts/OOEOxr_q45I?feature=share"
+   }
+  ]
+ },
+ "Crucifixo Inclinado no Cross": {
+  "grupo": "peito",
+  "opcoes": [
+   {
+    "exercicio": "Crucifixo Inclinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INCLINADO",
+    "video_url": "https://youtube.com/shorts/TDbrCjGA684?feature=share"
+   },
+   {
+    "exercicio": "Crossover",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CROSSOVER",
+    "video_url": "https://youtube.com/shorts/r7OPVZeAzjg?feature=share"
+   },
+   {
+    "exercicio": "Crossover Polia Média",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CROSSOVER POLIA MEDIA",
+    "video_url": "https://youtube.com/shorts/r4sQ08_vWSA?feature=share"
+   },
+   {
+    "exercicio": "Voador",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "VOADOR",
+    "video_url": "https://youtube.com/shorts/OOEOxr_q45I?feature=share"
+   }
+  ]
+ },
+ "Voador": {
+  "grupo": "peito",
+  "opcoes": [
+   {
+    "exercicio": "Crossover",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CROSSOVER",
+    "video_url": "https://youtube.com/shorts/r7OPVZeAzjg?feature=share"
+   },
+   {
+    "exercicio": "Crossover Polia Média",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CROSSOVER POLIA MEDIA",
+    "video_url": "https://youtube.com/shorts/r4sQ08_vWSA?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inclinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INCLINADO",
+    "video_url": "https://youtube.com/shorts/TDbrCjGA684?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inclinado no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INCLINADO NO CROSS",
+    "video_url": "https://www.youtube.com/shorts/nVOhlOZleYU"
+   }
+  ]
+ },
+ "Crossover": {
+  "grupo": "peito",
+  "opcoes": [
+   {
+    "exercicio": "Crossover Polia Média",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CROSSOVER POLIA MEDIA",
+    "video_url": "https://youtube.com/shorts/r4sQ08_vWSA?feature=share"
+   },
+   {
+    "exercicio": "Voador",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "VOADOR",
+    "video_url": "https://youtube.com/shorts/OOEOxr_q45I?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inclinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INCLINADO",
+    "video_url": "https://youtube.com/shorts/TDbrCjGA684?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inclinado no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INCLINADO NO CROSS",
+    "video_url": "https://www.youtube.com/shorts/nVOhlOZleYU"
+   }
+  ]
+ },
+ "Crossover Polia Média": {
+  "grupo": "peito",
+  "opcoes": [
+   {
+    "exercicio": "Crossover",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CROSSOVER",
+    "video_url": "https://youtube.com/shorts/r7OPVZeAzjg?feature=share"
+   },
+   {
+    "exercicio": "Voador",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "VOADOR",
+    "video_url": "https://youtube.com/shorts/OOEOxr_q45I?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inclinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INCLINADO",
+    "video_url": "https://youtube.com/shorts/TDbrCjGA684?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inclinado no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INCLINADO NO CROSS",
+    "video_url": "https://www.youtube.com/shorts/nVOhlOZleYU"
+   }
+  ]
+ },
+ "Remada Curvada Pronada": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Remada Curvada Sentado",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA SENTADO",
+    "video_url": "https://youtube.com/shorts/LdOoarnX120?feature=share"
+   },
+   {
+    "exercicio": "Remada Curvada na Máquina Guiada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA NA MAQUINA GUIADA",
+    "video_url": "https://youtube.com/shorts/L0Qezlp5UEo?feature=share"
+   },
+   {
+    "exercicio": "Serrote com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE COM HALTER",
+    "video_url": "https://youtube.com/shorts/UxwgcarzDs4?feature=share"
+   },
+   {
+    "exercicio": "Serrote Pêndulo com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE PENDULO COM HALTER",
+    "video_url": "https://youtube.com/shorts/Zv8uexik2es?feature=share"
+   },
+   {
+    "exercicio": "Remada Pronada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA PRONADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/aKnnaE4Srik?feature=share"
+   }
+  ]
+ },
+ "Remada Curvada Sentado": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Remada Curvada Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA PRONADA",
+    "video_url": "https://youtube.com/shorts/PH15eTd1gz8?feature=share"
+   },
+   {
+    "exercicio": "Remada Curvada na Máquina Guiada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA NA MAQUINA GUIADA",
+    "video_url": "https://youtube.com/shorts/L0Qezlp5UEo?feature=share"
+   },
+   {
+    "exercicio": "Serrote com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE COM HALTER",
+    "video_url": "https://youtube.com/shorts/UxwgcarzDs4?feature=share"
+   },
+   {
+    "exercicio": "Serrote Pêndulo com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE PENDULO COM HALTER",
+    "video_url": "https://youtube.com/shorts/Zv8uexik2es?feature=share"
+   },
+   {
+    "exercicio": "Remada Pronada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA PRONADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/aKnnaE4Srik?feature=share"
+   }
+  ]
+ },
+ "Remada Curvada na Máquina Guiada": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Remada Curvada Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA PRONADA",
+    "video_url": "https://youtube.com/shorts/PH15eTd1gz8?feature=share"
+   },
+   {
+    "exercicio": "Remada Curvada Sentado",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA SENTADO",
+    "video_url": "https://youtube.com/shorts/LdOoarnX120?feature=share"
+   },
+   {
+    "exercicio": "Serrote com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE COM HALTER",
+    "video_url": "https://youtube.com/shorts/UxwgcarzDs4?feature=share"
+   },
+   {
+    "exercicio": "Serrote Pêndulo com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE PENDULO COM HALTER",
+    "video_url": "https://youtube.com/shorts/Zv8uexik2es?feature=share"
+   },
+   {
+    "exercicio": "Remada Pronada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA PRONADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/aKnnaE4Srik?feature=share"
+   }
+  ]
+ },
+ "Serrote com Halter": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Serrote Pêndulo com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE PENDULO COM HALTER",
+    "video_url": "https://youtube.com/shorts/Zv8uexik2es?feature=share"
+   },
+   {
+    "exercicio": "Remada Curvada Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA PRONADA",
+    "video_url": "https://youtube.com/shorts/PH15eTd1gz8?feature=share"
+   },
+   {
+    "exercicio": "Remada Curvada Sentado",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA SENTADO",
+    "video_url": "https://youtube.com/shorts/LdOoarnX120?feature=share"
+   },
+   {
+    "exercicio": "Remada Curvada na Máquina Guiada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA NA MAQUINA GUIADA",
+    "video_url": "https://youtube.com/shorts/L0Qezlp5UEo?feature=share"
+   },
+   {
+    "exercicio": "Remada Pronada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA PRONADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/aKnnaE4Srik?feature=share"
+   }
+  ]
+ },
+ "Serrote Pêndulo com Halter": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Serrote com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE COM HALTER",
+    "video_url": "https://youtube.com/shorts/UxwgcarzDs4?feature=share"
+   },
+   {
+    "exercicio": "Remada Curvada Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA PRONADA",
+    "video_url": "https://youtube.com/shorts/PH15eTd1gz8?feature=share"
+   },
+   {
+    "exercicio": "Remada Curvada Sentado",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA SENTADO",
+    "video_url": "https://youtube.com/shorts/LdOoarnX120?feature=share"
+   },
+   {
+    "exercicio": "Remada Curvada na Máquina Guiada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA CURVADA NA MAQUINA GUIADA",
+    "video_url": "https://youtube.com/shorts/L0Qezlp5UEo?feature=share"
+   },
+   {
+    "exercicio": "Remada Pronada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA PRONADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/aKnnaE4Srik?feature=share"
+   }
+  ]
+ },
+ "Remada Baixa com Triângulo": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Remada Baixa Aberta",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA ABERTA",
+    "video_url": "https://youtube.com/shorts/18zzI-hIBmI?feature=share"
+   },
+   {
+    "exercicio": "Remada Baixa Supinada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA SUPINADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/JPhZKXge8HY?feature=share"
+   },
+   {
+    "exercicio": "Remada Pronada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA PRONADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/aKnnaE4Srik?feature=share"
+   },
+   {
+    "exercicio": "Remada Unilateral na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA UNILATERAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/o4ldvyKO42o?feature=share"
+   },
+   {
+    "exercicio": "Serrote com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE COM HALTER",
+    "video_url": "https://youtube.com/shorts/UxwgcarzDs4?feature=share"
+   }
+  ]
+ },
+ "Remada Baixa Aberta": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Remada Baixa com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/GYaGCj4pHpo?feature=share"
+   },
+   {
+    "exercicio": "Remada Baixa Supinada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA SUPINADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/JPhZKXge8HY?feature=share"
+   },
+   {
+    "exercicio": "Remada Pronada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA PRONADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/aKnnaE4Srik?feature=share"
+   },
+   {
+    "exercicio": "Remada Unilateral na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA UNILATERAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/o4ldvyKO42o?feature=share"
+   },
+   {
+    "exercicio": "Serrote com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE COM HALTER",
+    "video_url": "https://youtube.com/shorts/UxwgcarzDs4?feature=share"
+   }
+  ]
+ },
+ "Remada Baixa Supinada na Máquina": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Remada Baixa com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/GYaGCj4pHpo?feature=share"
+   },
+   {
+    "exercicio": "Remada Baixa Aberta",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA ABERTA",
+    "video_url": "https://youtube.com/shorts/18zzI-hIBmI?feature=share"
+   },
+   {
+    "exercicio": "Remada Pronada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA PRONADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/aKnnaE4Srik?feature=share"
+   },
+   {
+    "exercicio": "Remada Unilateral na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA UNILATERAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/o4ldvyKO42o?feature=share"
+   },
+   {
+    "exercicio": "Serrote com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE COM HALTER",
+    "video_url": "https://youtube.com/shorts/UxwgcarzDs4?feature=share"
+   }
+  ]
+ },
+ "Remada Pronada na Máquina": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Remada Unilateral na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA UNILATERAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/o4ldvyKO42o?feature=share"
+   },
+   {
+    "exercicio": "Remada Baixa com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/GYaGCj4pHpo?feature=share"
+   },
+   {
+    "exercicio": "Remada Baixa Aberta",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA ABERTA",
+    "video_url": "https://youtube.com/shorts/18zzI-hIBmI?feature=share"
+   },
+   {
+    "exercicio": "Remada Baixa Supinada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA SUPINADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/JPhZKXge8HY?feature=share"
+   },
+   {
+    "exercicio": "Serrote com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE COM HALTER",
+    "video_url": "https://youtube.com/shorts/UxwgcarzDs4?feature=share"
+   }
+  ]
+ },
+ "Remada Unilateral na Máquina": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Remada Pronada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA PRONADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/aKnnaE4Srik?feature=share"
+   },
+   {
+    "exercicio": "Remada Baixa com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/GYaGCj4pHpo?feature=share"
+   },
+   {
+    "exercicio": "Remada Baixa Aberta",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA ABERTA",
+    "video_url": "https://youtube.com/shorts/18zzI-hIBmI?feature=share"
+   },
+   {
+    "exercicio": "Remada Baixa Supinada na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "REMADA BAIXA SUPINADA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/JPhZKXge8HY?feature=share"
+   },
+   {
+    "exercicio": "Serrote com Halter",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "SERROTE COM HALTER",
+    "video_url": "https://youtube.com/shorts/UxwgcarzDs4?feature=share"
+   }
+  ]
+ },
+ "Puxada Alta Pronada": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Puxada Alta com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/Y3G2MehXE1s?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta Supinada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA SUPINADA",
+    "video_url": "https://youtube.com/shorts/Kdsb7qeG438?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta na Máquina Articulada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA NA MAQUINA ARTICULADA",
+    "video_url": "https://youtube.com/shorts/43PnIjgfLD8?feature=share"
+   },
+   {
+    "exercicio": "Pulldown com Corda",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN COM CORDA",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   }
+  ]
+ },
+ "Puxada Alta com Triângulo": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Puxada Alta Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA PRONADA",
+    "video_url": "https://youtube.com/shorts/TkrV_XAWkWQ?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta Supinada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA SUPINADA",
+    "video_url": "https://youtube.com/shorts/Kdsb7qeG438?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta na Máquina Articulada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA NA MAQUINA ARTICULADA",
+    "video_url": "https://youtube.com/shorts/43PnIjgfLD8?feature=share"
+   },
+   {
+    "exercicio": "Pulldown com Corda",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN COM CORDA",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   }
+  ]
+ },
+ "Puxada Alta Supinada": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Puxada Alta Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA PRONADA",
+    "video_url": "https://youtube.com/shorts/TkrV_XAWkWQ?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/Y3G2MehXE1s?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta na Máquina Articulada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA NA MAQUINA ARTICULADA",
+    "video_url": "https://youtube.com/shorts/43PnIjgfLD8?feature=share"
+   },
+   {
+    "exercicio": "Pulldown com Corda",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN COM CORDA",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   }
+  ]
+ },
+ "Puxada Alta na Máquina Articulada": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Puxada Alta Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA PRONADA",
+    "video_url": "https://youtube.com/shorts/TkrV_XAWkWQ?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/Y3G2MehXE1s?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta Supinada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA SUPINADA",
+    "video_url": "https://youtube.com/shorts/Kdsb7qeG438?feature=share"
+   },
+   {
+    "exercicio": "Pulldown com Corda",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN COM CORDA",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   }
+  ]
+ },
+ "Pulldown com Corda": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Pulldown",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown com Barra",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN COM BARRA",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/xkqFP0Lzeoc?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA PRONADA",
+    "video_url": "https://youtube.com/shorts/TkrV_XAWkWQ?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/Y3G2MehXE1s?feature=share"
+   }
+  ]
+ },
+ "Pulldown": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Pulldown com Corda",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN COM CORDA",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown com Barra",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN COM BARRA",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/xkqFP0Lzeoc?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA PRONADA",
+    "video_url": "https://youtube.com/shorts/TkrV_XAWkWQ?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/Y3G2MehXE1s?feature=share"
+   }
+  ]
+ },
+ "Pulldown com Barra": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Pulldown com Corda",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN COM CORDA",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/xkqFP0Lzeoc?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA PRONADA",
+    "video_url": "https://youtube.com/shorts/TkrV_XAWkWQ?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/Y3G2MehXE1s?feature=share"
+   }
+  ]
+ },
+ "Pulldown na Máquina": {
+  "grupo": "costas",
+  "opcoes": [
+   {
+    "exercicio": "Pulldown com Corda",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN COM CORDA",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Pulldown com Barra",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PULLDOWN COM BARRA",
+    "video_url": "https://youtube.com/shorts/8oggPw0Mwyc?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta Pronada",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA PRONADA",
+    "video_url": "https://youtube.com/shorts/TkrV_XAWkWQ?feature=share"
+   },
+   {
+    "exercicio": "Puxada Alta com Triângulo",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "PUXADA ALTA COM TRIANGULO",
+    "video_url": "https://youtube.com/shorts/Y3G2MehXE1s?feature=share"
+   }
+  ]
+ },
+ "Desenvolvimento com Halteres": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Desenvolvimento na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "DESENVOLVIMENTO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/CB2ILB5Cxt8?feature=share"
+   },
+   {
+    "exercicio": "Desenvolvimento na Máquina Sentado",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "DESENVOLVIMENTO NA MAQUINA SENTADO",
+    "video_url": "https://youtube.com/shorts/aSGSMPmpSrU?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL",
+    "video_url": "https://youtube.com/shorts/_JmPPXSEu7g?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/SeHnz88rJz0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL SENTADO",
+    "video_url": "https://youtube.com/shorts/3uJh-0fLMaI?feature=share"
+   }
+  ]
+ },
+ "Desenvolvimento na Máquina": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Desenvolvimento com Halteres",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "DESENVOLVIMENTO COM HALTERES",
+    "video_url": "https://youtube.com/shorts/e1o-hdUnlug?feature=share"
+   },
+   {
+    "exercicio": "Desenvolvimento na Máquina Sentado",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "DESENVOLVIMENTO NA MAQUINA SENTADO",
+    "video_url": "https://youtube.com/shorts/aSGSMPmpSrU?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL",
+    "video_url": "https://youtube.com/shorts/_JmPPXSEu7g?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/SeHnz88rJz0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL SENTADO",
+    "video_url": "https://youtube.com/shorts/3uJh-0fLMaI?feature=share"
+   }
+  ]
+ },
+ "Desenvolvimento na Máquina Sentado": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Desenvolvimento com Halteres",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "DESENVOLVIMENTO COM HALTERES",
+    "video_url": "https://youtube.com/shorts/e1o-hdUnlug?feature=share"
+   },
+   {
+    "exercicio": "Desenvolvimento na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "DESENVOLVIMENTO NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/CB2ILB5Cxt8?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL",
+    "video_url": "https://youtube.com/shorts/_JmPPXSEu7g?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/SeHnz88rJz0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL SENTADO",
+    "video_url": "https://youtube.com/shorts/3uJh-0fLMaI?feature=share"
+   }
+  ]
+ },
+ "Elevação Lateral": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Elevação Lateral no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/SeHnz88rJz0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL SENTADO",
+    "video_url": "https://youtube.com/shorts/3uJh-0fLMaI?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Banco Inclinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO BANCO INCLINADO",
+    "video_url": "https://youtube.com/shorts/fpYohEOX7ws?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/_24SOGIgPmo?feature=share"
+   }
+  ]
+ },
+ "Elevação Lateral no Cross": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Elevação Lateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL",
+    "video_url": "https://youtube.com/shorts/_JmPPXSEu7g?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL SENTADO",
+    "video_url": "https://youtube.com/shorts/3uJh-0fLMaI?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Banco Inclinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO BANCO INCLINADO",
+    "video_url": "https://youtube.com/shorts/fpYohEOX7ws?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/_24SOGIgPmo?feature=share"
+   }
+  ]
+ },
+ "Elevação Lateral Sentado": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Elevação Lateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL",
+    "video_url": "https://youtube.com/shorts/_JmPPXSEu7g?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/SeHnz88rJz0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Banco Inclinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO BANCO INCLINADO",
+    "video_url": "https://youtube.com/shorts/fpYohEOX7ws?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/_24SOGIgPmo?feature=share"
+   }
+  ]
+ },
+ "Elevação Lateral no Banco Inclinado": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Elevação Lateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL",
+    "video_url": "https://youtube.com/shorts/_JmPPXSEu7g?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/SeHnz88rJz0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL SENTADO",
+    "video_url": "https://youtube.com/shorts/3uJh-0fLMaI?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/_24SOGIgPmo?feature=share"
+   }
+  ]
+ },
+ "Elevação Lateral na Máquina": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Elevação Lateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL",
+    "video_url": "https://youtube.com/shorts/_JmPPXSEu7g?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/SeHnz88rJz0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL SENTADO",
+    "video_url": "https://youtube.com/shorts/3uJh-0fLMaI?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Banco Inclinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO BANCO INCLINADO",
+    "video_url": "https://youtube.com/shorts/fpYohEOX7ws?feature=share"
+   }
+  ]
+ },
+ "Crucifixo Inverso no Voador": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Crucifixo Inverso com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INVERSO COM HALTERES",
+    "video_url": "https://youtube.com/shorts/JNgQo9pfCCM?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inverso no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INVERSO NO CROSS",
+    "video_url": "https://youtube.com/shorts/ZVZuo8ECBgU?feature=share"
+   },
+   {
+    "exercicio": "Face Pull",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "FACE PULL",
+    "video_url": "https://youtube.com/shorts/CAla8Sekv58?feature=share"
+   }
+  ]
+ },
+ "Crucifixo Inverso com Halteres": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Crucifixo Inverso no Voador",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INVERSO NO VOADOR",
+    "video_url": "https://youtube.com/shorts/N04PirMHBuQ?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inverso no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INVERSO NO CROSS",
+    "video_url": "https://youtube.com/shorts/ZVZuo8ECBgU?feature=share"
+   },
+   {
+    "exercicio": "Face Pull",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "FACE PULL",
+    "video_url": "https://youtube.com/shorts/CAla8Sekv58?feature=share"
+   }
+  ]
+ },
+ "Crucifixo Inverso no Cross": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Crucifixo Inverso no Voador",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INVERSO NO VOADOR",
+    "video_url": "https://youtube.com/shorts/N04PirMHBuQ?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inverso com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INVERSO COM HALTERES",
+    "video_url": "https://youtube.com/shorts/JNgQo9pfCCM?feature=share"
+   },
+   {
+    "exercicio": "Face Pull",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "FACE PULL",
+    "video_url": "https://youtube.com/shorts/CAla8Sekv58?feature=share"
+   }
+  ]
+ },
+ "Face Pull": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Crucifixo Inverso no Voador",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INVERSO NO VOADOR",
+    "video_url": "https://youtube.com/shorts/N04PirMHBuQ?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inverso com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INVERSO COM HALTERES",
+    "video_url": "https://youtube.com/shorts/JNgQo9pfCCM?feature=share"
+   },
+   {
+    "exercicio": "Crucifixo Inverso no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CRUCIFIXO INVERSO NO CROSS",
+    "video_url": "https://youtube.com/shorts/ZVZuo8ECBgU?feature=share"
+   }
+  ]
+ },
+ "Elevação Frontal no Cross": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Elevação Frontal Neutra com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO FRONTAL NEUTRA COM HALTERES",
+    "video_url": "https://youtube.com/shorts/cmElKUj4VuY?feature=share"
+   },
+   {
+    "exercicio": "Elevação Frontal com Anilha",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO FRONTAL COM ANILHA",
+    "video_url": "https://youtube.com/shorts/zfxQW7noTXY?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL",
+    "video_url": "https://youtube.com/shorts/_JmPPXSEu7g?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/SeHnz88rJz0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL SENTADO",
+    "video_url": "https://youtube.com/shorts/3uJh-0fLMaI?feature=share"
+   }
+  ]
+ },
+ "Elevação Frontal Neutra com Halteres": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Elevação Frontal no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO FRONTAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/3gpktfxKdms?feature=share"
+   },
+   {
+    "exercicio": "Elevação Frontal com Anilha",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO FRONTAL COM ANILHA",
+    "video_url": "https://youtube.com/shorts/zfxQW7noTXY?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL",
+    "video_url": "https://youtube.com/shorts/_JmPPXSEu7g?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/SeHnz88rJz0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL SENTADO",
+    "video_url": "https://youtube.com/shorts/3uJh-0fLMaI?feature=share"
+   }
+  ]
+ },
+ "Elevação Frontal com Anilha": {
+  "grupo": "ombro",
+  "opcoes": [
+   {
+    "exercicio": "Elevação Frontal no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO FRONTAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/3gpktfxKdms?feature=share"
+   },
+   {
+    "exercicio": "Elevação Frontal Neutra com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO FRONTAL NEUTRA COM HALTERES",
+    "video_url": "https://youtube.com/shorts/cmElKUj4VuY?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL",
+    "video_url": "https://youtube.com/shorts/_JmPPXSEu7g?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL NO CROSS",
+    "video_url": "https://youtube.com/shorts/SeHnz88rJz0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Lateral Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ELEVACAO LATERAL SENTADO",
+    "video_url": "https://youtube.com/shorts/3uJh-0fLMaI?feature=share"
+   }
+  ]
+ },
+ "Tríceps Francês no Cross": {
+  "grupo": "triceps",
+  "opcoes": [
+   {
+    "exercicio": "Tríceps Testa no Banco Inclinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS TESTA NO BANCO INCLINADO",
+    "video_url": "https://youtube.com/shorts/wO4a6MmVruw?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Testa em Pé",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS TESTA EM PE",
+    "video_url": "https://youtube.com/shorts/kadjKTjlEZg?feature=share"
+   }
+  ]
+ },
+ "Tríceps Testa no Banco Inclinado": {
+  "grupo": "triceps",
+  "opcoes": [
+   {
+    "exercicio": "Tríceps Francês no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS FRANCES NO CROSS",
+    "video_url": "https://youtube.com/shorts/itnOnK13P8I?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Testa em Pé",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS TESTA EM PE",
+    "video_url": "https://youtube.com/shorts/kadjKTjlEZg?feature=share"
+   }
+  ]
+ },
+ "Tríceps Testa em Pé": {
+  "grupo": "triceps",
+  "opcoes": [
+   {
+    "exercicio": "Tríceps Francês no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS FRANCES NO CROSS",
+    "video_url": "https://youtube.com/shorts/itnOnK13P8I?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Testa no Banco Inclinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS TESTA NO BANCO INCLINADO",
+    "video_url": "https://youtube.com/shorts/wO4a6MmVruw?feature=share"
+   }
+  ]
+ },
+ "Tríceps Pulley com Corda": {
+  "grupo": "triceps",
+  "opcoes": [
+   {
+    "exercicio": "Tríceps Pulley com Barra",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS PULLEY COM BARRA",
+    "video_url": "https://youtube.com/shorts/TMayrk10ovs?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Pulley na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS PULLEY NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/X1DlqmTqtfc?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Supinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS SUPINADO",
+    "video_url": "https://youtube.com/shorts/7tUoHqaokbo?feature=share"
+   }
+  ]
+ },
+ "Tríceps Pulley com Barra": {
+  "grupo": "triceps",
+  "opcoes": [
+   {
+    "exercicio": "Tríceps Pulley com Corda",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS PULLEY COM CORDA",
+    "video_url": "https://youtube.com/shorts/B6XoThm5WV8?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Pulley na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS PULLEY NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/X1DlqmTqtfc?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Supinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS SUPINADO",
+    "video_url": "https://youtube.com/shorts/7tUoHqaokbo?feature=share"
+   }
+  ]
+ },
+ "Tríceps Pulley na Máquina": {
+  "grupo": "triceps",
+  "opcoes": [
+   {
+    "exercicio": "Tríceps Pulley com Corda",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS PULLEY COM CORDA",
+    "video_url": "https://youtube.com/shorts/B6XoThm5WV8?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Pulley com Barra",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS PULLEY COM BARRA",
+    "video_url": "https://youtube.com/shorts/TMayrk10ovs?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Supinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS SUPINADO",
+    "video_url": "https://youtube.com/shorts/7tUoHqaokbo?feature=share"
+   }
+  ]
+ },
+ "Tríceps Supinado": {
+  "grupo": "triceps",
+  "opcoes": [
+   {
+    "exercicio": "Tríceps Pulley com Corda",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS PULLEY COM CORDA",
+    "video_url": "https://youtube.com/shorts/B6XoThm5WV8?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Pulley com Barra",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS PULLEY COM BARRA",
+    "video_url": "https://youtube.com/shorts/TMayrk10ovs?feature=share"
+   },
+   {
+    "exercicio": "Tríceps Pulley na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "TRICEPS PULLEY NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/X1DlqmTqtfc?feature=share"
+   }
+  ]
+ },
+ "Rosca Direta com Halteres": {
+  "grupo": "biceps",
+  "opcoes": [
+   {
+    "exercicio": "Rosca Direta com Barra W",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA COM BARRA W",
+    "video_url": "https://youtube.com/shorts/HQAHdvLAT0A?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA NO CROSS",
+    "video_url": "https://youtube.com/shorts/2FITOCQL9tg?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta Alternada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA ALTERNADA",
+    "video_url": "https://youtube.com/shorts/W0VrmE_Qcso?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Fechada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT FECHADA",
+    "video_url": "https://youtube.com/shorts/pPzzZ2YNcuA?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Unilateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT UNILATERAL",
+    "video_url": "https://youtube.com/shorts/OgKUMeXiGSo?feature=share"
+   }
+  ]
+ },
+ "Rosca Direta com Barra W": {
+  "grupo": "biceps",
+  "opcoes": [
+   {
+    "exercicio": "Rosca Direta com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA COM HALTERES",
+    "video_url": "https://youtube.com/shorts/MeXrizZogIg?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA NO CROSS",
+    "video_url": "https://youtube.com/shorts/2FITOCQL9tg?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta Alternada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA ALTERNADA",
+    "video_url": "https://youtube.com/shorts/W0VrmE_Qcso?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Fechada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT FECHADA",
+    "video_url": "https://youtube.com/shorts/pPzzZ2YNcuA?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Unilateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT UNILATERAL",
+    "video_url": "https://youtube.com/shorts/OgKUMeXiGSo?feature=share"
+   }
+  ]
+ },
+ "Rosca Direta no Cross": {
+  "grupo": "biceps",
+  "opcoes": [
+   {
+    "exercicio": "Rosca Direta com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA COM HALTERES",
+    "video_url": "https://youtube.com/shorts/MeXrizZogIg?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta com Barra W",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA COM BARRA W",
+    "video_url": "https://youtube.com/shorts/HQAHdvLAT0A?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta Alternada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA ALTERNADA",
+    "video_url": "https://youtube.com/shorts/W0VrmE_Qcso?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Fechada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT FECHADA",
+    "video_url": "https://youtube.com/shorts/pPzzZ2YNcuA?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Unilateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT UNILATERAL",
+    "video_url": "https://youtube.com/shorts/OgKUMeXiGSo?feature=share"
+   }
+  ]
+ },
+ "Rosca Direta Alternada": {
+  "grupo": "biceps",
+  "opcoes": [
+   {
+    "exercicio": "Rosca Direta com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA COM HALTERES",
+    "video_url": "https://youtube.com/shorts/MeXrizZogIg?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta com Barra W",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA COM BARRA W",
+    "video_url": "https://youtube.com/shorts/HQAHdvLAT0A?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA NO CROSS",
+    "video_url": "https://youtube.com/shorts/2FITOCQL9tg?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Fechada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT FECHADA",
+    "video_url": "https://youtube.com/shorts/pPzzZ2YNcuA?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Unilateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT UNILATERAL",
+    "video_url": "https://youtube.com/shorts/OgKUMeXiGSo?feature=share"
+   }
+  ]
+ },
+ "Rosca Scott Fechada": {
+  "grupo": "biceps",
+  "opcoes": [
+   {
+    "exercicio": "Rosca Scott Unilateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT UNILATERAL",
+    "video_url": "https://youtube.com/shorts/OgKUMeXiGSo?feature=share"
+   },
+   {
+    "exercicio": "Rosca Concentrada com Halter",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA CONCENTRADA COM HALTER",
+    "video_url": "https://youtube.com/shorts/Snt8F_49HPc?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA COM HALTERES",
+    "video_url": "https://youtube.com/shorts/MeXrizZogIg?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta com Barra W",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA COM BARRA W",
+    "video_url": "https://youtube.com/shorts/HQAHdvLAT0A?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA NO CROSS",
+    "video_url": "https://youtube.com/shorts/2FITOCQL9tg?feature=share"
+   }
+  ]
+ },
+ "Rosca Scott Unilateral": {
+  "grupo": "biceps",
+  "opcoes": [
+   {
+    "exercicio": "Rosca Scott Fechada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT FECHADA",
+    "video_url": "https://youtube.com/shorts/pPzzZ2YNcuA?feature=share"
+   },
+   {
+    "exercicio": "Rosca Concentrada com Halter",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA CONCENTRADA COM HALTER",
+    "video_url": "https://youtube.com/shorts/Snt8F_49HPc?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA COM HALTERES",
+    "video_url": "https://youtube.com/shorts/MeXrizZogIg?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta com Barra W",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA COM BARRA W",
+    "video_url": "https://youtube.com/shorts/HQAHdvLAT0A?feature=share"
+   },
+   {
+    "exercicio": "Rosca Direta no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA DIRETA NO CROSS",
+    "video_url": "https://youtube.com/shorts/2FITOCQL9tg?feature=share"
+   }
+  ]
+ },
+ "Rosca Martelo com Halteres": {
+  "grupo": "biceps",
+  "opcoes": [
+   {
+    "exercicio": "Rosca Martelo no Cross",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA MARTELO NO CROSS",
+    "video_url": "https://youtube.com/shorts/CxFSRvCbVhQ?feature=share"
+   },
+   {
+    "exercicio": "Rosca Concentrada com Halter",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA CONCENTRADA COM HALTER",
+    "video_url": "https://youtube.com/shorts/Snt8F_49HPc?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Fechada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT FECHADA",
+    "video_url": "https://youtube.com/shorts/pPzzZ2YNcuA?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Unilateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT UNILATERAL",
+    "video_url": "https://youtube.com/shorts/OgKUMeXiGSo?feature=share"
+   }
+  ]
+ },
+ "Rosca Martelo no Cross": {
+  "grupo": "biceps",
+  "opcoes": [
+   {
+    "exercicio": "Rosca Martelo com Halteres",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA MARTELO COM HALTERES",
+    "video_url": "https://youtube.com/shorts/pEU_8aGLJFY?feature=share"
+   },
+   {
+    "exercicio": "Rosca Concentrada com Halter",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA CONCENTRADA COM HALTER",
+    "video_url": "https://youtube.com/shorts/Snt8F_49HPc?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Fechada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT FECHADA",
+    "video_url": "https://youtube.com/shorts/pPzzZ2YNcuA?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Unilateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT UNILATERAL",
+    "video_url": "https://youtube.com/shorts/OgKUMeXiGSo?feature=share"
+   }
+  ]
+ },
+ "Rosca Concentrada com Halter": {
+  "grupo": "biceps",
+  "opcoes": [
+   {
+    "exercicio": "Rosca Scott Fechada",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT FECHADA",
+    "video_url": "https://youtube.com/shorts/pPzzZ2YNcuA?feature=share"
+   },
+   {
+    "exercicio": "Rosca Scott Unilateral",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ROSCA SCOTT UNILATERAL",
+    "video_url": "https://youtube.com/shorts/OgKUMeXiGSo?feature=share"
+   }
+  ]
+ },
+ "Agachamento Livre": {
+  "grupo": "quad",
+  "opcoes": [
+   {
+    "exercicio": "Agachamento Hack",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AGACHAMENTO HACK",
+    "video_url": "https://youtube.com/shorts/N9B-TVIUU3A?feature=share"
+   },
+   {
+    "exercicio": "Agachamento Smith",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AGACHAMENTO SMITH",
+    "video_url": "https://youtube.com/shorts/YQUOhH7WS8k?feature=share"
+   },
+   {
+    "exercicio": "Búlgaro",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "BULGARO",
+    "video_url": "https://youtube.com/shorts/3eFEKOMQrTs?feature=share"
+   },
+   {
+    "exercicio": "Afundo no Chão",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO NO CHAO",
+    "video_url": "https://youtube.com/shorts/td-fh--r4a8?feature=share"
+   },
+   {
+    "exercicio": "Afundo Smith com Step",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO SMITH COM STEP",
+    "video_url": "https://youtube.com/shorts/gbj0KowBZwM?feature=share"
+   }
+  ]
+ },
+ "Agachamento Hack": {
+  "grupo": "quad",
+  "opcoes": [
+   {
+    "exercicio": "Agachamento Livre",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AGACHAMENTO LIVRE",
+    "video_url": "https://youtube.com/shorts/GU50bAdOVSE?feature=share"
+   },
+   {
+    "exercicio": "Agachamento Smith",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AGACHAMENTO SMITH",
+    "video_url": "https://youtube.com/shorts/YQUOhH7WS8k?feature=share"
+   },
+   {
+    "exercicio": "Búlgaro",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "BULGARO",
+    "video_url": "https://youtube.com/shorts/3eFEKOMQrTs?feature=share"
+   },
+   {
+    "exercicio": "Afundo no Chão",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO NO CHAO",
+    "video_url": "https://youtube.com/shorts/td-fh--r4a8?feature=share"
+   },
+   {
+    "exercicio": "Afundo Smith com Step",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO SMITH COM STEP",
+    "video_url": "https://youtube.com/shorts/gbj0KowBZwM?feature=share"
+   }
+  ]
+ },
+ "Agachamento Smith": {
+  "grupo": "quad",
+  "opcoes": [
+   {
+    "exercicio": "Agachamento Livre",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AGACHAMENTO LIVRE",
+    "video_url": "https://youtube.com/shorts/GU50bAdOVSE?feature=share"
+   },
+   {
+    "exercicio": "Agachamento Hack",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AGACHAMENTO HACK",
+    "video_url": "https://youtube.com/shorts/N9B-TVIUU3A?feature=share"
+   },
+   {
+    "exercicio": "Búlgaro",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "BULGARO",
+    "video_url": "https://youtube.com/shorts/3eFEKOMQrTs?feature=share"
+   },
+   {
+    "exercicio": "Afundo no Chão",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO NO CHAO",
+    "video_url": "https://youtube.com/shorts/td-fh--r4a8?feature=share"
+   },
+   {
+    "exercicio": "Afundo Smith com Step",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO SMITH COM STEP",
+    "video_url": "https://youtube.com/shorts/gbj0KowBZwM?feature=share"
+   }
+  ]
+ },
+ "Leg Press 45º": {
+  "grupo": "quad",
+  "opcoes": [
+   {
+    "exercicio": "Leg Horizontal",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "LEG HORIZONTAL",
+    "video_url": "https://youtube.com/shorts/5-pIi1cODKQ?feature=share"
+   },
+   {
+    "exercicio": "Búlgaro",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "BULGARO",
+    "video_url": "https://youtube.com/shorts/3eFEKOMQrTs?feature=share"
+   },
+   {
+    "exercicio": "Afundo no Chão",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO NO CHAO",
+    "video_url": "https://youtube.com/shorts/td-fh--r4a8?feature=share"
+   },
+   {
+    "exercicio": "Afundo Smith com Step",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO SMITH COM STEP",
+    "video_url": "https://youtube.com/shorts/gbj0KowBZwM?feature=share"
+   }
+  ]
+ },
+ "Leg Horizontal": {
+  "grupo": "quad",
+  "opcoes": [
+   {
+    "exercicio": "Leg Press 45º",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "LEG PRESS 45",
+    "video_url": "https://youtube.com/shorts/6FmL-TtSfCw?feature=share"
+   },
+   {
+    "exercicio": "Búlgaro",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "BULGARO",
+    "video_url": "https://youtube.com/shorts/3eFEKOMQrTs?feature=share"
+   },
+   {
+    "exercicio": "Afundo no Chão",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO NO CHAO",
+    "video_url": "https://youtube.com/shorts/td-fh--r4a8?feature=share"
+   },
+   {
+    "exercicio": "Afundo Smith com Step",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO SMITH COM STEP",
+    "video_url": "https://youtube.com/shorts/gbj0KowBZwM?feature=share"
+   }
+  ]
+ },
+ "Cadeira Extensora": {
+  "grupo": "quad",
+  "opcoes": [
+   {
+    "exercicio": "Búlgaro",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "BULGARO",
+    "video_url": "https://youtube.com/shorts/3eFEKOMQrTs?feature=share"
+   },
+   {
+    "exercicio": "Afundo no Chão",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO NO CHAO",
+    "video_url": "https://youtube.com/shorts/td-fh--r4a8?feature=share"
+   },
+   {
+    "exercicio": "Afundo Smith com Step",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO SMITH COM STEP",
+    "video_url": "https://youtube.com/shorts/gbj0KowBZwM?feature=share"
+   },
+   {
+    "exercicio": "Leg Press 45º",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "LEG PRESS 45",
+    "video_url": "https://youtube.com/shorts/6FmL-TtSfCw?feature=share"
+   },
+   {
+    "exercicio": "Leg Horizontal",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "LEG HORIZONTAL",
+    "video_url": "https://youtube.com/shorts/5-pIi1cODKQ?feature=share"
+   }
+  ]
+ },
+ "Búlgaro": {
+  "grupo": "quad",
+  "opcoes": [
+   {
+    "exercicio": "Afundo no Chão",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO NO CHAO",
+    "video_url": "https://youtube.com/shorts/td-fh--r4a8?feature=share"
+   },
+   {
+    "exercicio": "Afundo Smith com Step",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO SMITH COM STEP",
+    "video_url": "https://youtube.com/shorts/gbj0KowBZwM?feature=share"
+   },
+   {
+    "exercicio": "Leg Press 45º",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "LEG PRESS 45",
+    "video_url": "https://youtube.com/shorts/6FmL-TtSfCw?feature=share"
+   },
+   {
+    "exercicio": "Leg Horizontal",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "LEG HORIZONTAL",
+    "video_url": "https://youtube.com/shorts/5-pIi1cODKQ?feature=share"
+   }
+  ]
+ },
+ "Afundo no Chão": {
+  "grupo": "quad",
+  "opcoes": [
+   {
+    "exercicio": "Búlgaro",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "BULGARO",
+    "video_url": "https://youtube.com/shorts/3eFEKOMQrTs?feature=share"
+   },
+   {
+    "exercicio": "Afundo Smith com Step",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO SMITH COM STEP",
+    "video_url": "https://youtube.com/shorts/gbj0KowBZwM?feature=share"
+   },
+   {
+    "exercicio": "Leg Press 45º",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "LEG PRESS 45",
+    "video_url": "https://youtube.com/shorts/6FmL-TtSfCw?feature=share"
+   },
+   {
+    "exercicio": "Leg Horizontal",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "LEG HORIZONTAL",
+    "video_url": "https://youtube.com/shorts/5-pIi1cODKQ?feature=share"
+   }
+  ]
+ },
+ "Afundo Smith com Step": {
+  "grupo": "quad",
+  "opcoes": [
+   {
+    "exercicio": "Búlgaro",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "BULGARO",
+    "video_url": "https://youtube.com/shorts/3eFEKOMQrTs?feature=share"
+   },
+   {
+    "exercicio": "Afundo no Chão",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "AFUNDO NO CHAO",
+    "video_url": "https://youtube.com/shorts/td-fh--r4a8?feature=share"
+   },
+   {
+    "exercicio": "Leg Press 45º",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "LEG PRESS 45",
+    "video_url": "https://youtube.com/shorts/6FmL-TtSfCw?feature=share"
+   },
+   {
+    "exercicio": "Leg Horizontal",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "LEG HORIZONTAL",
+    "video_url": "https://youtube.com/shorts/5-pIi1cODKQ?feature=share"
+   }
+  ]
+ },
+ "Stiff": {
+  "grupo": "posterior",
+  "opcoes": [
+   {
+    "exercicio": "Stiff com Halteres",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "STIFF COM HALTERES",
+    "video_url": "https://youtube.com/shorts/wkLhtf_ZmLo?feature=share"
+   },
+   {
+    "exercicio": "Mesa Flexora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "MESA FLEXORA",
+    "video_url": "https://youtube.com/shorts/qU3LrpKOjeM?feature=share"
+   },
+   {
+    "exercicio": "Mesa Flexora Livre com Halter",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "MESA FLEXORA LIVRE COM HALTER",
+    "video_url": "https://youtube.com/shorts/k1X8AZIYbrE?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Flexora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA FLEXORA",
+    "video_url": "https://youtube.com/shorts/81NOh8FbDhw?feature=share"
+   }
+  ]
+ },
+ "Stiff com Halteres": {
+  "grupo": "posterior",
+  "opcoes": [
+   {
+    "exercicio": "Stiff",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "STIFF",
+    "video_url": "https://youtube.com/shorts/wkLhtf_ZmLo?feature=share"
+   },
+   {
+    "exercicio": "Mesa Flexora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "MESA FLEXORA",
+    "video_url": "https://youtube.com/shorts/qU3LrpKOjeM?feature=share"
+   },
+   {
+    "exercicio": "Mesa Flexora Livre com Halter",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "MESA FLEXORA LIVRE COM HALTER",
+    "video_url": "https://youtube.com/shorts/k1X8AZIYbrE?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Flexora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA FLEXORA",
+    "video_url": "https://youtube.com/shorts/81NOh8FbDhw?feature=share"
+   }
+  ]
+ },
+ "Mesa Flexora": {
+  "grupo": "posterior",
+  "opcoes": [
+   {
+    "exercicio": "Mesa Flexora Livre com Halter",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "MESA FLEXORA LIVRE COM HALTER",
+    "video_url": "https://youtube.com/shorts/k1X8AZIYbrE?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Flexora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA FLEXORA",
+    "video_url": "https://youtube.com/shorts/81NOh8FbDhw?feature=share"
+   },
+   {
+    "exercicio": "Flexora Unilateral em Pé",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "FLEXORA UNILATERAL EM PE",
+    "video_url": "https://youtube.com/shorts/6dQ4NCmoc0c?feature=share"
+   }
+  ]
+ },
+ "Mesa Flexora Livre com Halter": {
+  "grupo": "posterior",
+  "opcoes": [
+   {
+    "exercicio": "Mesa Flexora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "MESA FLEXORA",
+    "video_url": "https://youtube.com/shorts/qU3LrpKOjeM?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Flexora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA FLEXORA",
+    "video_url": "https://youtube.com/shorts/81NOh8FbDhw?feature=share"
+   },
+   {
+    "exercicio": "Flexora Unilateral em Pé",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "FLEXORA UNILATERAL EM PE",
+    "video_url": "https://youtube.com/shorts/6dQ4NCmoc0c?feature=share"
+   }
+  ]
+ },
+ "Cadeira Flexora": {
+  "grupo": "posterior",
+  "opcoes": [
+   {
+    "exercicio": "Mesa Flexora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "MESA FLEXORA",
+    "video_url": "https://youtube.com/shorts/qU3LrpKOjeM?feature=share"
+   },
+   {
+    "exercicio": "Mesa Flexora Livre com Halter",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "MESA FLEXORA LIVRE COM HALTER",
+    "video_url": "https://youtube.com/shorts/k1X8AZIYbrE?feature=share"
+   },
+   {
+    "exercicio": "Flexora Unilateral em Pé",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "FLEXORA UNILATERAL EM PE",
+    "video_url": "https://youtube.com/shorts/6dQ4NCmoc0c?feature=share"
+   }
+  ]
+ },
+ "Flexora Unilateral em Pé": {
+  "grupo": "posterior",
+  "opcoes": [
+   {
+    "exercicio": "Mesa Flexora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "MESA FLEXORA",
+    "video_url": "https://youtube.com/shorts/qU3LrpKOjeM?feature=share"
+   },
+   {
+    "exercicio": "Mesa Flexora Livre com Halter",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "MESA FLEXORA LIVRE COM HALTER",
+    "video_url": "https://youtube.com/shorts/k1X8AZIYbrE?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Flexora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA FLEXORA",
+    "video_url": "https://youtube.com/shorts/81NOh8FbDhw?feature=share"
+   }
+  ]
+ },
+ "Elevação Pélvica na Máquina": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Elevação Pélvica 2D ou Livre",
+    "so_mulher": true,
+    "tipo": "composto",
+    "video_key": "ELEVACAO PELVICA 2D OU LIVRE",
+    "video_url": "https://youtube.com/shorts/vhXKSu97kII?feature=share"
+   },
+   {
+    "exercicio": "Extensão de Glúteo na Polia",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO NA POLIA",
+    "video_url": "https://youtube.com/shorts/-fqK6_-na5k?feature=share"
+   },
+   {
+    "exercicio": "Extensão de Glúteo com Caneleira",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO COM CANELEIRA",
+    "video_url": "https://youtube.com/shorts/dRDGmvqxmrE?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Abdutora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA",
+    "video_url": "https://youtube.com/shorts/Rb8kFMnPCnk?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Abdutora 45 em Pé",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA 45 EM PE",
+    "video_url": "https://youtube.com/shorts/2KWW_12AN38"
+   }
+  ]
+ },
+ "Elevação Pélvica 2D ou Livre": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Elevação Pélvica na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "ELEVACAO PELVICA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/9Mciz8WEufw?feature=share"
+   },
+   {
+    "exercicio": "Extensão de Glúteo na Polia",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO NA POLIA",
+    "video_url": "https://youtube.com/shorts/-fqK6_-na5k?feature=share"
+   },
+   {
+    "exercicio": "Extensão de Glúteo com Caneleira",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO COM CANELEIRA",
+    "video_url": "https://youtube.com/shorts/dRDGmvqxmrE?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Abdutora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA",
+    "video_url": "https://youtube.com/shorts/Rb8kFMnPCnk?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Abdutora 45 em Pé",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA 45 EM PE",
+    "video_url": "https://youtube.com/shorts/2KWW_12AN38"
+   }
+  ]
+ },
+ "Extensão de Glúteo na Polia": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Extensão de Glúteo com Caneleira",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO COM CANELEIRA",
+    "video_url": "https://youtube.com/shorts/dRDGmvqxmrE?feature=share"
+   },
+   {
+    "exercicio": "Coice no Cross com Polia Alta",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE NO CROSS COM POLIA ALTA",
+    "video_url": "https://youtube.com/shorts/jpQ-3Rn57fM?feature=share"
+   },
+   {
+    "exercicio": "Coice com Caneleira",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE COM CANELEIRA",
+    "video_url": "https://youtube.com/shorts/58gmKuLUB_g?feature=share"
+   },
+   {
+    "exercicio": "Coice na Máquina",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/GFSXy6oYsTs?feature=share"
+   }
+  ]
+ },
+ "Extensão de Glúteo com Caneleira": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Extensão de Glúteo na Polia",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO NA POLIA",
+    "video_url": "https://youtube.com/shorts/-fqK6_-na5k?feature=share"
+   },
+   {
+    "exercicio": "Coice no Cross com Polia Alta",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE NO CROSS COM POLIA ALTA",
+    "video_url": "https://youtube.com/shorts/jpQ-3Rn57fM?feature=share"
+   },
+   {
+    "exercicio": "Coice com Caneleira",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE COM CANELEIRA",
+    "video_url": "https://youtube.com/shorts/58gmKuLUB_g?feature=share"
+   },
+   {
+    "exercicio": "Coice na Máquina",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/GFSXy6oYsTs?feature=share"
+   }
+  ]
+ },
+ "Coice no Cross com Polia Alta": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Coice com Caneleira",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE COM CANELEIRA",
+    "video_url": "https://youtube.com/shorts/58gmKuLUB_g?feature=share"
+   },
+   {
+    "exercicio": "Coice na Máquina",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/GFSXy6oYsTs?feature=share"
+   },
+   {
+    "exercicio": "Extensão de Glúteo na Polia",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO NA POLIA",
+    "video_url": "https://youtube.com/shorts/-fqK6_-na5k?feature=share"
+   },
+   {
+    "exercicio": "Extensão de Glúteo com Caneleira",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO COM CANELEIRA",
+    "video_url": "https://youtube.com/shorts/dRDGmvqxmrE?feature=share"
+   }
+  ]
+ },
+ "Coice com Caneleira": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Coice no Cross com Polia Alta",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE NO CROSS COM POLIA ALTA",
+    "video_url": "https://youtube.com/shorts/jpQ-3Rn57fM?feature=share"
+   },
+   {
+    "exercicio": "Coice na Máquina",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/GFSXy6oYsTs?feature=share"
+   },
+   {
+    "exercicio": "Extensão de Glúteo na Polia",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO NA POLIA",
+    "video_url": "https://youtube.com/shorts/-fqK6_-na5k?feature=share"
+   },
+   {
+    "exercicio": "Extensão de Glúteo com Caneleira",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO COM CANELEIRA",
+    "video_url": "https://youtube.com/shorts/dRDGmvqxmrE?feature=share"
+   }
+  ]
+ },
+ "Coice na Máquina": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Coice no Cross com Polia Alta",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE NO CROSS COM POLIA ALTA",
+    "video_url": "https://youtube.com/shorts/jpQ-3Rn57fM?feature=share"
+   },
+   {
+    "exercicio": "Coice com Caneleira",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "COICE COM CANELEIRA",
+    "video_url": "https://youtube.com/shorts/58gmKuLUB_g?feature=share"
+   },
+   {
+    "exercicio": "Extensão de Glúteo na Polia",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO NA POLIA",
+    "video_url": "https://youtube.com/shorts/-fqK6_-na5k?feature=share"
+   },
+   {
+    "exercicio": "Extensão de Glúteo com Caneleira",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "EXTENSAO DE GLUTEO COM CANELEIRA",
+    "video_url": "https://youtube.com/shorts/dRDGmvqxmrE?feature=share"
+   }
+  ]
+ },
+ "Abdução Deitada com Mini Band": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Cadeira Abdutora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA",
+    "video_url": "https://youtube.com/shorts/Rb8kFMnPCnk?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Abdutora 45 em Pé",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA 45 EM PE",
+    "video_url": "https://youtube.com/shorts/2KWW_12AN38"
+   },
+   {
+    "exercicio": "Abdução no Cross",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "ABDUCAO NO CROSS",
+    "video_url": "https://youtube.com/shorts/BR09thijMR0?feature=share"
+   },
+   {
+    "exercicio": "Abdução em Pé na Máquina",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "ABDUCAO EM PE NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/Yz6mRCIAKvI?feature=share"
+   }
+  ]
+ },
+ "Cadeira Abdutora": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Cadeira Abdutora 45 em Pé",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA 45 EM PE",
+    "video_url": "https://youtube.com/shorts/2KWW_12AN38"
+   },
+   {
+    "exercicio": "Abdução no Cross",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "ABDUCAO NO CROSS",
+    "video_url": "https://youtube.com/shorts/BR09thijMR0?feature=share"
+   },
+   {
+    "exercicio": "Abdução em Pé na Máquina",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "ABDUCAO EM PE NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/Yz6mRCIAKvI?feature=share"
+   },
+   {
+    "exercicio": "Elevação Pélvica na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "ELEVACAO PELVICA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/9Mciz8WEufw?feature=share"
+   },
+   {
+    "exercicio": "Elevação Pélvica 2D ou Livre",
+    "so_mulher": true,
+    "tipo": "composto",
+    "video_key": "ELEVACAO PELVICA 2D OU LIVRE",
+    "video_url": "https://youtube.com/shorts/vhXKSu97kII?feature=share"
+   }
+  ]
+ },
+ "Cadeira Abdutora 45 em Pé": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Cadeira Abdutora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA",
+    "video_url": "https://youtube.com/shorts/Rb8kFMnPCnk?feature=share"
+   },
+   {
+    "exercicio": "Abdução no Cross",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "ABDUCAO NO CROSS",
+    "video_url": "https://youtube.com/shorts/BR09thijMR0?feature=share"
+   },
+   {
+    "exercicio": "Abdução em Pé na Máquina",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "ABDUCAO EM PE NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/Yz6mRCIAKvI?feature=share"
+   },
+   {
+    "exercicio": "Elevação Pélvica na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "ELEVACAO PELVICA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/9Mciz8WEufw?feature=share"
+   },
+   {
+    "exercicio": "Elevação Pélvica 2D ou Livre",
+    "so_mulher": true,
+    "tipo": "composto",
+    "video_key": "ELEVACAO PELVICA 2D OU LIVRE",
+    "video_url": "https://youtube.com/shorts/vhXKSu97kII?feature=share"
+   }
+  ]
+ },
+ "Abdução no Cross": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Cadeira Abdutora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA",
+    "video_url": "https://youtube.com/shorts/Rb8kFMnPCnk?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Abdutora 45 em Pé",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA 45 EM PE",
+    "video_url": "https://youtube.com/shorts/2KWW_12AN38"
+   },
+   {
+    "exercicio": "Abdução em Pé na Máquina",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "ABDUCAO EM PE NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/Yz6mRCIAKvI?feature=share"
+   },
+   {
+    "exercicio": "Elevação Pélvica na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "ELEVACAO PELVICA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/9Mciz8WEufw?feature=share"
+   },
+   {
+    "exercicio": "Elevação Pélvica 2D ou Livre",
+    "so_mulher": true,
+    "tipo": "composto",
+    "video_key": "ELEVACAO PELVICA 2D OU LIVRE",
+    "video_url": "https://youtube.com/shorts/vhXKSu97kII?feature=share"
+   }
+  ]
+ },
+ "Abdução em Pé na Máquina": {
+  "grupo": "gluteo",
+  "opcoes": [
+   {
+    "exercicio": "Cadeira Abdutora",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA",
+    "video_url": "https://youtube.com/shorts/Rb8kFMnPCnk?feature=share"
+   },
+   {
+    "exercicio": "Cadeira Abdutora 45 em Pé",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "CADEIRA ABDUTORA 45 EM PE",
+    "video_url": "https://youtube.com/shorts/2KWW_12AN38"
+   },
+   {
+    "exercicio": "Abdução no Cross",
+    "so_mulher": true,
+    "tipo": "isolador",
+    "video_key": "ABDUCAO NO CROSS",
+    "video_url": "https://youtube.com/shorts/BR09thijMR0?feature=share"
+   },
+   {
+    "exercicio": "Elevação Pélvica na Máquina",
+    "so_mulher": false,
+    "tipo": "composto",
+    "video_key": "ELEVACAO PELVICA NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/9Mciz8WEufw?feature=share"
+   },
+   {
+    "exercicio": "Elevação Pélvica 2D ou Livre",
+    "so_mulher": true,
+    "tipo": "composto",
+    "video_key": "ELEVACAO PELVICA 2D OU LIVRE",
+    "video_url": "https://youtube.com/shorts/vhXKSu97kII?feature=share"
+   }
+  ]
+ },
+ "Panturrilha Sentado": {
+  "grupo": "panturrilha",
+  "opcoes": [
+   {
+    "exercicio": "Panturrilha em Pé",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PANTURRILHA EM PE",
+    "video_url": "https://youtube.com/shorts/fFYs_tMI2Og?feature=share"
+   },
+   {
+    "exercicio": "Panturrilha no Leg 45",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PANTURRILHA NO LEG 45",
+    "video_url": "https://youtube.com/shorts/u4Aeo9iPtqg?feature=share"
+   }
+  ]
+ },
+ "Panturrilha em Pé": {
+  "grupo": "panturrilha",
+  "opcoes": [
+   {
+    "exercicio": "Panturrilha Sentado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PANTURRILHA SENTADO",
+    "video_url": "https://youtube.com/shorts/8PRaWlb-iMs?feature=share"
+   },
+   {
+    "exercicio": "Panturrilha no Leg 45",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PANTURRILHA NO LEG 45",
+    "video_url": "https://youtube.com/shorts/u4Aeo9iPtqg?feature=share"
+   }
+  ]
+ },
+ "Panturrilha no Leg 45": {
+  "grupo": "panturrilha",
+  "opcoes": []
+ },
+ "Abdominal no Banco Declinado": {
+  "grupo": "abdomen",
+  "opcoes": [
+   {
+    "exercicio": "Abdominal Elevação de Pernas na Paralela",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL ELEVACAO DE PERNAS NA PARALELA",
+    "video_url": "https://youtube.com/shorts/p3t0CFsUCgU?feature=share"
+   },
+   {
+    "exercicio": "Abdominal na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/Pck7TNHFAdM?feature=share"
+   },
+   {
+    "exercicio": "Abdominal no Chão",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NO CHAO",
+    "video_url": "https://youtube.com/shorts/CboXpTL_Bd4?feature=share"
+   },
+   {
+    "exercicio": "Prancha com Retroversão",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PRANCHA COM RETROVERSAO",
+    "video_url": "https://youtube.com/shorts/GS059A6Enck?feature=share"
+   }
+  ]
+ },
+ "Abdominal Elevação de Pernas na Paralela": {
+  "grupo": "abdomen",
+  "opcoes": [
+   {
+    "exercicio": "Abdominal no Banco Declinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NO BANCO DECLINADO",
+    "video_url": "https://youtube.com/shorts/vm_dOH7OUxU?feature=share"
+   },
+   {
+    "exercicio": "Abdominal na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/Pck7TNHFAdM?feature=share"
+   },
+   {
+    "exercicio": "Abdominal no Chão",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NO CHAO",
+    "video_url": "https://youtube.com/shorts/CboXpTL_Bd4?feature=share"
+   },
+   {
+    "exercicio": "Prancha com Retroversão",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PRANCHA COM RETROVERSAO",
+    "video_url": "https://youtube.com/shorts/GS059A6Enck?feature=share"
+   }
+  ]
+ },
+ "Abdominal na Máquina": {
+  "grupo": "abdomen",
+  "opcoes": [
+   {
+    "exercicio": "Abdominal no Banco Declinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NO BANCO DECLINADO",
+    "video_url": "https://youtube.com/shorts/vm_dOH7OUxU?feature=share"
+   },
+   {
+    "exercicio": "Abdominal Elevação de Pernas na Paralela",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL ELEVACAO DE PERNAS NA PARALELA",
+    "video_url": "https://youtube.com/shorts/p3t0CFsUCgU?feature=share"
+   },
+   {
+    "exercicio": "Abdominal no Chão",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NO CHAO",
+    "video_url": "https://youtube.com/shorts/CboXpTL_Bd4?feature=share"
+   },
+   {
+    "exercicio": "Prancha com Retroversão",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PRANCHA COM RETROVERSAO",
+    "video_url": "https://youtube.com/shorts/GS059A6Enck?feature=share"
+   }
+  ]
+ },
+ "Abdominal no Chão": {
+  "grupo": "abdomen",
+  "opcoes": [
+   {
+    "exercicio": "Abdominal no Banco Declinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NO BANCO DECLINADO",
+    "video_url": "https://youtube.com/shorts/vm_dOH7OUxU?feature=share"
+   },
+   {
+    "exercicio": "Abdominal Elevação de Pernas na Paralela",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL ELEVACAO DE PERNAS NA PARALELA",
+    "video_url": "https://youtube.com/shorts/p3t0CFsUCgU?feature=share"
+   },
+   {
+    "exercicio": "Abdominal na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/Pck7TNHFAdM?feature=share"
+   },
+   {
+    "exercicio": "Prancha com Retroversão",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "PRANCHA COM RETROVERSAO",
+    "video_url": "https://youtube.com/shorts/GS059A6Enck?feature=share"
+   }
+  ]
+ },
+ "Prancha com Retroversão": {
+  "grupo": "abdomen",
+  "opcoes": [
+   {
+    "exercicio": "Abdominal no Banco Declinado",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NO BANCO DECLINADO",
+    "video_url": "https://youtube.com/shorts/vm_dOH7OUxU?feature=share"
+   },
+   {
+    "exercicio": "Abdominal Elevação de Pernas na Paralela",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL ELEVACAO DE PERNAS NA PARALELA",
+    "video_url": "https://youtube.com/shorts/p3t0CFsUCgU?feature=share"
+   },
+   {
+    "exercicio": "Abdominal na Máquina",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NA MAQUINA",
+    "video_url": "https://youtube.com/shorts/Pck7TNHFAdM?feature=share"
+   },
+   {
+    "exercicio": "Abdominal no Chão",
+    "so_mulher": false,
+    "tipo": "isolador",
+    "video_key": "ABDOMINAL NO CHAO",
+    "video_url": "https://youtube.com/shorts/CboXpTL_Bd4?feature=share"
+   }
+  ]
+ }
+}

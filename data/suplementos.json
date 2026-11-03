@@ -1,93 +1,157 @@
 {
-  "titulo": "Manual dos 6 Potes",
-  "subtitulo": "Doses exatas, sem enrolação. Seis potes básicos que todo protocolo precisa.",
-  "intro": "Isto é um acelerador. Não anula dieta furada, chope de domingo e não substitui teu treino. Zero aula de biologia: tu só precisa saber O QUE tomar, QUANTO e QUANDO.",
-  "rodape": "Compra tudo isolado, nunca em combo. Marca nacional séria funciona tanto quanto importada.",
-  "potes": [
-    {
-      "nome": "Multivitamínico Completo",
-      "icone": "💊",
-      "dose": "1 comprimido",
-      "dose_detalhe": "Marca com Vit A 3.000UI, B1 50mg, B2 20mg, B6 50mg, ácido fólico 1.000mcg, D3 1.000UI, E 100mg, K2 MK7 50mcg, Inositol 100mg",
-      "quando": "Pós-desjejum (manhã)",
-      "missao": "Cobre falhas da dieta em vitaminas e minerais, energia e imunidade.",
-      "cuidados": "Sem contraindicação relevante.",
-      "objetivos": [
-        "todos"
-      ]
-    },
-    {
-      "nome": "Enzimas Digestivas (hipertrofia)",
-      "icone": "🧬",
-      "dose": "1 a 2 cápsulas",
-      "dose_detalhe": "Amilase 50mg + Pepsina 100mg + Papaína 50mg. (Para idoso/atleta: subir pra 250mg + Bromelaína 25mg + Lipase 50mg)",
-      "quando": "Pós-almoço e pós-jantar",
-      "missao": "Melhora digestão e absorção de proteína e carbo em dietas de alto volume.",
-      "cuidados": "Sem contraindicação relevante.",
-      "objetivos": [
-        "Ganhar massa"
-      ]
-    },
-    {
-      "nome": "Enzimas Digestivas (emagrecimento)",
-      "icone": "🧬",
-      "dose": "1 a 2 cápsulas",
-      "dose_detalhe": "Faseolamina 200mg + Caseolamina 200mg",
-      "quando": "Pós-almoço e pós-jantar",
-      "missao": "Inibe absorção parcial de carbo e gordura.",
-      "cuidados": "Pode dar gases leves na primeira semana.",
-      "objetivos": [
-        "Emagrecer",
-        "Recompor"
-      ]
-    },
-    {
-      "nome": "Ômega 3 DHA",
-      "icone": "🐟",
-      "dose": "1000mg",
-      "dose_detalhe": "EPA + DHA total na faixa de 1000mg, priorizar DHA alto.",
-      "quando": "Pós-desjejum (manhã)",
-      "missao": "Anti-inflamatório potente: saúde do cérebro, coração e articulações. Desinflama o corpo.",
-      "cuidados": "Cuidado se usa anticoagulante.",
-      "objetivos": [
-        "todos"
-      ]
-    },
-    {
-      "nome": "Magnésio",
-      "icone": "🌙",
-      "dose": "Treonato 300mg OU Inositol 1500mg",
-      "dose_detalhe": "Treonato passa a barreira hematoencefálica (melhor pro cérebro). Inositol tem bônus em foco e cognição.",
-      "quando": "Pós-jantar (à noite, antes de dormir)",
-      "missao": "Recuperação muscular e nervosa, melhora o sono e a sensibilidade à insulina. Tem bônus em foco e cognição.",
-      "cuidados": "Evita óxido de magnésio (baixa absorção).",
-      "objetivos": [
-        "todos"
-      ]
-    },
-    {
-      "nome": "Cafeína",
-      "icone": "⚡",
-      "dose": "200mg a 400mg",
-      "dose_detalhe": "Começa em 200mg, sobe se sentir pouco efeito.",
-      "quando": "Pré-treino. Nunca depois das 16h.",
-      "missao": "Melhora desempenho no treino, foco e disposição.",
-      "cuidados": "Não usa se tiver pressão alta, arritmia, ansiedade ou insônia. Em dose alta pode dar tremor, coração acelerado e dificuldade pra dormir. Faz pausa de 1 semana a cada 8 pra resetar a tolerância.",
-      "objetivos": [
-        "todos"
-      ]
-    },
-    {
-      "nome": "Creatina Monoidratada",
-      "icone": "💪",
-      "dose": "5g",
-      "dose_detalhe": "Creapure (alemã) ou marca nacional séria. Não precisa marca cara.",
-      "quando": "Qualquer horário do dia. Todos os dias, inclusive descanso. O importante é constância, não horário.",
-      "missao": "Aumenta foco, volume celular e performance cognitiva. Suplemento mais estudado do mundo.",
-      "cuidados": "Bebe mais água durante o dia.",
-      "objetivos": [
-        "todos"
-      ]
-    }
-  ]
+ "titulo": "Manual dos Potes",
+ "subtitulo": "Doses exatas, sem enrolação. Os básicos que todo protocolo precisa, mais os do teu objetivo.",
+ "intro": "Isto é um acelerador. Não anula dieta furada, chope de domingo e não substitui teu treino. Zero aula de biologia: tu só precisa saber O QUE tomar, QUANTO e QUANDO.",
+ "rodape": "Compra tudo isolado, nunca em combo. Marca nacional séria funciona tanto quanto importada.",
+ "potes": [
+  {
+   "nome": "Multivitamínico Completo",
+   "icone": "💊",
+   "dose": "1 comprimido",
+   "dose_detalhe": "Marca com Vit A 3.000UI, B1 50mg, B2 20mg, B6 50mg, ácido fólico 1.000mcg, D3 1.000UI, E 100mg, K2 MK7 50mcg, Inositol 100mg",
+   "quando": "Pós-desjejum (manhã)",
+   "missao": "Cobre falhas da dieta em vitaminas e minerais, energia e imunidade.",
+   "cuidados": "Sem contraindicação relevante.",
+   "objetivos": [
+    "todos"
+   ]
+  },
+  {
+   "nome": "Ômega 3 DHA",
+   "icone": "🐟",
+   "dose": "1000mg",
+   "dose_detalhe": "EPA + DHA somando por volta de 1000mg, com DHA alto. Depois dos 40, 2 cápsulas.",
+   "quando": "Pós-desjejum (manhã)",
+   "missao": "Anti-inflamatório potente: saúde do cérebro, coração e articulações. Desinflama o corpo.",
+   "cuidados": "Cuidado se usa anticoagulante.",
+   "objetivos": [
+    "todos"
+   ]
+  },
+  {
+   "nome": "Creatina Monoidratada",
+   "icone": "💪",
+   "dose": "5g",
+   "dose_detalhe": "Creapure (alemã) ou marca nacional séria. Não precisa marca cara.",
+   "quando": "Qualquer horário do dia. Todos os dias, inclusive descanso. O importante é constância, não horário.",
+   "missao": "Mais força e mais repetição no treino, volume no músculo e foco. É o suplemento mais estudado do mundo.",
+   "cuidados": "Bebe mais água durante o dia. Nos primeiros dias o peso pode subir 1 a 2kg de água dentro do músculo, é normal.",
+   "objetivos": [
+    "todos"
+   ]
+  },
+  {
+   "nome": "Whey Protein",
+   "icone": "🥛",
+   "dose": "A dose que a tua dieta pede",
+   "dose_detalhe": "Cada dose tem 30g de pó. Ele já está nas opções da tua dieta, não precisa tomar a mais.",
+   "quando": "Nas refeições da dieta que levam whey",
+   "missao": "Fecha a proteína do dia de um jeito prático e barato, sem precisar cozinhar.",
+   "cuidados": "Se o leite te faz mal, procura whey isolado.",
+   "objetivos": [
+    "todos"
+   ]
+  },
+  {
+   "nome": "Magnésio",
+   "icone": "🌙",
+   "dose": "Treonato 300mg OU Inositol 1500mg",
+   "dose_detalhe": "Treonato passa a barreira hematoencefálica (melhor pro cérebro). Inositol tem bônus em foco e cognição.",
+   "quando": "Pós-jantar (à noite, antes de dormir)",
+   "missao": "Recuperação muscular e nervosa, melhora o sono e a sensibilidade à insulina. Tem bônus em foco e cognição.",
+   "cuidados": "Evita óxido de magnésio (baixa absorção).",
+   "objetivos": [
+    "todos"
+   ]
+  },
+  {
+   "nome": "Cafeína",
+   "icone": "⚡",
+   "dose": "200mg a 400mg",
+   "dose_detalhe": "Começa em 100 a 200mg nas primeiras semanas. Se sentir pouco efeito, sobe aos poucos até no máximo 400mg.",
+   "quando": "Pré-treino. Nunca depois das 16h.",
+   "missao": "Melhora desempenho no treino, foco e disposição.",
+   "cuidados": "Não usa se tiver pressão alta, arritmia, ansiedade ou insônia. Em dose alta pode dar tremor, coração acelerado e dificuldade pra dormir. Faz pausa de 1 semana a cada 8 pra resetar a tolerância.",
+   "objetivos": [
+    "todos"
+   ],
+   "idade_min": 18
+  },
+  {
+   "nome": "Enzimas Digestivas (hipertrofia)",
+   "icone": "🧬",
+   "dose": "1 a 2 cápsulas",
+   "dose_detalhe": "Amilase 50mg + Pepsina 100mg + Papaína 50mg. (Para idoso/atleta: subir pra 250mg + Bromelaína 25mg + Lipase 50mg)",
+   "quando": "Pós-almoço e pós-jantar",
+   "missao": "Melhora digestão e absorção de proteína e carbo em dietas de alto volume.",
+   "cuidados": "Sem contraindicação relevante.",
+   "objetivos": [
+    "Ganhar massa"
+   ]
+  },
+  {
+   "nome": "Enzimas Digestivas (emagrecimento)",
+   "icone": "🧬",
+   "dose": "1 a 2 cápsulas",
+   "dose_detalhe": "Faseolamina 200mg + Caseolamina 200mg",
+   "quando": "Pós-almoço e pós-jantar",
+   "missao": "Inibe absorção parcial de carbo e gordura.",
+   "cuidados": "Pode dar gases leves na primeira semana.",
+   "objetivos": [
+    "Emagrecer",
+    "Recompor"
+   ]
+  },
+  {
+   "nome": "Cromo Picolinato",
+   "icone": "🍬",
+   "dose": "200mcg",
+   "dose_detalhe": "1 cápsula por dia.",
+   "quando": "Junto do almoço",
+   "missao": "Ajuda a segurar a vontade de doce e o corpo a usar melhor o carboidrato.",
+   "cuidados": "Quem toma remédio pra diabetes conversa com o médico antes.",
+   "objetivos": [
+    "Emagrecer",
+    "Recompor"
+   ]
+  },
+  {
+   "nome": "Glutamina",
+   "icone": "🛡️",
+   "dose": "5g",
+   "dose_detalhe": "1 colher medida, dissolvida em água.",
+   "quando": "Em jejum ou antes de dormir",
+   "missao": "Cuida do intestino quando a dieta tem muita comida e ajuda na recuperação do treino.",
+   "cuidados": "Sem contraindicação relevante.",
+   "objetivos": [
+    "Ganhar massa"
+   ]
+  },
+  {
+   "nome": "Biotina, Vitamina C e Zinco",
+   "icone": "✨",
+   "dose": "Biotina 5mg + Vitamina C 1g + Zinco quelato 30mg",
+   "dose_detalhe": "Pode ser em cápsula separada ou num composto que tenha os três nessas doses.",
+   "quando": "Pós-desjejum (manhã)",
+   "missao": "Pele, cabelo e unha mais fortes, ainda mais em fase de dieta.",
+   "cuidados": "A biotina mexe no resultado de alguns exames de sangue (tireoide, por exemplo). Para 3 dias antes de fazer exame.",
+   "objetivos": [
+    "todos"
+   ],
+   "sexo": "F"
+  },
+  {
+   "nome": "Coenzima Q10",
+   "icone": "❤️",
+   "dose": "100mg",
+   "dose_detalhe": "1 cápsula por dia, junto de uma refeição com gordura.",
+   "quando": "Pós-almoço",
+   "missao": "Energia das células, coração e recuperação. Depois dos 40 o corpo produz menos.",
+   "cuidados": "Quem toma anticoagulante conversa com o médico antes.",
+   "objetivos": [
+    "todos"
+   ],
+   "idade_min": 40
+  }
+ ]
 }
