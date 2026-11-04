@@ -23,7 +23,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '86';
+  window.APP_LANG_V = '87';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2244,7 +2244,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '86';
+const APP_V = '87';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -5010,7 +5010,7 @@ function treinoEfetivo(tk) {
   const raw = state.treinoData && state.treinoData[tk];
   if (!raw) return null;
   const p = state.protocol || {};
-  const fase = p.treinoPhase || '1.0', nivel = p.level || 'iniciante';
+  const fase = p.treinoPhase || '1.0', nivel = p.level || 'intermediario'; // sem nível no cadastro (conta de antes de 25/05): intermediário, que é o que o comprador do Shape é
   const sig = tk + '|' + fase + '|' + nivel + '|' + setsEmail();
   if (_efetivo && _efetivo.sig === sig && _efetivo.raw === raw) return _efetivo.t;
   // fase de outro bloco (treino próximo, porque o do perfil não existe): vale o mês 1 desse bloco
@@ -5024,7 +5024,9 @@ function abrirTroca(day, idx) {
   const tk = getTreinoKey(state.protocol), raw = state.treinoData[tk];
   const orig = raw.dias[day].exercicios[idx];
   const atual = treinoEfetivo(tk).dias[day].exercicios[idx];
-  const ops = opcoesDeTroca(orig.exercicio);
+  // opção que já é outro exercício do mesmo dia não aparece (o índice continua o da lista inteira, que é o que escolheTroca lê)
+  const doDia = new Set(treinoEfetivo(tk).dias[day].exercicios.filter((e, j) => j !== idx).map(e => e.exercicio));
+  const ops = opcoesDeTroca(orig.exercicio).map((o, i) => ({ ...o, i })).filter(o => o.exercicio === atual.exercicio || !doDia.has(o.exercicio));
   _trocaAlvo = { tk, day, slug: exSlugAt(raw.dias[day].exercicios, idx) };
   const linha = (nome, url, ativo, acao) => `<div class="troca-op${ativo ? ' on' : ''}">
       <button type="button" class="troca-escolhe" onclick="${acao}">${ativo ? '✓ ' : ''}${escapeHtml(nome)}</button>
@@ -5033,7 +5035,7 @@ function abrirTroca(day, idx) {
   document.getElementById('troca-titulo').textContent = 'Trocar: ' + orig.exercicio;
   document.getElementById('troca-lista').innerHTML =
     linha(orig.exercicio + ' (o do teu treino)', orig.video_url || (state.videoMap && state.videoMap[orig.video_key]), !atual.original, 'escolheTroca(null)')
-    + ops.map((o, i) => linha(o.exercicio, o.video_url, atual.exercicio === o.exercicio && !!atual.original, `escolheTroca(${i})`)).join('');
+    + ops.map(o => linha(o.exercicio, o.video_url, atual.exercicio === o.exercicio && !!atual.original, `escolheTroca(${o.i})`)).join('');
   document.getElementById('troca-modal').classList.add('show');
 }
 function fechaTroca() { document.getElementById('troca-modal').classList.remove('show'); _trocaAlvo = null; }
