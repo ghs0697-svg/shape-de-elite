@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Anamnese · Método GH</title>
+<!--
+  Painel do GH com as respostas da anamnese qualificatória (alunos do Shape e do Peitão, anamnese.html).
+  A chave de administração é digitada aqui, fica só neste aparelho e vai sempre no cabeçalho do pedido, nunca no endereço.
+  "Baixar lista pro comercial" gera um CSV (abre no Excel e no Google Planilhas) com o que estiver filtrado na tela.
+-->
+<style>
+:root{--bg:#0F0F11;--surface:#15151A;--card:#1A1A1D;--border:#2A2A2D;--gold:#F5C542;--text:#EFEFEF;--dim:#AAA;--mute:#888;--ok:#4CAF7D;--red:#FF6B6B}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:1200px;margin:0 auto;padding:18px 16px 80px}
+h1{font-size:20px;margin:6px 0 2px}
+.sub{color:var(--dim);font-size:13px;margin-bottom:16px}
+input,button,select{font-family:inherit;font-size:14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:10px 12px}
+button{cursor:pointer}
+button.primary{background:var(--gold);color:#141414;font-weight:800;border:0}
+button.leve{background:transparent;color:var(--mute);font-size:12px}
+.barra{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.barra input[type=search]{flex:1;min-width:180px}
+.nums{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.num{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;min-width:120px}
+.num b{display:block;font-size:22px}
+.num span{color:var(--mute);font-size:12px}
+.tab{overflow-x:auto;border:1px solid var(--border);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;white-space:nowrap}
+th{background:var(--surface);color:var(--dim);font-weight:700;position:sticky;top:0}
+td.quebra{white-space:normal;min-width:160px}
+tr.q td:first-child{box-shadow:inset 3px 0 0 var(--ok)}
+.nota{font-weight:800;font-size:15px}
+.nota.alta{color:var(--ok)}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:99px;background:#24242A;color:var(--dim)}
+.tag.p{background:#2B1F12;color:#F0B26B}
+.tag.s{background:#13222B;color:#7FC4EE}
+.fx{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:99px;text-transform:uppercase}
+.fx.quente{background:#3A1414;color:#FF8A6B}.fx.morno{background:#3A2E12;color:var(--gold)}.fx.frio{background:#1C2430;color:#8FA3BF}
+a{color:var(--gold)}
+.vazio{color:var(--mute);text-align:center;padding:40px}
+.hidden{display:none}
+#login .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;max-width:420px}
+#login input{width:100%;margin:10px 0}
+#loginMsg{color:var(--red);font-size:13px}
+</style></head><body>
+<div class="wrap">
+  <h1>Anamnese dos alunos</h1>
+  <div class="sub">Alunos do Shape e do Peitão. Quente primeiro (quer a consultoria e tem bolso), depois morno; dentro da faixa, nota de bolso maior primeiro (a mesma nota do quiz).</div>
+
+  <div id="login" class="hidden"><div class="card">
+    <b>Chave de administração</b>
+    <input id="chave" type="password" autocomplete="off" placeholder="Cola a chave aqui">
+    <button class="primary" onclick="entra()">Entrar</button>
+    <div id="loginMsg"></div>
+  </div></div>
+
+  <div id="painel" class="hidden">
+    <div class="nums" id="nums"></div>
+    <div class="barra">
+      <input type="search" id="busca" placeholder="Buscar nome, @, profissão, e-mail" oninput="desenha()">
+      <select id="fDe" onchange="desenha()"><option value="">Shape e Peitão</option><option value="shape">Só Shape</option><option value="peitao">Só Peitão</option></select>
+      <select id="fQ" onchange="desenha()"><option value="q">Quentes e mornos</option><option value="quente">Só quentes</option><option value="">Todos, frios também</option></select>
+      <button class="primary" onclick="baixa()">Baixar lista pro comercial</button>
+      <button onclick="copiaZap()">Copiar lista pro WhatsApp</button>
+      <button class="leve" onclick="carrega()">Atualizar</button>
+      <button class="leve" onclick="sai()">Sair</button>
+    </div>
+    <div class="tab"><table><thead id="cab"></thead><tbody id="corpo"></tbody></table></div>
+  </div>
+</div>
+<script>
+const API = 'https://shape-de-elite-api.vercel.app';
+const GUARDA = 'gh_anamnese_chave';
+let CHAVE = ''; try { CHAVE = localStorage.getItem(GUARDA) || ''; } catch (e) {}
+const AH = () => ({ Authorization: 'Bearer ' + CHAVE });
+let DADOS = null;
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const data = ms => ms ? new Date(ms).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' }) : '';
+
+function entra() {
+  const v = document.getElementById('chave').value.trim(); if (!v) return;
+  CHAVE = v; try { localStorage.setItem(GUARDA, v); } catch (e) {}
+  carrega();
+}
+function sai() {
+  CHAVE = ''; try { localStorage.removeItem(GUARDA); } catch (e) {}
+  document.getElementById('painel').classList.add('hidden'); document.getElementById('login').classList.remove('hidden');
+}
+async function carrega() {
+  if (!CHAVE) { document.getElementById('login').classList.remove('hidden'); return; }
+  const r = await fetch(API + '/api/admin/anamnese', { headers: AH() }).catch(() => null);
+  if (!r) { alert('Sem internet.'); return; }
+  if (r.status === 401) { document.getElementById('loginMsg').textContent = 'Chave errada.'; sai(); return; }
+  DADOS = await r.json();
+  document.getElementById('login').classList.add('hidden'); document.getElementById('painel').classList.remove('hidden');
+  desenha();
+}
+
+// texto legível de uma resposta (o valor salvo é o código da opção)
+function texto(q, v) {
+  if (v == null || v === '') return '';
+  if (q.tipo === 'varias') return (v || []).map(x => (q.opcoes.find(o => o.v === x) || {}).t || x).join(', ');
+  if (q.tipo === 'uma') return (q.opcoes.find(o => o.v === v) || {}).t || v;
+  return String(v);
+}
+const COLUNAS_FORA = ['origem']; // vira a etiqueta Shape/Peitão
+function linhas() {
+  const b = document.getElementById('busca').value.trim().toLowerCase(), de = document.getElementById('fDe').value, fq = document.getElementById('fQ').value;
+  return DADOS.respostas.filter(r => (!de || r.de === de) && (!fq || (fq === 'quente' ? r.faixa === 'quente' : r.qualificado)) && (!b || JSON.stringify([r.email, r.respostas]).toLowerCase().includes(b)));
+}
+function zap(n) { const d = String(n || '').replace(/\D/g, ''); return d ? `<a href="https://wa.me/${d}" target="_blank" rel="noopener">${esc(d.replace(/^55(\d\d)(\d{4,5})(\d{4})$/, '($1) $2-$3'))}</a>` : ''; }
+function insta(u) { return u ? `<a href="https://instagram.com/${encodeURIComponent(u)}" target="_blank" rel="noopener">@${esc(u)}</a>` : ''; }
+
+function desenha() {
+  const P = DADOS.perguntas.filter(q => !COLUNAS_FORA.includes(q.id));
+  const L = linhas();
+  const peit = DADOS.respostas.filter(r => r.de === 'peitao').length;
+  document.getElementById('nums').innerHTML =
+    `<div class="num"><b>${DADOS.total}</b><span>responderam</span></div>` +
+    `<div class="num"><b style="color:#FF8A6B">${DADOS.respostas.filter(r => r.faixa === 'quente').length}</b><span>quentes (aborda primeiro)</span></div>` +
+    `<div class="num"><b style="color:var(--gold)">${DADOS.respostas.filter(r => r.faixa === 'morno').length}</b><span>mornos</span></div>` +
+    `<div class="num"><b>${DADOS.total - peit}</b><span>do Shape</span></div>` +
+    `<div class="num"><b>${peit}</b><span>do Peitão</span></div>`;
+  document.getElementById('cab').innerHTML = `<tr><th>Faixa</th><th>Nota</th><th>De</th>${P.map(q => `<th>${esc(q.curto || q.titulo)}</th>`).join('')}<th>Aparelho</th><th>E-mail</th><th>Respondeu</th><th></th></tr>`;
+  document.getElementById('corpo').innerHTML = L.length ? L.map(r => `<tr class="${r.qualificado ? 'q' : ''}">
+      <td><span class="fx ${esc(r.faixa)}">${esc(r.faixa)}</span></td>
+      <td class="nota ${r.faixa === 'quente' ? 'alta' : ''}">${r.nota}</td>
+      <td><span class="tag ${r.de === 'peitao' ? 'p' : 's'}">${r.de === 'peitao' ? 'Peitão' : 'Shape'}</span></td>
+      ${P.map(q => { const v = r.respostas[q.id]; const h = q.id === 'whatsapp' ? zap(v) : q.id === 'instagram' ? insta(v) : esc(texto(q, v)); return `<td class="${q.tipo === 'varias' || q.id === 'profissao' ? 'quebra' : ''}">${h}</td>`; }).join('')}
+      <td>${esc((r.respostas.aparelho || {}).nome)}</td><td>${esc(r.email)}</td><td>${data(r.atualizadaEm)}</td>
+      <td><button class="leve" onclick="apaga('${esc(r.email)}')">apagar</button></td></tr>`).join('')
+    : `<tr><td class="vazio" colspan="${P.length + 7}">Ninguém aqui ainda com esse filtro.</td></tr>`;
+}
+
+function baixa() {
+  const P = DADOS.perguntas.filter(q => !COLUNAS_FORA.includes(q.id));
+  const L = linhas();
+  if (!L.length) { alert('Nada pra baixar com esse filtro.'); return; }
+  const c = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+  const cab = ['Faixa', 'Nota', 'De', ...P.map(q => q.curto || q.titulo), 'Gasto estimado em suplemento', 'Aparelho', 'E-mail', 'Respondeu em'];
+  const corpo = L.map(r => [r.faixa, r.nota, r.de === 'peitao' ? 'Peitão' : 'Shape',
+    ...P.map(q => q.id === 'instagram' && r.respostas[q.id] ? '@' + r.respostas[q.id] : texto(q, r.respostas[q.id])),
+    'R$ ' + gastoSupl(r), (r.respostas.aparelho || {}).nome || '', r.email, data(r.atualizadaEm)].map(c).join(';'));
+  // ; e BOM: o Excel brasileiro abre com acento e coluna certa
+  const blob = new Blob(['\ufeff' + [cab.map(c).join(';'), ...corpo].join('\r\n')], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `anamnese-comercial-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+
+// a mesma tabela do quiz (R$ por mês, estimado); a nota já vem calculada da API, isto é só pro comercial ler
+const CUSTO_SUPL = { 'whey-isolado': 250, whey: 150, albumina: 60, hipercalorico: 120, creatina: 25, 'beta-alanina': 50, 'pre-treino': 60, cafeina: 15,
+  multi: 40, omega3: 60, 'vitamina-d': 15, magnesio: 25, colageno: 60, reposicao: 200 };
+const gastoSupl = r => (r.respostas.suplementos || []).reduce((a, v) => a + (CUSTO_SUPL[v] || 0), 0);
+
+// texto pronto pra colar no grupo do comercial: um bloco por aluno, na ordem da tela
+async function copiaZap() {
+  const L = linhas();
+  if (!L.length) { alert('Nada pra copiar com esse filtro.'); return; }
+  const P = DADOS.perguntas, q = id => P.find(x => x.id === id), t = (r, id) => texto(q(id), r.respostas[id]);
+  const fone = n => String(n || '').replace(/^55(\d\d)(\d{4,5})(\d{4})$/, '($1) $2-$3');
+  const txt = L.map((r, i) => [
+    `*${i + 1}. ${r.respostas.nome}* (${r.faixa.toUpperCase()}, nota ${r.nota}, ${r.de === 'peitao' ? 'Peitão' : 'Shape'})`,
+    `WhatsApp: ${fone(r.respostas.whatsapp)}${r.respostas.instagram ? ' | @' + r.respostas.instagram : ''}`,
+    `Profissão: ${r.respostas.profissao} | Idade: ${t(r, 'idade')}`,
+    `Quer: ${t(r, 'objetivo')} | Sente: ${t(r, 'sente')}`,
+    `Já paga: ${t(r, 'paga')} | Investe: ${t(r, 'investe')} | Suplemento: R$ ${gastoSupl(r)}/mês`,
+    `Interesse: ${t(r, 'interesse')}`,
+  ].join('\n')).join('\n\n');
+  try { await navigator.clipboard.writeText(txt); alert(`Copiei ${L.length} aluno(s). É só colar no WhatsApp.`); }
+  catch (e) { prompt('Copia daqui:', txt); }
+}
+
+async function apaga(email) {
+  if (!confirm(`Apagar a resposta de ${email}? A pessoa responde de novo no próximo acesso.`)) return;
+  const r = await fetch(API + '/api/admin/anamnese?email=' + encodeURIComponent(email), { method: 'DELETE', headers: AH() }).catch(() => null);
+  if (r && r.ok) carrega(); else alert('Não consegui apagar.');
+}
+
+carrega();
+</script>
+</body></html>

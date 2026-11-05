@@ -23,7 +23,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '88';
+  window.APP_LANG_V = '89';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -1809,7 +1809,7 @@
 
   <div class="screen active" id="o1">
     <h1>Monta teu protocolo em 1 minuto</h1>
-    <p class="hint">Responde 9 perguntas. Vou te indicar a dieta e o treino certos pro teu perfil, na ordem certa de rodar a semana. Depois é só seguir.</p>
+    <p class="hint">Responde 9 perguntas e eu te indico a dieta e o treino certos pra tua semana. Depois é só seguir.</p>
     <button class="btn" type="button" onclick="oNext()">Começar</button>
     <button class="btn ghost hidden" type="button" id="o1-cancel" onclick="cancelOnboarding()">Cancelar e voltar pro painel</button>
     <button class="btn ghost" type="button" id="o1-sair" onclick="logout()">Sair da conta</button>
@@ -2244,7 +2244,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '88';
+const APP_V = '89';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2761,6 +2761,8 @@ async function afterLogin() {
   avalZera();
   saveState();
   try { agendaDiasTreino(5000); } catch (e) {} // dia de treino que ficou na fila sem sinal
+  if (await anamnesePendente(email)) { if (seq === _loginSeq) location.replace('anamnese.html?de=shape'); return; }
+  if (seq !== _loginSeq) return;
   const jaAbriu = !!state.protocol;
   if (jaAbriu) initDashboard(); else bootMsg('Buscando teu protocolo...', false);
 
@@ -2784,6 +2786,19 @@ async function afterLogin() {
   }
   // servidor não respondeu
   if (!jaAbriu) bootMsg('Não consegui falar com o servidor. Confere a internet e tenta de novo.', true);
+}
+
+// Anamnese qualificatória (GH 05/11/2026): obrigatória, uma vez por aluno, antes do app (anamnese.html, mesma do Peitão).
+// Só no app em português. Respondida, o aparelho guarda o e-mail e não pergunta mais pro servidor.
+// Sem sinal ou servidor fora: deixa entrar (pergunta de novo no próximo acesso), nunca trava o treino.
+async function anamnesePendente(email) {
+  if (!soBrasil()) return false;
+  try { if (localStorage.getItem('gh_anamnese_ok') === email) return false; } catch (e) {}
+  try {
+    const a = await api('/api/anamnese', { timeout: 6000 });
+    if (a && a.ok && a.respondida) { try { localStorage.setItem('gh_anamnese_ok', email); } catch (e) {} return false; }
+    return !!(a && a.ok && a.respondida === false);
+  } catch (e) { return false; }
 }
 
 // Protocolo que só existe no aparelho (calculadora feita sem sinal, ou versão antiga do app): manda pro servidor.

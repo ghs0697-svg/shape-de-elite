@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0B0B0D">
+<title>Antes de começar · Método GH</title>
+<!--
+  ANAMNESE QUALIFICATÓRIA (GH 05/11/2026): a MESMA pros alunos do Shape e do Peitão, obrigatória no primeiro acesso.
+  As perguntas vêm da API (GET /api/anamnese, lib/anamnese.js da API do Shape): trocar pergunta é lá, não aqui.
+    Shape:  o app manda pra cá (anamnese.html?de=shape) quando a API diz que o aluno não respondeu; a sessão vem
+            do aparelho (mesmo endereço do app) e, respondido, volta pro app.
+    Peitão: o app do Peitão abre anamnese.html?de=peitao&volta=<endereço do app>#e=<e-mail da compra>. O e-mail vai
+            depois do # (não sai do aparelho em pedido nenhum, nem fica em registro de servidor). "volta" só aceita os
+            endereços dos dois apps.
+  Respostas: painel do GH em anamnese-painel.html.
+-->
+<style>
+:root{--bg:#0B0B0D;--card:#151518;--border:#2A2A2E;--gold:#D4AF37;--gold-hi:#F2D27A;--text:#F2F2F2;--dim:#A8A8AE;--erro:#FF6B6B}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.wrap{max-width:560px;margin:0 auto;padding:28px 16px calc(40px + env(safe-area-inset-bottom))}
+.marca{text-align:center;font-weight:900;letter-spacing:.18em;font-size:15px;color:var(--gold)}
+.marca small{display:block;font-weight:600;letter-spacing:.14em;font-size:10.5px;color:var(--dim);margin-top:4px}
+h1{font-size:24px;line-height:1.2;margin:26px 0 8px}
+.lead{color:var(--dim);font-size:15px;line-height:1.5;margin:0 0 22px}
+.q{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px}
+.q.erro{border-color:var(--erro)}
+.q h2{font-size:16px;line-height:1.35;margin:0 0 4px}
+.q .ajuda{color:var(--dim);font-size:13px;margin:0 0 10px}
+.q h2 + .ops,.q h2 + input{margin-top:10px}
+input{width:100%;font:inherit;font-size:16px;color:var(--text);background:#0F0F12;border:1px solid var(--border);border-radius:12px;padding:13px 14px;outline:none}
+input:focus{border-color:var(--gold)}
+.ops{display:grid;gap:8px}
+.op{display:flex;align-items:center;gap:10px;text-align:left;font:inherit;font-size:15px;color:var(--text);background:#0F0F12;border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer}
+.op::before{content:'';flex:0 0 18px;height:18px;border:2px solid #55555C;border-radius:50%}
+.op.varias::before{border-radius:5px}
+.op.on{border-color:var(--gold);background:#1D1A10}
+.op.on::before{border-color:var(--gold);background:var(--gold);box-shadow:inset 0 0 0 3px #1D1A10}
+.msgq{color:var(--erro);font-size:13px;margin-top:8px;display:none}
+.q.erro .msgq{display:block}
+button.enviar{width:100%;font:inherit;font-size:17px;font-weight:800;color:#141414;background:linear-gradient(180deg,var(--gold-hi),var(--gold));border:0;border-radius:14px;padding:16px;margin-top:10px;cursor:pointer}
+button.enviar:disabled{opacity:.6}
+.aviso{color:var(--dim);font-size:13px;text-align:center;margin-top:12px;line-height:1.45}
+.estado{text-align:center;color:var(--dim);margin-top:60px;line-height:1.5}
+.estado b{color:var(--text)}
+.estado button{margin-top:14px;font:inherit;color:var(--text);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 18px;cursor:pointer}
+.grupo{font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:6px 0 -2px;grid-column:1/-1}
+.ops.grade{grid-template-columns:1fr 1fr}
+.ops.grade .op{font-size:14px;padding:11px 12px}
+.ops.grade .op.sozinho{grid-column:1/-1}
+.hidden{display:none}
+</style></head><body>
+<div class="wrap">
+  <div class="marca">MÉTODO GH<small id="sub">SHAPE DE ELITE</small></div>
+  <div id="carregando" class="estado">Carregando...</div>
+  <div id="falha" class="estado hidden"><b>Não consegui carregar.</b><br>Confere a internet e tenta de novo.<br><button onclick="carrega()">Tentar de novo</button></div>
+  <form id="form" class="hidden" novalidate>
+    <h1>Antes de começar, me conta de ti</h1>
+    <p class="lead">Leva 1 minuto.</p>
+    <div id="perguntas"></div>
+    <div id="emailBox" class="q hidden" data-id="email">
+      <h2>O e-mail que tu usou na compra</h2>
+      <input id="email" type="email" autocomplete="email" inputmode="email">
+      <div class="msgq"></div>
+    </div>
+    <button class="enviar" type="submit" id="enviar">Enviar e entrar no app</button>
+    <div class="aviso">Tuas respostas não aparecem pra ninguém no app.</div>
+  </form>
+</div>
+<script>
+const API = 'https://shape-de-elite-api.vercel.app';
+const params = new URLSearchParams(location.search);
+const DE = ['peitao', 'shape'].includes(params.get('de')) ? params.get('de') : 'shape';
+// pra onde voltar depois de responder: só os endereços dos dois apps
+const VOLTA_OK = /^https:\/\/(app\.peitaodepombo\.com\.br|app\.shapedeelite\.com\.br|ghs0697-svg\.github\.io)(\/|$)/;
+const VOLTA = VOLTA_OK.test(params.get('volta') || '') ? params.get('volta') : (DE === 'shape' ? 'index.html' : 'https://app.peitaodepombo.com.br/');
+const EMAIL_HASH = (() => { try { return decodeURIComponent((location.hash.match(/(?:^#|&)e=([^&]+)/) || [])[1] || '').trim(); } catch (e) { return ''; } })();
+// sessão do Shape: o app guarda no aparelho (mesmo endereço)
+const USER = (() => { if (DE !== 'shape') return {}; try { return JSON.parse(localStorage.getItem('shapedeelite_v1') || '{}').user || {}; } catch (e) { return {}; } })();
+const TOKEN = USER.token || '';
+const H = TOKEN ? { Authorization: 'Bearer ' + TOKEN } : {};
+document.getElementById('sub').textContent = DE === 'peitao' ? 'PEITÃO DE POMBO' : 'SHAPE DE ELITE';
+history.replaceState(null, '', location.pathname + location.search); // tira o e-mail da barra
+
+// Aparelho (a mesma régua do quiz da consultoria, 02-produtos/metodogh/quiz/index.html): tier 0 a 3 soma na nota de bolso.
+// iPhone pela tela (Pro e normal da mesma geração têm a mesma tela); tela desconhecida = lançamento mais novo que a lista = 3.
+const APARELHO = (() => {
+  const ua = navigator.userAgent || '', w = Math.min(screen.width, screen.height), h = Math.max(screen.width, screen.height), r = window.devicePixelRatio || 1;
+  if (/iPhone/.test(ua)) {
+    const T = { '320x568': ['SE 1ª geração ou 5s', 1], '375x667': ['6 a 8 ou SE', 1], '414x736': ['6 a 8 Plus', 1], '375x812': ['X a 11 Pro ou mini', 1],
+      '414x896': [r >= 3 ? 'XS Max ou 11 Pro Max' : 'XR ou 11', 1], '390x844': ['12 a 14', 1], '428x926': ['12 Pro Max a 14 Plus', 2],
+      '393x852': ['14 Pro a 16', 2], '430x932': ['14 Pro Max a 16 Plus', 2], '402x874': ['16 Pro, 17 ou 18', 3],
+      '440x956': ['16 Pro Max a 18 Pro Max', 3], '420x912': ['Air', 3] };
+    const m = T[w + 'x' + h];
+    return { nome: 'iPhone ' + (m ? m[0] : 'novo (tela ' + w + 'x' + h + ')'), tier: m ? m[1] : 3 };
+  }
+  if (/iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) return { nome: 'iPad', tier: 1 };
+  if (/Android/.test(ua)) return { nome: 'Android', tier: 0 };
+  if (/Windows/.test(ua)) return { nome: 'Computador Windows', tier: 0 };
+  if (/Macintosh/.test(ua)) return { nome: 'Mac', tier: 1 };
+  return { nome: 'Outro', tier: 0 };
+})();
+try {
+  if (APARELHO.nome === 'Android' && navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+    navigator.userAgentData.getHighEntropyValues(['model']).then(d => {
+      if (d && d.model) { APARELHO.nome = 'Android ' + d.model; if (/^SM-[SFN]9|^SM-F|Pixel ?\d{1,2}|Ultra|Fold|Flip|edge ?\d|Xiaomi 1[4-9]|ROG|Magic ?[5-9]/i.test(d.model)) APARELHO.tier = 1; }
+    }).catch(() => {});
+  }
+} catch (e) {}
+
+let PERG = [], resp = {};
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// o app do Shape lê isso e não pergunta mais pro servidor (guarda o e-mail: outra conta no mesmo aparelho responde a dela)
+const marcaOk = () => { if (USER.email) try { localStorage.setItem('gh_anamnese_ok', USER.email); } catch (e) {} };
+const sai = () => location.replace(VOLTA);
+
+async function carrega() {
+  document.getElementById('falha').classList.add('hidden');
+  document.getElementById('carregando').classList.remove('hidden');
+  try {
+    const r = await fetch(API + '/api/anamnese', { headers: H });
+    if (r.status === 401 || r.status === 403) { sai(); return; } // sessão caiu: o app cuida do login
+    const j = await r.json();
+    if (!j.ok) throw new Error('resposta');
+    if (j.respondida) { marcaOk(); sai(); return; }
+    PERG = j.perguntas;
+    resp = { origem: DE };
+    if (j.prefill) { if (j.prefill.nome) resp.nome = j.prefill.nome; if (j.prefill.whatsapp) resp.whatsapp = String(j.prefill.whatsapp).replace(/^55/, ''); }
+    monta();
+  } catch (e) {
+    document.getElementById('carregando').classList.add('hidden');
+    document.getElementById('falha').classList.remove('hidden');
+  }
+}
+
+function monta() {
+  document.getElementById('perguntas').innerHTML = PERG.map(q => {
+    let corpo = '';
+    if (q.tipo === 'texto' || q.tipo === 'tel') {
+      const tipo = q.tipo === 'tel' ? 'tel' : 'text', extra = q.tipo === 'tel' ? ' inputmode="tel" autocomplete="tel-national" placeholder="(55) 99999-9999"' : (q.id === 'instagram' ? ' placeholder="@teuinstagram" autocapitalize="none"' : (q.id === 'nome' ? ' autocomplete="name"' : ''));
+      corpo = `<input type="${tipo}" data-campo="${q.id}"${extra} maxlength="${q.max || 20}" value="${esc(resp[q.id] || '')}">`;
+    } else {
+      const grade = q.opcoes.some(o => o.grupo);
+      let g = null;
+      corpo = `<div class="ops${grade ? ' grade' : ''}">${q.opcoes.map(o => {
+        const titulo = o.grupo && o.grupo !== g ? `<p class="grupo">${esc(o.grupo)}</p>` : '';
+        g = o.grupo || g;
+        return titulo + `<button type="button" class="op${q.tipo === 'varias' ? ' varias' : ''}${o.sozinho ? ' sozinho' : ''}${(q.tipo === 'varias' ? (resp[q.id] || []).includes(o.v) : resp[q.id] === o.v) ? ' on' : ''}" data-q="${q.id}" data-v="${esc(o.v)}">${esc(o.t)}</button>`;
+      }).join('')}</div>`;
+    }
+    return `<div class="q" data-id="${q.id}"><h2>${esc(q.titulo)}</h2>${q.ajuda ? `<p class="ajuda">${esc(q.ajuda)}</p>` : ''}${corpo}<div class="msgq"></div></div>`;
+  }).join('');
+  document.getElementById('emailBox').classList.toggle('hidden', !!TOKEN);
+  if (!TOKEN) document.getElementById('email').value = EMAIL_HASH;
+  document.getElementById('carregando').classList.add('hidden');
+  document.getElementById('form').classList.remove('hidden');
+}
+
+document.getElementById('perguntas').addEventListener('click', ev => {
+  const b = ev.target.closest('.op'); if (!b) return;
+  const q = PERG.find(x => x.id === b.dataset.q), v = b.dataset.v;
+  if (q.tipo === 'uma') resp[q.id] = v;
+  else {
+    const sozinho = q.opcoes.find(o => o.v === v)?.sozinho;
+    let l = resp[q.id] || [];
+    if (l.includes(v)) l = l.filter(x => x !== v);
+    else l = sozinho ? [v] : [...l.filter(x => !q.opcoes.find(o => o.v === x)?.sozinho), v];
+    resp[q.id] = l;
+  }
+  b.closest('.ops').querySelectorAll('.op').forEach(x => x.classList.toggle('on', q.tipo === 'uma' ? x.dataset.v === resp[q.id] : resp[q.id].includes(x.dataset.v)));
+  b.closest('.q').classList.remove('erro');
+});
+document.getElementById('perguntas').addEventListener('input', ev => {
+  const i = ev.target.closest('input[data-campo]'); if (!i) return;
+  resp[i.dataset.campo] = i.value; i.closest('.q').classList.remove('erro');
+});
+
+function marcaErro(id, texto) {
+  const el = document.querySelector(`.q[data-id="${id}"]`);
+  if (!el) { alert(texto); return; }
+  el.classList.add('erro'); el.querySelector('.msgq').textContent = texto;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+document.getElementById('form').addEventListener('submit', async ev => {
+  ev.preventDefault();
+  document.querySelectorAll('.q.erro').forEach(x => x.classList.remove('erro'));
+  // confere no aparelho antes de mandar: a primeira que faltou ganha o destaque
+  for (const q of PERG) {
+    const v = resp[q.id];
+    const vazio = q.tipo === 'varias' ? !(v && v.length) : !String(v || '').trim();
+    if (vazio && !q.opcional) { marcaErro(q.id, 'Falta responder essa.'); return; }
+  }
+  const email = TOKEN ? '' : document.getElementById('email').value.trim();
+  if (!TOKEN && !/^\S+@\S+\.\S+$/.test(email)) { marcaErro('email', 'Coloca o e-mail da compra.'); return; }
+  const bt = document.getElementById('enviar');
+  bt.disabled = true; bt.textContent = 'Enviando...';
+  try {
+    const r = await fetch(API + '/api/anamnese', { method: 'POST', headers: { 'Content-Type': 'application/json', ...H }, body: JSON.stringify({ de: DE, email, respostas: { ...resp, aparelho: APARELHO } }) });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok && j.ok) { marcaOk(); sai(); return; }
+    if (r.status === 401) { sai(); return; }
+    marcaErro(j.campo || 'x', j.error || 'Não consegui enviar. Tenta de novo.');
+  } catch (e) {
+    marcaErro('x', 'Sem internet agora. Confere a conexão e tenta de novo.');
+  }
+  bt.disabled = false; bt.textContent = 'Enviar e entrar no app';
+});
+
+carrega();
+</script>
+</body></html>
