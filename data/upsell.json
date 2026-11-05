@@ -17,15 +17,20 @@
       "Suporte via WhatsApp",
       "Ajuste direto no app, sem fila no WhatsApp. Pediu? Tá resolvido!"
     ],
-    "aluno": "<b>Condição de aluno:</b> tu já tá dentro do Shape de Elite, já faz parte do time. Por isso o Trimestral sai de <s>R$ 1.197</s> por <b>R$ 997</b>: R$ 200 off aplicado direto no botão, sem cupom.",
+    "aluno": "<b>Condição especial de aluno:</b> tu já tá dentro do Shape de Elite, já faz parte do time. Por isso o Trimestral sai de <s>R$ 897</s> por <b>R$ 647</b>, direto no botão, sem cupom.",
+    "bonus": {
+      "ate": "2026-11-30T23:59:59-03:00",
+      "selo": "BLACK NOVEMBER",
+      "aluno": "<b>Condição especial de Black:</b> tu já tá dentro do Shape de Elite, já faz parte do time. Por isso o Trimestral sai de <s>R$ 897</s> por <b>R$ 647</b>, direto no botão, sem cupom."
+    },
     "plano": {
       "nome": "TRIMESTRAL",
-      "selo": "R$ 200 off de aluno",
-      "de": "R$ 1.197",
-      "parcela": "12x de R$ 102,51",
-      "aVista": "R$ 997",
+      "selo": "Condição especial de aluno",
+      "de": "R$ 897",
+      "parcela": "12x de R$ 66,52",
+      "aVista": "R$ 647",
       "cta": "Quero o trimestral",
-      "link": "https://payfast.greenn.com.br/120431/offer/AR8JZa?ch_id=21679&b_id_1=120433&b_offer_1=A4laNh&b_id_2=168168&b_offer_2=LNEse1"
+      "link": "https://payfast.greenn.com.br/120431/offer/KscgT3?ch_id=21679&b_id_1=120433&b_offer_1=A4laNh&b_id_2=168168&b_offer_2=LNEse1"
     },
     "whats": "Quer um plano mais longo ou falar comigo antes? Me chama no whats",
     "cta": "Quero migrar pro Método GH",
