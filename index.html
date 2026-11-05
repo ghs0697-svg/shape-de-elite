@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#B41E1E">
+<meta name="theme-color" content="#0B0B0F">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Shape Elite">
 <link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
 <title>Shape de Elite · Método GH</title>
@@ -23,7 +26,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '95';
+  window.APP_LANG_V = '96';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -1681,6 +1684,254 @@
   .option.selected::after, .bf-card.selected::after { content: '✓'; position: absolute; right: 12px; top: 10px; color: var(--red-text); font-weight: 800; font-size: 16px; }
   /* texto branco no verde do WhatsApp dava 2:1 de contraste */
   .float-opt.whatsapp, .partner-link.whatsapp, .float-opt.whatsapp .ic { color: #06210F; }
+
+  /* ══ v96 (GH 05/11/2026): CASCA EM VIDRO. "Repagina o app do Shape, mantém as cores, só melhora o visual, mais
+     bonito, mais foda", igual ao que o app do Método GH ganhou (v609). Mesmas cores: fundo grafite, vermelho na ação,
+     dourado só no Método GH, verde no WhatsApp e no feito. O que muda é a superfície: cartões translúcidos com borda
+     clara e brilho na beirada, campos como poços escuros, pílulas no lugar de abas e botões quadrados, blur só no que
+     flutua (cabeçalho, menu, janelas, aviso), fonte Manrope. Este bloco só SOBREPÕE o que vem acima: nenhuma função
+     mudou e, pra voltar atrás, basta tirar o bloco. */
+  :root {
+    --font: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --bg: #0B0B0F;
+    --glass: rgba(255, 255, 255, 0.055);
+    --glass-2: rgba(255, 255, 255, 0.09);
+    --glass-3: rgba(255, 255, 255, 0.14);
+    --glass-line: rgba(255, 255, 255, 0.11);
+    --glass-line-2: rgba(255, 255, 255, 0.19);
+    --glass-brilho: inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    --glass-sombra: 0 12px 32px rgba(0, 0, 0, 0.35);
+    --glass-fosco: blur(22px) saturate(170%);
+    --poco: rgba(0, 0, 0, 0.24);
+    --surface: rgba(255, 255, 255, 0.055);
+    --surface-2: rgba(255, 255, 255, 0.04);
+    --border: rgba(255, 255, 255, 0.11);
+    --border-hover: rgba(255, 255, 255, 0.24);
+    --red-tint: rgba(180, 30, 30, 0.16);
+    --red-line: rgba(240, 82, 82, 0.55);
+    --red-grad: linear-gradient(180deg, #D12424 0%, #B41E1E 100%);
+    --red-glow: 0 8px 26px rgba(180, 30, 30, 0.38);
+    --text: #F3F1EC;
+    --text-dim: #B8B4AB;
+    --text-muted: #8A857B;
+    --r: 18px;
+    --r-sm: 12px;
+  }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); }
+  body::before {
+    background:
+      radial-gradient(55% 38% at 12% -6%, rgba(180, 30, 30, 0.30) 0%, transparent 62%),
+      radial-gradient(40% 30% at 104% 22%, rgba(240, 82, 82, 0.09) 0%, transparent 60%),
+      radial-gradient(70% 42% at 50% 112%, rgba(180, 30, 30, 0.14) 0%, transparent 60%),
+      var(--bg);
+  }
+  h1 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+  h2 { font-size: 21px; font-weight: 800; letter-spacing: -.015em; }
+  h3 { font-weight: 800; }
+  p.hint { color: var(--text-dim); }
+  button, input, select, textarea { font-family: inherit; }
+
+  /* marca */
+  header.brand { border-bottom: 1px solid transparent; border-image: linear-gradient(90deg, transparent, var(--glass-line-2), transparent) 1; padding: 14px 0 18px; }
+  .logo { font-weight: 800; letter-spacing: 3px; }
+  .subtitle { letter-spacing: .22em; color: var(--text-muted); }
+
+  /* botões */
+  .btn { background: var(--red-grad); border-radius: 14px; font-weight: 800; padding: 15px 16px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), var(--red-glow); transition: transform .12s, box-shadow .15s, filter .15s; }
+  .btn:hover, .btn:focus-visible { background: var(--red-grad); filter: brightness(1.08); }
+  .btn:active { transform: scale(.985); }
+  .btn.secondary { background: var(--glass); border: 1px solid var(--glass-line-2); color: var(--text); box-shadow: var(--glass-brilho); }
+  .btn.secondary:hover { background: var(--glass-2); border-color: var(--border-hover); }
+  .btn.ghost { background: transparent; box-shadow: none; color: var(--text-dim); font-weight: 700; }
+  .o-voltar { border-radius: 999px; background: var(--glass); border: 1px solid var(--glass-line); color: var(--text-dim); padding: 9px 18px; box-shadow: var(--glass-brilho); }
+  .o-voltar:active { background: var(--glass-2); }
+
+  /* cartões: tudo que era cinza chapado vira vidro */
+  .option, .bf-card, .result-card, .exercise, .meal, .supl-card, .modulo-card, .ebook-card, .partner-card, .aulas-progress-bar,
+  .foto-card, .aval-card, .wk-bar, .phase-upgrade-card, .install-platform, .guardiao-linha, .howto-tip, .mgh-aluno {
+    background: var(--glass); border: 1px solid var(--glass-line); border-radius: var(--r); box-shadow: var(--glass-brilho);
+  }
+  .option { padding: 16px 44px 16px 18px; border-radius: 16px; margin-bottom: 10px; transition: background .15s, border-color .15s, box-shadow .15s, transform .12s; }
+  .option:hover { border-color: var(--glass-line-2); background: var(--glass-2); }
+  .option:active { transform: scale(.99); }
+  .option strong { font-weight: 800; font-size: 15.5px; }
+  .option .desc { color: var(--text-dim); margin-top: 2px; }
+  .option.selected, .bf-card.selected, .troca-op.on .troca-escolhe {
+    background: linear-gradient(180deg, rgba(180, 30, 30, 0.24), rgba(180, 30, 30, 0.12)); border-color: var(--red-line);
+    box-shadow: var(--glass-brilho), 0 0 0 1px rgba(240, 82, 82, 0.14), var(--red-glow);
+  }
+  .option.selected::after, .bf-card.selected::after {
+    width: 22px; height: 22px; border-radius: 50%; background: var(--red-grad); color: #fff; font-size: 12px;
+    display: flex; align-items: center; justify-content: center; top: 14px; right: 14px; box-shadow: 0 2px 8px rgba(180, 30, 30, 0.5);
+  }
+  /* a promessa do lançamento (perder até 10 kg até o fim do verão) tem cara própria */
+  .option.destaque { overflow: hidden; padding-top: 14px; background: linear-gradient(135deg, rgba(180, 30, 30, 0.30) 0%, rgba(255, 255, 255, 0.05) 55%, rgba(240, 82, 82, 0.10) 100%); border-color: rgba(240, 82, 82, 0.55); box-shadow: var(--glass-brilho), 0 10px 30px rgba(180, 30, 30, 0.30); }
+  .option.destaque::before { content: ''; position: absolute; left: -18%; top: -60%; width: 70%; height: 160%; background: radial-gradient(closest-side, rgba(240, 82, 82, 0.26), transparent); pointer-events: none; }
+  .option.destaque strong { font-size: 17px; position: relative; }
+  .option.destaque .desc { position: relative; color: #E4D9D6; }
+  .option.destaque.selected { border-color: #F05252; box-shadow: var(--glass-brilho), 0 0 0 1px rgba(240, 82, 82, 0.25), 0 12px 34px rgba(180, 30, 30, 0.45); }
+  .option .selo { position: relative; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 9px; padding: 4px 10px; border-radius: 999px; background: var(--red-grad); color: #fff; font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 3px 10px rgba(180, 30, 30, 0.45); }
+  .bf-card { padding: 10px; border-width: 1px; gap: 10px; }
+  .bf-card:hover { border-color: var(--glass-line-2); }
+  .bf-img { border-radius: 12px; background: var(--poco); }
+  .bf-card strong { font-weight: 800; }
+  .phase-bf-grid .option { padding-right: 18px; }
+
+  /* campos: poços escuros dentro do vidro */
+  input[type="number"], input[type="text"], input[type="email"], input[type="password"], .aval-campo input, .set-in {
+    background: var(--poco); border: 1px solid var(--glass-line); border-radius: var(--r-sm); box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35); transition: border-color .15s, box-shadow .15s;
+  }
+  input:focus, .aval-campo input:focus, .set-in:focus { border-color: var(--red-line); box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35), 0 0 0 3px rgba(240, 82, 82, 0.16); }
+  .input-group label { color: var(--text-muted); letter-spacing: .14em; }
+
+  /* progresso da calculadora */
+  .progress { gap: 5px; }
+  .progress-dot { height: 4px; background: var(--glass-2); border-radius: 999px; }
+  .progress-dot.active { background: linear-gradient(90deg, #B41E1E, #F05252); box-shadow: 0 0 8px rgba(240, 82, 82, 0.45); }
+
+  /* resultado */
+  .result-card { padding: 16px 18px; }
+  .result-card h3 { font-size: 10.5px; letter-spacing: 1.6px; color: var(--text-muted); }
+  .result-card .big { font-weight: 800; letter-spacing: -.02em; }
+  .macro-item, .exercise-meta-item, .supl-meta-item, .phase-diff, .shopping-cat-items li, .aval-meds div, .modulo-icone, .install-platform {
+    background: var(--poco); border: 1px solid var(--glass-line); border-radius: var(--r-sm);
+  }
+  .macro-item .macro-label { font-size: 10px; letter-spacing: 1.2px; }
+  .macro-item .macro-value { font-weight: 800; }
+  .alert-card { background: rgba(245, 197, 66, 0.08); border: 1px solid rgba(245, 197, 66, 0.35); border-radius: var(--r); box-shadow: var(--glass-brilho); }
+  .alert-card .alert-body { color: #E6D5A8; }
+  .form-msg { border-radius: var(--r-sm); border-color: var(--red-line); background: var(--red-tint); }
+
+  /* cabeçalho do painel + abas em pílulas */
+  .dash-top { background: rgba(11, 11, 15, 0.72); backdrop-filter: var(--glass-fosco); -webkit-backdrop-filter: var(--glass-fosco); border-bottom: 1px solid var(--glass-line); }
+  .dashboard-header { border-bottom: none; }
+  .dashboard-header .logo { font-size: 17px; }
+  .phase-badge { background: rgba(240, 82, 82, 0.14); border: 1px solid rgba(240, 82, 82, 0.35); color: var(--red-text); border-radius: 999px; padding: 4px 10px; letter-spacing: .6px; }
+  .tabs { gap: 6px; padding: 8px 12px 12px; border-bottom: none; }
+  .tab-btn { min-height: 36px; padding: 0 14px; border: 1px solid var(--glass-line); border-radius: 999px; background: var(--glass); color: var(--text-dim); font-size: 11.5px; letter-spacing: .5px; box-shadow: var(--glass-brilho); transition: background .15s, color .15s, border-color .15s; }
+  .tab-btn:hover { color: var(--text); background: var(--glass-2); }
+  .tab-btn.active { background: var(--red-grad); border-color: transparent; color: #fff; box-shadow: 0 4px 14px rgba(180, 30, 30, 0.42); }
+  .tab-content { animation: fadeIn .22s; }
+
+  /* treino */
+  .day-tabs { gap: 6px; }
+  .day-btn { border-radius: 12px; background: var(--glass); border-color: var(--glass-line); box-shadow: var(--glass-brilho); color: var(--text-dim); }
+  .day-btn.active { background: var(--red-grad); border-color: transparent; color: #fff; box-shadow: 0 4px 14px rgba(180, 30, 30, 0.42); }
+  .exercise { padding: 16px; border-radius: 20px; margin-bottom: 10px; }
+  .exercise.done { background: rgba(255, 255, 255, 0.03); }
+  .exercise-name { font-weight: 800; letter-spacing: -.01em; }
+  .ex-video { border-bottom: none; color: var(--text); }
+  .ex-check { background: var(--poco); border: 1.5px solid var(--glass-line-2); border-radius: 13px; color: var(--text); }
+  .ex-check:hover { border-color: var(--border-hover); }
+  .ex-check.on { background: var(--red-grad); border-color: transparent; box-shadow: var(--red-glow); }
+  .exercise-meta { gap: 8px; }
+  .exercise-meta-item { padding: 9px 6px; }
+  .exercise-meta-item .label { font-size: 10px; letter-spacing: 1.2px; color: var(--text-muted); }
+  .exercise-meta-item .val { font-weight: 800; }
+  button.exercise-meta-item { background: rgba(180, 30, 30, 0.14); border: 1px solid rgba(240, 82, 82, 0.35); border-radius: var(--r-sm); }
+  @media (hover: hover) { .exercise-meta-item.rest-clickable:hover { background: rgba(180, 30, 30, 0.22); } }
+  .troca-btn { border-radius: 999px; background: var(--glass); border-color: var(--glass-line); padding: 7px 12px; }
+  .troca-escolhe, .troca-video { background: var(--glass); border-color: var(--glass-line); border-radius: 14px; }
+  .sets-wrap { border-top: 1px solid var(--glass-line); }
+  .sets-title { color: var(--text-muted); letter-spacing: 1px; }
+  .set-in:not(:placeholder-shown) { background: rgba(180, 30, 30, 0.16); border-color: rgba(240, 82, 82, 0.45); }
+  .set-add { border-radius: 999px; border-color: rgba(240, 82, 82, 0.4); background: rgba(180, 30, 30, 0.08); }
+  .wk-bar { border-radius: 16px; padding: 8px 10px; }
+  .wk-nav { background: var(--glass); border-color: var(--glass-line); border-radius: 12px; }
+  .wk-now { border-radius: 999px; }
+  .conclude-bar { background: linear-gradient(135deg, rgba(180, 30, 30, 0.22), rgba(255, 255, 255, 0.035)); border: 1px solid rgba(240, 82, 82, 0.35); border-radius: var(--r); box-shadow: var(--glass-brilho); }
+  .conclude-bar .conclude-btn { background: var(--red-grad); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 4px 14px rgba(180, 30, 30, 0.35); }
+  .conclude-bar .conclude-btn:disabled { background: var(--glass-2); box-shadow: none; color: var(--text-muted); }
+  .grupo-faixa, .entrada-grupo { border: 1px solid rgba(37, 211, 102, 0.35); background: rgba(37, 211, 102, 0.09); border-radius: var(--r-sm); box-shadow: var(--glass-brilho); }
+  .guardiao-linha { border-style: solid; }
+  .guardiao-btn { border-radius: 12px; border-color: rgba(240, 82, 82, 0.45); background: rgba(180, 30, 30, 0.10); }
+  details.extra-card > summary { font-weight: 800; }
+
+  /* dieta */
+  .meal { padding: 18px; border-radius: 20px; }
+  .meal-name { font-size: 16px; font-weight: 800; letter-spacing: 0; }
+  .food { border-bottom-color: var(--glass-line); }
+  .opcao { border-top-color: var(--glass-line); }
+  .meal-macros { gap: 6px; border-top-color: var(--glass-line); }
+  .meal-macros span { background: var(--poco); border: 1px solid var(--glass-line); border-radius: 999px; padding: 4px 10px; }
+  .meal-macros-label { border-top-color: var(--glass-line); color: var(--text-muted); }
+
+  /* aulas */
+  .aulas-progress-track { background: var(--poco); border-radius: 999px; height: 8px; border: 1px solid var(--glass-line); }
+  .aulas-progress-fill { background: linear-gradient(90deg, #B41E1E, #F05252); border-radius: 999px; }
+  .modulo-card { padding: 14px 16px; }
+  .modulo-card.done { border-color: var(--red-line); }
+  .modulo-progress { border-radius: 999px; background: rgba(240, 82, 82, 0.14); border: 1px solid rgba(240, 82, 82, 0.3); }
+  .aulas-list { border-top-color: var(--glass-line); }
+  .aula-item { background: var(--poco); border: 1px solid var(--glass-line); border-radius: var(--r-sm); }
+  .aula-item:hover { background: rgba(255, 255, 255, 0.06); }
+  .aula-check { background: var(--poco); border-color: var(--glass-line-2); border-radius: 10px; }
+  .aula-check.on { background: var(--red-grad); border-color: transparent; }
+  .aula-complemento { background: linear-gradient(135deg, rgba(180, 30, 30, 0.18), var(--glass)); border-color: var(--red-line); border-radius: 14px; }
+
+  /* suplementos */
+  .supl-card { padding: 18px; border-radius: 20px; }
+  .supl-head { border-bottom-color: var(--glass-line); }
+  .supl-icone { background: rgba(180, 30, 30, 0.14); border: 1px solid rgba(240, 82, 82, 0.4); box-shadow: 0 0 22px rgba(180, 30, 30, 0.28); }
+  .supl-nome { font-weight: 800; letter-spacing: 0; }
+  .supl-section { border-top-color: var(--glass-line); }
+
+  /* Método GH: dourado em vidro */
+  .mgh-banner, .mgh-card { background: linear-gradient(135deg, rgba(201, 162, 75, 0.13), rgba(255, 255, 255, 0.03)); border: 1px solid rgba(201, 162, 75, 0.45); border-radius: var(--r); box-shadow: var(--glass-brilho), var(--glass-sombra); }
+  .mgh-card { border-radius: 20px; }
+  .mgh-plano { background: var(--poco); border-radius: 16px; }
+  .mgh-card-cta { border-radius: 14px; box-shadow: 0 8px 24px rgba(201, 162, 75, 0.28); }
+  .ebook-card.destaque { background: linear-gradient(135deg, rgba(201, 162, 75, 0.13), var(--glass)); border-color: rgba(201, 162, 75, 0.45); }
+  .ebook-card.meu { background: linear-gradient(135deg, rgba(31, 157, 99, 0.13), var(--glass)); border-color: rgba(31, 157, 99, 0.45); }
+  .ebook-card-link, .partner-link { border-radius: 12px; }
+  .ebook-card-link:not(.sec) { background: var(--red-grad); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 4px 14px rgba(180, 30, 30, 0.3); }
+  .ebook-card.destaque .ebook-card-link { background: linear-gradient(135deg, var(--gh-gold) 0%, var(--gh-gold-light) 100%); box-shadow: 0 4px 14px rgba(201, 162, 75, 0.3); }
+  .ebook-card.meu .ebook-card-link { background: #1f9d63; box-shadow: none; }
+  .ebook-card.meu .ebook-card-link.sec { background: transparent; }
+  .aval-card.convite { background: linear-gradient(180deg, rgba(245, 197, 66, 0.10), var(--glass)); border-color: rgba(245, 197, 66, 0.4); }
+  .aval-card.chegou { background: linear-gradient(180deg, rgba(80, 200, 120, 0.10), var(--glass)); }
+
+  /* parceiros, fotos, idioma */
+  .partner-discount, .cupom-code { border-radius: 8px; }
+  .cupom-copy { border-radius: 999px; background: var(--glass); }
+  .foto-slot { background: var(--poco); border-radius: 14px; border-color: var(--glass-line-2); }
+  .foto-fase-chip { border-radius: 999px; background: var(--glass); border-color: var(--glass-line); }
+  .foto-fase-chip.on { background: var(--red-tint); border-color: var(--red-line); }
+  .idioma-escolha button, .unidade-escolha button { background: var(--glass); border-color: var(--glass-line); box-shadow: var(--glass-brilho); }
+  .idioma-escolha button.on, .unidade-escolha button.on { background: var(--red-tint); border-color: var(--red-line); }
+  .qualif-acoes .nao { border-radius: 999px; background: var(--glass); }
+  .partner-group-title, .ebooks-secao { color: var(--text-muted); }
+
+  /* o que flutua: menu, aviso, janelas (aqui sim com blur) */
+  .float-btn { background: var(--red-grad); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 8px 24px rgba(180, 30, 30, 0.5); }
+  .float-opt { background: rgba(22, 22, 28, 0.78); backdrop-filter: var(--glass-fosco); -webkit-backdrop-filter: var(--glass-fosco); border: 1px solid var(--glass-line-2); box-shadow: var(--glass-brilho), 0 8px 24px rgba(0, 0, 0, 0.45); }
+  .float-opt.whatsapp { background: #25d366; border-color: #1da851; }
+  #toast { background: rgba(24, 24, 30, 0.84); backdrop-filter: var(--glass-fosco); -webkit-backdrop-filter: var(--glass-fosco); border: 1px solid var(--glass-line-2); border-radius: 14px; box-shadow: var(--glass-brilho), 0 10px 30px rgba(0, 0, 0, 0.5); }
+  .install-modal, .ach-overlay, .video-modal { background: rgba(6, 6, 9, 0.62); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); }
+  .timer-modal { background: rgba(6, 6, 9, 0.80); }
+  .install-modal-box, .ach-box { background: rgba(26, 26, 32, 0.86); backdrop-filter: var(--glass-fosco); -webkit-backdrop-filter: var(--glass-fosco); border: 1px solid var(--glass-line-2); border-radius: 22px; box-shadow: var(--glass-brilho), 0 24px 60px rgba(0, 0, 0, 0.55); }
+  .install-platform { border-radius: 14px; }
+  .install-platform .plat-title { font-weight: 800; }
+  .video-modal-inner { border-radius: 18px; border-color: var(--glass-line-2); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6); }
+  .video-modal-header { background: rgba(26, 26, 32, 0.92); border-bottom-color: var(--glass-line); }
+  .video-modal-close { background: var(--red-grad); }
+  .video-modal-fora { background: rgba(26, 26, 32, 0.92); }
+  .ach-btn { border-radius: 12px; background: var(--glass); border-color: var(--glass-line); }
+  .ach-btn.primary { background: var(--red-grad); border-color: transparent; box-shadow: var(--red-glow); }
+  .ach-btn.secondary { background: var(--glass); }
+  .timer-btn { border-radius: 14px; background: var(--glass); border-color: var(--glass-line-2); box-shadow: var(--glass-brilho); }
+  .timer-btn.primary { background: var(--red-grad); border-color: transparent; box-shadow: var(--red-glow); }
+  .timer-circle .bg-ring { stroke: rgba(255, 255, 255, 0.07); }
+  .timer-number { font-weight: 800; letter-spacing: -.03em; }
+  .howto-step-num { background: var(--red-grad); box-shadow: 0 4px 12px rgba(180, 30, 30, 0.4); }
+  .howto-tip { border-left: 3px solid var(--gold); border-radius: var(--r-sm); }
+  .shopping-cat-title { border-bottom-color: var(--glass-line); }
+  .phase-upgrade-card { background: linear-gradient(135deg, rgba(180, 30, 30, 0.20), var(--glass)); border-color: rgba(240, 82, 82, 0.4); border-radius: 20px; }
+  .phase-diff-row + .phase-diff-row { border-top-color: var(--glass-line); }
+  .calc-iframe, .pdf-frame { border-color: var(--glass-line); border-radius: var(--r); }
+  .footer { border-top: 1px solid var(--glass-line); color: var(--text-muted); }
+  :focus-visible { outline-color: var(--red-text); }
+  .option:active, .tab-btn:active, .day-btn:active, .ex-check:active, .wk-nav:active, .btn:active { filter: none; }
 </style>
 </head>
 <body>
@@ -2227,7 +2478,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '95';
+const APP_V = '96';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -3080,6 +3331,7 @@ const GOAL_OPCOES = {
   ]
 };
 const goalTitulo = (op, hoje) => (op.tituloDepois && (hoje || new Date().toISOString().slice(0, 10)) > GOAL_VERAO_ATE) ? op.tituloDepois : op.titulo;
+const goalEmCampanha = (op, hoje) => !!op.tituloDepois && (hoje || new Date().toISOString().slice(0, 10)) <= GOAL_VERAO_ATE;
 const goalOpcaoAtual = () => (GOAL_OPCOES[onboard.sex === 'Mulher' ? 'Mulher' : 'Homem'] || []).find(o => o.id === onboard.goalOpcao) || null;
 function renderGoals() {
   const box = document.getElementById('o-goal-options');
@@ -3089,8 +3341,11 @@ function renderGoals() {
   list.forEach(op => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'option' + (onboard.goalOpcao === op.id ? ' selected' : '');
-    btn.innerHTML = '<strong></strong><span class="desc"></span>';
+    // a promessa do lançamento tem cara própria (GH 05/11/2026): selo e cartão em destaque, só enquanto durar o verão
+    const campanha = goalEmCampanha(op);
+    btn.className = 'option' + (campanha ? ' destaque' : '') + (onboard.goalOpcao === op.id ? ' selected' : '');
+    btn.innerHTML = (campanha ? '<span class="selo">☀️ <span></span></span>' : '') + '<strong></strong><span class="desc"></span>';
+    if (campanha) btn.querySelector('.selo span').textContent = 'Desafio do verão';
     btn.querySelector('strong').textContent = goalTitulo(op);
     btn.querySelector('.desc').textContent = op.desc;
     btn.onclick = () => { selectGoal(btn, op); oAuto(validateGoal); };
