@@ -23,7 +23,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '92';
+  window.APP_LANG_V = '93';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -1873,13 +1873,13 @@
   </div>
 
   <div class="screen" id="o4">
-    <h2>Qual corpo tá mais parecido com o teu?</h2>
+    <h2>Qual corpo é mais similar ao teu?</h2>
     <p class="hint">Escolhe com sinceridade. Quanto mais preciso, melhor o cálculo.</p>
     <div class="bf-grid">
-      <div class="bf-card" onclick="selectBF(this,0,'10% ou menos')" data-bf="0"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-10.jpg?v=2" alt=""></div><div><strong>Bem seco</strong><div class="desc">Ripado, veias aparentes, gomos evidentes</div></div></div>
-      <div class="bf-card" onclick="selectBF(this,75,'cerca de 15%')" data-bf="1"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-15.jpg?v=2" alt=""></div><div><strong>Atlético</strong><div class="desc">Abdômen aparecendo de leve, braços definidos</div></div></div>
-      <div class="bf-card" onclick="selectBF(this,150,'cerca de 20%')" data-bf="2"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-20.jpg?v=2" alt=""></div><div><strong>Barriga moderada</strong><div class="desc">Sem abdômen aparente</div></div></div>
-      <div class="bf-card" onclick="selectBF(this,300,'25% ou mais')" data-bf="3"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-25.jpg?v=2" alt=""></div><div><strong>Barriga grande</strong><div class="desc">Camiseta esticada</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,0,'10% ou menos')" data-bf="0"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-10.jpg?v=3" alt=""></div><div><strong>Bem seco</strong><div class="desc">Ripado, veias aparentes, gomos evidentes</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,75,'cerca de 15%')" data-bf="1"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-15.jpg?v=3" alt=""></div><div><strong>Atlético</strong><div class="desc">Abdômen aparecendo de leve, braços definidos</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,150,'cerca de 20%')" data-bf="2"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-20.jpg?v=3" alt=""></div><div><strong>Barriga moderada</strong><div class="desc">Sem abdômen aparente</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,300,'25% ou mais')" data-bf="3"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-25.jpg?v=3" alt=""></div><div><strong>Barriga grande</strong><div class="desc">Camiseta esticada</div></div></div>
     </div>
     <div class="btn-group">
       <button class="btn secondary" onclick="oPrev()">Voltar</button>
@@ -2181,7 +2181,7 @@
   <input type="number" inputmode="decimal" id="phase-peso" class="input" placeholder="ex.: 78,5" min="30" max="300" step="0.1" oninput="updatePhasePreview()" style="margin-bottom:6px;">
   <p class="hint" style="margin-top:0;">Pesa de manhã, em jejum e depois do banheiro. A dieta do mês é calculada com esse peso.</p>
 
-  <h3 style="margin: 14px 0 10px; font-size: 13px; color: var(--text-dim); letter-spacing: .5px;">TEU CORPO HOJE, MAIS OU MENOS</h3>
+  <h3 style="margin: 14px 0 10px; font-size: 13px; color: var(--text-dim); letter-spacing: .5px;">CORPO MAIS SIMILAR AO TEU HOJE</h3>
   <div id="phase-bf-options" class="phase-bf-grid"></div>
 
   <div id="phase-days-section" style="margin-top:14px;">
@@ -2249,7 +2249,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '92';
+const APP_V = '93';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2894,7 +2894,7 @@ function openSettings() {
   document.getElementById('settings-profile').innerHTML =
     `<strong>${escapeHtml(state.user?.email || '')}</strong><br>` +
     `${escapeHtml(p.sex)} · ${escapeHtml(p.age)} anos · ${unPeso(p.weight)} · ${unAltura(p.height)}<br>` +
-    `${escapeHtml(p.activity)} · ${escapeHtml(bfNome(p.bf, p.sex))} · ${escapeHtml(p.goal)}<br>` +
+    `${escapeHtml(p.activity)} · Corpo similar: ${escapeHtml(bfNome(p.bf, p.sex))} · ${escapeHtml(p.goal)}<br>` +
     `<span style="color:var(--red-text);font-weight:700;">Mês ${MESES_TREINO.indexOf(tp) + 1 || 1} · Fase ${escapeHtml(tp)}</span> · ${escapeHtml(p.workout)}<br>` +
     `<span style="color:var(--red-text);font-weight:700;">Dieta</span> · ${escapeHtml(p.diet)} · cardápio ${letraDoCardapio(p)}`;
   const inst = document.getElementById('settings-install');
@@ -3122,7 +3122,7 @@ function validateDados() {
   oNext();
 }
 function validateActivity() { if (!onboard.activity) { alert('Escolhe teu nível de atividade.'); return; } oNext(); }
-function validateBF() { if (onboard.bf === null) { alert('Escolhe o corpo mais parecido com o teu.'); return; } oNext(); }
+function validateBF() { if (onboard.bf === null) { alert('Escolhe o corpo mais similar ao teu.'); return; } oNext(); }
 function validateGoal() { if (!onboard.goal) { alert('Escolhe teu objetivo.'); return; } oNext(); }
 
 let _calcBusy = false;
@@ -3179,9 +3179,9 @@ async function calculateAgora() {
   const aj = calc.ajuste, objTxt = onboard.goal.toLowerCase(), corpoTxt = bfNome(onboard.bf, onboard.sex).toLowerCase();
   if (calc.motivo.includes('piso')) conta += 'Pra ' + objTxt + ', a conta desceria mais, mas homem não come menos de 2.000 kcal no método: ficou em ' + kcalTxt(target) + ' kcal. ';
   else if (calc.motivo.length) conta += 'Pra ' + objTxt + ' com teu gasto, o desconto ficou menor pra dieta não ficar pequena demais: ' + kcalTxt(target) + ' kcal. ';
-  else if (aj < 0) conta += 'Pra ' + objTxt + ' com o corpo que tu marcou (' + corpoTxt + '): menos ' + Math.abs(aj) + ' kcal, ' + kcalTxt(target) + ' kcal. ';
-  else if (aj > 0) conta += 'Pra ' + objTxt + ' com o corpo que tu marcou (' + corpoTxt + '): mais ' + aj + ' kcal, ' + kcalTxt(target) + ' kcal. ';
-  else conta += 'Pra ' + objTxt + ' com o corpo que tu marcou (' + corpoTxt + '), tu come a manutenção. ';
+  else if (aj < 0) conta += 'Pra ' + objTxt + ' (corpo similar: ' + corpoTxt + '): menos ' + Math.abs(aj) + ' kcal, ' + kcalTxt(target) + ' kcal. ';
+  else if (aj > 0) conta += 'Pra ' + objTxt + ' (corpo similar: ' + corpoTxt + '): mais ' + aj + ' kcal, ' + kcalTxt(target) + ' kcal. ';
+  else conta += 'Pra ' + objTxt + ' (corpo similar: ' + corpoTxt + '): tu come a manutenção. ';
   conta += 'A dieta do método nessa faixa é a de ' + kcalTxt(kcalDieta) + ' kcal. Todo mês tu manda teu peso e ela é recalculada.';
   document.getElementById('r-adjusts').textContent = conta;
   document.getElementById('r-diet').textContent = diet + ({ '3R': ' · 3 refeições', '4R': ' · 4 refeições', '5R': ' · 5 refeições' }[onboard.refeicoes] || '');
@@ -5876,7 +5876,7 @@ const bfNome = (rotulo, sexo) => BF_CORPOS[sexo === 'Mulher' ? 'Mulher' : 'Homem
 function bfCardsPorSexo() {
   const sx = onboard.sex === 'Mulher' ? 'Mulher' : 'Homem';
   document.querySelectorAll('.bf-card[data-bf]').forEach(c => {
-    const i = Number(c.dataset.bf), img = c.querySelector('img'), src = 'assets/' + BF_FOTOS[sx][i] + '.jpg?v=2';
+    const i = Number(c.dataset.bf), img = c.querySelector('img'), src = 'assets/' + BF_FOTOS[sx][i] + '.jpg?v=3';
     if (img && !img.getAttribute('src').startsWith(src)) img.setAttribute('src', src);
     c.querySelector('strong').textContent = BF_CORPOS[sx][i][0];
     c.querySelector('.desc').textContent = BF_CORPOS[sx][i][1];
