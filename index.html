@@ -26,7 +26,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '99';
+  window.APP_LANG_V = '100';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2167,7 +2167,7 @@
   <div class="screen" id="o7">
     <h2>Quantos dias por semana tu vai treinar?</h2>
     <p class="hint">Escolhe o que cabe na tua rotina, não o que tu gostaria.</p>
-    <p class="hint auto-aviso" id="o7-auto" hidden>Tu deixou a divisão comigo: em 2x o treino é de corpo inteiro, de 3x em diante é a divisão por grupo do Método.</p>
+    <p class="hint auto-aviso" id="o7-auto" hidden>Tu deixou a divisão comigo: em 2x o treino é de corpo inteiro, de 3x em diante é a divisão por grupo que o GH usa.</p>
     <button class="option" onclick="selectDays(this,2); oAuto(validateDays)"><strong>2x por semana</strong><span class="desc">Full body: corpo inteiro nos dois treinos</span></button>
     <button class="option" onclick="selectDays(this,3); oAuto(validateDays)"><strong>3x por semana</strong><span class="desc">Rotina apertada, recuperação maior entre treinos</span></button>
     <button class="option" onclick="selectDays(this,4); oAuto(validateDays)"><strong>4x por semana</strong><span class="desc">Equilíbrio entre frequência e descanso</span></button>
@@ -2493,7 +2493,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '99';
+const APP_V = '100';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -3290,7 +3290,7 @@ function splitDias(split, sex) {
 const SEMANA_DIAS = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
 const SPLIT_OPCOES = [
   { id: 'AUTO', titulo: 'Não sei, escolhe pra mim', selo: 'Pra quem está começando',
-    desc: 'Tu só diz quantos dias consegue treinar. A calculadora monta na divisão que o Método usa pra essa frequência: 2x é corpo inteiro, de 3x em diante é a divisão por grupo.',
+    desc: 'Tu só diz quantos dias consegue treinar. A calculadora monta na divisão que o GH usa pra essa frequência: 2x é corpo inteiro, de 3x em diante é a divisão por grupo.',
     exemplo: { Homem: '', Mulher: '' }, semana: null },
   { id: null, titulo: 'Divisão por grupo', desc: 'O padrão do Método: cada dia foca um grupo, e nas frequências maiores vira empurrar, puxar e perna. De 3x a 7x por semana.',
     exemplo: { Homem: 'Exemplo em 4x: peito, ombro e tríceps; costas e bíceps; perna; e um dia de parte de cima.', Mulher: 'Exemplo em 4x: glúteo e perna; costas, ombro e bíceps; glúteo e perna de novo; peito, ombro e tríceps.' },
