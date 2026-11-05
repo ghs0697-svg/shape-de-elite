@@ -23,7 +23,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '93';
+  window.APP_LANG_V = '94';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -113,6 +113,8 @@
   .btn.ghost { background: transparent; color: var(--text-dim); padding: 10px; }
   .btn.ghost:hover { color: var(--text); }
   .btn-group { display: flex; gap: 8px; margin-top: 18px; }
+  .o-voltar { display: inline-block; margin-top: 14px; padding: 8px 16px; background: transparent; border: 1px solid var(--border, #2a2a2e); border-radius: 10px; color: var(--text-dim); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .calculando .option { opacity: .5; pointer-events: none; }
   .btn-group .btn { margin-top: 0; }
   .btn-group .btn.secondary { flex: 0 0 40%; }
   .btn-group .btn:not(.secondary) { flex: 1; }
@@ -1861,103 +1863,80 @@
   <div class="screen" id="o3">
     <h2>Qual teu nível de atividade?</h2>
     <p class="hint">Sem contar a musculação. Considera caminhada, escada, trabalho.</p>
-    <button class="option" onclick="selectActivity(this,'Sedentário',1.2)"><strong>Sedentário</strong><span class="desc">Trabalho sentado, quase nenhum movimento no dia</span></button>
-    <button class="option" onclick="selectActivity(this,'Leve',1.375)"><strong>Leve</strong><span class="desc">Caminha pouco, trabalho sentado mas se mexe no dia</span></button>
-    <button class="option" onclick="selectActivity(this,'Moderado',1.55)"><strong>Moderado</strong><span class="desc">Caminhadas diárias, trabalho com movimento</span></button>
-    <button class="option" onclick="selectActivity(this,'Intenso',1.725)"><strong>Intenso</strong><span class="desc">Trabalho braçal, 10 mil passos por dia</span></button>
-    <button class="option" onclick="selectActivity(this,'Extremo',1.9)"><strong>Extremo</strong><span class="desc">Atleta ou trabalho braçal pesado + outras atividades</span></button>
-    <div class="btn-group">
-      <button class="btn secondary" onclick="oPrev()">Voltar</button>
-      <button class="btn" onclick="validateActivity()">Continuar</button>
-    </div>
+    <button class="option" onclick="selectActivity(this,'Sedentário',1.2); oAuto(validateActivity)"><strong>Sedentário</strong><span class="desc">Trabalho sentado, quase nenhum movimento no dia</span></button>
+    <button class="option" onclick="selectActivity(this,'Leve',1.375); oAuto(validateActivity)"><strong>Leve</strong><span class="desc">Caminha pouco, trabalho sentado mas se mexe no dia</span></button>
+    <button class="option" onclick="selectActivity(this,'Moderado',1.55); oAuto(validateActivity)"><strong>Moderado</strong><span class="desc">Caminhadas diárias, trabalho com movimento</span></button>
+    <button class="option" onclick="selectActivity(this,'Intenso',1.725); oAuto(validateActivity)"><strong>Intenso</strong><span class="desc">Trabalho braçal, 10 mil passos por dia</span></button>
+    <button class="option" onclick="selectActivity(this,'Extremo',1.9); oAuto(validateActivity)"><strong>Extremo</strong><span class="desc">Atleta ou trabalho braçal pesado + outras atividades</span></button>
+    <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
   <div class="screen" id="o4">
     <h2>Qual corpo é mais similar ao teu?</h2>
     <p class="hint">Escolhe com sinceridade. Quanto mais preciso, melhor o cálculo.</p>
     <div class="bf-grid">
-      <div class="bf-card" onclick="selectBF(this,0,'10% ou menos')" data-bf="0"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-10.jpg?v=3" alt=""></div><div><strong>Bem seco</strong><div class="desc">Ripado, veias aparentes, gomos evidentes</div></div></div>
-      <div class="bf-card" onclick="selectBF(this,75,'cerca de 15%')" data-bf="1"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-15.jpg?v=3" alt=""></div><div><strong>Atlético</strong><div class="desc">Abdômen aparecendo de leve, braços definidos</div></div></div>
-      <div class="bf-card" onclick="selectBF(this,150,'cerca de 20%')" data-bf="2"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-20.jpg?v=3" alt=""></div><div><strong>Barriga moderada</strong><div class="desc">Sem abdômen aparente</div></div></div>
-      <div class="bf-card" onclick="selectBF(this,300,'25% ou mais')" data-bf="3"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-25.jpg?v=3" alt=""></div><div><strong>Barriga grande</strong><div class="desc">Camiseta esticada</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,0,'10% ou menos'); oAuto(validateBF)" data-bf="0"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-10.jpg?v=3" alt=""></div><div><strong>Bem seco</strong><div class="desc">Ripado, veias aparentes, gomos evidentes</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,75,'cerca de 15%'); oAuto(validateBF)" data-bf="1"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-15.jpg?v=3" alt=""></div><div><strong>Atlético</strong><div class="desc">Abdômen aparecendo de leve, braços definidos</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,150,'cerca de 20%'); oAuto(validateBF)" data-bf="2"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-20.jpg?v=3" alt=""></div><div><strong>Barriga moderada</strong><div class="desc">Sem abdômen aparente</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,300,'25% ou mais'); oAuto(validateBF)" data-bf="3"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-25.jpg?v=3" alt=""></div><div><strong>Barriga grande</strong><div class="desc">Camiseta esticada</div></div></div>
     </div>
-    <div class="btn-group">
-      <button class="btn secondary" onclick="oPrev()">Voltar</button>
-      <button class="btn" onclick="validateBF()">Continuar</button>
-    </div>
+    <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
   <div class="screen" id="o5">
     <h2>Qual teu objetivo?</h2>
-    <button class="option" onclick="selectGoal(this,'Emagrecer',-500)"><strong>Emagrecer</strong><span class="desc">Tirar gordura, reduzir cintura, desinchar</span></button>
-    <button class="option" onclick="selectGoal(this,'Recompor',0)"><strong>Recompor</strong><span class="desc">Trocar gordura por músculo no mesmo peso</span></button>
-    <button class="option" onclick="selectGoal(this,'Ganhar massa',300)"><strong>Ganhar massa</strong><span class="desc">Aumentar volume muscular, subir peso</span></button>
-    <div class="btn-group">
-      <button class="btn secondary" onclick="oPrev()">Voltar</button>
-      <button class="btn" onclick="validateGoal()">Continuar</button>
-    </div>
+    <button class="option" onclick="selectGoal(this,'Emagrecer',-500); oAuto(validateGoal)"><strong>Emagrecer</strong><span class="desc">Tirar gordura, reduzir cintura, desinchar</span></button>
+    <button class="option" onclick="selectGoal(this,'Recompor',0); oAuto(validateGoal)"><strong>Recompor</strong><span class="desc">Trocar gordura por músculo no mesmo peso</span></button>
+    <button class="option" onclick="selectGoal(this,'Ganhar massa',300); oAuto(validateGoal)"><strong>Ganhar massa</strong><span class="desc">Aumentar volume muscular, subir peso</span></button>
+    <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
   <div class="screen" id="o6">
     <h2>Como tu prefere dividir a semana?</h2>
     <p class="hint">Isso define o formato do teu treino. A divisão escolhida libera as frequências que fazem sentido pra ela.</p>
-    <button class="option" onclick="selectSplit(this, null)"><strong>Divisão por grupo</strong><span class="desc">O padrão do Método: cada dia foca um grupo. Libera de 3x a 7x por semana.</span></button>
-    <button class="option" onclick="selectSplit(this, 'PPL')"><strong>Push Pull Legs</strong><span class="desc">Empurrar, puxar e pernas em ciclo. Libera de 3x a 7x por semana.</span></button>
-    <button class="option" onclick="selectSplit(this, 'UL')"><strong>Upper Lower</strong><span class="desc">Superiores e inferiores alternados. Libera de 3x a 7x por semana.</span></button>
-    <button class="option" onclick="selectSplit(this, 'FULL')"><strong>Full body</strong><span class="desc">Corpo inteiro em cada treino. Pra quem só consegue 2x por semana.</span></button>
-    <div class="btn-group">
-      <button class="btn secondary" onclick="oPrev()">Voltar</button>
-      <button class="btn" onclick="validateSplit()">Continuar</button>
-    </div>
+    <button class="option" onclick="selectSplit(this, null); oAuto(validateSplit)"><strong>Divisão por grupo</strong><span class="desc">O padrão do Método: cada dia foca um grupo. Libera de 3x a 7x por semana.</span></button>
+    <button class="option" onclick="selectSplit(this, 'PPL'); oAuto(validateSplit)"><strong>Push Pull Legs</strong><span class="desc">Empurrar, puxar e pernas em ciclo. Libera de 3x a 7x por semana.</span></button>
+    <button class="option" onclick="selectSplit(this, 'UL'); oAuto(validateSplit)"><strong>Upper Lower</strong><span class="desc">Superiores e inferiores alternados. Libera de 3x a 7x por semana.</span></button>
+    <button class="option" onclick="selectSplit(this, 'FULL'); oAuto(validateSplit)"><strong>Full body</strong><span class="desc">Corpo inteiro em cada treino. Pra quem só consegue 2x por semana.</span></button>
+    <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
   <div class="screen" id="o7">
     <h2>Quantos dias por semana tu vai treinar?</h2>
     <p class="hint">Escolhe o que cabe na tua rotina, não o que tu gostaria.</p>
-    <button class="option" onclick="selectDays(this,2)"><strong>2x por semana</strong><span class="desc">Full body: corpo inteiro nos dois treinos</span></button>
-    <button class="option" onclick="selectDays(this,3)"><strong>3x por semana</strong><span class="desc">Rotina apertada, recuperação maior entre treinos</span></button>
-    <button class="option" onclick="selectDays(this,4)"><strong>4x por semana</strong><span class="desc">Equilíbrio entre frequência e descanso</span></button>
-    <button class="option" onclick="selectDays(this,5)"><strong>5x por semana</strong><span class="desc">Evolução mais rápida, exige disciplina</span></button>
-    <button class="option" onclick="selectDays(this,6)"><strong>6x por semana</strong><span class="desc">Volume máximo, pra quem já treina há tempos</span></button>
-    <button class="option" onclick="selectDays(this,7)"><strong>7x por semana</strong><span class="desc">Todos os dias, pra quem vive na academia</span></button>
-    <div class="btn-group">
-      <button class="btn secondary" onclick="oPrev()">Voltar</button>
-      <button class="btn" onclick="validateDays()">Continuar</button>
-    </div>
+    <button class="option" onclick="selectDays(this,2); oAuto(validateDays)"><strong>2x por semana</strong><span class="desc">Full body: corpo inteiro nos dois treinos</span></button>
+    <button class="option" onclick="selectDays(this,3); oAuto(validateDays)"><strong>3x por semana</strong><span class="desc">Rotina apertada, recuperação maior entre treinos</span></button>
+    <button class="option" onclick="selectDays(this,4); oAuto(validateDays)"><strong>4x por semana</strong><span class="desc">Equilíbrio entre frequência e descanso</span></button>
+    <button class="option" onclick="selectDays(this,5); oAuto(validateDays)"><strong>5x por semana</strong><span class="desc">Evolução mais rápida, exige disciplina</span></button>
+    <button class="option" onclick="selectDays(this,6); oAuto(validateDays)"><strong>6x por semana</strong><span class="desc">Volume máximo, pra quem já treina há tempos</span></button>
+    <button class="option" onclick="selectDays(this,7); oAuto(validateDays)"><strong>7x por semana</strong><span class="desc">Todos os dias, pra quem vive na academia</span></button>
+    <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
   <div class="screen" id="o8">
     <h2>Qual músculo tu quer priorizar?</h2>
     <p class="hint">O grupo escolhido abre a semana e ganha um segundo dia de estímulo. O resto do corpo continua treinando normal, só não puxa a fila.</p>
     <div id="o-priority-options"></div>
-    <div class="btn-group">
-      <button class="btn secondary" onclick="oPrev()">Voltar</button>
-      <button class="btn" onclick="validatePriority()">Continuar</button>
-    </div>
+    <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
   <div class="screen" id="o9">
     <h2>Qual teu nível de treino?</h2>
     <p class="hint">Escolhe com sinceridade. Todo mundo começa na fase 1.0 do treino; quem já treina pode avançar de fase mais cedo.</p>
-    <button class="option" onclick="selectLevel(this,'iniciante')"><strong>Iniciante</strong><span class="desc">Nunca treinei sério, voltando depois de muito tempo parado, ou treino sem orientação. Começo do zero, aprendo padrão de execução.</span></button>
-    <button class="option" onclick="selectLevel(this,'intermediario')"><strong>Intermediário</strong><span class="desc">Treino regular há mais de 1 ano, já tenho execução decente e conheço meu corpo.</span></button>
-    <button class="option" onclick="selectLevel(this,'avancado')"><strong>Avançado</strong><span class="desc">Treino sério há vários anos, com domínio total da execução. Busco performance e estética acima da média.</span></button>
-    <div class="btn-group">
-      <button class="btn secondary" onclick="oPrev()">Voltar</button>
-      <button class="btn" onclick="validateLevel()">Continuar</button>
-    </div>
+    <button class="option" onclick="selectLevel(this,'iniciante'); oAuto(validateLevel)"><strong>Iniciante</strong><span class="desc">Nunca treinei sério, voltando depois de muito tempo parado, ou treino sem orientação. Começo do zero, aprendo padrão de execução.</span></button>
+    <button class="option" onclick="selectLevel(this,'intermediario'); oAuto(validateLevel)"><strong>Intermediário</strong><span class="desc">Treino regular há mais de 1 ano, já tenho execução decente e conheço meu corpo.</span></button>
+    <button class="option" onclick="selectLevel(this,'avancado'); oAuto(validateLevel)"><strong>Avançado</strong><span class="desc">Treino sério há vários anos, com domínio total da execução. Busco performance e estética acima da média.</span></button>
+    <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
   <div class="screen" id="o10">
     <h2>Quantas refeições por dia?</h2>
     <p class="hint">Mesmas calorias e mesmos macros nas três opções. Escolhe o que cabe na tua rotina de verdade.</p>
-    <button class="option" onclick="selectRefs(this,'3R')"><strong>3 refeições</strong><span class="desc">Café, almoço e janta. Refeições maiores, menos vezes na cozinha.</span></button>
-    <button class="option" onclick="selectRefs(this,'4R')"><strong>4 refeições</strong><span class="desc">O padrão do Método: café, almoço, lanche e janta.</span></button>
-    <button class="option" onclick="selectRefs(this,'5R')"><strong>5 refeições</strong><span class="desc">Com lanche da manhã e da tarde. Refeições menores, come de pouco em pouco.</span></button>
-    <div class="btn-group">
-      <button class="btn secondary" onclick="oPrev()">Voltar</button>
-      <button class="btn" type="button" id="o-calc-btn" onclick="validateRefs()">Calcular meu protocolo</button>
-    </div>
+    <button class="option" onclick="selectRefs(this,'3R'); oAuto(validateRefs)"><strong>3 refeições</strong><span class="desc">Café, almoço e janta. Refeições maiores, menos vezes na cozinha.</span></button>
+    <button class="option" onclick="selectRefs(this,'4R'); oAuto(validateRefs)"><strong>4 refeições</strong><span class="desc">O padrão do Método: café, almoço, lanche e janta.</span></button>
+    <button class="option" onclick="selectRefs(this,'5R'); oAuto(validateRefs)"><strong>5 refeições</strong><span class="desc">Com lanche da manhã e da tarde. Refeições menores, come de pouco em pouco.</span></button>
+    <button class="btn hidden" type="button" id="o-calc-btn" onclick="validateRefs()">Calcular meu protocolo</button>
+    <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
   <div class="screen" id="o11">
@@ -2249,7 +2228,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '93';
+const APP_V = '94';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2992,7 +2971,7 @@ function renderPriorities() {
     btn.innerHTML = '<strong></strong><span class="desc"></span>';
     btn.querySelector('strong').textContent = p.label;
     btn.querySelector('.desc').textContent = p.desc;
-    btn.onclick = () => selectPriority(btn, p.code, p.label);
+    btn.onclick = () => { selectPriority(btn, p.code, p.label); oAuto(validatePriority); };
     box.appendChild(btn);
   });
 }
@@ -3008,6 +2987,14 @@ function validatePriority() {
 }
 
 function oNext() { showOnboardScreen(state.oScreen + 1); }
+// Pergunta de uma escolha só (GH 05/11/2026): o toque na opção já avança, sem botão Continuar. Espera o check
+// aparecer; toque duplo não pula tela (só avança se ainda estiver na tela do toque).
+let _oAutoTimer = 0;
+function oAuto(valida) {
+  const tela = state.oScreen;
+  clearTimeout(_oAutoTimer);
+  _oAutoTimer = setTimeout(() => { if (state.oScreen === tela) valida(); }, 220);
+}
 function oPrev() { if (state.oScreen > 1) showOnboardScreen(state.oScreen - 1); }
 // PPL é só masculino; mulher vê a pergunta com divisão por grupo + Upper Lower
 function gateSplitOptions() {
@@ -3135,9 +3122,9 @@ async function calculate() {
   if (_calcBusy) return;
   _calcBusy = true;
   const btn = document.getElementById('o-calc-btn'), btnTxt = btn.textContent;
-  btn.disabled = true; btn.textContent = 'Calculando...';
+  btn.disabled = true; btn.textContent = 'Calculando...'; btn.classList.remove('hidden'); document.getElementById('o10').classList.add('calculando');
   try { await calculateAgora(); }
-  finally { _calcBusy = false; btn.disabled = false; btn.textContent = btnTxt; }
+  finally { _calcBusy = false; btn.disabled = false; btn.textContent = btnTxt; btn.classList.add('hidden'); document.getElementById('o10').classList.remove('calculando'); }
 }
 const kcalTxt = n => Math.round(n).toLocaleString(LOCALE);
 async function calculateAgora() {
