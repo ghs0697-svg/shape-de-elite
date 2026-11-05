@@ -26,7 +26,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '98';
+  window.APP_LANG_V = '99';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -1757,6 +1757,22 @@
   .option strong { font-weight: 800; font-size: 15.5px; }
   .option .desc { color: var(--text-dim); margin-top: 2px; }
   .option .desc.exemplo { margin-top: 6px; font-size: 12px; font-style: italic; color: var(--text-muted); }
+  /* v99: semana desenhada dentro do cartão da divisão (um chip por dia, os de treino acesos com o foco do dia) */
+  .option .semana { display: block; margin-top: 12px; }
+  .option .semana-cab { display: block; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+  .option .semana-grade { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+  .option .dia { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 42px; padding: 5px 1px; border-radius: 10px; background: var(--poco); border: 1px solid transparent; }
+  .option .dia b { font-size: 9.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--text-muted); }
+  .option .dia i { font-style: normal; font-size: 9px; font-weight: 800; line-height: 1.1; text-transform: uppercase; color: #fff; white-space: nowrap; }
+  .option .dia:not(.treino) i::before { content: '·'; color: var(--text-muted); opacity: .5; font-weight: 400; }
+  .option .dia.treino { background: linear-gradient(180deg, rgba(240, 82, 82, 0.42), rgba(180, 30, 30, 0.34)); border-color: rgba(240, 82, 82, 0.45); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 3px 10px rgba(180, 30, 30, 0.28); }
+  .option .dia.treino b { color: #FFD8D4; }
+  .option.selected .dia.treino { background: var(--red-grad); border-color: #F05252; }
+  /* cartão "não sei, escolhe pra mim": tracejado, com selo, pra se destacar das três divisões sem brigar com elas */
+  .option.auto { border-style: dashed; border-color: var(--glass-line-2); background: var(--glass-2); }
+  .option.auto .selo { background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08)); color: var(--text); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18); }
+  .option.auto.selected { border-style: solid; }
+  #o7 .hint.auto-aviso { padding: 10px 12px; border-radius: 12px; background: var(--red-tint); border: 1px solid var(--red-line); color: var(--text); }
   .option.selected, .bf-card.selected, .troca-op.on .troca-escolhe {
     background: linear-gradient(180deg, rgba(180, 30, 30, 0.24), rgba(180, 30, 30, 0.12)); border-color: var(--red-line);
     box-shadow: var(--glass-brilho), 0 0 0 1px rgba(240, 82, 82, 0.14), var(--red-glow);
@@ -2151,6 +2167,7 @@
   <div class="screen" id="o7">
     <h2>Quantos dias por semana tu vai treinar?</h2>
     <p class="hint">Escolhe o que cabe na tua rotina, não o que tu gostaria.</p>
+    <p class="hint auto-aviso" id="o7-auto" hidden>Tu deixou a divisão comigo: em 2x o treino é de corpo inteiro, de 3x em diante é a divisão por grupo do Método.</p>
     <button class="option" onclick="selectDays(this,2); oAuto(validateDays)"><strong>2x por semana</strong><span class="desc">Full body: corpo inteiro nos dois treinos</span></button>
     <button class="option" onclick="selectDays(this,3); oAuto(validateDays)"><strong>3x por semana</strong><span class="desc">Rotina apertada, recuperação maior entre treinos</span></button>
     <button class="option" onclick="selectDays(this,4); oAuto(validateDays)"><strong>4x por semana</strong><span class="desc">Equilíbrio entre frequência e descanso</span></button>
@@ -2476,7 +2493,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '98';
+const APP_V = '99';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -3140,13 +3157,13 @@ let onboard = {
   bf: null, bfAdjust: 0,
   goal: null, goalAdjust: 0, goalOpcao: null, goalLabel: null,
   days: null,
-  split: null, splitTouched: false,
+  split: null, splitTouched: false, splitAuto: false,
   priority: null, priorityLabel: null, priorityAuto: false,
   level: null
 };
 
 function initOnboarding() {
-  onboard = { sex: null, age: null, weight: null, height: null, activity: null, activityFactor: null, bf: null, bfAdjust: 0, goal: null, goalAdjust: 0, goalOpcao: null, goalLabel: null, days: null, split: null, splitTouched: false, priority: null, priorityLabel: null, priorityAuto: false, level: null };
+  onboard = { sex: null, age: null, weight: null, height: null, activity: null, activityFactor: null, bf: null, bfAdjust: 0, goal: null, goalAdjust: 0, goalOpcao: null, goalLabel: null, days: null, split: null, splitTouched: false, splitAuto: false, priority: null, priorityLabel: null, priorityAuto: false, level: null };
   state.oScreen = 1;
   document.querySelectorAll('#onboard-screen .screen').forEach(s => s.classList.remove('active'));
   document.getElementById('o1').classList.add('active');
@@ -3267,18 +3284,45 @@ function splitDias(split, sex) {
   const chaves = Object.keys(state.treinoData);
   return base.filter(d => chaves.some(k => k.startsWith(sx + '_FULL_') && k.endsWith('_' + d + 'X_1.0')));
 }
+// Cada cartão desenha uma semana de exemplo (chips por dia) pra quem nunca ouviu falar de divisão enxergar o que
+// muda. 'AUTO' não é divisão: é "não sei, escolhe pra mim". Ela vira FULL em 2x e divisão por grupo de 3x em diante,
+// resolvido na hora que o aluno marca os dias (selectDays). O que vai pro servidor é sempre null, 'UL' ou 'FULL'.
+const SEMANA_DIAS = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
 const SPLIT_OPCOES = [
+  { id: 'AUTO', titulo: 'Não sei, escolhe pra mim', selo: 'Pra quem está começando',
+    desc: 'Tu só diz quantos dias consegue treinar. A calculadora monta na divisão que o Método usa pra essa frequência: 2x é corpo inteiro, de 3x em diante é a divisão por grupo.',
+    exemplo: { Homem: '', Mulher: '' }, semana: null },
   { id: null, titulo: 'Divisão por grupo', desc: 'O padrão do Método: cada dia foca um grupo, e nas frequências maiores vira empurrar, puxar e perna. De 3x a 7x por semana.',
-    exemplo: { Homem: 'Exemplo em 4x: peito, ombro e tríceps; costas e bíceps; perna; e um dia de corpo inteiro.', Mulher: 'Exemplo em 4x: glúteo e perna; costas, ombro e bíceps; glúteo e perna de novo; peito, ombro e tríceps.' } },
+    exemplo: { Homem: 'Exemplo em 4x: peito, ombro e tríceps; costas e bíceps; perna; e um dia de parte de cima.', Mulher: 'Exemplo em 4x: glúteo e perna; costas, ombro e bíceps; glúteo e perna de novo; peito, ombro e tríceps.' },
+    semana: { freq: 4, Homem: ['Peito', 'Costas', null, 'Perna', 'Cima', null, null], Mulher: ['Perna', 'Costas', null, 'Glúteo', 'Peito', null, null] } },
   { id: 'UL', titulo: 'Upper Lower', desc: 'Um dia a parte de cima, outro a parte de baixo. De 3x a 7x por semana.',
-    exemplo: { Homem: 'Exemplo em 4x: segunda parte de cima, terça perna, quinta parte de cima, sexta perna.', Mulher: 'Exemplo em 4x: segunda glúteo e perna, terça parte de cima, quinta glúteo e perna, sexta parte de cima.' } },
+    exemplo: { Homem: 'Exemplo em 4x: segunda parte de cima, terça perna, quinta parte de cima, sexta perna.', Mulher: 'Exemplo em 4x: segunda glúteo e perna, terça parte de cima, quinta glúteo e perna, sexta parte de cima.' },
+    semana: { freq: 4, Homem: ['Cima', 'Perna', null, 'Cima', 'Perna', null, null], Mulher: ['Glúteo', 'Cima', null, 'Glúteo', 'Cima', null, null] } },
   { id: 'FULL', titulo: 'Full body', desc: null, // depende da frequência que o catálogo tem
-    exemplo: { Homem: 'Exemplo: segunda e quinta, perna e parte de cima no mesmo treino.', Mulher: 'Exemplo: segunda e quinta, glúteo, perna e parte de cima no mesmo treino.' } }
+    exemplo: { Homem: 'Exemplo: segunda e quinta, perna e parte de cima no mesmo treino.', Mulher: 'Exemplo: segunda e quinta, glúteo, perna e parte de cima no mesmo treino.' },
+    semana: { freq: 2, Homem: ['Tudo', null, null, 'Tudo', null, null, null], Mulher: ['Tudo', null, null, 'Tudo', null, null, null] } }
 ];
 function splitDesc(op) {
   if (op.id !== 'FULL') return op.desc;
   const dias = splitDias('FULL'); const max = dias[dias.length - 1] || 2;
   return max > 2 ? 'O corpo inteiro em cada treino. Pra quem treina de 2x a ' + max + 'x por semana.' : 'O corpo inteiro em cada treino. Pra quem só consegue 2x por semana.';
+}
+function splitMarcada(op) {
+  if (!onboard.splitTouched) return false;
+  return op.id === 'AUTO' ? onboard.splitAuto : (!onboard.splitAuto && onboard.split === op.id);
+}
+function semanaHtml(op) {
+  if (!op.semana) return '';
+  const sx = onboard.sex === 'Mulher' ? 'Mulher' : 'Homem';
+  const chips = op.semana[sx].map((foco, i) => {
+    const el = document.createElement('span');
+    el.className = 'dia' + (foco ? ' treino' : '');
+    const d = document.createElement('b'); d.textContent = SEMANA_DIAS[i]; el.appendChild(d);
+    const f = document.createElement('i'); f.textContent = foco || ''; el.appendChild(f);
+    return el.outerHTML;
+  }).join('');
+  const cab = document.createElement('span'); cab.className = 'semana-cab'; cab.textContent = 'Exemplo em ' + op.semana.freq + 'x';
+  return '<span class="semana">' + cab.outerHTML + '<span class="semana-grade">' + chips + '</span></span>';
 }
 function renderSplits() {
   const box = document.getElementById('o-split-options');
@@ -3288,28 +3332,40 @@ function renderSplits() {
   SPLIT_OPCOES.forEach(op => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'option' + (onboard.splitTouched && onboard.split === op.id ? ' selected' : '');
-    btn.innerHTML = '<strong></strong><span class="desc"></span><span class="desc exemplo"></span>';
+    btn.className = 'option' + (op.id === 'AUTO' ? ' auto' : '') + (splitMarcada(op) ? ' selected' : '');
+    btn.innerHTML = (op.selo ? '<span class="selo"></span>' : '') + '<strong></strong><span class="desc"></span>' + semanaHtml(op) + '<span class="desc exemplo"></span>';
+    if (op.selo) btn.querySelector('.selo').textContent = op.selo;
     btn.querySelector('strong').textContent = op.titulo;
     btn.querySelector('.desc').textContent = splitDesc(op);
-    btn.querySelector('.exemplo').textContent = op.exemplo[onboard.sex === 'Mulher' ? 'Mulher' : 'Homem'];
+    const ex = op.exemplo[onboard.sex === 'Mulher' ? 'Mulher' : 'Homem'];
+    if (ex) btn.querySelector('.exemplo').textContent = ex; else btn.querySelector('.exemplo').remove();
     btn.onclick = () => { selectSplit(btn, op.id); oAuto(validateSplit); };
     box.appendChild(btn);
   });
 }
+// a divisão que a calculadora escolhe quando o aluno não sabe: 2x é corpo inteiro, de 3x em diante é por grupo
+function splitAutoPara(days) { return days === 2 ? 'FULL' : null; }
 function selectSplit(el, split) {
   document.querySelectorAll('#o6 .option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
-  onboard.split = split;
+  onboard.splitAuto = split === 'AUTO';
+  onboard.split = onboard.splitAuto ? splitAutoPara(onboard.days) : split;
   onboard.splitTouched = true;
-  if (onboard.days && !splitDias(split).includes(onboard.days)) onboard.days = null;
+  if (onboard.days && !splitDiasPermitidos().includes(onboard.days)) onboard.days = null;
+}
+// dias que a tela de frequência oferece: os da divisão marcada, ou todos (2 a 7) quando a escolha ficou comigo
+function splitDiasPermitidos() {
+  if (!onboard.splitAuto) return splitDias(onboard.split);
+  return [...new Set(splitDias('FULL').filter(d => d === 2).concat(splitDias(null)))].sort((a, b) => a - b);
 }
 function validateSplit() {
   if (!onboard.splitTouched) { alert('Escolhe como tu prefere dividir a semana.'); return; }
   oNext();
 }
 function gateDias() {
-  const allowed = splitDias(onboard.split);
+  const allowed = splitDiasPermitidos();
+  const aviso = document.getElementById('o7-auto');
+  if (aviso) aviso.hidden = !onboard.splitAuto;
   document.querySelectorAll('#o7 .option').forEach(o => {
     const d = parseInt((o.querySelector('strong') || {}).textContent);
     const ok = allowed.includes(d);
@@ -3393,6 +3449,7 @@ function selectDays(el, d) {
   document.querySelectorAll('#o7 .option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   onboard.days = d;
+  if (onboard.splitAuto) onboard.split = splitAutoPara(d);
 }
 function validateDays() {
   if (!onboard.days) { alert('Escolhe quantos dias tu vai treinar.'); return; }
