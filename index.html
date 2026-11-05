@@ -23,7 +23,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '94';
+  window.APP_LANG_V = '95';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -1885,9 +1885,7 @@
 
   <div class="screen" id="o5">
     <h2>Qual teu objetivo?</h2>
-    <button class="option" onclick="selectGoal(this,'Emagrecer',-500); oAuto(validateGoal)"><strong>Emagrecer</strong><span class="desc">Tirar gordura, reduzir cintura, desinchar</span></button>
-    <button class="option" onclick="selectGoal(this,'Recompor',0); oAuto(validateGoal)"><strong>Recompor</strong><span class="desc">Trocar gordura por músculo no mesmo peso</span></button>
-    <button class="option" onclick="selectGoal(this,'Ganhar massa',300); oAuto(validateGoal)"><strong>Ganhar massa</strong><span class="desc">Aumentar volume muscular, subir peso</span></button>
+    <div id="o-goal-options"></div>
     <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
@@ -1917,6 +1915,7 @@
     <h2>Qual músculo tu quer priorizar?</h2>
     <p class="hint">O grupo escolhido abre a semana e ganha um segundo dia de estímulo. O resto do corpo continua treinando normal, só não puxa a fila.</p>
     <div id="o-priority-options"></div>
+    <button class="btn hidden" type="button" id="o8-continuar" onclick="validatePriority()">Continuar</button>
     <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
@@ -2228,7 +2227,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '94';
+const APP_V = '95';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2873,7 +2872,7 @@ function openSettings() {
   document.getElementById('settings-profile').innerHTML =
     `<strong>${escapeHtml(state.user?.email || '')}</strong><br>` +
     `${escapeHtml(p.sex)} · ${escapeHtml(p.age)} anos · ${unPeso(p.weight)} · ${unAltura(p.height)}<br>` +
-    `${escapeHtml(p.activity)} · Corpo similar: ${escapeHtml(bfNome(p.bf, p.sex))} · ${escapeHtml(p.goal)}<br>` +
+    `${escapeHtml(p.activity)} · Corpo similar: ${escapeHtml(bfNome(p.bf, p.sex))} · ${escapeHtml(p.goalLabel || p.goal)}<br>` +
     `<span style="color:var(--red-text);font-weight:700;">Mês ${MESES_TREINO.indexOf(tp) + 1 || 1} · Fase ${escapeHtml(tp)}</span> · ${escapeHtml(p.workout)}<br>` +
     `<span style="color:var(--red-text);font-weight:700;">Dieta</span> · ${escapeHtml(p.diet)} · cardápio ${letraDoCardapio(p)}`;
   const inst = document.getElementById('settings-install');
@@ -2890,15 +2889,15 @@ let onboard = {
   sex: null, age: null, weight: null, height: null,
   activity: null, activityFactor: null,
   bf: null, bfAdjust: 0,
-  goal: null, goalAdjust: 0,
+  goal: null, goalAdjust: 0, goalOpcao: null, goalLabel: null,
   days: null,
   split: null, splitTouched: false,
-  priority: null, priorityLabel: null,
+  priority: null, priorityLabel: null, priorityAuto: false,
   level: null
 };
 
 function initOnboarding() {
-  onboard = { sex: null, age: null, weight: null, height: null, activity: null, activityFactor: null, bf: null, bfAdjust: 0, goal: null, goalAdjust: 0, days: null, split: null, splitTouched: false, priority: null, priorityLabel: null, level: null };
+  onboard = { sex: null, age: null, weight: null, height: null, activity: null, activityFactor: null, bf: null, bfAdjust: 0, goal: null, goalAdjust: 0, goalOpcao: null, goalLabel: null, days: null, split: null, splitTouched: false, priority: null, priorityLabel: null, priorityAuto: false, level: null };
   state.oScreen = 1;
   document.querySelectorAll('#onboard-screen .screen').forEach(s => s.classList.remove('active'));
   document.getElementById('o1').classList.add('active');
@@ -2925,6 +2924,7 @@ function showOnboardScreen(n) {
   document.getElementById('o' + n).classList.add('active');
   state.oScreen = n;
   if (n === 8) renderPriorities();
+  if (n === 5) renderGoals();
   if (n === 7) gateDias();
   if (n === 6) gateSplitOptions();
   if (n === 4) bfCardsPorSexo(); // fotos e nomes do corpo pelo sexo marcado na primeira tela
@@ -2962,8 +2962,18 @@ function renderPriorities() {
     ]);
   }
   if (onboard.priority && !list.some(p => p.code === onboard.priority)) {
-    onboard.priority = null; onboard.priorityLabel = null; // trocou o sexo no voltar
+    onboard.priority = null; onboard.priorityLabel = null; onboard.priorityAuto = false; // trocou o sexo no voltar
   }
+  // objetivo que fala de bumbum: Glúteo já vem marcado e ela confirma no Continuar (ou troca). Marcação automática
+  // some se ela voltar e escolher um objetivo sem prioridade; a que ela mesma tocou fica.
+  const pre = (goalOpcaoAtual() || {}).prioridade || null;
+  if (onboard.priorityAuto && onboard.priority !== pre) { onboard.priority = null; onboard.priorityLabel = null; onboard.priorityAuto = false; }
+  if (!onboard.priority && pre && list.some(p => p.code === pre)) {
+    const p = list.find(p => p.code === pre);
+    onboard.priority = p.code; onboard.priorityLabel = p.label; onboard.priorityAuto = true;
+  }
+  const cont = document.getElementById('o8-continuar');
+  if (cont) cont.classList.toggle('hidden', !onboard.priority);
   box.innerHTML = '';
   list.forEach(p => {
     const btn = document.createElement('button');
@@ -2980,6 +2990,7 @@ function selectPriority(el, code, label) {
   el.classList.add('selected');
   onboard.priority = code;
   onboard.priorityLabel = label;
+  onboard.priorityAuto = false;
 }
 function validatePriority() {
   if (!onboard.priority) { alert('Escolhe qual músculo tu quer priorizar.'); return; }
@@ -3046,11 +3057,53 @@ function selectBF(el, adj, label) {
   onboard.bf = label;
   onboard.bfAdjust = adj;
 }
-function selectGoal(el, name, adj) {
+// Objetivos por sexo (GH 05/11/2026, textos da QuizMetodoGH pelas dores dos alunos, Sala #4278 e #4281). O que
+// aparece é a frase do aluno; por dentro cada uma cai num motor da conta (goal): Emagrecer, Recompor, Ganhar massa
+// ou Crescer (motor novo: superávit mesmo com gordura, pra quem não se importa de vir um pouco junto). A primeira é
+// a da campanha de lançamento e muda de título quando o verão acaba; quem já escolheu continua no mesmo motor.
+// 'prioridade': o objetivo que fala de bumbum chega na tela de prioridade com Glúteo já marcado (ela confirma lá).
+const GOAL_VERAO_ATE = '2027-03-20';
+const GOAL_OPCOES = {
+  Homem: [
+    { id: 'VERAO10', motor: 'Emagrecer', adj: -500, titulo: 'Perder até 10 kg até o fim do verão', tituloDepois: 'Perder até 10 kg sem perder massa', desc: 'Baixar o peso rápido, sem perder a massa que tu já tem.' },
+    { id: 'BARRIGA', motor: 'Emagrecer', adj: -500, titulo: 'Emagrecer e perder a barriga', desc: 'Tirar a gordura da cintura sem ficar mole.' },
+    { id: 'RECOMP', motor: 'Recompor', adj: 0, titulo: 'Perder a barriga e ganhar massa', desc: 'Secar a barriga e encher o corpo ao mesmo tempo.' },
+    { id: 'SHAPE', motor: 'Ganhar massa', adj: 300, titulo: 'Ganhar massa e colocar shape', desc: 'Encher peito, costas e braço sem juntar gordura.' },
+    { id: 'GRANDE', motor: 'Crescer', adj: 500, titulo: 'Ficar grande', desc: 'Ganhar o máximo de massa, sem neura se vier um pouco de gordura junto.' }
+  ],
+  Mulher: [
+    { id: 'VERAO10', motor: 'Emagrecer', adj: -500, titulo: 'Perder até 10 kg até o fim do verão', tituloDepois: 'Perder até 10 kg sem perder massa', desc: 'Baixar o peso rápido, sem perder a massa que tu já tem.' },
+    { id: 'FIRME', motor: 'Emagrecer', adj: -500, titulo: 'Emagrecer sem ficar flácida', desc: 'Secar barriga, braço e perna, deixando o corpo firme.' },
+    { id: 'RECOMP', motor: 'Recompor', adj: 0, titulo: 'Perder a barriga e crescer o bumbum', desc: 'Secar a cintura e encher glúteo e coxa ao mesmo tempo.', prioridade: 'GLUTEO' },
+    { id: 'BUMBUM', motor: 'Ganhar massa', adj: 300, titulo: 'Crescer bumbum e coxa sem engordar', desc: 'Ganhar músculo na parte de baixo sem criar barriga.', prioridade: 'GLUTEO' },
+    { id: 'CORPO', motor: 'Crescer', adj: 500, titulo: 'Ganhar corpo', desc: 'Pra quem se acha magra demais: encher braço, coxa e bumbum, mesmo que o peso suba um pouco.' }
+  ]
+};
+const goalTitulo = (op, hoje) => (op.tituloDepois && (hoje || new Date().toISOString().slice(0, 10)) > GOAL_VERAO_ATE) ? op.tituloDepois : op.titulo;
+const goalOpcaoAtual = () => (GOAL_OPCOES[onboard.sex === 'Mulher' ? 'Mulher' : 'Homem'] || []).find(o => o.id === onboard.goalOpcao) || null;
+function renderGoals() {
+  const box = document.getElementById('o-goal-options');
+  const list = GOAL_OPCOES[onboard.sex === 'Mulher' ? 'Mulher' : 'Homem'];
+  if (onboard.goalOpcao && !list.some(o => o.id === onboard.goalOpcao)) { onboard.goal = null; onboard.goalOpcao = null; onboard.goalLabel = null; } // trocou o sexo no voltar
+  box.innerHTML = '';
+  list.forEach(op => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'option' + (onboard.goalOpcao === op.id ? ' selected' : '');
+    btn.innerHTML = '<strong></strong><span class="desc"></span>';
+    btn.querySelector('strong').textContent = goalTitulo(op);
+    btn.querySelector('.desc').textContent = op.desc;
+    btn.onclick = () => { selectGoal(btn, op); oAuto(validateGoal); };
+    box.appendChild(btn);
+  });
+}
+function selectGoal(el, op) {
   document.querySelectorAll('#o5 .option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
-  onboard.goal = name;
-  onboard.goalAdjust = adj;
+  onboard.goal = op.motor;
+  onboard.goalAdjust = op.adj;
+  onboard.goalOpcao = op.id;
+  onboard.goalLabel = goalTitulo(op);
 }
 function selectDays(el, d) {
   document.querySelectorAll('#o7 .option').forEach(o => o.classList.remove('selected'));
@@ -3183,10 +3236,14 @@ async function calculateAgora() {
   const alertTitle = document.getElementById('r-alert-title');
   const alertBody = document.getElementById('r-alert-body');
   let showAlert = false;
-  if (onboard.goal === 'Ganhar massa' && (onboard.bf === '25% ou mais' || onboard.bf === 'cerca de 20%')) {
+  if (onboard.goal === 'Crescer' && onboard.bf === '25% ou mais') {
+    showAlert = true;
+    alertTitle.textContent = 'DIETA NA MANUTENÇÃO';
+    alertBody.textContent = 'Tu quer crescer e o corpo ainda tem gordura sobrando. Por isso tua dieta fica na manutenção: o músculo vem do treino pesado e da proteína. Conforme tu seca, a dieta sobe no recálculo do mês.';
+  } else if (onboard.goal === 'Ganhar massa' && (onboard.bf === '25% ou mais' || onboard.bf === 'cerca de 20%')) {
     showAlert = true;
     alertTitle.textContent = 'PRIMEIRO A GENTE SECA';
-    alertBody.textContent = 'Tu marcou "ganhar massa" com o corpo ainda com gordura sobrando. Comer acima da manutenção agora vira mais gordura do que músculo. Por isso tua dieta começa um pouco abaixo da manutenção, com treino pesado: a gordura cai e o músculo continua vindo. Conforme tu seca, a dieta sobe de novo no recálculo do mês.';
+    alertBody.textContent = 'Tu quer ganhar massa sem juntar gordura, e o corpo ainda tem gordura sobrando. Comer acima da manutenção agora vira mais gordura do que músculo. Por isso tua dieta começa um pouco abaixo da manutenção, com treino pesado: a gordura cai e o músculo continua vindo. Conforme tu seca, a dieta sobe de novo no recálculo do mês.';
   } else if (onboard.bf === '10% ou menos' && onboard.goal === 'Emagrecer') {
     showAlert = true;
     alertTitle.textContent = 'DÉFICIT LEVE';
@@ -5845,8 +5902,9 @@ const DIET_KCAL  = { '1.3K':1300, '1.5K':1500, '1.8K':1800, '2K':2000, '2.2K':22
 // mês: se mudar aqui, muda lá.
 const CALC_FATORES = [1.2, 1.375, 1.55, 1.725, 1.9];
 const fatorUsado = declarado => CALC_FATORES[Math.max(0, CALC_FATORES.indexOf(Number(declarado)) - 1)] ?? Number(declarado);
-// ajuste por objetivo x card de gordura (0: 10% ou menos, 1: ~15%, 2: ~20%, 3: 25% ou mais)
-const CALC_AJUSTE = { 'Emagrecer': [-250, -300, -500, -800], 'Recompor': [0, -200, -300, -300], 'Ganhar massa': [300, 150, -250, -500] };
+// ajuste por objetivo x card de gordura (0: 10% ou menos, 1: ~15%, 2: ~20%, 3: 25% ou mais). Crescer (05/11/2026):
+// superávit pra quem não se importa de vir gordura junto; barriga grande fica na manutenção (o músculo vem do treino)
+const CALC_AJUSTE = { 'Emagrecer': [-250, -300, -500, -800], 'Recompor': [0, -200, -300, -300], 'Ganhar massa': [300, 150, -250, -500], 'Crescer': [500, 400, 300, 0] };
 const BF_ROTULOS = ['10% ou menos', 'cerca de 15%', 'cerca de 20%', '25% ou mais'];
 const bfIdxDe = rotulo => { const i = BF_ROTULOS.indexOf(String(rotulo || '')); return i < 0 ? 1 : i; };
 // GH 05/11/2026: o aluno escolhe pelo corpo da foto, sem número (ninguém sabe o próprio percentual, e o da mulher é
@@ -5925,7 +5983,7 @@ function adjustDietForPhase(currentDietName, goal, phaseStep) {
   if (idx < 0) return currentDietName;
   let delta = 0;
   if (goal === 'Emagrecer') delta = -phaseStep;
-  else if (goal === 'Ganhar massa') delta = +phaseStep;
+  else if (goal === 'Ganhar massa' || goal === 'Crescer') delta = +phaseStep;
   const newIdx = Math.max(0, Math.min(DIET_ORDER.length - 1, idx + delta));
   return 'DIETA ' + DIET_ORDER[newIdx];
 }
@@ -6518,7 +6576,7 @@ function renderCalc() {
         </summary>
         <div class="small mt-2" style="line-height:1.6;color:var(--text);">
           <strong>${escapeHtml(s.sex)} · ${escapeHtml(s.age)} anos · ${unPeso(s.weight)} · ${unAltura(s.height)}</strong><br>
-          ${escapeHtml(s.activity)} · ${escapeHtml(s.bf)} · ${escapeHtml(s.goal)}<br>
+          ${escapeHtml(s.activity)} · ${escapeHtml(bfNome(s.bf, s.sex))} · ${escapeHtml(s.goalLabel || s.goal)}<br>
           <span style="color:var(--red-text);font-weight:700;">${escapeHtml(s.workout)}</span> ${s.treinoPhase ? `<span style="color:var(--text-muted);font-size:12px;">(fase ${escapeHtml(s.treinoPhase)})</span>` : ''}<br>
           <span style="color:var(--red-text);font-weight:700;">${escapeHtml(s.diet)}</span> ${s.dietaPhase ? `<span style="color:var(--text-muted);font-size:12px;">(fase ${escapeHtml(s.dietaPhase)})</span>` : ''}<br>
           ${(t => t ? `${t.kcal} kcal · proteína ${t.p} g · carboidrato ${t.c} g · gordura ${t.g} g` : '')(dietTotalsByName(s.diet))}
