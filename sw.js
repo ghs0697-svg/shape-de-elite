@@ -1,7 +1,7 @@
-const CACHE_NAME = 'shape-de-elite-v91';
+const CACHE_NAME = 'shape-de-elite-v92';
 // Os JSON levam a versão no endereço (igual ao APP_V do index.html): o HTML novo nunca roda com dado velho
 // do cache antigo, nem na primeira abertura depois de uma atualização.
-const V = '91';
+const V = '92';
 const ASSETS = [
   './',
   './index.html',
@@ -18,7 +18,11 @@ const ASSETS = [
   './assets/bf-10.jpg?v=2',
   './assets/bf-15.jpg?v=2',
   './assets/bf-20.jpg?v=2',
-  './assets/bf-25.jpg?v=2'
+  './assets/bf-25.jpg?v=2',
+  './assets/bf-f-10.jpg?v=2',
+  './assets/bf-f-15.jpg?v=2',
+  './assets/bf-f-20.jpg?v=2',
+  './assets/bf-f-25.jpg?v=2'
 ];
 
 self.addEventListener('install', e => {

@@ -23,7 +23,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '91';
+  window.APP_LANG_V = '92';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -1876,10 +1876,10 @@
     <h2>Qual corpo tá mais parecido com o teu?</h2>
     <p class="hint">Escolhe com sinceridade. Quanto mais preciso, melhor o cálculo.</p>
     <div class="bf-grid">
-      <div class="bf-card" onclick="selectBF(this,0,'10% ou menos')"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-10.jpg?v=2" alt=""></div><div><strong>10% ou menos</strong><div class="desc">Ripado, veias aparentes, gomos evidentes</div></div></div>
-      <div class="bf-card" onclick="selectBF(this,75,'cerca de 15%')"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-15.jpg?v=2" alt=""></div><div><strong>Cerca de 15%</strong><div class="desc">Atlético, abdômen aparecendo de leve, braços definidos</div></div></div>
-      <div class="bf-card" onclick="selectBF(this,150,'cerca de 20%')"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-20.jpg?v=2" alt=""></div><div><strong>Cerca de 20%</strong><div class="desc">Barriga moderada, sem abdômen aparente</div></div></div>
-      <div class="bf-card" onclick="selectBF(this,300,'25% ou mais')"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-25.jpg?v=2" alt=""></div><div><strong>25% ou mais</strong><div class="desc">Barriga grande, camiseta esticada</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,0,'10% ou menos')" data-bf="0"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-10.jpg?v=2" alt=""></div><div><strong>Bem seco</strong><div class="desc">Ripado, veias aparentes, gomos evidentes</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,75,'cerca de 15%')" data-bf="1"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-15.jpg?v=2" alt=""></div><div><strong>Atlético</strong><div class="desc">Abdômen aparecendo de leve, braços definidos</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,150,'cerca de 20%')" data-bf="2"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-20.jpg?v=2" alt=""></div><div><strong>Barriga moderada</strong><div class="desc">Sem abdômen aparente</div></div></div>
+      <div class="bf-card" onclick="selectBF(this,300,'25% ou mais')" data-bf="3"><div class="bf-img"><img loading="lazy" decoding="async" src="assets/bf-25.jpg?v=2" alt=""></div><div><strong>Barriga grande</strong><div class="desc">Camiseta esticada</div></div></div>
     </div>
     <div class="btn-group">
       <button class="btn secondary" onclick="oPrev()">Voltar</button>
@@ -2181,7 +2181,7 @@
   <input type="number" inputmode="decimal" id="phase-peso" class="input" placeholder="ex.: 78,5" min="30" max="300" step="0.1" oninput="updatePhasePreview()" style="margin-bottom:6px;">
   <p class="hint" style="margin-top:0;">Pesa de manhã, em jejum e depois do banheiro. A dieta do mês é calculada com esse peso.</p>
 
-  <h3 style="margin: 14px 0 10px; font-size: 13px; color: var(--text-dim); letter-spacing: .5px;">TUA GORDURA HOJE, MAIS OU MENOS</h3>
+  <h3 style="margin: 14px 0 10px; font-size: 13px; color: var(--text-dim); letter-spacing: .5px;">TEU CORPO HOJE, MAIS OU MENOS</h3>
   <div id="phase-bf-options" class="phase-bf-grid"></div>
 
   <div id="phase-days-section" style="margin-top:14px;">
@@ -2249,7 +2249,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '91';
+const APP_V = '92';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2894,7 +2894,7 @@ function openSettings() {
   document.getElementById('settings-profile').innerHTML =
     `<strong>${escapeHtml(state.user?.email || '')}</strong><br>` +
     `${escapeHtml(p.sex)} · ${escapeHtml(p.age)} anos · ${unPeso(p.weight)} · ${unAltura(p.height)}<br>` +
-    `${escapeHtml(p.activity)} · ${escapeHtml(p.bf)} · ${escapeHtml(p.goal)}<br>` +
+    `${escapeHtml(p.activity)} · ${escapeHtml(bfNome(p.bf, p.sex))} · ${escapeHtml(p.goal)}<br>` +
     `<span style="color:var(--red-text);font-weight:700;">Mês ${MESES_TREINO.indexOf(tp) + 1 || 1} · Fase ${escapeHtml(tp)}</span> · ${escapeHtml(p.workout)}<br>` +
     `<span style="color:var(--red-text);font-weight:700;">Dieta</span> · ${escapeHtml(p.diet)} · cardápio ${letraDoCardapio(p)}`;
   const inst = document.getElementById('settings-install');
@@ -2948,6 +2948,7 @@ function showOnboardScreen(n) {
   if (n === 8) renderPriorities();
   if (n === 7) gateDias();
   if (n === 6) gateSplitOptions();
+  if (n === 4) bfCardsPorSexo(); // fotos e nomes do corpo pelo sexo marcado na primeira tela
   updateProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -3044,6 +3045,7 @@ function selectSex(el, v) {
   document.querySelectorAll('[data-sex]').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   onboard.sex = v;
+  bfCardsPorSexo();
 }
 function selectActivity(el, name, factor) {
   document.querySelectorAll('#o3 .option').forEach(o => o.classList.remove('selected'));
@@ -3174,12 +3176,12 @@ async function calculateAgora() {
   document.getElementById('r-target').textContent = kcalTxt(kcalDieta) + ' kcal';
   // a manutenção que aparece já é a do fator um nível abaixo do declarado: quase todo mundo se acha mais ativo do que é
   let conta = 'Tua manutenção deu ' + kcalTxt(maintenance) + ' kcal, contando teu dia um pouco mais parado do que tu marcou (quase todo mundo se acha mais ativo do que é). ';
-  const aj = calc.ajuste, objTxt = onboard.goal.toLowerCase();
+  const aj = calc.ajuste, objTxt = onboard.goal.toLowerCase(), corpoTxt = bfNome(onboard.bf, onboard.sex).toLowerCase();
   if (calc.motivo.includes('piso')) conta += 'Pra ' + objTxt + ', a conta desceria mais, mas homem não come menos de 2.000 kcal no método: ficou em ' + kcalTxt(target) + ' kcal. ';
   else if (calc.motivo.length) conta += 'Pra ' + objTxt + ' com teu gasto, o desconto ficou menor pra dieta não ficar pequena demais: ' + kcalTxt(target) + ' kcal. ';
-  else if (aj < 0) conta += 'Pra ' + objTxt + ' com ' + onboard.bf + ' de gordura: menos ' + Math.abs(aj) + ' kcal, ' + kcalTxt(target) + ' kcal. ';
-  else if (aj > 0) conta += 'Pra ' + objTxt + ' com ' + onboard.bf + ' de gordura: mais ' + aj + ' kcal, ' + kcalTxt(target) + ' kcal. ';
-  else conta += 'Pra ' + objTxt + ' com ' + onboard.bf + ' de gordura, tu come a manutenção. ';
+  else if (aj < 0) conta += 'Pra ' + objTxt + ' com o corpo que tu marcou (' + corpoTxt + '): menos ' + Math.abs(aj) + ' kcal, ' + kcalTxt(target) + ' kcal. ';
+  else if (aj > 0) conta += 'Pra ' + objTxt + ' com o corpo que tu marcou (' + corpoTxt + '): mais ' + aj + ' kcal, ' + kcalTxt(target) + ' kcal. ';
+  else conta += 'Pra ' + objTxt + ' com o corpo que tu marcou (' + corpoTxt + '), tu come a manutenção. ';
   conta += 'A dieta do método nessa faixa é a de ' + kcalTxt(kcalDieta) + ' kcal. Todo mês tu manda teu peso e ela é recalculada.';
   document.getElementById('r-adjusts').textContent = conta;
   document.getElementById('r-diet').textContent = diet + ({ '3R': ' · 3 refeições', '4R': ' · 4 refeições', '5R': ' · 5 refeições' }[onboard.refeicoes] || '');
@@ -3197,11 +3199,11 @@ async function calculateAgora() {
   if (onboard.goal === 'Ganhar massa' && (onboard.bf === '25% ou mais' || onboard.bf === 'cerca de 20%')) {
     showAlert = true;
     alertTitle.textContent = 'PRIMEIRO A GENTE SECA';
-    alertBody.textContent = 'Tu marcou "ganhar massa" com ' + onboard.bf + ' de gordura. Comer acima da manutenção agora vira mais gordura do que músculo. Por isso tua dieta começa um pouco abaixo da manutenção, com treino pesado: a gordura cai e o músculo continua vindo. Conforme tu seca, a dieta sobe de novo no recálculo do mês.';
+    alertBody.textContent = 'Tu marcou "ganhar massa" com o corpo ainda com gordura sobrando. Comer acima da manutenção agora vira mais gordura do que músculo. Por isso tua dieta começa um pouco abaixo da manutenção, com treino pesado: a gordura cai e o músculo continua vindo. Conforme tu seca, a dieta sobe de novo no recálculo do mês.';
   } else if (onboard.bf === '10% ou menos' && onboard.goal === 'Emagrecer') {
     showAlert = true;
     alertTitle.textContent = 'DÉFICIT LEVE';
-    alertBody.textContent = 'Teu percentual de gordura já é baixo (10% ou menos), então o desconto é pequeno, pra não perder músculo. Prioriza proteína e sono. No recálculo do mês a dieta acompanha teu peso.';
+    alertBody.textContent = 'Teu corpo já está bem seco, então o desconto é pequeno, pra não perder músculo. Prioriza proteína e sono. No recálculo do mês a dieta acompanha teu peso.';
   }
   alertEl.classList.toggle('visible', showAlert);
 
@@ -5860,6 +5862,26 @@ const fatorUsado = declarado => CALC_FATORES[Math.max(0, CALC_FATORES.indexOf(Nu
 const CALC_AJUSTE = { 'Emagrecer': [-250, -300, -500, -800], 'Recompor': [0, -200, -300, -300], 'Ganhar massa': [300, 150, -250, -500] };
 const BF_ROTULOS = ['10% ou menos', 'cerca de 15%', 'cerca de 20%', '25% ou mais'];
 const bfIdxDe = rotulo => { const i = BF_ROTULOS.indexOf(String(rotulo || '')); return i < 0 ? 1 : i; };
+// GH 05/11/2026: o aluno escolhe pelo corpo da foto, sem número (ninguém sabe o próprio percentual, e o da mulher é
+// outra escala). BF_ROTULOS segue sendo a chave guardada no protocolo e na conta; o que aparece é o nome do corpo,
+// e a mulher vê fotos de mulher (assets/bf-f-*.jpg, mesma ordem dos cards).
+const BF_CORPOS = {
+  Homem: [['Bem seco', 'Ripado, veias aparentes, gomos evidentes'], ['Atlético', 'Abdômen aparecendo de leve, braços definidos'],
+          ['Barriga moderada', 'Sem abdômen aparente'], ['Barriga grande', 'Camiseta esticada']],
+  Mulher: [['Bem seca', 'Abdômen marcado, braços e pernas definidos'], ['Atlética', 'Barriga lisa, braços e pernas firmes'],
+           ['Barriga leve', 'Sem abdômen aparente, pernas mais cheias'], ['Barriga grande', 'Barriga aparecendo na regata, braços e pernas mais cheios']],
+};
+const BF_FOTOS = { Homem: ['bf-10', 'bf-15', 'bf-20', 'bf-25'], Mulher: ['bf-f-10', 'bf-f-15', 'bf-f-20', 'bf-f-25'] };
+const bfNome = (rotulo, sexo) => BF_CORPOS[sexo === 'Mulher' ? 'Mulher' : 'Homem'][bfIdxDe(rotulo)][0];
+function bfCardsPorSexo() {
+  const sx = onboard.sex === 'Mulher' ? 'Mulher' : 'Homem';
+  document.querySelectorAll('.bf-card[data-bf]').forEach(c => {
+    const i = Number(c.dataset.bf), img = c.querySelector('img'), src = 'assets/' + BF_FOTOS[sx][i] + '.jpg?v=2';
+    if (img && !img.getAttribute('src').startsWith(src)) img.setAttribute('src', src);
+    c.querySelector('strong').textContent = BF_CORPOS[sx][i][0];
+    c.querySelector('.desc').textContent = BF_CORPOS[sx][i][1];
+  });
+}
 const CALC_FAIXAS = [[1400, '1.3K'], [1650, '1.5K'], [1900, '1.8K'], [2100, '2K'], [2350, '2.2K'], [2600, '2.5K'], [2850, '2.7K'], [3100, '3K'], [3350, '3.2K'], [Infinity, '3.5K']];
 const faixaDeKcal = kc => CALC_FAIXAS.find(([lim]) => kc < lim)[1];
 function metaKcal({ sexo, idade, peso, altura, fator, bfIdx, objetivo }) {
@@ -5937,7 +5959,7 @@ function openPhaseUpgrade(targetPhase) {
   document.getElementById('phase-peso').value = '';
   document.getElementById('phase-peso-un').textContent = unCarga().toUpperCase();
   document.getElementById('phase-bf-options').innerHTML = BF_ROTULOS.map(b =>
-    `<button type="button" class="option${b === phaseUpgrade.bf ? ' selected' : ''}" data-pbf="${escapeHtml(b)}" onclick="selectPhaseBf(this)"><strong>${escapeHtml(b.charAt(0).toUpperCase() + b.slice(1))}</strong></button>`).join('');
+    `<button type="button" class="option${b === phaseUpgrade.bf ? ' selected' : ''}" data-pbf="${escapeHtml(b)}" onclick="selectPhaseBf(this)"><strong>${escapeHtml(bfNome(b, p.sex))}</strong></button>`).join('');
 
   // frequência só muda na troca de bloco: dentro do bloco o treino é o mesmo
   document.getElementById('phase-days-section').style.display = trocaBloco ? 'block' : 'none';
