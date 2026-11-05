@@ -26,7 +26,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '96';
+  window.APP_LANG_V = '97';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -1756,6 +1756,7 @@
   .option:active { transform: scale(.99); }
   .option strong { font-weight: 800; font-size: 15.5px; }
   .option .desc { color: var(--text-dim); margin-top: 2px; }
+  .option .desc.exemplo { margin-top: 6px; font-size: 12px; font-style: italic; color: var(--text-muted); }
   .option.selected, .bf-card.selected, .troca-op.on .troca-escolhe {
     background: linear-gradient(180deg, rgba(180, 30, 30, 0.24), rgba(180, 30, 30, 0.12)); border-color: var(--red-line);
     box-shadow: var(--glass-brilho), 0 0 0 1px rgba(240, 82, 82, 0.14), var(--red-glow);
@@ -2143,10 +2144,7 @@
   <div class="screen" id="o6">
     <h2>Como tu prefere dividir a semana?</h2>
     <p class="hint">Isso define o formato do teu treino. A divisão escolhida libera as frequências que fazem sentido pra ela.</p>
-    <button class="option" onclick="selectSplit(this, null); oAuto(validateSplit)"><strong>Divisão por grupo</strong><span class="desc">O padrão do Método: cada dia foca um grupo. Libera de 3x a 7x por semana.</span></button>
-    <button class="option" onclick="selectSplit(this, 'PPL'); oAuto(validateSplit)"><strong>Push Pull Legs</strong><span class="desc">Empurrar, puxar e pernas em ciclo. Libera de 3x a 7x por semana.</span></button>
-    <button class="option" onclick="selectSplit(this, 'UL'); oAuto(validateSplit)"><strong>Upper Lower</strong><span class="desc">Superiores e inferiores alternados. Libera de 3x a 7x por semana.</span></button>
-    <button class="option" onclick="selectSplit(this, 'FULL'); oAuto(validateSplit)"><strong>Full body</strong><span class="desc">Corpo inteiro em cada treino. Pra quem só consegue 2x por semana.</span></button>
+    <div id="o-split-options"></div>
     <button class="o-voltar" type="button" onclick="oPrev()">Voltar</button>
   </div>
 
@@ -2478,7 +2476,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '96';
+const APP_V = '97';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -3177,7 +3175,7 @@ function showOnboardScreen(n) {
   if (n === 8) renderPriorities();
   if (n === 5) renderGoals();
   if (n === 7) gateDias();
-  if (n === 6) gateSplitOptions();
+  if (n === 6) renderSplits();
   if (n === 4) bfCardsPorSexo(); // fotos e nomes do corpo pelo sexo marcado na primeira tela
   updateProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3258,29 +3256,60 @@ function oAuto(valida) {
   _oAutoTimer = setTimeout(() => { if (state.oScreen === tela) valida(); }, 220);
 }
 function oPrev() { if (state.oScreen > 1) showOnboardScreen(state.oScreen - 1); }
-// PPL é só masculino; mulher vê a pergunta com divisão por grupo + Upper Lower
-function gateSplitOptions() {
-  const opts = document.querySelectorAll('#o6 .option');
-  opts.forEach(o => {
-    const isPPL = o.textContent.includes('Push Pull Legs');
-    o.style.display = (isPPL && onboard.sex === 'Mulher') ? 'none' : '';
-  });
-  if (onboard.sex === 'Mulher' && onboard.split === 'PPL') { onboard.split = null; onboard.splitTouched = false; opts.forEach(o => o.classList.remove('selected')); }
+// Divisão da semana (GH 05/11/2026): 3 opções com exemplo pro aluno enxergar. Push Pull Legs saiu da tela porque a
+// divisão por grupo já vira empurrar, puxar e perna nas frequências altas; quem escolheu PPL antes segue no treino dele.
+const SPLIT_DAYS = { PPL: [3, 4, 5, 6, 7], UL: [3, 4, 5, 6, 7], FULL: [2, 3, 4] };
+// Full body 3x e 4x só aparecem quando o catálogo tiver o treino (a Criador monta; até lá a tela oferece 2x)
+function splitDias(split, sex) {
+  const base = split ? SPLIT_DAYS[split] : [3, 4, 5, 6, 7]; // grupo 3-7x pros dois sexos
+  if (split !== 'FULL' || !state.treinoData) return base;
+  const sx = (sex || onboard.sex) === 'Mulher' ? 'F' : 'M';
+  const chaves = Object.keys(state.treinoData);
+  return base.filter(d => chaves.some(k => k.startsWith(sx + '_FULL_') && k.endsWith('_' + d + 'X_1.0')));
 }
-const SPLIT_DAYS = { PPL: [3, 4, 5, 6, 7], UL: [3, 4, 5, 6, 7], FULL: [2] }; // PPL só masc; UL e FULL masc e fem
+const SPLIT_OPCOES = [
+  { id: null, titulo: 'Divisão por grupo', desc: 'O padrão do Método: cada dia foca um grupo, e nas frequências maiores vira empurrar, puxar e perna. De 3x a 7x por semana.',
+    exemplo: { Homem: 'Exemplo em 4x: peito, ombro e tríceps; costas e bíceps; perna; e um dia de corpo inteiro.', Mulher: 'Exemplo em 4x: glúteo e perna; costas, ombro e bíceps; glúteo e perna de novo; peito, ombro e tríceps.' } },
+  { id: 'UL', titulo: 'Upper Lower', desc: 'Um dia a parte de cima, outro a parte de baixo. De 3x a 7x por semana.',
+    exemplo: { Homem: 'Exemplo em 4x: segunda parte de cima, terça perna, quinta parte de cima, sexta perna.', Mulher: 'Exemplo em 4x: segunda glúteo e perna, terça parte de cima, quinta glúteo e perna, sexta parte de cima.' } },
+  { id: 'FULL', titulo: 'Full body', desc: null, // depende da frequência que o catálogo tem
+    exemplo: { Homem: 'Exemplo: segunda e quinta, perna e parte de cima no mesmo treino.', Mulher: 'Exemplo: segunda e quinta, glúteo, perna e parte de cima no mesmo treino.' } }
+];
+function splitDesc(op) {
+  if (op.id !== 'FULL') return op.desc;
+  const dias = splitDias('FULL'); const max = dias[dias.length - 1] || 2;
+  return max > 2 ? 'O corpo inteiro em cada treino. Pra quem treina de 2x a ' + max + 'x por semana.' : 'O corpo inteiro em cada treino. Pra quem só consegue 2x por semana.';
+}
+function renderSplits() {
+  const box = document.getElementById('o-split-options');
+  if (!box) return;
+  if (onboard.split === 'PPL') { onboard.split = null; onboard.splitTouched = false; }
+  box.innerHTML = '';
+  SPLIT_OPCOES.forEach(op => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'option' + (onboard.splitTouched && onboard.split === op.id ? ' selected' : '');
+    btn.innerHTML = '<strong></strong><span class="desc"></span><span class="desc exemplo"></span>';
+    btn.querySelector('strong').textContent = op.titulo;
+    btn.querySelector('.desc').textContent = splitDesc(op);
+    btn.querySelector('.exemplo').textContent = op.exemplo[onboard.sex === 'Mulher' ? 'Mulher' : 'Homem'];
+    btn.onclick = () => { selectSplit(btn, op.id); oAuto(validateSplit); };
+    box.appendChild(btn);
+  });
+}
 function selectSplit(el, split) {
   document.querySelectorAll('#o6 .option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   onboard.split = split;
   onboard.splitTouched = true;
-  if (onboard.days && split && !SPLIT_DAYS[split].includes(onboard.days)) onboard.days = null;
+  if (onboard.days && !splitDias(split).includes(onboard.days)) onboard.days = null;
 }
 function validateSplit() {
   if (!onboard.splitTouched) { alert('Escolhe como tu prefere dividir a semana.'); return; }
   oNext();
 }
 function gateDias() {
-  const allowed = onboard.split ? SPLIT_DAYS[onboard.split] : [3, 4, 5, 6, 7]; // grupo 3-7x pros dois sexos
+  const allowed = splitDias(onboard.split);
   document.querySelectorAll('#o7 .option').forEach(o => {
     const d = parseInt((o.querySelector('strong') || {}).textContent);
     const ok = allowed.includes(d);
