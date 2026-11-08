@@ -20,14 +20,14 @@
 // da página (síncrono, pra tela nunca piscar em português) e o tradutor do script principal troca o texto na tela.
 // Ordem: ?lang= no link (fica guardado) > escolha guardada no aparelho > português. A versão é a MESMA do APP_V.
 (function () {
-  var IDIOMAS_APP = ['pt', 'en', 'es'], L = 'pt';
+  var IDIOMAS_APP = ['pt', 'en', 'es', 'de'], L = 'pt';
   try {
     var q = (new URLSearchParams(location.search).get('lang') || '').toLowerCase().slice(0, 2);
     if (IDIOMAS_APP.indexOf(q) >= 0) { localStorage.setItem('shape_lang', q); L = q; }
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '102';
+  window.APP_LANG_V = '103';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -1917,6 +1917,9 @@
   .foto-fase-chip.on { background: var(--red-tint); border-color: var(--red-line); }
   .idioma-escolha button, .unidade-escolha button { background: var(--glass); border-color: var(--glass-line); box-shadow: var(--glass-brilho); }
   .idioma-escolha button.on, .unidade-escolha button.on { background: var(--red-tint); border-color: var(--red-line); }
+  /* 4 línguas (alemão, 08/11): cabe numa linha só no celular */
+  .idioma-escolha { gap: 4px; }
+  .idioma-escolha button { padding: 6px 9px; font-size: 12.5px; }
   .qualif-acoes .nao { border-radius: 999px; background: var(--glass); }
   .partner-group-title, .ebooks-secao { color: var(--text-muted); }
 
@@ -2670,7 +2673,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '102';
+const APP_V = '103';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -2811,6 +2814,7 @@ const IDIOMAS = {
   pt: { nome: 'Português', locale: 'pt-BR' },
   en: { nome: 'English', locale: 'en-US' },
   es: { nome: 'Español', locale: 'es' },
+  de: { nome: 'Deutsch', locale: 'de-DE' }, // GH 08/11/2026
 };
 const LANG = IDIOMAS[window.APP_LANG] ? window.APP_LANG : 'pt';
 const LOCALE = IDIOMAS[LANG].locale;

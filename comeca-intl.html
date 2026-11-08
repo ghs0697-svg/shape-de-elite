@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<!-- Comece por aqui do aluno de FORA (inglês e espanhol, ?lang=en|es). Gerado por app-tools/comeca-intl/monta_pagina.py: o texto mora em corpo.html, as cenas do vídeo em cenas.json. Não editar aqui. -->
+<!-- Comece por aqui do aluno de FORA (inglês, espanhol e alemão, ?lang=en|es|de). Gerado por app-tools/comeca-intl/monta_pagina.py: o texto mora em corpo.html, as cenas do vídeo em cenas.json. Não editar aqui. -->
 <style>
   :root {
     --red: #B41E1E; --red-hover: #D12424; --red-text: #FF6B6B;
@@ -238,7 +238,7 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
 
   <header class="topo">
     <div class="marca"><b>SHAPE DE ELITE</b> · <span data-t="metodo"></span></div>
-    <nav class="linguas" id="linguas" aria-label="Language"><a href="#" data-lingua="pt">Português</a> · <a href="#" data-lingua="en">English</a> · <a href="#" data-lingua="es">Español</a></nav>
+    <nav class="linguas" id="linguas" aria-label="Language"><a href="#" data-lingua="pt">Português</a> · <a href="#" data-lingua="en">English</a> · <a href="#" data-lingua="es">Español</a> · <a href="#" data-lingua="de">Deutsch</a></nav>
     <div class="check" aria-hidden="true">✓</div>
     <h1 data-t="h1"></h1>
     <p class="sub" data-t="sub"></p>
@@ -312,6 +312,7 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
       <div class="marco"><div class="q" data-t="m2q"></div><h3 data-t="m2t"></h3><p data-t="m2"></p></div>
       <div class="marco"><div class="q" data-t="m3q"></div><h3 data-t="m3t"></h3><p data-t="m3"></p></div>
       <div class="marco"><div class="q" data-t="m4q"></div><h3 data-t="m4t"></h3><p data-t="m4"></p></div>
+      <div class="marco"><div class="q" data-t="m5q"></div><h3 data-t="m5t"></h3><p data-t="m5"></p></div>
     </div></div>
   </section>
 
@@ -372,19 +373,20 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
       p4t: 'Start the diet', p4m: '⏱ At your next meal',
       p4a: 'The <b>DIET</b> tab has your meal plan, with the amounts. Every meal has options to choose from, so you can swap what you don\'t like and stay on track.',
       p4r: 'Anything you cook (meat, chicken, fish, rice, pasta, potatoes) is weighed COOKED, the way it goes on your plate.',
-      p4d: '<b>Next:</b> every week, check your weight and your waist. Every month, when it turns, you send today\'s weight and the diet is recalculated.',
+      p4d: '<b>Next:</b> every week, check your weight and your waist. Every month, when it turns, you send your weight of the day and the diet is recalculated.',
       k2: 'Your access', h2b: 'What you have in the app', leadB: 'Everything in one place, on your phone or your computer.',
-      g1t: 'WORKOUT', g1: 'A video for every exercise, a rest timer, a log of your weights and a button to swap the exercise when the machine is taken.',
-      g2t: 'DIET', g2: 'Meal plan with amounts and swap options in every meal. Every month the menu changes and the calories are recalculated from your weight.',
+      g1t: 'WORKOUT', g1: 'A video for every exercise, a rest timer, a log of your weights and a button to swap the exercise when the machine is busy.',
+      g2t: 'DIET', g2: 'Meal plan with amounts and swap options in every meal. Every month the meal plan changes and your calories are recalculated from your weight.',
       g3t: 'QUICK MODE', g3: 'Busy day? One button trims the day\'s workout and keeps the full rest.',
-      g4t: 'SUPPLEMENTS', g4: 'The Supplement Manual: the basics plus the ones for your goal, with dose and timing. It speeds things up: you don\'t need it to start.',
+      g4t: 'SUPPLEMENTS', g4: 'Supplement Manual: the basics and the ones for your goal, with dose and timing. It speeds things up: you don\'t need it to start.',
       g5t: 'LESSONS', g5: 'A short lesson for each part of the method. Recorded in Portuguese.',
       g6t: 'PROGRESS PHOTOS', g6: '4 angles at the start of each new workout (every 3 months), so you can see your progress.',
       k3: 'What to expect and when', h2c: 'Results come from the basics, done for long enough',
       m1q: 'First week', m1t: 'Learn the exercises and find your weights', m1: 'It doesn\'t need to be perfect. It needs to be done and logged. Take the photos from the 4 angles too, at the end of the WORKOUT tab.',
       m2q: 'Every week', m2t: 'Add weight and check your weight and waist', m2: 'Where you can, more weight or more reps than last week. Before changing the diet, watch the Progress lesson in the LESSONS tab.',
-      m3q: 'Every month', m3t: 'Start the new month', m3: 'Same exercises, a new way to train: month 2 heavier, month 3 more volume. The diet switches menus and is recalculated from your weight. Every 3 months, a brand new workout, and your loads stay saved.',
-      m4q: 'By the end of your plan', m4t: 'The complete method', m4: 'By the end of your access you master the method and know how to keep progressing on your own.',
+      m3q: 'Every month', m3t: 'A new month starts', m3: 'The same exercises with a different way of training: month 2 heavier, month 3 more volume. The diet gets a new meal plan, recalculated from your weight.',
+      m4q: 'Every 3 months', m4t: 'A new workout', m4: 'New exercises, from version 1.0 to 4.0. Your weights stay saved and show up as a reference on the exercises that repeat.',
+      m5q: 'Until the end of your plan', m5t: 'The complete method', m5: 'By the end of your access you master the method and know how to keep progressing on your own.',
       k4: 'Where to get help', h2d: 'You are not alone', leadD: 'The method is self-guided, but you have support from start to finish.',
       fT: 'I paid, now what?', fC: 'The questions of those who just joined.',
       f1q: 'Which email do I log in with?', f1: 'The same email you used to buy. With a different email, the account won\'t open. Don\'t remember which one? It\'s the email where the payment confirmation arrived.',
@@ -419,19 +421,20 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
       p4t: 'Empieza la dieta', p4m: '⏱ En tu próxima comida',
       p4a: 'En la pestaña <b>DIETA</b> está tu menú, con las cantidades. En cada comida eliges entre las opciones, así que puedes cambiar lo que no te gusta sin salirte de la cuenta.',
       p4r: 'Todo lo que se cocina (carne, pollo, pescado, arroz, pasta, papa) se pesa COCIDO, como va al plato.',
-      p4d: '<b>Después:</b> cada semana revisa tu peso y tu cintura. Cada mes, en el cambio, envías tu peso de hoy y la dieta se recalcula.',
+      p4d: '<b>Después:</b> cada semana revisa tu peso y tu cintura. Cada mes, al cambiar, mandas tu peso del día y la dieta se recalcula.',
       k2: 'Tu acceso', h2b: 'Lo que tienes en la app', leadB: 'Todo en un solo lugar, en el celular o en la computadora.',
       g1t: 'ENTRENAMIENTO', g1: 'Video de cada ejercicio, cronómetro de descanso, registro de tus pesos y botón para cambiar el ejercicio cuando la máquina está ocupada.',
-      g2t: 'DIETA', g2: 'Menú con cantidades y opciones de cambio en cada comida. Cada mes cambia el menú y las calorías se recalculan con tu peso.',
+      g2t: 'DIETA', g2: 'Menú con cantidades y opciones de cambio en cada comida. Cada mes cambia el menú y las calorías se recalculan según tu peso.',
       g3t: 'MODO RÁPIDO', g3: '¿Día ocupado? Un botón acorta el entrenamiento del día y mantiene el descanso completo.',
-      g4t: 'SUPLEMENTOS', g4: 'Manual de Suplementos: lo básico y lo de tu objetivo, con dosis y horario. Es un acelerador: no lo necesitas para empezar.',
+      g4t: 'SUPLEMENTOS', g4: 'Manual de Suplementos: los básicos y los de tu objetivo, con dosis y horario. Es un acelerador: no lo necesitas para empezar.',
       g5t: 'CLASES', g5: 'Una clase corta para cada parte del método. Grabadas en portugués.',
       g6t: 'FOTOS DE PROGRESO', g6: '4 ángulos al inicio de cada entrenamiento nuevo (cada 3 meses), para que veas tu evolución.',
       k3: 'Qué esperar y cuándo', h2c: 'El resultado viene de lo básico, hecho por el tiempo suficiente',
       m1q: 'Primera semana', m1t: 'Aprende los ejercicios y encuentra tus pesos', m1: 'No tiene que salir perfecto. Tiene que hacerse y anotarse. Aprovecha y toma las fotos en los 4 ángulos, al final de la pestaña ENTRENAMIENTO.',
       m2q: 'Cada semana', m2t: 'Sube el peso y revisa tu peso y tu cintura', m2: 'Donde puedas, más peso o más repeticiones que la semana anterior. Antes de cambiar la dieta, mira la clase Progreso, en la pestaña CLASES.',
-      m3q: 'Cada mes', m3t: 'Empieza el mes nuevo', m3: 'Los mismos ejercicios con otra forma de entrenar: el mes 2 más pesado, el mes 3 más volumen. La dieta cambia de menú y se recalcula con tu peso. Cada 3 meses, un entrenamiento nuevo, y tus cargas quedan guardadas.',
-      m4q: 'Al final del plan', m4t: 'El método completo', m4: 'Al final de tu acceso dominas el método y sabes mantener tu evolución por tu cuenta.',
+      m3q: 'Cada mes', m3t: 'Empieza el mes nuevo', m3: 'Los mismos ejercicios con otra forma de entrenar: el 2º mes más pesado, el 3º más volumen. La dieta cambia de menú y se recalcula según tu peso.',
+      m4q: 'Cada 3 meses', m4t: 'Entrenamiento nuevo', m4: 'Ejercicios nuevos, de la versión 1.0 a la 4.0. Tus pesos quedan guardados y aparecen de referencia en los ejercicios que se repiten.',
+      m5q: 'Hasta el final del plan', m5t: 'El método completo', m5: 'Al final de tu acceso dominas el método y sabes mantener tu evolución por tu cuenta.',
       k4: 'Dónde pedir ayuda', h2d: 'No estás solo', leadD: 'El método es autoaplicable, pero tienes apoyo de principio a fin.',
       fT: 'Pagué, ¿y ahora?', fC: 'Las dudas de quien acaba de entrar.',
       f1q: '¿Con qué correo entro?', f1: 'Con el mismo correo de la compra. Con otro correo, la cuenta no se abre. ¿No recuerdas cuál fue? Es el correo donde llegó la confirmación del pago.',
@@ -444,6 +447,54 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
       zap: 'Hola, soy alumno de Shape de Elite y necesito soporte.',
       fim: 'Ahora te toca a ti. Abre la app y haz tu primer entrenamiento.', aviso: 'Los resultados varían según la aplicación, la disciplina y el punto de partida de cada persona.',
       abrir: 'ABRIR LA APP', pausa: 'Pausa', toca: 'Reproducir'
+    },
+    de: {
+      titulo: 'Fang hier an · Shape de Elite', metodo: 'GH-METHODE', metodoUp: 'GH-METHODE', metodoCopy: 'GH-Methode',
+      h1: 'Fang <span class="hl">hier</span> an',
+      sub: 'Willkommen bei Shape de Elite. Hier ist dein Weg: was du heute machst, was du in der App hast, was dich erwartet und wo du Hilfe bekommst. Dauert 5 Minuten.',
+      vidRot: 'Willkommensvideo von GH', assistir: 'So funktioniert die App (2 Min.)', abre: 'Du kannst heute schon mit fertiger Ernährung und fertigem Training hier rausgehen.',
+      k1: 'Dein Weg', h2a: '4 Schritte, in dieser Reihenfolge', leadA: 'Alle vier schaffst du noch heute.',
+      p1t: 'Erstell dein Passwort', p1m: '⏱ 2 Minuten',
+      p1a: 'Tipp unten auf den Button: Er öffnet die Seite, auf der du dein Passwort erstellst. Nimm die <b>gleiche E-Mail wie beim Kauf</b> und erstell ein Passwort mit mindestens 6 Zeichen. Mit einer anderen E-Mail geht das Konto nicht auf.',
+      p1btn: 'Passwort erstellen und einloggen', p1d: '<b>Danach:</b> Der Rechner öffnet sich von selbst.',
+      p1dica: 'Speicher die App auf deinem Startbildschirm, dann hast du sie als Icon. Auf dem iPhone: Teilen und „Zum Home-Bildschirm“. Auf Android: die 3 Punkte und „Zum Startbildschirm hinzufügen“.',
+      p2t: 'Mach den Rechner', p2m: '⏱ 1 Minute',
+      p2a: 'Es sind <b>9 Fragen</b>: deine Daten, dein Ziel, wie viele Tage du trainierst und der Muskel, den du am meisten aufbauen willst. Was falsch eingegeben? Tipp auf „Ich hab was falsch eingegeben, nochmal berechnen“.',
+      p2d: '<b>Danach:</b> Du bekommst dein Kalorienziel, deine Ernährung und dein Training. Tipp auf „Mein Protokoll öffnen“.',
+      p3t: 'Mach dein erstes Training', p3m: '⏱ Heute oder morgen',
+      p3a: 'Die App öffnet sich im Tab <b>TRAINING</b>. Oben sind die Tage, darunter die Übungen des Tages. Es gibt keinen Start-Button: Das Training ist die Liste selbst.',
+      p3b: 'Tipp auf den Namen der Übung, um das Video zu sehen, nutz <b>PAUSE</b> für die Pausenzeit und trag Gewicht und Wiederholungen von jedem Satz ein. Übung fertig? Hak den Kreis neben dem Namen ab.',
+      p3r: 'Die goldene Regel: Trag das Gewicht von deinem letzten Satz ein. Das ist dein Ziel für nächste Woche.',
+      p3d: '<b>Danach:</b> Die App speichert deine Gewichte, Woche für Woche. Nächste Woche schaust du auf die letzte und versuchst, mehr zu schaffen.',
+      p4t: 'Fang mit der Ernährung an', p4m: '⏱ Bei deiner nächsten Mahlzeit',
+      p4a: 'Im Tab <b>ERNÄHRUNG</b> ist dein Speiseplan, mit den Mengen. Bei jeder Mahlzeit wählst du zwischen Optionen, so kannst du tauschen, was du nicht magst, und bleibst trotzdem im Plan.',
+      p4r: 'Alles, was gekocht wird (Fleisch, Hähnchen, Fisch, Reis, Nudeln, Kartoffeln), wird GEKOCHT gewogen, so wie es auf den Teller kommt.',
+      p4d: '<b>Danach:</b> Jede Woche checkst du dein Gewicht und deinen Bauchumfang. Jeden Monat, zum Monatswechsel, schickst du dein aktuelles Gewicht und die Ernährung wird neu berechnet.',
+      k2: 'Dein Zugang', h2b: 'Was du in der App hast', leadB: 'Alles an einem Ort, auf dem Handy oder am Computer.',
+      g1t: 'TRAINING', g1: 'Ein Video zu jeder Übung, ein Pausentimer, deine Gewichte eingetragen und ein Button zum Tauschen der Übung, wenn das Gerät besetzt ist.',
+      g2t: 'ERNÄHRUNG', g2: 'Speiseplan mit Mengen und Tauschoptionen bei jeder Mahlzeit. Jeden Monat gibt es einen neuen Speiseplan und die Kalorien werden nach deinem Gewicht neu berechnet.',
+      g3t: 'SCHNELLMODUS', g3: 'Stressiger Tag? Ein Button kürzt das Training des Tages, die Pausen bleiben voll.',
+      g4t: 'SUPPLEMENTS', g4: 'Supplement-Handbuch: die Basics und die für dein Ziel, mit Dosis und Uhrzeit. Es beschleunigt: Zum Starten brauchst du es nicht.',
+      g5t: 'LEKTIONEN', g5: 'Eine kurze Lektion für jeden Teil der Methode. Auf Portugiesisch aufgenommen.',
+      g6t: 'FORTSCHRITTSFOTOS', g6: '4 Winkel am Anfang von jedem neuen Training (alle 3 Monate), damit du deinen Fortschritt siehst.',
+      k3: 'Was dich wann erwartet', h2c: 'Ergebnisse kommen von den Basics, lange genug gemacht',
+      m1q: 'Erste Woche', m1t: 'Lern die Übungen und finde deine Gewichte', m1: 'Es muss nicht perfekt sein. Es muss gemacht und eingetragen werden. Mach auch gleich die Fotos aus den 4 Winkeln, ganz unten im Tab TRAINING.',
+      m2q: 'Jede Woche', m2t: 'Mehr Gewicht, und Gewicht und Bauchumfang checken', m2: 'Wo es geht, mehr Gewicht oder mehr Wiederholungen als letzte Woche. Bevor du an der Ernährung was änderst, schau dir die Lektion Fortschritt im Tab LEKTIONEN an.',
+      m3q: 'Jeden Monat', m3t: 'Ein neuer Monat beginnt', m3: 'Die gleichen Übungen mit einer anderen Art zu trainieren: im 2. Monat schwerer, im 3. mehr Volumen. Die Ernährung bekommt einen neuen Speiseplan, neu berechnet nach deinem Gewicht.',
+      m4q: 'Alle 3 Monate', m4t: 'Neues Training', m4: 'Neue Übungen, von Version 1.0 bis 4.0. Deine Gewichte bleiben gespeichert und erscheinen als Richtwert bei den Übungen, die wiederkommen.',
+      m5q: 'Bis zum Ende deines Plans', m5t: 'Die komplette Methode', m5: 'Am Ende deines Zugangs beherrschst du die Methode und weißt, wie du allein weiter Fortschritte machst.',
+      k4: 'Wo du Hilfe bekommst', h2d: 'Du bist nicht allein', leadD: 'Die Methode machst du selbst, aber du hast Unterstützung vom Anfang bis zum Ende.',
+      fT: 'Bezahlt, und jetzt?', fC: 'Die Fragen von allen, die gerade dazugekommen sind.',
+      f1q: 'Mit welcher E-Mail logge ich mich ein?', f1: 'Mit der gleichen E-Mail wie beim Kauf. Mit einer anderen E-Mail geht das Konto nicht auf. Weißt du nicht mehr welche? Die E-Mail, an die die Zahlungsbestätigung gekommen ist.',
+      f2q: 'Ich hab keine WhatsApp Nachricht bekommen. Ist mein Zugang weg?', f2: 'Nein. Dein Zugang ist schon aktiv, mit oder ohne Nachricht. Tipp in Schritt 1 auf „Passwort erstellen und einloggen“ und nimm die E-Mail vom Kauf.',
+      f3q: 'Ich hab schon ein Passwort und komm nicht rein', f3: 'Tipp auf dem Login der App auf „Passwort vergessen“. Ein 6-stelliger Code kommt per WhatsApp an die Nummer, die du beim Kauf angegeben hast, und damit erstellst du ein neues Passwort.',
+      f4q: 'Kilo oder Pfund?', f4: 'Du entscheidest. Im Rechner wählst du kg oder lb, und die App trägt deine Gewichte in dieser Einheit ein.',
+      f5q: 'Was ist „Scheibe“ beim Eintragen vom Gewicht?', f5: 'Das ist die Nummer der Scheibe, in die du den Stift am Gerät gesteckt hast. Am Gerät trägst du die Scheibe ein. Mit Kurzhanteln, Langhantel oder Hantelscheiben trägst du die Kilos ein.',
+      sT: '💬 Support per WhatsApp', sC: 'Kommst du irgendwo nicht weiter? Frage zur Ausführung, zum Tauschen von Lebensmitteln oder zu einer Anpassung? Schreib dem WhatsApp vom Shape.',
+      sQuem: 'Ein <b>smartes WhatsApp, das sofort antwortet</b>, 24 Stunden am Tag.', sBtn: 'Support anschreiben',
+      zap: 'Hallo, ich bin Shape de Elite Mitglied und brauche Support.',
+      fim: 'Jetzt bist du dran. Öffne die App und mach dein erstes Training.', aviso: 'Ergebnisse hängen von Umsetzung, Disziplin und dem persönlichen Ausgangspunkt ab.',
+      abrir: 'APP ÖFFNEN', pausa: 'Pause', toca: 'Abspielen'
     }
   };
   var q = new URLSearchParams(location.search);

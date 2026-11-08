@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <script>
-// aluno de fora (compra em inglês ou espanhol): o Comece por aqui dele é a comeca-intl, com o app nessa língua e voz
+// aluno de fora (compra em inglês, espanhol ou alemão): o Comece por aqui dele é a comeca-intl, com o app nessa língua e voz
 (function () { try {
   var q = new URLSearchParams(location.search), l = (q.get('lang') || '').toLowerCase().slice(0, 2);
-  if (!l) { try { l = localStorage.getItem('shape_lang') || ''; } catch (e) {} if (l === 'en' || l === 'es') q.set('lang', l); }
+  if (!l) { try { l = localStorage.getItem('shape_lang') || ''; } catch (e) {} if (l === 'en' || l === 'es' || l === 'de') q.set('lang', l); }
   else if (l === 'pt') { try { localStorage.setItem('shape_lang', 'pt'); } catch (e) {} } // escolheu português: fica guardado
-  if ((l === 'en' || l === 'es') && !/previa/.test(location.pathname)) location.replace('comeca-intl.html?' + q.toString());
+  if ((l === 'en' || l === 'es' || l === 'de') && !/previa/.test(location.pathname)) location.replace('comeca-intl.html?' + q.toString());
 } catch (e) {} })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -232,7 +232,7 @@ h2 { font-weight: 900; letter-spacing: -.01em; }
 
   <header class="topo">
     <div class="marca"><b>SHAPE DE ELITE</b> · MÉTODO GH</div>
-    <nav class="linguas" aria-label="Idioma"><a href="#" data-lingua="pt" class="on">Português</a> · <a href="#" data-lingua="en">English</a> · <a href="#" data-lingua="es">Español</a></nav>
+    <nav class="linguas" aria-label="Idioma"><a href="#" data-lingua="pt" class="on">Português</a> · <a href="#" data-lingua="en">English</a> · <a href="#" data-lingua="es">Español</a> · <a href="#" data-lingua="de">Deutsch</a></nav>
     <script>
     // troca de língua: a escolha fica guardada (o app abre nela) e a página vai pra versão da língua, levando o resto do endereço
     (function () { var n = document.currentScript.previousElementSibling; n.addEventListener('click', function (e) {
