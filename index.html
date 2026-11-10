@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '104';
+  window.APP_LANG_V = '105';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2673,7 +2673,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '104';
+const APP_V = '105';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -7111,7 +7111,7 @@ function renderSupl() {
   c.innerHTML = `
     <h2>${s.titulo}</h2>
     <p class="hint">${s.subtitulo}</p>
-    <button type="button" class="btn secondary so-brasil" onclick="abrePdf('supl')" style="margin-bottom:14px;">📥 Baixar PDF dos teus potes</button>
+    <button type="button" class="btn secondary so-brasil" onclick="abrePdf('supl')" style="margin-bottom:14px;">📥 Baixar PDF da tua suplementação</button>
     <div class="result-card recalc-card">
       <div class="small" style="color:var(--text);line-height:1.6;">${s.intro}</div>
     </div>

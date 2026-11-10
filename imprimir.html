@@ -252,7 +252,7 @@ function dieta(p, D) {
   return paginas.join('');
 }
 
-// ─── MANUAL DOS POTES ───
+// ─── MANUAL DE SUPLEMENTAÇÃO ───
 function supl(p, S) {
   var potes = S.potes.filter(function (x) {
     var l = Array.isArray(x.objetivos) ? x.objetivos : (x.objetivo ? [x.objetivo] : ['todos']);
@@ -262,10 +262,10 @@ function supl(p, S) {
     return true;
   });
   var capa = '<div class="kick">Shape de Elite · Material Oficial</div>'
-    + '<h1>Manual <span>dos Potes</span></h1><div class="rule"></div>'
+    + '<h1>Manual de <span>Suplementação</span></h1><div class="rule"></div>'
     + '<p class="sub">' + esc(S.subtitulo) + '</p>'
     + '<div class="semana"><div class="t">Antes de abrir o primeiro pote</div><div class="sem-nota" style="margin-top:0;color:var(--tx);font-size:11pt;">' + esc(semTraco(S.intro)) + '</div></div>'
-    + '<div class="semana"><div class="t">Os teus ' + potes.length + ' potes</div>'
+    + '<div class="semana"><div class="t">Os teus ' + potes.length + ' suplementos</div>'
     + potes.map(function (x) { return '<div class="sem-row"><div class="sem-d">' + x.icone + '</div><div>' + esc(x.nome) + ' · ' + esc(x.dose) + '</div></div>'; }).join('') + '</div>';
   var paginas = [folha(capa)];
   for (var i = 0; i < potes.length; i += 3) {
@@ -279,7 +279,7 @@ function supl(p, S) {
   }
   if (S.rodape) paginas.push(folha('<h2>A regra <span>de ouro</span></h2><div class="ref-note"></div><div class="box"><div class="bt">Como comprar</div><p>' + esc(semTraco(S.rodape)) + '</p></div>'
     + '<div class="box"><div class="bt">Como usar este manual</div><p>Suplemento é acelerador, não fundação. A base do teu resultado é a dieta e o treino do app. Segue as doses daqui, nos horários daqui, e deixa o resto do trabalho com o protocolo.</p></div>'));
-  document.title = 'Manual dos Potes · Shape de Elite';
+  document.title = 'Manual de Suplementação · Shape de Elite';
   return paginas.join('');
 }
 
