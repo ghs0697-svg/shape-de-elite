@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '103';
+  window.APP_LANG_V = '104';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2339,7 +2339,7 @@
 
   <div class="screen" id="o9">
     <h2>Qual teu nível de treino?</h2>
-    <p class="hint">Escolhe com sinceridade. Todo mundo começa na fase 1.0 do treino; quem já treina pode avançar de fase mais cedo.</p>
+    <p class="hint">Escolhe com sinceridade. Todo mundo começa no treino 1.0, e o nível muda as técnicas e o volume do teu treino.</p>
     <button class="option" onclick="selectLevel(this,'iniciante'); oAuto(validateLevel)"><strong>Iniciante</strong><span class="desc">Nunca treinei sério, voltando depois de muito tempo parado, ou treino sem orientação. Começo do zero, aprendo padrão de execução.</span></button>
     <button class="option" onclick="selectLevel(this,'intermediario'); oAuto(validateLevel)"><strong>Intermediário</strong><span class="desc">Treino regular há mais de 1 ano, já tenho execução decente e conheço meu corpo.</span></button>
     <button class="option" onclick="selectLevel(this,'avancado'); oAuto(validateLevel)"><strong>Avançado</strong><span class="desc">Treino sério há vários anos, com domínio total da execução. Busco performance e estética acima da média.</span></button>
@@ -2673,7 +2673,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '103';
+const APP_V = '104';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -5636,6 +5636,8 @@ function aplicaTrocas(t, tk) {
 // O treino que o aluno faz este mês: bloco do catálogo + trocas + periodização do mês + nível do cadastro.
 // Guardado até mudar o treino, o mês, o nível ou as trocas (o treino é redesenhado a cada toque).
 let _efetivo = null;
+const EXTRA_REGRA_INICIANTE = '• Passou do número de cima? Fez 13 num 8 a 12? Na próxima, sobe o peso.';
+const EXTRA_REGRA_SOBROU = '• Na última série, quantas ainda sobravam? Sobrou 0 ou 1: na próxima, sobe o peso. Sobrou 2: repete o peso e tenta uma a mais. Sobrou 3 ou mais: tava leve, a série não valeu.';
 function treinoEfetivo(tk) {
   const raw = state.treinoData && state.treinoData[tk];
   if (!raw) return null;
@@ -5646,6 +5648,8 @@ function treinoEfetivo(tk) {
   // fase de outro bloco (treino próximo, porque o do perfil não existe): vale o mês 1 desse bloco
   const mesFase = blocoDe(fase) === raw.nivel ? fase : raw.nivel;
   const t = treinoDoMes(aplicaTrocas(raw, tk), mesFase, nivel);
+  // Regra de subir carga no Material extra (GH 10/11/2026): "fez 13, sobe" é a do iniciante; quem já treina lê a do "sobrou".
+  if (nivel !== 'iniciante') t.extras = (t.extras || []).map(ex => ({ ...ex, conteudo: String(ex.conteudo || '').replace(EXTRA_REGRA_INICIANTE, EXTRA_REGRA_SOBROU) }));
   _efetivo = { sig, raw, t };
   return t;
 }

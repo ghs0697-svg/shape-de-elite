@@ -1,7 +1,7 @@
-const CACHE_NAME = 'shape-de-elite-v103';
+const CACHE_NAME = 'shape-de-elite-v104';
 // Os JSON levam a versão no endereço (igual ao APP_V do index.html): o HTML novo nunca roda com dado velho
 // do cache antigo, nem na primeira abertura depois de uma atualização.
-const V = '103';
+const V = '104';
 const ASSETS = [
   './',
   './index.html',
