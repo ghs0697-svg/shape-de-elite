@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '105';
+  window.APP_LANG_V = '106';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2101,6 +2101,29 @@
   .recalc-card h3, .recalc-card strong { color: var(--red-text); }
   .partner-discount { background: var(--glass-3); color: var(--text-dim); }
   .cupom-code { color: var(--text); background: var(--poco); border-color: var(--glass-line-2); }
+  /* v106: um exercício aberto por vez, sugestão de carga, repetir a última, barra do dia */
+  .exercise-head { cursor: default; }
+  .ex-fold { flex-shrink: 0; width: 44px; height: 44px; margin: -6px -8px -6px 0; border: none; background: transparent; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
+  .ex-fold svg { width: 18px; height: 18px; transition: transform .2s; transform: rotate(180deg); }
+  .exercise.recolhido .ex-fold svg { transform: none; }
+  .exercise.recolhido { cursor: pointer; }
+  .exercise.recolhido .ex-corpo { display: none; }
+  .exercise:not(.recolhido) .ex-resumo { display: none; }
+  .exercise.recolhido .ex-video { pointer-events: none; }
+  .ex-resumo { margin: 6px 0 0 56px; font-size: 12px; line-height: 1.45; color: var(--text-dim); font-weight: 500; }
+  .ex-resumo i { font-style: normal; }
+  .ex-resumo .pt { opacity: .5; margin: 0 2px; }
+  .ex-resumo b { color: var(--text); font-weight: 700; }
+  .ex-resumo .feito { color: var(--red-text); font-weight: 800; }
+  .sug-chip { margin: 0 0 10px; padding: 10px 12px; border-radius: 12px; background: var(--red-tint); border: 1px solid var(--red-line, rgba(180, 30, 30, .35)); }
+  .sug-chip .sug-t { font-size: 14px; font-weight: 800; color: var(--text); line-height: 1.3; }
+  .sug-chip .sug-d { margin-top: 3px; font-size: 12px; line-height: 1.45; color: var(--text-dim); }
+  .sets-acoes { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px; }
+  .sets-acoes .set-add { margin-top: 0; }
+  .set-repete { min-height: 44px; padding: 8px 16px; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; border-radius: 999px; background: var(--glass, transparent); border: 1px solid var(--glass-line-2, var(--border)); color: var(--text); }
+  .set-repete:active { background: var(--red-tint); }
+  .dia-prog { display: block; height: 4px; margin-top: 7px; border-radius: 4px; background: var(--glass-3, var(--border)); overflow: hidden; }
+  .dia-prog b { display: block; height: 100%; border-radius: 4px; background: var(--red); transition: width .3s; }
 </style>
 </head>
 <body>
@@ -2673,7 +2696,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '105';
+const APP_V = '106';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -5467,6 +5490,81 @@ function getPrevSets(ctxKey, idx, w) {
   if (o) { const a = o.slice(); a.origem = 'outro'; return a; }
   return null;
 }
+// ─── v106: sugestão de carga ───
+// Sempre pela última carga anotada (GH 10/11: "pode sugestionar sempre com base na ultima carga"), sem campo novo na
+// grade: o que o aluno anota continua sendo só peso, placa e repetições. A conta é a mesma do app da consultoria:
+// 10% nos multiarticulares de perna, 5% no resto, no mínimo 1 a mais. Exercício por tempo não recebe sugestão.
+const SUG_PERNA = ['quad', 'posterior', 'gluteo'];
+function sugNum(x) { const n = parseFloat(String(x == null ? '' : x).replace(',', '.')); return isFinite(n) && n > 0 ? n : null; }
+function sugFaixa(reps) {
+  const s = String(reps || ''), m = /(\d+)\s*a\s*(\d+)/.exec(s);
+  if (m) return { lo: +m[1], hi: +m[2] };
+  const u = /^\s*(\d+)/.exec(s);
+  return u ? { lo: +u[1], hi: +u[1] } : null;
+}
+// a série que serve de base: a mais pesada da última vez (aquecimento e ajuste são mais leves); no empate, a última
+function sugBase(prev) {
+  let b = null;
+  const campo = (prev || []).some(s => s && sugNum(s.kg)) ? 'kg' : 'pl';
+  for (const s of prev || []) { const c = s && sugNum(s[campo]); if (c && (!b || c >= b.carga)) b = { carga: c, reps: parseInt(s.reps, 10) || 0, campo }; }
+  return b;
+}
+function sugProx(carga, pct, campo) {
+  if (campo === 'pl') return carga + Math.max(1, Math.round(carga * pct));
+  return Math.max(Math.round(carga * (1 + pct)), carga + 1);
+}
+function sugCarga(ex, prev) {
+  if (!ex || !prev || exPorTempo(ex.reps)) return null;
+  const b = sugBase(prev), f = sugFaixa(ex.reps);
+  if (!b) return null;
+  const pct = (ex.tipo === 'composto' && SUG_PERNA.includes(ex.grupo)) ? 0.10 : 0.05;
+  const iniciante = ((state.protocol || {}).level || '') === 'iniciante';
+  const prox = sugProx(b.carga, pct, b.campo);
+  let caso = 'sem-reps';
+  if (b.reps && f) caso = (iniciante ? b.reps > f.hi : b.reps >= f.hi) ? 'sobe' : (b.reps < f.lo ? 'abaixo' : 'mantem');
+  return { ...b, prox, caso, faixa: f, iniciante, outro: prev.origem === 'outro' };
+}
+function sugChipHtml(ex, prev) {
+  const s = sugCarga(ex, prev);
+  if (!s) return '';
+  const n = x => String(Math.round(x * 100) / 100);
+  const txt = x => s.campo === 'pl' ? `placa ${n(x)}` : `${n(x)} ${unCarga()}`;
+  const alvo = x => s.campo === 'pl' ? `a placa ${n(x)}` : `${n(x)} ${unCarga()}`;
+  const quando = s.outro ? 'No treino anterior' : 'Última vez';
+  let t, d;
+  if (s.caso === 'sobe') {
+    t = `Hoje tenta ${alvo(s.prox)}`;
+    d = `<span>${quando}: ${txt(s.carga)} × ${s.reps}.</span> <span>${s.iniciante ? `Passou das ${s.faixa.hi}` : `Fechou as ${s.faixa.hi}`}, hora de subir.</span> <span>Se não fizer ${s.faixa.lo}, volta pra ${txt(s.carga)}.</span>`;
+  } else if (s.caso === 'mantem') {
+    t = `Hoje mantém ${alvo(s.carga)}`;
+    d = `<span>${quando}: ${txt(s.carga)} × ${s.reps}.</span> <span>Busca 1 repetição a mais.</span> <span>${s.iniciante ? `Passou das ${s.faixa.hi}` : `Fez ${s.faixa.hi}`}? Aí sobe pra ${txt(s.prox)}.</span>`;
+  } else if (s.caso === 'abaixo') {
+    t = `Hoje mantém ${alvo(s.carga)}`;
+    d = `<span>${quando}: ${txt(s.carga)} × ${s.reps}.</span> <span>A meta é ${s.faixa.lo} a ${s.faixa.hi}.</span> <span>Se não chegar em ${s.faixa.lo}, baixa um pouco o peso.</span>`;
+  } else {
+    t = `Hoje repete ${alvo(s.carga)}`;
+    d = `<span>${quando}: ${txt(s.carga)}.</span> <span>Anota as repetições que o app te diz quando subir.</span>`;
+  }
+  return `<div class="sug-chip"><div class="sug-t">💡 ${t}</div><div class="sug-d">${d}</div></div>`;
+}
+// Repetir a última: põe o peso (ou a placa) da última vez nas linhas que ainda estão em branco. Só a carga: as
+// repetições o aluno anota depois de fazer. Nunca mexe em linha que já tem alguma coisa escrita.
+function repeteCabe(sets, prev) {
+  return !!(prev && (sets || []).some((s, i) => !(s.kg || s.pl || s.reps) && prev[i] && (prev[i].kg || prev[i].pl)));
+}
+function repeteUltima(ctxKey, idx) {
+  const arr = readSetsFromDom('sets_' + ctxKey + '_' + idx), prev = getPrevSets(ctxKey, idx, getWeek());
+  if (!arr || !prev) return;
+  let n = 0;
+  arr.forEach((s, i) => {
+    const p = prev[i];
+    if ((s.kg || s.pl || s.reps) || !p || !(p.kg || p.pl)) return;
+    s.kg = String(p.kg || ''); s.pl = String(p.pl || ''); n++;
+  });
+  if (!n) return;
+  saveSetsLS(ctxKey, idx, getWeek(), arr);
+  reRenderGrid(ctxKey, idx);
+}
 function setsGridHtml(ctxKey, idx, seriesStr, nome) {
   const w = getWeek();
   let sets = loadSetsLS(ctxKey, idx, w);
@@ -5495,10 +5593,14 @@ function setsGridHtml(ctxKey, idx, seriesStr, nome) {
       </div>`;
   }).join('');
   return `<div class="sets-wrap"><div class="sets-title">Progressão de carga</div>
+    ${sugChipHtml(exs0 && exs0[idx], prev)}
     <div class="sets-grid" id="${gid}" data-exname="${escapeHtml(nome || '')}" data-series="${escapeHtml(seriesStr || '')}">
       <div class="set-head" aria-hidden="true"><span class="set-num"></span><span>${unCarga()}</span><span>placa</span><span>${tempo ? 'seg' : 'reps'}</span><span></span></div>
       ${rows}
-      <button type="button" class="set-add" onclick="addSet('${ctxKey}',${idx})">+ série</button>
+      <div class="sets-acoes">
+        <button type="button" class="set-add" onclick="addSet('${ctxKey}',${idx})">+ série</button>
+        ${repeteCabe(sets, prev) ? `<button type="button" class="set-repete" onclick="repeteUltima('${ctxKey}',${idx})">Repetir a última</button>` : ''}
+      </div>
     </div></div>`;
 }
 function readSetsFromDom(gid) {
@@ -5740,8 +5842,65 @@ function concludeInner() {
   const total = v.hid.filter(h => !h).length;
   const feitos = v.day.exercicios.reduce((acc, _, i) => acc + (!v.hid[i] && isExerciseDone(v.dayIdx, i) ? 1 : 0), 0);
   const tudo = feitos === total && total > 0;
-  return `<div class="conclude-info">${tudo ? '🎉 <strong>Todos os exercícios marcados!</strong>' : `<strong>${feitos}/${total}</strong> exercícios feitos`}</div>
+  const pct = total ? Math.round(feitos * 100 / total) : 0;
+  return `<div class="conclude-info">${tudo ? '🎉 <strong>Todos os exercícios marcados!</strong>' : `<strong>${feitos}/${total}</strong> exercícios feitos`}<i class="dia-prog" aria-hidden="true"><b style="width:${pct}%"></b></i></div>
       <button type="button" class="conclude-btn" onclick="openAchievement(${v.dayIdx})" ${feitos === 0 ? 'disabled' : ''}>🏆 Compartilhar</button>`;
+}
+
+// ─── v106: um exercício aberto por vez ───
+// A tela abre no primeiro exercício que falta fazer; os outros ficam numa linha (séries, repetições e a carga). Marcou
+// como feito, o próximo abre sozinho. A grade de cargas dos recolhidos continua na página, só escondida: nada do
+// caminho de anotar e guardar a carga muda.
+let _exAberto = null; // { ctx, idx }: idx -1 = todos recolhidos
+function exProximoAFazer(depois) {
+  const v = _treinoView; if (!v) return -1;
+  const n = v.day.exercicios.length, livre = i => !v.hid[i] && !isExerciseDone(v.dayIdx, i);
+  for (let i = (depois == null ? -1 : depois) + 1; i < n; i++) if (livre(i)) return i;
+  for (let i = 0; i < n; i++) if (livre(i)) return i;
+  return -1;
+}
+function exAbertoIdx() {
+  const v = _treinoView; if (!v) return -1;
+  const ctx = v.key + '_d' + v.dayIdx;
+  if (!_exAberto || _exAberto.ctx !== ctx || (_exAberto.idx >= 0 && (v.hid[_exAberto.idx] || !v.day.exercicios[_exAberto.idx]))) _exAberto = { ctx, idx: exProximoAFazer() };
+  return _exAberto.idx;
+}
+function exCargaTxt(s) {
+  if (!s) return '';
+  const c = s.kg ? escapeHtml(s.kg) + ' ' + unCarga() : (s.pl ? '<span>placa</span> ' + escapeHtml(s.pl) : '');
+  return c ? c + (s.reps ? ' × ' + escapeHtml(s.reps) : '') : '';
+}
+function exResumoHtml(idx) {
+  const v = _treinoView, ex = v && v.day.exercicios[idx];
+  if (!ex) return '';
+  const ctx = v.key + '_d' + v.dayIdx, w = getWeek(), p = [];
+  if (isExerciseDone(v.dayIdx, idx)) p.push('<span class="feito">feito</span>');
+  if (ex.series) p.push(`<span>${escapeHtml(ex.series)}</span>`);
+  if (ex.reps) p.push(`<span>${escapeHtml(ex.reps)}</span>`);
+  const comCarga = a => (a || []).filter(s => s && (s.kg || s.pl));
+  const hoje = comCarga(loadSetsLS(ctx, idx, w)), antes = comCarga(getPrevSets(ctx, idx, w));
+  if (hoje.length) p.push(`<b>${exCargaTxt(hoje[hoje.length - 1])}</b>`);
+  else if (antes.length) p.push(`<i>última vez</i> ${exCargaTxt(antes[antes.length - 1])}`);
+  return p.join('<span class="pt">·</span>');
+}
+function exAbre(idx) {
+  const v = _treinoView; if (!v) return;
+  _exAberto = { ctx: v.key + '_d' + v.dayIdx, idx };
+  document.querySelectorAll('#tab-treino .exercise[data-idx]').forEach(c => {
+    const i = +c.dataset.idx, abre = i === idx;
+    if (!abre && !c.classList.contains('recolhido')) { const r = c.querySelector('.ex-resumo'); if (r) r.innerHTML = exResumoHtml(i); }
+    c.classList.toggle('recolhido', !abre);
+    const b = c.querySelector('.ex-fold'); if (b) b.setAttribute('aria-expanded', abre ? 'true' : 'false');
+  });
+  const card = idx >= 0 && document.getElementById('ex-card-' + idx);
+  if (card) setTimeout(() => { try { const r = card.getBoundingClientRect(); if (r.top < 60 || r.top > window.innerHeight * .55) window.scrollTo({ top: window.scrollY + r.top - 70, behavior: 'smooth' }); } catch (e) {} }, 40);
+}
+function exFold(idx) { exAbre(_exAberto && _exAberto.idx === idx ? -1 : idx); }
+// toque em qualquer ponto do cartão recolhido abre ele (menos no quadrado de marcar feito, que segue marcando)
+function exCardToque(e, idx) {
+  const c = e.currentTarget;
+  if (!c || !c.classList.contains('recolhido') || (e.target.closest && e.target.closest('.ex-check'))) return;
+  exAbre(idx);
 }
 
 function renderTreino() {
@@ -5766,6 +5925,7 @@ function renderTreino() {
   const fastOn = fastModeOn();
   const hid = fastOn ? fastHidden(day.exercicios, p.priority) : day.exercicios.map(() => false);
   _treinoView = { key, t, day, dayIdx: state.currentDay, hid };
+  const aberto = exAbertoIdx();
   const exHtml = day.exercicios.map((ex, idx) => {
     if (hid[idx]) return ''; // fora do modo rápido de hoje; idx original preservado pros demais
     // video_url = resolvido no manifesto (instrutivo no grupo da prioridade, execução no resto);
@@ -5778,11 +5938,14 @@ function renderTreino() {
     const done = isExerciseDone(state.currentDay, idx);
     const rest = restDisplay(ex.intervalo);
     return `
-      <div class="exercise${done ? ' done' : ''}" id="ex-card-${idx}">
+      <div class="exercise${done ? ' done' : ''}${idx === aberto ? '' : ' recolhido'}" id="ex-card-${idx}" data-idx="${idx}" onclick="exCardToque(event, ${idx})">
         <div class="exercise-head">
           <button type="button" class="ex-check${done ? ' on' : ''}" onclick="toggleExerciseCheck(${state.currentDay}, ${idx})" aria-label="Marcar como feito: ${nome}" aria-pressed="${done ? 'true' : 'false'}">${done ? '✓' : ''}</button>
           <div class="exercise-name">${nameHtml}</div>
+          <button type="button" class="ex-fold" onclick="event.stopPropagation(); exFold(${idx})" aria-label="Abrir ou recolher: ${nome}" aria-expanded="${idx === aberto ? 'true' : 'false'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
         </div>
+        <div class="ex-resumo">${exResumoHtml(idx)}</div>
+        <div class="ex-corpo">
         <div class="exercise-meta">
           <div class="exercise-meta-item"><div class="label">SÉRIES</div><div class="val">${escapeHtml(ex.series || '-')}</div></div>
           <div class="exercise-meta-item"><div class="label">${exPorTempo(ex.reps) ? 'TEMPO' : 'REPS'}</div><div class="val">${escapeHtml(ex.reps || '-')}</div></div>
@@ -5792,6 +5955,7 @@ function renderTreino() {
         ${ex.original ? `<div class="troca-nota">No lugar de ${escapeHtml(ex.original)}. A carga dele continua guardada.</div>` : ''}
         ${opcoesDeTroca(ex.original || ex.exercicio).length ? `<button type="button" class="troca-btn" onclick="abrirTroca(${state.currentDay}, ${idx})">🔄 Trocar exercício</button>` : ''}
         ${setsGridHtml(key + '_d' + state.currentDay, idx, ex.series, ex.exercicio)}
+        </div>
       </div>
     `;
   }).join('');
@@ -6093,6 +6257,9 @@ function toggleExerciseCheck(dayIdx, exIdx) {
   card.classList.toggle('done', done);
   if (b) { b.classList.toggle('on', done); b.textContent = done ? '✓' : ''; b.setAttribute('aria-pressed', done ? 'true' : 'false'); }
   document.querySelectorAll('.conclude-slot').forEach(el => { el.innerHTML = concludeInner(); });
+  // v106: a linha do cartão recolhido acompanha a marca, e o feito que estava aberto dá lugar ao próximo que falta
+  const r = card.querySelector('.ex-resumo'); if (r) r.innerHTML = exResumoHtml(exIdx);
+  if (done && _exAberto && _exAberto.idx === exIdx) exAbre(exProximoAFazer(exIdx));
 }
 
 // ─── Dia de treino pro servidor ───
