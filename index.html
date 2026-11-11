@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '108';
+  window.APP_LANG_V = '109';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2774,7 +2774,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '108';
+const APP_V = '109';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -6051,7 +6051,7 @@ function aplicaTrocas(t, tk) {
 // Guardado até mudar o treino, o mês, o nível ou as trocas (o treino é redesenhado a cada toque).
 let _efetivo = null;
 const EXTRA_REGRA_INICIANTE = '• Passou do número de cima? Fez 13 num 8 a 12? Na próxima, sobe o peso.';
-const EXTRA_REGRA_SOBROU = '• Na última série, quantas ainda sobravam? Sobrou 0 ou 1: na próxima, sobe o peso. Sobrou 2: repete o peso e tenta uma a mais. Sobrou 3 ou mais: tava leve, a série não valeu.';
+const EXTRA_REGRA_SOBROU = '• Fechou o número de cima na última série? Fez 12 num 8 a 12? Na próxima, sobe o peso. Não fechou? Repete o peso e tenta uma repetição a mais. Não chegou no número de baixo? Baixa um pouco o peso.';
 function treinoEfetivo(tk) {
   const raw = state.treinoData && state.treinoData[tk];
   if (!raw) return null;
@@ -6062,7 +6062,8 @@ function treinoEfetivo(tk) {
   // fase de outro bloco (treino próximo, porque o do perfil não existe): vale o mês 1 desse bloco
   const mesFase = blocoDe(fase) === raw.nivel ? fase : raw.nivel;
   const t = treinoDoMes(aplicaTrocas(raw, tk), mesFase, nivel);
-  // Regra de subir carga no Material extra (GH 10/11/2026): "fez 13, sobe" é a do iniciante; quem já treina lê a do "sobrou".
+  // Regra de subir carga no Material extra (GH 10/11/2026): "fez 13, sobe" é a do iniciante; quem já treina lê a do "fechou o número de cima"
+  // (GH 11/11, decisão 3a: o texto segue o aviso "Hoje tenta" da v106; o "sobrou 0 ou 1" saiu).
   if (nivel !== 'iniciante') t.extras = (t.extras || []).map(ex => ({ ...ex, conteudo: String(ex.conteudo || '').replace(EXTRA_REGRA_INICIANTE, EXTRA_REGRA_SOBROU) }));
   _efetivo = { sig, raw, t };
   return t;
