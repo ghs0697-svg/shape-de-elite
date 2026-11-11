@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '106';
+  window.APP_LANG_V = '107';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2124,6 +2124,52 @@
   .set-repete:active { background: var(--red-tint); }
   .dia-prog { display: block; height: 4px; margin-top: 7px; border-radius: 4px; background: var(--glass-3, var(--border)); overflow: hidden; }
   .dia-prog b { display: block; height: 100%; border-radius: 4px; background: var(--red); transition: width .3s; }
+  /* v107: aba Progresso e faixa da semana no treino */
+  .prog-faixa { display: flex; align-items: center; gap: 12px; width: 100%; margin: 0 0 12px; padding: 12px 14px; border-radius: var(--r, 14px); background: var(--glass, var(--surface)); border: 1px solid var(--glass-line, var(--border)); color: var(--text); font-family: inherit; text-align: left; cursor: pointer; }
+  .prog-faixa .pf-txt { flex: 1; font-size: 13px; line-height: 1.4; color: var(--text-dim); }
+  .prog-faixa .pf-txt strong { color: var(--text); font-weight: 800; }
+  .prog-faixa .pf-txt .pt { opacity: .5; margin: 0 5px; }
+  .prog-faixa .pf-txt em { display: block; font-style: normal; font-weight: 700; color: var(--red-text); margin-top: 1px; }
+  .prog-faixa .pf-seta { font-size: 22px; color: var(--text-muted); line-height: 1; }
+  .prog-dots { display: inline-flex; gap: 4px; flex-shrink: 0; }
+  .prog-dots i { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 10px; font-weight: 800; color: var(--text-muted); background: var(--poco, var(--bg)); border: 1px solid var(--glass-line, var(--border)); }
+  .prog-dots i.on { background: var(--red); border-color: var(--red); color: #fff; }
+  .prog-dots i.hoje:not(.on) { border-color: var(--red); color: var(--red-text); }
+  .prog-dots.grande { display: flex; justify-content: space-between; gap: 6px; }
+  .prog-dots.grande i { width: 38px; height: 38px; font-size: 13px; }
+  .prog-dots.mini i { width: 14px; height: 14px; font-size: 0; }
+  .prog-card { border-radius: var(--r, 14px); }
+  .prog-tit { font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; color: var(--red-text); margin-bottom: 12px; }
+  .prog-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+  .prog-nums > div { background: var(--poco, var(--bg)); border-radius: 12px; padding: 10px 6px; text-align: center; }
+  .prog-nums b { display: block; font-size: 20px; font-weight: 800; color: var(--text); line-height: 1.1; }
+  .prog-nums span { display: block; font-size: 11px; line-height: 1.3; color: var(--text-dim); margin-top: 3px; }
+  .prog-hist { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .prog-hist-l { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-dim); }
+  .prog-hist-l > span:first-child { width: 40px; }
+  .prog-hist-l > span:last-child { margin-left: auto; font-weight: 700; }
+  .med-form { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: end; }
+  .med-form label span { display: block; font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .med-form .btn { grid-column: 1 / 3; }
+  .med-in { width: 100%; min-height: 48px; background: var(--poco, var(--bg)); border: 1.5px solid var(--glass-line-2, var(--border)); border-radius: 12px; color: var(--text); font-family: inherit; font-size: 18px; font-weight: 700; text-align: center; padding: 8px; outline: none; }
+  .med-in:focus { border-color: var(--red); }
+  .med-media { margin-top: 12px; font-size: 14px; line-height: 1.5; color: var(--text-dim); }
+  .med-media b { color: var(--text); font-weight: 800; }
+  .med-media .pt { opacity: .5; margin: 0 3px; }
+  .med-media.vazia { font-size: 13px; }
+  .med-dif { font-size: 13px; }
+  .med-graf { display: block; width: 100%; height: 84px; margin-top: 12px; color: var(--red); }
+  .med-graf-pe { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .med-lista { margin-top: 12px; border-top: 1px solid var(--glass-line, var(--border)); }
+  .med-l { display: grid; grid-template-columns: 52px 1fr 1fr 40px; align-items: center; gap: 6px; font-size: 13px; color: var(--text); border-bottom: 1px solid var(--glass-line, var(--border)); }
+  .med-l > span:first-child { color: var(--text-dim); }
+  .prog-foto-rot { font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; color: var(--text-muted); margin: 0 0 4px; }
+  .prog-foto-par { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+  .prog-foto { margin: 0; }
+  .prog-foto img, .prog-foto-vazia { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 12px; background: var(--poco, var(--bg)); }
+  .prog-foto-vazia { display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; font-size: 12px; color: var(--text-muted); }
+  .prog-foto figcaption { font-size: 12px; color: var(--text-dim); text-align: center; margin-top: 5px; }
+  .foto-fase-chip:disabled { opacity: .35; cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -2440,6 +2486,7 @@
   <div id="tab-acess" class="tab-content hidden" translate="no"></div><!-- só no Brasil: lojas daqui, não se traduz -->
   <div id="tab-parc" class="tab-content hidden" translate="no"></div>
   <div id="tab-calc" class="tab-content hidden"></div>
+  <div id="tab-prog" class="tab-content hidden"></div>
 
   <div class="footer">SHAPE DE ELITE · MÉTODO GH · @gh.scheuermann</div>
   <div style="text-align:center;color:#8A8A8A;font-size:12px;letter-spacing:.4px;margin-top:18px;padding-bottom:8px;">shapedeelite.metodogh@gmail.com</div>
@@ -2470,6 +2517,7 @@
       <div class="mais-grab"></div>
       <div class="mais-titulo">Mais do app</div>
       <div class="mais-grade">
+        <button type="button" class="mais-opt" data-tab="prog" onclick="fechaMais(); showTab('prog')"><span class="ic">📈</span><span>Progresso</span></button>
         <button type="button" class="mais-opt so-brasil" data-tab="ebooks" onclick="fechaMais(); showTab('ebooks')"><span class="ic">📚</span><span>E-books</span></button>
         <button type="button" class="mais-opt so-brasil" data-tab="acess" onclick="fechaMais(); showTab('acess')"><span class="ic">🎒</span><span>Acessórios</span></button>
         <button type="button" class="mais-opt so-brasil" data-tab="parc" onclick="fechaMais(); showTab('parc')"><span class="ic">🤝</span><span>Parceiros</span></button>
@@ -2696,7 +2744,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '106';
+const APP_V = '107';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -3941,6 +3989,7 @@ async function initDashboard() {
   restoreSetsFromServer(); // backup de cargas da conta (não bloqueia o load)
   flushFotoUploads();      // sobe fotos pendentes pro Drive (se backend configurado)
   avalAoEntrar();          // avaliação corporal: o servidor diz se este aluno tem o bônus e em que pé está
+  medSync();               // peso, cintura e dias de treino da conta (aba Progresso e faixa da semana)
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -4086,6 +4135,7 @@ function showTab(tab) {
   else if (tab === 'acess') renderAcessorios();
   else if (tab === 'parc') renderParceiros();
   else if (tab === 'calc') renderCalc();
+  else if (tab === 'prog') { renderProg(); medSync(); }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -4771,6 +4821,238 @@ function fotosSecHtml() {
         ${FOTO_ANGLES.map(a => `<div class="foto-slot" id="fslot-${a.k}" role="button" tabindex="0" aria-label="Adicionar foto: ${a.l}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}"><span class="foto-slot-plus">+</span><span class="foto-slot-label">${a.l}</span></div>`).join('')}
       </div>
     </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// PROGRESSO (v107): constância da semana, peso e cintura com a média da semana, fotos lado a lado
+// O que o aluno anota fica no aparelho (por conta) e sobe pra /api/medidas; por dia vale sempre o registro mais novo.
+// A conta é SEMPRE em kg e cm: em lb a tela converte na entrada e na saída, igual à calculadora.
+// Os dias de treino vêm do servidor (carga anotada ou exercício marcado) mais o que ainda está na fila deste aparelho.
+// ═══════════════════════════════════════════════════════════
+const DIA_RE = /^\d{4}-\d{2}-\d{2}$/;
+function medChave() { return 'shape_medidas_' + setsEmail(); }
+function medLoad() {
+  try { const o = JSON.parse(localStorage.getItem(medChave()) || 'null'); if (o && typeof o === 'object') return { m: (o.m && typeof o.m === 'object') ? o.m : {}, sujo: Array.isArray(o.sujo) ? o.sujo : [], dias: Array.isArray(o.dias) ? o.dias : [] }; } catch (e) {}
+  return { m: {}, sujo: [], dias: [] };
+}
+function medSave(o) { try { localStorage.setItem(medChave(), JSON.stringify(o)); return true; } catch (e) { return false; } }
+function medGrava(dia, reg) {
+  const o = medLoad();
+  o.m[dia] = reg;
+  if (!o.sujo.includes(dia)) o.sujo.push(dia);
+  const ok = medSave(o);
+  medSync();
+  return ok;
+}
+// Sobe o que mudou e traz o que o servidor tem. Não passa pelo api() de propósito: é coisa de segundo plano e nunca
+// pode ser o que mostra "sessão expirou". Sem sinal, o que foi anotado fica marcado e sobe na próxima abertura.
+let _medBusy = false, _medDeNovo = false;
+async function medSync() {
+  if (!state.user || !state.user.token) return;
+  if (_medBusy) { _medDeNovo = true; return; }
+  _medBusy = true;
+  const email = state.user.email;
+  try {
+    const o = medLoad(), entries = {};
+    for (const d of o.sujo) if (o.m[d]) entries[d] = o.m[d];
+    const cab = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + state.user.token };
+    const res = await fetchComLimite(API_BASE + '/api/medidas', Object.keys(entries).length ? { method: 'POST', headers: cab, body: JSON.stringify({ entries }) } : { headers: cab }, 12000);
+    if (!res.ok) return;
+    const r = await res.json();
+    if (!r || !r.ok || !state.user || state.user.email !== email) return;
+    const agora = medLoad(), srv = (r.medidas && typeof r.medidas === 'object') ? r.medidas : null;
+    if (srv) {
+      for (const [d, m] of Object.entries(srv)) { const l = agora.m[d]; if (DIA_RE.test(d) && m && !(l && l.ts > m.ts)) agora.m[d] = m; }
+      agora.sujo = agora.sujo.filter(d => { const l = agora.m[d], s = srv[d]; return !!l && !(s && s.ts >= l.ts); });
+    }
+    if (Array.isArray(r.diasTreino)) agora.dias = r.diasTreino.filter(d => DIA_RE.test(String(d))).slice(-800);
+    medSave(agora);
+    progRedesenha();
+  } catch (e) { /* sem sinal: fica no aparelho e sobe depois */ }
+  finally { _medBusy = false; if (_medDeNovo) { _medDeNovo = false; setTimeout(medSync, 900); } }
+}
+// as medidas que valem (sem os dias apagados), da mais antiga pra mais nova
+function medLista() {
+  const m = medLoad().m;
+  return Object.keys(m).filter(d => DIA_RE.test(d) && m[d] && !m[d].del && (m[d].p || m[d].c)).sort().map(d => ({ dia: d, p: +m[d].p || 0, c: +m[d].c || 0 }));
+}
+function diaLocalDe(ms) { const d = new Date(ms); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function diaCurto(dia) { return dia.slice(8, 10) + '/' + dia.slice(5, 7); }
+function numTela(n, casas) {
+  const v = (Math.round(n * 10) / 10).toFixed(casas == null ? 1 : casas).replace(/\.0$/, '');
+  return LANG === 'en' ? v : v.replace('.', ',');
+}
+function pesoTela(kg) { return numTela(unidade() === 'lb' ? kg / KG_POR_LB : kg) + ' ' + unCarga(); }
+function cinturaUn() { return unidade() === 'lb' ? 'in' : 'cm'; }
+function cinturaTela(cm) { return numTela(unidade() === 'lb' ? cm / CM_POR_POL : cm) + ' ' + cinturaUn(); }
+function numDigitado(v) { const n = Number(String(v == null ? '' : v).trim().replace(',', '.')); return Number.isFinite(n) && n > 0 ? n : null; }
+
+// ─── constância ───
+function progDias() {
+  const f = diasFilaLoad();
+  return new Set([...medLoad().dias, ...f.pend, f.ok].filter(d => DIA_RE.test(String(d))));
+}
+function progMeta() { const n = Number((state.protocol || {}).days); return n >= 1 && n <= 7 ? n : 3; }
+function progSemana(set, seg) { let n = 0; const dias = []; for (let i = 0; i < 7; i++) { const d = diaLocalDe(seg + i * 864e5 + 432e5); const on = set.has(d); if (on) n++; dias.push({ d, on }); } return { n, dias }; }
+function progSequencia(set, meta) {
+  let seg = segundaDe(Date.now()), k = progSemana(set, seg).n >= meta ? 1 : 0;
+  for (let i = 0; i < 104; i++) { seg = segundaDe(seg - 3 * 864e5); if (progSemana(set, seg).n >= meta) k++; else break; }
+  return k;
+}
+function progDotsHtml(sem, cls) {
+  const hoje = localDay();
+  let fmt = null; try { fmt = new Intl.DateTimeFormat(LANG === 'pt' ? 'pt-BR' : LANG, { weekday: 'narrow' }); } catch (e) {}
+  return `<span class="prog-dots${cls ? ' ' + cls : ''}" translate="no" aria-hidden="true">${sem.dias.map(x => {
+    const l = fmt ? fmt.format(new Date(x.d + 'T12:00:00')).toUpperCase() : '';
+    return `<i class="${x.on ? 'on' : ''}${x.d === hoje ? ' hoje' : ''}">${x.on ? '✓' : escapeHtml(l)}</i>`;
+  }).join('')}</span>`;
+}
+// faixa no topo do treino: a semana em bolinhas e o atalho pra aba Progresso
+function progFaixaHtml() {
+  if (!state.protocol) return '';
+  const set = progDias(), meta = progMeta(), sem = progSemana(set, segundaDe(Date.now())), seq = progSequencia(set, meta);
+  const hoje = Date.now(), pesouNaSemana = medLista().some(x => x.p && (hoje - new Date(x.dia + 'T12:00:00').getTime()) < 7 * 864e5);
+  return `<button type="button" class="prog-faixa" onclick="showTab('prog')" aria-label="Abrir o teu progresso">
+      ${progDotsHtml(sem)}
+      <span class="pf-txt"><strong>${sem.n} de ${meta}</strong> <span>treinos na semana</span>${seq >= 2 ? `<span class="pt">·</span><span>${seq} semanas seguidas</span>` : ''}${pesouNaSemana ? '' : '<em>Anota teu peso da semana</em>'}</span>
+      <span class="pf-seta" aria-hidden="true">›</span>
+    </button>`;
+}
+function progRedesenha() {
+  document.querySelectorAll('.prog-slot').forEach(el => { el.innerHTML = progFaixaHtml(); });
+  const aba = document.getElementById('tab-prog');
+  // com o aluno digitando o peso, a aba espera: redesenhar tiraria o teclado e o que ele já escreveu
+  if (aba && !aba.classList.contains('hidden') && !(document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('med-in'))) renderProg();
+}
+
+// ─── peso e cintura ───
+function medMedia(lista, agora) {
+  const dia = x => new Date(x.dia + 'T12:00:00').getTime(), pesos = lista.filter(x => x.p);
+  const de = (a, b) => pesos.filter(x => { const t = agora - dia(x); return t >= a * 864e5 && t < b * 864e5; }).map(x => x.p);
+  const med = a => a.length ? a.reduce((s, v) => s + v, 0) / a.length : 0;
+  const at = de(-1, 7), ant = de(7, 14);
+  return { n: at.length, m: med(at), nAnt: ant.length, mAnt: med(ant) };
+}
+function medMediaHtml(lista) {
+  const r = medMedia(lista, Date.now());
+  if (r.n < 2) return `<div class="med-media vazia"><span>A média da semana aparece com 2 pesagens nos últimos 7 dias.</span> <span>Tu tem ${r.n}.</span></div>`;
+  let h = `<span>Média da semana:</span> <b translate="no">${pesoTela(r.m)}</b> <span class="pt">·</span> <span>${r.n} pesagens</span>`;
+  if (r.nAnt >= 2) {
+    const dif = Math.round((r.m - r.mAnt) * 10) / 10, mod = Math.abs(unidade() === 'lb' ? dif / KG_POR_LB : dif);
+    h += `<div class="med-dif">${dif === 0 ? '<span>Igual à média da semana anterior.</span>' : `<b translate="no">${numTela(mod)} ${unCarga()}</b> <span>${dif < 0 ? 'a menos que na semana anterior.' : 'a mais que na semana anterior.'}</span>`}</div>`;
+  }
+  return `<div class="med-media">${h}</div>`;
+}
+function medCinturaHtml(lista) {
+  const cs = lista.filter(x => x.c);
+  if (!cs.length) return '';
+  const ult = cs[cs.length - 1], pri = cs[0];
+  return `<div class="med-media"><span>Cintura:</span> <b translate="no">${cinturaTela(ult.c)}</b>${cs.length > 1 ? ` <span class="pt">·</span> <span>primeira medida:</span> <span translate="no">${cinturaTela(pri.c)} (${diaCurto(pri.dia)})</span>` : ''}</div>`;
+}
+// linha do peso: os últimos 60 dias, um ponto por pesagem
+function medGraficoHtml(lista) {
+  const agora = Date.now(), pts = lista.filter(x => x.p).map(x => ({ t: new Date(x.dia + 'T12:00:00').getTime(), p: x.p })).filter(x => agora - x.t < 60 * 864e5);
+  if (pts.length < 3) return '';
+  const W = 320, H = 84, m = 8, t0 = pts[0].t, t1 = Math.max(pts[pts.length - 1].t, t0 + 864e5), lo = Math.min(...pts.map(x => x.p)), hi = Math.max(...pts.map(x => x.p)), faixa = Math.max(hi - lo, 0.5);
+  const X = t => m + (W - 2 * m) * (t - t0) / (t1 - t0), Y = p => m + (H - 2 * m) * (1 - (p - lo) / faixa);
+  const linha = pts.map(x => X(x.t).toFixed(1) + ',' + Y(x.p).toFixed(1)).join(' ');
+  return `<svg class="med-graf" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Linha do teu peso nos últimos 60 dias"><polyline points="${linha}" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>${pts.map(x => `<circle cx="${X(x.t).toFixed(1)}" cy="${Y(x.p).toFixed(1)}" r="2.6" fill="currentColor"/>`).join('')}</svg>
+    <div class="med-graf-pe" translate="no"><span>${diaCurto(diaLocalDe(t0))}</span><span>${pesoTela(lo)} · ${pesoTela(hi)}</span><span>${diaCurto(diaLocalDe(pts[pts.length - 1].t))}</span></div>`;
+}
+function medAnotaHoje() {
+  const ip = document.getElementById('med-peso'), ic = document.getElementById('med-cintura');
+  const vp = numDigitado(ip && ip.value), vc = numDigitado(ic && ic.value), lb = unidade() === 'lb';
+  if ((ip && ip.value.trim() && !vp) || (ic && ic.value.trim() && !vc) || (!vp && !vc)) { showToast('Escreve o peso ou a cintura em número, tipo 82,5.', 4000); return; }
+  const p = vp ? Math.round((lb ? vp * KG_POR_LB : vp) * 10) / 10 : null, c = vc ? Math.round((lb ? vc * CM_POR_POL : vc) * 10) / 10 : null;
+  if (p != null && (p < 20 || p > 400)) { showToast('Confere o peso: esse número não parece certo.', 4000); return; }
+  if (c != null && (c < 30 || c > 250)) { showToast('Confere a cintura: esse número não parece certo.', 4000); return; }
+  // no mesmo dia, o que ele não preencheu agora continua como estava
+  const dia = localDay(), antes = medLoad().m[dia], base = (antes && !antes.del) ? antes : {};
+  const reg = { ...(p != null ? { p } : (base.p ? { p: base.p } : {})), ...(c != null ? { c } : (base.c ? { c: base.c } : {})), ts: Date.now() };
+  if (!medGrava(dia, reg)) { showToast('O aparelho está sem espaço pra guardar. Libera espaço e anota de novo.', 5000); return; }
+  if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  showToast('✓ Anotado');
+  renderProg(); progRedesenha();
+}
+function medApaga(dia) {
+  if (!confirm('Apagar o que tu anotou nesse dia?')) return;
+  medGrava(dia, { del: true, ts: Date.now() });
+  renderProg(); progRedesenha();
+}
+
+// ─── fotos lado a lado ───
+let _progFoto = { a: null, b: null, ang: 'frente' };
+async function progFasesComFoto() {
+  const out = [];
+  for (const f of FOTO_FASES) { let tem = false; for (const a of FOTO_ANGLES) { const r = await fotoGet(f, a.k); if (r && r.dataUrl) { tem = true; break; } } if (tem) out.push(f); }
+  return out;
+}
+function progFotoSet(k, v) { _progFoto[k] = v; hydrateProgFotos(); }
+async function hydrateProgFotos() {
+  const el = document.getElementById('prog-fotos');
+  if (!el) return;
+  const email = setsEmail(), fases = await progFasesComFoto();
+  if (!document.getElementById('prog-fotos') || setsEmail() !== email) return;
+  if (fases.length < 2) {
+    el.innerHTML = `<div class="foto-sec-sub" style="margin-bottom:10px;">A comparação aparece quando tu tiver fotos de duas fases. As fotos ficam no fim da aba TREINO.</div>
+      <button type="button" class="btn secondary" style="margin-top:0;" onclick="progVaiPrasFotos()">📸 Ir pras fotos</button>`;
+    return;
+  }
+  if (!fases.includes(_progFoto.a)) _progFoto.a = fases[0];
+  if (!fases.includes(_progFoto.b) || _progFoto.b === _progFoto.a) _progFoto.b = fases.filter(f => f !== _progFoto.a).pop();
+  const chips = (k, outro) => `<div class="foto-fases">${fases.map(f => `<button type="button" class="foto-fase-chip${f === _progFoto[k] ? ' on' : ''}" ${f === outro ? 'disabled' : ''} aria-pressed="${f === _progFoto[k] ? 'true' : 'false'}" onclick="progFotoSet('${k}','${f}')">Fase ${f}</button>`).join('')}</div>`;
+  const lado = async f => {
+    const r = await fotoGet(f, _progFoto.ang);
+    return `<figure class="prog-foto">${r && r.dataUrl ? `<img src="${r.dataUrl}" alt="">` : '<div class="prog-foto-vazia">Sem foto desse lado</div>'}<figcaption><span>Fase ${f}</span>${r && r.date ? ` <span translate="no">· ${escapeHtml(r.date)}</span>` : ''}</figcaption></figure>`;
+  };
+  const [ha, hb] = [await lado(_progFoto.a), await lado(_progFoto.b)];
+  const alvo = document.getElementById('prog-fotos');
+  if (!alvo || setsEmail() !== email) return;
+  alvo.innerHTML = `<div class="prog-foto-rot">Foto de antes</div>${chips('a', _progFoto.b)}<div class="prog-foto-rot">Foto de depois</div>${chips('b', _progFoto.a)}
+    <div class="foto-fases">${FOTO_ANGLES.map(a => `<button type="button" class="foto-fase-chip${a.k === _progFoto.ang ? ' on' : ''}" aria-pressed="${a.k === _progFoto.ang ? 'true' : 'false'}" onclick="progFotoSet('ang','${a.k}')">${a.l}</button>`).join('')}</div>
+    <div class="prog-foto-par">${ha}${hb}</div>`;
+}
+function progVaiPrasFotos() { showTab('treino'); setTimeout(() => { const c = document.getElementById('foto-card'); if (c) c.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 120); }
+
+function renderProg() {
+  const c = document.getElementById('tab-prog');
+  if (!c || !state.protocol) return;
+  const set = progDias(), meta = progMeta(), seg0 = segundaDe(Date.now()), sem = progSemana(set, seg0), seq = progSequencia(set, meta);
+  const mes = localDay().slice(0, 7), noMes = [...set].filter(d => d.startsWith(mes)).length;
+  const semanas = []; let seg = seg0; for (let i = 0; i < 5; i++) { seg = segundaDe(seg - 3 * 864e5); semanas.push({ seg, s: progSemana(set, seg) }); }
+  const lista = medLista(), hoje = lista.find(x => x.dia === localDay()), lb = unidade() === 'lb';
+  const valor = (v, f) => v ? numTela(f ? v / f : v) : '';
+  c.innerHTML = `
+    <h2>Teu progresso</h2>
+    <div class="result-card prog-card">
+      <div class="prog-tit">📅 Constância</div>
+      <div class="prog-sem">${progDotsHtml(sem, 'grande')}</div>
+      <div class="prog-nums">
+        <div><b translate="no">${sem.n}/${meta}</b><span>treinos na semana</span></div>
+        <div><b translate="no">${seq}</b><span>semanas seguidas na meta</span></div>
+        <div><b translate="no">${noMes}</b><span>treinos neste mês</span></div>
+      </div>
+      <div class="prog-hist">${semanas.map(x => `<div class="prog-hist-l"><span translate="no">${diaCurto(diaLocalDe(x.seg))}</span>${progDotsHtml(x.s, 'mini')}<span translate="no">${x.s.n}/${meta}</span></div>`).join('')}</div>
+      <div class="foto-sec-sub" style="margin:10px 0 0;">Conta como treino o dia em que tu marca um exercício como feito ou anota a carga.</div>
+    </div>
+    <div class="result-card prog-card">
+      <div class="prog-tit">⚖️ Peso e cintura</div>
+      <div class="med-form">
+        <label><span>Peso (${unCarga()})</span><input class="med-in" id="med-peso" type="text" inputmode="decimal" autocomplete="off" placeholder="${lb ? '180' : '82,5'}" value="${hoje ? valor(hoje.p, lb ? KG_POR_LB : 0) : ''}"></label>
+        <label><span>Cintura (${cinturaUn()})</span><input class="med-in" id="med-cintura" type="text" inputmode="decimal" autocomplete="off" placeholder="${lb ? '34' : '88'}" value="${hoje ? valor(hoje.c, lb ? CM_POR_POL : 0) : ''}"></label>
+        <button type="button" class="btn" style="margin-top:0;" onclick="medAnotaHoje()">${hoje ? 'Corrigir hoje' : 'Anotar hoje'}</button>
+      </div>
+      ${medMediaHtml(lista)}
+      ${medCinturaHtml(lista)}
+      ${medGraficoHtml(lista)}
+      <div class="foto-sec-sub" style="margin:10px 0 0;">Pesa todo dia de manhã, em jejum, depois do banheiro. O peso de um dia sobe e desce com sal, sono e estresse: quem mostra a direção é a média da semana. A cintura tu mede uma vez por semana, acima do umbigo.</div>
+      ${lista.length ? `<div class="med-lista">${lista.slice(-10).reverse().map(x => `<div class="med-l"><span translate="no">${diaCurto(x.dia)}</span><span translate="no">${x.p ? pesoTela(x.p) : ''}</span><span translate="no">${x.c ? cinturaTela(x.c) : ''}</span><button type="button" class="set-del" onclick="medApaga('${x.dia}')" aria-label="Apagar o que tu anotou em ${diaCurto(x.dia)}">&times;</button></div>`).join('')}</div>` : ''}
+    </div>
+    <div class="result-card prog-card">
+      <div class="prog-tit">📸 Antes e depois</div>
+      <div id="prog-fotos"></div>
+    </div>`;
+  hydrateProgFotos();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -6038,6 +6320,7 @@ function renderTreino() {
     <div class="qualif-slot">${qualifCardHtml()}</div>
     <div class="grupo-slot">${grupoFaixaHtml()}</div>
     <div class="aval-slot">${avalCardHtml()}</div>
+    <div class="prog-slot">${progFaixaHtml()}</div>
     <div class="day-tabs" style="--dias:${t.dias.length};">${dayBtns}</div>
     ${resumo ? `<p class="dia-resumo">${escapeHtml(day.nome)}: ${resumo}</p>` : ''}
     ${weekBarHtml()}
@@ -6249,6 +6532,7 @@ function toggleExerciseCheck(dayIdx, exIdx) {
   hoje[g][id] = !hoje[g][id];
   saveState();
   if (hoje[g][id]) { try { anotaDiaDeTreino(); } catch (e) {} } // só um aviso pro servidor: nunca atrapalha a marcação
+  try { document.querySelectorAll('.prog-slot').forEach(el => { el.innerHTML = progFaixaHtml(); }); } catch (e) {} // v107: a faixa da semana acompanha
   // atualiza só o cartão e o contador: redesenhar a aba inteira fechava o material extra aberto, devolvia a
   // faixa de dias pro começo e fazia as fotos piscarem a cada marcação
   const card = document.getElementById('ex-card-' + exIdx);
