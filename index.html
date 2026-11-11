@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '107';
+  window.APP_LANG_V = '108';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2124,6 +2124,36 @@
   .set-repete:active { background: var(--red-tint); }
   .dia-prog { display: block; height: 4px; margin-top: 7px; border-radius: 4px; background: var(--glass-3, var(--border)); overflow: hidden; }
   .dia-prog b { display: block; height: 100%; border-radius: 4px; background: var(--red); transition: width .3s; }
+  /* v108: refeição feita, refeição da hora, lista de compras com quantidade */
+  .ref-prog { margin: 0 0 12px; padding: 12px 14px; border-radius: var(--r, 14px); background: var(--glass, var(--surface)); border: 1px solid var(--glass-line, var(--border)); }
+  .ref-prog-l { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; line-height: 1.35; font-weight: 700; color: var(--text); }
+  .ref-tudo { flex-shrink: 0; min-height: 36px; padding: 6px 12px; border-radius: 999px; background: transparent; border: 1px solid var(--glass-line-2, var(--border)); color: var(--text-dim); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .ref-top { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+  .ref-tit { flex: 1; min-width: 0; }
+  .ref-top .meal-name { margin-bottom: 0; }
+  .ref-check { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--glass-line-2, var(--border)); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #fff; }
+  .ref-feita .ref-check { background: var(--red); border-color: var(--red); }
+  .ref-sub { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 12px; color: var(--text-dim); font-weight: 600; }
+  .ref-sub:empty { display: none; }
+  .ref-selo { padding: 2px 8px; border-radius: 999px; background: var(--red); color: #fff; font-size: 10px; font-weight: 800; letter-spacing: .6px; }
+  .ref-ok { color: var(--red-text); font-weight: 800; }
+  .ref-seta { flex-shrink: 0; color: var(--text-muted); display: flex; }
+  .ref-seta svg { width: 18px; height: 18px; transition: transform .2s; transform: rotate(180deg); }
+  .ref-fechada .ref-seta svg { transform: none; }
+  .ref-fechada .ref-corpo { display: none; }
+  .ref-corpo { margin-top: 12px; }
+  .ref-feita.ref-fechada .meal-name { color: var(--text-dim); }
+  .ref.ref-agora { border-color: var(--red-line, var(--red)); }
+  .ref-btn { margin-top: 14px; }
+  .compra-dias { display: flex; gap: 6px; margin: 0 0 14px; }
+  .compra-dias button { flex: 1 1 0; min-width: 0; min-height: 40px; padding: 8px 4px; border-radius: 999px; border: 1px solid var(--glass-line-2, var(--border)); background: transparent; color: var(--text-dim); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .compra-dias button.on { background: var(--red); border-color: var(--red); color: #fff; }
+  .shopping-cat-items { grid-template-columns: 1fr; }
+  .shopping-cat-items li { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; }
+  .compra-n { font-weight: 600; }
+  .compra-q { color: var(--text-dim); font-size: 12.5px; white-space: nowrap; }
+  .compra-q b { color: var(--text); font-weight: 700; }
+  .compra-obs { flex-basis: 100%; font-size: 11.5px; line-height: 1.4; color: var(--text-muted); font-style: italic; }
   /* v107: aba Progresso e faixa da semana no treino */
   .prog-faixa { display: flex; align-items: center; gap: 12px; width: 100%; margin: 0 0 12px; padding: 12px 14px; border-radius: var(--r, 14px); background: var(--glass, var(--surface)); border: 1px solid var(--glass-line, var(--border)); color: var(--text); font-family: inherit; text-align: left; cursor: pointer; }
   .prog-faixa .pf-txt { flex: 1; font-size: 13px; line-height: 1.4; color: var(--text-dim); }
@@ -2534,7 +2564,7 @@
 <div class="install-modal" id="shoppingModal" onclick="shoppingOnBg(event)">
   <div class="install-modal-box" style="max-width:520px;max-height:88vh;overflow-y:auto;" onclick="event.stopPropagation()">
     <h3>🛒 Lista de compras</h3>
-    <p class="hint" style="margin-bottom:16px;">Só o que tu vai precisar comprar. A quantidade tu mede no preparo.</p>
+    <p class="hint" style="margin-bottom:14px;">Quanto comprar pro período, em média. A dieta tu pesa pronto: aqui a carne, o arroz, a massa e o feijão já estão no peso cru, e a fruta com casca. Onde aparece “até”, é comida que tu escolhe no cardápio: o número é o total se tu comer ela todo dia. Vai variar? Compra menos de cada.</p>
     <div id="shopping-content"></div>
     <div style="display:flex;gap:8px;margin-top:14px;">
       <button class="btn secondary" onclick="copyShoppingList()" id="shopping-copy-btn" style="margin-top:0;">📋 Copiar lista</button>
@@ -2744,7 +2774,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '107';
+const APP_V = '108';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -7263,6 +7293,63 @@ function dietTotalsByName(dietName) {
 }
 const semObs = o => !o || /^[-\s]*$/.test(o); // o docx marca observação vazia com "---"
 
+// ── v108: REFEIÇÃO FEITA E REFEIÇÃO DA HORA ──
+// O aluno marca a refeição feita; a do horário fica aberta e as outras recolhem (toque no nome abre).
+// Fica no aparelho, por dia (o dia vira às 4 da manhã, como no treino). Se o cardápio trocar no meio do dia, zera.
+function refChave() { return 'shape_refs_' + setsEmail(); }
+function refLoad() { try { const o = JSON.parse(localStorage.getItem(refChave()) || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+function refFeitasHoje(key) { const r = refLoad()[localDay()]; return r && r.k === key && Array.isArray(r.f) ? r.f : []; }
+function refGrava(key, feitas) {
+  const o = refLoad();
+  o[localDay()] = { k: key, f: feitas };
+  const dias = Object.keys(o).sort(); // guarda só os últimos 40 dias
+  for (const dia of dias.slice(0, Math.max(0, dias.length - 40))) delete o[dia];
+  try { localStorage.setItem(refChave(), JSON.stringify(o)); } catch (e) {}
+}
+// a hora em que cada refeição costuma começar (o Shape não pede horário por refeição)
+const REF_HORA = [[/DESJEJUM/, 4], [/LANCHE DA MANH/, 9.5], [/ALMO/, 11], [/LANCHE/, 15], [/JANTAR/, 18.5]];
+function refHoraDe(nome) { const n = String(nome || '').toUpperCase(); for (const [re, h] of REF_HORA) if (re.test(n)) return h; return null; }
+// A refeição da hora: a do relógio; se essa já foi marcada, a próxima sem marcar; depois as de trás. Tudo feito = -1.
+function refDaHora(refs, feitas, agora) {
+  const d = agora || new Date();
+  let h = d.getHours() + d.getMinutes() / 60;
+  if (h < 4) h += 24;
+  let rel = 0;
+  refs.forEach((r, i) => { const hr = refHoraDe(r.nome); if (hr != null && hr <= h) rel = i; });
+  for (let i = rel; i < refs.length; i++) if (!feitas.includes(i)) return i;
+  for (let i = 0; i < rel; i++) if (!feitas.includes(i)) return i;
+  return -1;
+}
+let _refVista = { dia: '', key: '', manual: {}, tudo: false }; // o que o aluno abriu ou fechou na mão, nesta visita
+function refVista(key) {
+  const hoje = localDay();
+  if (_refVista.dia !== hoje || _refVista.key !== key) _refVista = { dia: hoje, key, manual: {}, tudo: false };
+  return _refVista;
+}
+function refToque(i) {
+  const c = document.getElementById('ref-' + i);
+  if (!c) return;
+  const abre = c.classList.contains('ref-fechada');
+  c.classList.toggle('ref-fechada', !abre);
+  const t = c.querySelector('.ref-top'); if (t) t.setAttribute('aria-expanded', abre ? 'true' : 'false');
+  try { refVista(getDietKey(state.protocol)).manual[i] = abre; } catch (e) {}
+}
+function refMarca(i) {
+  const key = getDietKey(state.protocol), feitas = refFeitasHoje(key).slice();
+  const j = feitas.indexOf(i);
+  if (j >= 0) feitas.splice(j, 1); else feitas.push(i);
+  refGrava(key, feitas);
+  delete refVista(key).manual[i];
+  renderDieta();
+  // marcou: leva o olho pra próxima refeição (ou pro placar do dia, se fechou todas)
+  if (j < 0) setTimeout(() => { try {
+    const a = document.querySelector('#tab-dieta .ref-agora') || document.querySelector('#tab-dieta .ref-prog');
+    const r = a && a.getBoundingClientRect();
+    if (r && (r.top < 60 || r.top > window.innerHeight * .6)) window.scrollTo({ top: window.scrollY + r.top - 80, behavior: 'smooth' });
+  } catch (e) {} }, 40);
+}
+function refVerTudo() { const v = refVista(getDietKey(state.protocol)); v.tudo = !v.tudo; v.manual = {}; renderDieta(); }
+
 function renderDieta() {
   const p = state.protocol;
   const key = getDietKey(p);
@@ -7272,7 +7359,8 @@ function renderDieta() {
     c.innerHTML = `<div class="empty"><p>Não achei a dieta do teu perfil. Fala com o suporte pelo botão de ajuda aqui embaixo que a gente resolve.</p></div>`;
     return;
   }
-  const refsHtml = d.refeicoes.map(ref => {
+  const feitas = refFeitasHoje(key).filter(i => i < d.refeicoes.length), vista = refVista(key), daHora = refDaHora(d.refeicoes, feitas);
+  const refsHtml = d.refeicoes.map((ref, ri) => {
     const obsHtml = (ref.obs || []).map(o => `<div class="meal-obs">${o}</div>`).join('');
     const opcoesHtml = ref.opcoes.map(opc => {
       const foodsHtml = opc.alimentos.map(f =>
@@ -7288,15 +7376,34 @@ function renderDieta() {
     // os macros são da REFEIÇÃO (qualquer opção leva a eles); no docx a linha vem presa na última opção
     const macrosRef = ref.opcoes.map(o => o.macros).filter(Boolean)[0];
     const macrosHtml = macrosRef ? `<div class="meal-macros-label">${ref.opcoes.length > 1 ? 'Macros da refeição, em qualquer opção' : 'Macros da refeição'}</div><div class="meal-macros">${macrosRef.split('|').map(m => `<span>${m.trim()}</span>`).join('')}</div>` : '';
+    const feita = feitas.includes(ri), agora = ri === daHora;
+    const aberta = vista.tudo || (ri in vista.manual ? vista.manual[ri] : agora);
+    const kcal = macrosRef && (/Calorias[^:]*:\s*(\d+)/i.exec(macrosRef) || [])[1];
     return `
-      <div class="meal">
-        <div class="meal-name">${ref.nome}</div>
-        ${obsHtml}
-        ${opcoesHtml}
-        ${macrosHtml}
+      <div class="meal ref${feita ? ' ref-feita' : ''}${agora ? ' ref-agora' : ''}${aberta ? '' : ' ref-fechada'}" id="ref-${ri}">
+        <div class="ref-top" role="button" tabindex="0" aria-expanded="${aberta ? 'true' : 'false'}" onclick="refToque(${ri})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();refToque(${ri})}">
+          <span class="ref-check" aria-hidden="true">${feita ? '✓' : ''}</span>
+          <div class="ref-tit">
+            <div class="meal-name">${ref.nome}</div>
+            <div class="ref-sub">${feita ? '<span class="ref-ok">feita</span>' : (agora ? '<span class="ref-selo">AGORA</span>' : '')}${kcal ? `<span translate="no">${kcal} kcal</span>` : ''}</div>
+          </div>
+          <span class="ref-seta" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </div>
+        <div class="ref-corpo">
+          ${obsHtml}
+          ${opcoesHtml}
+          ${macrosHtml}
+          <button type="button" class="btn ${feita ? 'ghost' : 'secondary'} ref-btn" onclick="refMarca(${ri})">${feita ? 'Desmarcar' : '✓ Marcar como feita'}</button>
+        </div>
       </div>
     `;
   }).join('');
+  const nRef = d.refeicoes.length, nFeitas = feitas.length;
+  const progHtml = nRef ? `
+      <div class="ref-prog">
+        <div class="ref-prog-l"><span>${nFeitas >= nRef ? 'Todas as refeições de hoje feitas. Boa!' : `${nFeitas} de ${nRef} refeições feitas hoje`}</span><button type="button" class="ref-tudo" onclick="refVerTudo()">${vista.tudo ? 'Recolher' : 'Ver o dia inteiro'}</button></div>
+        <i class="dia-prog"><b style="width:${Math.round(100 * nFeitas / nRef)}%"></b></i>
+      </div>` : '';
 
   // TOTAL DIÁRIO em campo próprio no JSON novo; no antigo ele vem dentro de refeicoes e já saiu acima
   const totalHtml = d.total_diario ? `
@@ -7352,6 +7459,7 @@ function renderDieta() {
       <button type="button" class="btn secondary" onclick="openShoppingList()" style="margin-top:0;flex:1;">🛒 Lista de compras</button>
     </div>
     ${wheyHtml}
+    ${progHtml}
     ${refsHtml}
     ${totalHtml}
     ${cardioHtml}
@@ -7382,6 +7490,53 @@ function categorizeFood(name) {
   return SHOPPING_CATEGORIES[SHOPPING_CATEGORIES.length - 1]; // Outros
 }
 
+// v108: a lista ganhou QUANTIDADE (GH 10/11/2026, trazer do Método GH). Soma o que a dieta pede por dia e multiplica pelo
+// período. Opções da mesma refeição são alternativas, e "1 pra escolher" também: aí vale o total de quem come aquele item
+// todo dia, e a tela avisa com "até" (min < max). A dieta do Shape é pesada PRONTA: pra comprar, carne, arroz, massa e
+// feijão viram peso cru (média), fruta com casca. Os fatores são os mesmos do app da consultoria.
+const COMPRA_DIAS_OPC = [7, 15, 30];
+function compraDias() { try { const v = parseInt(localStorage.getItem('shape_compra_dias'), 10); if (COMPRA_DIAS_OPC.includes(v)) return v; } catch (e) {} return 7; }
+function setCompraDias(n) { try { localStorage.setItem('shape_compra_dias', String(n)); } catch (e) {} openShoppingList(); }
+function compraDiasTxt(n) { return n === 7 ? '1 semana' : (n === 30 ? '1 mês' : n + ' dias'); }
+const COMPRA_FATOR = [ // [nome, pronto → o que se compra, rótulo]
+  [/^arroz/i, 0.4, 'cru'], [/^massa/i, 0.45, 'cru'], [/^feij/i, 0.4, 'cru'], [/^cuscuz/i, 0.5, 'cru'],
+  [/^frango/i, 1.35, 'cru'], [/^carne/i, 1.4, 'cru'], [/^peixe/i, 1.3, 'cru'],
+  [/^(batata|mandioca)/i, 1.15, 'cru'], [/^ab[oó]bora/i, 1.3, 'cru'],
+  [/^legumes?$/i, 1.1, ''], [/^banana/i, 1.5, 'com casca'], [/^frutas?$/i, 1.4, 'com casca'],
+];
+// lê a quantidade de uma linha da dieta: "150g", "150ml", "3 unidades", "2 fatias", "2 doses (60g)". "à vontade" = null.
+function compraLeQtd(txt) {
+  const t = String(txt || '').toLowerCase().replace(/(\d),(\d)/g, '$1.$2').trim();
+  let m = /^([\d.]+)\s*g\b/.exec(t); if (m) return { tipo: 'g', n: +m[1] };
+  m = /^([\d.]+)\s*ml\b/.exec(t); if (m) return { tipo: 'ml', n: +m[1] };
+  m = /^([\d.]+)\s*doses?(?:\s*\(\s*([\d.]+)\s*g\s*\))?/.exec(t); if (m) return { tipo: 'dose', n: +m[1], g: m[2] && +m[1] ? +m[2] / +m[1] : 0 };
+  m = /^([\d.]+)\s*fatias?\b/.exec(t); if (m) return { tipo: 'fatia', n: +m[1] };
+  m = /^([\d.]+)\s*unidades?\b/.exec(t); if (m) return { tipo: 'un', n: +m[1] };
+  return null;
+}
+// arredonda pra cima: de 50 em 50 g; passou de 1 kg, de 100 em 100 g
+function compraPeso(g, liq) {
+  if (g > 975) return '~' + numTela(Math.ceil(g / 100 - 1e-6) / 10) + (liq ? ' L' : ' kg');
+  return '~' + Math.max(50, Math.ceil(g / 50 - 1e-6) * 50) + (liq ? ' ml' : ' g');
+}
+// a quantidade de um item no período, em pedaços [texto, traduz?]: o número fica como está, a palavra passa pelo dicionário
+function compraQtd(it, dias) {
+  if (!(it.max > 0)) return it.livre ? [['à vontade', true]] : [];
+  const p = [], n = it.max * dias;
+  if (it.min < it.max - 1e-6) p.push(['até', true]);
+  if (it.tipo === 'g' || it.tipo === 'ml') {
+    const f = it.tipo === 'g' ? COMPRA_FATOR.find(x => x[0].test(it.nome)) : null;
+    p.push([compraPeso(n * (f ? f[1] : 1), it.tipo === 'ml'), false]);
+    if (f && f[2]) p.push([f[2], true]);
+  } else {
+    const c = Math.ceil(n - 1e-6), u = it.tipo === 'dose' ? ['dose', 'doses'] : (it.tipo === 'fatia' ? ['fatia', 'fatias'] : ['unidade', 'unidades']);
+    p.push([c === 1 ? '1 ' + u[0] : c + ' ' + u[1], true]);
+    if (it.tipo === 'dose' && it.doseG) p.push(['(' + compraPeso(n * it.doseG).replace('~', '') + ')', false]);
+  }
+  return p;
+}
+
+// Devolve { categoria: { icon, items: [{ nome, tipo, min, max, doseG, obs, livre }] } }, com min e max POR DIA.
 function buildShoppingList() {
   const p = state.protocol;
   if (!p) return null;
@@ -7389,48 +7544,74 @@ function buildShoppingList() {
   const d = state.dietaData?.[key];
   if (!d) return null;
 
-  const foods = new Set();
-  let legumesListados = false;
   const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
+  const itens = {};
+  const pega = nome => itens[nome] || (itens[nome] = { nome, tipo: '', min: 0, max: 0, doseG: 0, obs: '', livre: false });
+  const soma = (m, it, q, fixo) => {
+    if (!it.tipo) it.tipo = q.tipo;
+    if (it.tipo !== q.tipo) return; // a mesma comida em duas medidas: vale a primeira
+    if (q.g) it.doseG = q.g;
+    const a = m[it.nome] || (m[it.nome] = { min: 0, max: 0 });
+    a.max += q.n;
+    if (fixo) a.min += q.n;
+  };
   (d.refeicoes || []).forEach(ref => {
-    (ref.opcoes || []).forEach(opc => {
+    const porOpc = (ref.opcoes || []).map(opc => {
+      const m = {};
       (opc.alimentos || []).forEach(f => {
-        const clean = String(f.alimento || '').trim();
-        if (!clean) return;
-        const obs = String(f.obs || '');
-        // "Proteína | escolher uma | Carne bovina 250g | Frango 260g | ...": o que se compra são as opções,
-        // não a palavra "Proteína". Tira a gramagem e fica o nome do alimento.
+        const nome = String(f.alimento || '').trim();
+        if (!nome) return;
+        const obs = /^[-\s]*$/.test(f.obs || '') ? '' : String(f.obs);
+        // "Proteína | 1 pra escolher (peso pronto) | Frango 100g | Carne bovina magra 90g | ...": o que se compra são as
+        // alternativas, cada uma com o seu peso, e não a palavra "Proteína". É escolha: entra só no "até".
         if (/escolher/i.test(f.quantidade || '') && obs.includes('|')) {
-          obs.split('|').map(x => x.replace(/\s*\d[\d.,]*\s*(g|kg|ml|l|un\w*|fatias?|colher\w*)?\s*$/i, '').trim()).filter(Boolean).forEach(x => foods.add(cap(x)));
+          obs.split('|').forEach(x => {
+            const mm = /^\s*(.+?)\s+(\d[\d.,]*\s*(?:g|ml))\s*$/i.exec(x), q = mm && compraLeQtd(mm[2]);
+            if (q) soma(m, pega(cap(mm[1])), q, false);
+            else if (x.trim()) pega(cap(x.trim()));
+          });
           return;
         }
-        // "Legumes | 150g | Brócolis, cebola, cenoura...": lista os legumes sugeridos
-        if (/^legumes?$/i.test(clean) && obs.includes(',')) {
-          obs.split(',').map(x => x.trim()).filter(x => x && x.length < 30).forEach(x => foods.add(cap(x)));
-          legumesListados = true;
-          return;
-        }
-        foods.add(clean);
+        const it = pega(nome), q = compraLeQtd(f.quantidade);
+        // "Legumes | 150g | Brócolis, cenoura, ...", "Fruta | 50g | Tu escolhe: banana, maçã, ...": a sugestão vai embaixo do item
+        if (/^(legumes?|frutas?)$/i.test(nome) && obs.includes(',') && !it.obs) it.obs = obs;
+        if (q) soma(m, it, q, true); else it.livre = true; // sem número: "à vontade"
       });
+      return m;
+    });
+    const nomes = new Set();
+    porOpc.forEach(m => Object.keys(m).forEach(n => nomes.add(n)));
+    nomes.forEach(n => {
+      itens[n].max += Math.max(...porOpc.map(m => (m[n] ? m[n].max : 0)));
+      itens[n].min += Math.min(...porOpc.map(m => (m[n] ? m[n].min : 0)));
     });
   });
-  if (legumesListados) foods.delete('Legumes'); // já entraram pelo nome, a palavra solta só repete
+  // a dose de whey a mais por dia (cartão da aba DIETA) também se compra
+  try {
+    const tot = dietTotals(d);
+    if (tot && wheyExtra(Number(p.weight), Number(p.age), tot.p)) {
+      const it = pega('Whey protein');
+      if (!it.tipo) it.tipo = 'dose';
+      if (it.tipo === 'dose') { it.min += 1; it.max += 1; it.doseG = it.doseG || 30; }
+    }
+  } catch (e) {}
 
   const byCategory = {};
-  Array.from(foods).forEach(food => {
-    const cat = categorizeFood(food);
+  Object.values(itens).forEach(it => {
+    const cat = categorizeFood(it.nome);
     if (!byCategory[cat.name]) byCategory[cat.name] = { icon: cat.icon, items: [] };
-    byCategory[cat.name].items.push(food);
+    byCategory[cat.name].items.push(it);
   });
-  Object.values(byCategory).forEach(c => c.items.sort((a,b) => a.localeCompare(b, 'pt-BR')));
+  Object.values(byCategory).forEach(c => c.items.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR')));
   return byCategory;
 }
 
 function openShoppingList() {
   const list = buildShoppingList();
   if (!list) { alert('Não consegui montar a lista agora. Abre a aba DIETA e tenta de novo.'); return; }
+  const dias = compraDias();
   const order = ['Proteínas','Lácteos','Leguminosas','Carboidratos','Frutas','Verduras e legumes','Gorduras boas','Outros / Variados'];
-  let html = '';
+  let html = `<div class="compra-dias">${COMPRA_DIAS_OPC.map(n => `<button type="button" class="${n === dias ? 'on' : ''}" aria-pressed="${n === dias ? 'true' : 'false'}" onclick="setCompraDias(${n})">${compraDiasTxt(n)}</button>`).join('')}</div>`;
   order.forEach(name => {
     const cat = list[name];
     if (!cat || !cat.items.length) return;
@@ -7438,7 +7619,10 @@ function openShoppingList() {
       <div class="shopping-cat">
         <div class="shopping-cat-title">${cat.icon} ${name.toUpperCase()}</div>
         <ul class="shopping-cat-items">
-          ${cat.items.map(it => `<li>${it}</li>`).join('')}
+          ${cat.items.map(it => {
+            const q = compraQtd(it, dias).map(([t, traduz]) => traduz ? `<span>${t}</span>` : `<b translate="no">${t}</b>`).join(' ');
+            return `<li><span class="compra-n">${it.nome}</span>${q ? `<span class="compra-q">${q}</span>` : ''}${it.obs ? `<span class="compra-obs">${it.obs}</span>` : ''}</li>`;
+          }).join('')}
         </ul>
       </div>`;
   });
@@ -7458,13 +7642,17 @@ function shoppingOnBg(e) { if (e.target.id === 'shoppingModal') closeShoppingLis
 function buildShoppingText() {
   const list = buildShoppingList();
   if (!list) return '';
+  const dias = compraDias();
   const order = ['Proteínas','Lácteos','Leguminosas','Carboidratos','Frutas','Verduras e legumes','Gorduras boas','Outros / Variados'];
-  let text = `${T('🛒 LISTA DE COMPRAS')}, ${T(state.protocol.diet)}\n(Shape de Elite)\n\n`;
+  let text = `${T('🛒 LISTA DE COMPRAS')}, ${T(state.protocol.diet)} (${T(compraDiasTxt(dias))})\n(Shape de Elite)\n\n`;
   order.forEach(name => {
     const cat = list[name];
     if (!cat || !cat.items.length) return;
     text += `${cat.icon} ${T(name).toUpperCase()}\n`;
-    cat.items.forEach(it => text += `• ${T(it)}\n`);
+    cat.items.forEach(it => {
+      const q = compraQtd(it, dias).map(([t, traduz]) => (traduz ? T(t) : t)).join(' ');
+      text += `• ${T(it.nome)}${q ? ': ' + q : ''}\n`;
+    });
     text += '\n';
   });
   return text.trim();
