@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0B0B0F">
-<script>try{if(localStorage.getItem('shape-tema')!=='escuro')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+<script>/* v110 (GH 15/11/2026): o padrão do Shape é o ESCURO; o claro só entra pra quem escolheu em Configurações */try{if(localStorage.getItem('shape-tema')==='claro')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Shape Elite">
@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '109';
+  window.APP_LANG_V = '110';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2200,6 +2200,95 @@
   .prog-foto-vazia { display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; font-size: 12px; color: var(--text-muted); }
   .prog-foto figcaption { font-size: 12px; color: var(--text-dim); text-align: center; margin-top: 5px; }
   .foto-fase-chip:disabled { opacity: .35; cursor: not-allowed; }
+  /* ══ v110 (GH 15/11/2026): VIDRO LÍQUIDO + FOTOS. "O app do Método GH tá muito bom de visual, perfeito do jeito que eu
+     quero. Copia as coisas que ele tem, tipo liquid glass. Quero deixar o Shape de Elite perfeito também" e "nos
+     exercícios coloca as thumbs e nas refs também". O que entra, igual ao Método GH (v639 a v644):
+     (1) cartão em vidro líquido: reflexo no canto de cima, luz da cor da marca no canto de baixo, borda em fio de luz e
+     sombra funda; as luzes do fundo ficam mais vivas pra atravessar o vidro enquanto a tela rola;
+     (2) miniatura de 64 px no exercício (44 px recolhido) e foto do prato na refeição, sem moldura.
+     Sem backdrop-filter em cartão (pesa no celular e prende o que é fixo dentro dele): desfoque só no que flutua.
+     Este bloco só SOBREPÕE o que vem acima: pra voltar atrás basta tirar o bloco. */
+  :root {
+    --liq-fill: radial-gradient(130% 95% at 0% 0%, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 54%), radial-gradient(115% 85% at 100% 100%, rgba(240,82,82,.11) 0%, rgba(240,82,82,0) 56%), linear-gradient(rgba(255,255,255,.035), rgba(255,255,255,.035));
+    --liq-line: rgba(255,255,255,.22);
+    --liq-rim: inset 0 1.5px 0 rgba(255,255,255,.42), inset 1px 0 0 rgba(255,255,255,.10), inset -1px 0 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(255,255,255,.14), inset 0 0 26px rgba(255,255,255,.05), inset 0 26px 34px -26px rgba(255,255,255,.16);
+    --liq-sombra: 0 18px 40px rgba(0,0,0,.42), 0 2px 6px rgba(0,0,0,.26);
+    --liq-sombra-p: 0 8px 20px rgba(0,0,0,.30), 0 1px 3px rgba(0,0,0,.22);
+  }
+  :root[data-theme="light"] {
+    --liq-fill: radial-gradient(130% 95% at 0% 0%, rgba(255,255,255,.98) 0%, rgba(255,255,255,0) 56%), radial-gradient(115% 85% at 100% 100%, rgba(255,255,255,.80) 0%, rgba(255,255,255,0) 58%), linear-gradient(rgba(255,255,255,.40), rgba(255,255,255,.40));
+    --liq-line: rgba(255,255,255,.90);
+    --liq-rim: inset 0 1.5px 0 #fff, inset 1px 0 0 rgba(255,255,255,.8), inset -1px 0 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(20,18,12,.06), inset 0 0 26px rgba(255,255,255,.5);
+    --liq-sombra: 0 16px 36px rgba(40,22,18,.14), 0 1px 3px rgba(40,22,18,.07);
+    --liq-sombra-p: 0 8px 18px rgba(40,22,18,.09), 0 1px 2px rgba(40,22,18,.06);
+  }
+  body::before { background:
+      radial-gradient(64% 42% at 8% 2%, rgba(205, 38, 38, .38) 0%, transparent 64%),
+      radial-gradient(56% 40% at 106% 26%, rgba(110, 170, 255, .17) 0%, transparent 64%),
+      radial-gradient(54% 36% at -8% 60%, rgba(205, 38, 38, .15) 0%, transparent 64%),
+      radial-gradient(60% 40% at 108% 78%, rgba(110, 170, 255, .10) 0%, transparent 64%),
+      radial-gradient(76% 46% at 50% 110%, rgba(205, 38, 38, .22) 0%, transparent 64%),
+      var(--bg); }
+  :root[data-theme="light"] body::before { background:
+      radial-gradient(64% 42% at 8% 2%, rgba(200, 40, 40, .22) 0%, transparent 64%),
+      radial-gradient(56% 40% at 106% 26%, rgba(47, 111, 214, .15) 0%, transparent 64%),
+      radial-gradient(54% 36% at -8% 60%, rgba(200, 40, 40, .11) 0%, transparent 64%),
+      radial-gradient(60% 40% at 108% 78%, rgba(47, 111, 214, .10) 0%, transparent 64%),
+      radial-gradient(76% 46% at 50% 110%, rgba(200, 40, 40, .15) 0%, transparent 64%),
+      var(--bg); }
+  /* cartões grandes: superfície, fio de luz e sombra funda */
+  .result-card, .exercise, .meal, .supl-card, .modulo-card, .ebook-card, .partner-card, .aval-card, .mgh-card, .phase-upgrade-card, .prog-card {
+    background: var(--liq-fill); border-color: var(--liq-line); box-shadow: var(--liq-rim), var(--liq-sombra);
+  }
+  .exercise, .meal, .supl-card, .result-card, .modulo-card, .mgh-card, .phase-upgrade-card { border-radius: 22px; }
+  /* faixas e barras (mais baixas): mesma superfície, sombra menor */
+  .wk-bar, .ref-prog, .prog-faixa, .conclude-bar, .mgh-banner, .grupo-faixa, .entrada-grupo, .alert-card, .option, .bf-card {
+    background: var(--liq-fill); border-color: var(--liq-line); box-shadow: var(--liq-rim), var(--liq-sombra-p);
+  }
+  .wk-bar, .ref-prog, .prog-faixa, .conclude-bar, .mgh-banner { border-radius: 18px; }
+  /* o que tem cor ou estado próprio continua com ele */
+  .exercise.done { background: var(--liq-fill); }
+  .exercise.done .exercise-head { opacity: .62; }
+  .ref.ref-agora { border-color: var(--red-line); box-shadow: var(--liq-rim), var(--liq-sombra), 0 0 0 1px rgba(240, 82, 82, .10); }
+  .recalc-card { border-color: var(--red-line); }
+  .modulo-card.done { border-color: var(--red-line); }
+  .option.selected { background: var(--red-tint); border-color: var(--red-line); }
+  .day-btn:not(.active) { background: var(--liq-fill); border-color: var(--liq-line); box-shadow: var(--liq-rim), var(--liq-sombra-p); }
+  .btn.secondary { background: var(--liq-fill); border-color: var(--liq-line); box-shadow: var(--liq-rim), var(--liq-sombra-p); }
+  .bnav { border-color: var(--liq-line); box-shadow: var(--liq-rim), 0 14px 34px rgba(0, 0, 0, .28); }
+  :root[data-theme="light"] .bnav { box-shadow: var(--liq-rim), 0 12px 30px rgba(40, 22, 18, .14); }
+
+  /* ── miniatura do exercício ── */
+  .ex-thumb { flex: 0 0 auto; width: 64px; height: 64px; padding: 0; margin: 0; border: 0; border-radius: 12px; overflow: hidden; background: #111; cursor: pointer; display: block; transition: width .18s, height .18s; }
+  .ex-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .exercise.tem-thumb .exercise-head { align-items: center; gap: 12px; }
+  .exercise.recolhido .ex-thumb { width: 44px; height: 44px; border-radius: 10px; pointer-events: none; }
+  .exercise.tem-thumb .ex-resumo { margin-left: 112px; }
+  .exercise.recolhido.tem-thumb .exercise-head { margin-bottom: 0; }
+
+  /* ── foto do prato na refeição ── */
+  .ref-foto { flex: 0 0 auto; width: 64px; height: 64px; border-radius: 12px; object-fit: cover; background: #111; display: block; transition: width .18s, height .18s; }
+  .ref-fechada .ref-foto { width: 44px; height: 44px; border-radius: 10px; }
+  .ref-feita .ref-foto { opacity: .72; }
+  .opcao-name.tem-foto { display: flex; align-items: center; gap: 10px; }
+  .op-foto { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 10px; object-fit: cover; background: #111; display: block; }
+  .mais-grade .mais-opt.larga { grid-column: 1 / -1; }
+  /* idioma: os 4 botões numa linha só também dentro do cartão de Configurações (em 375 px o Deutsch caía pra linha de baixo) */
+  .idioma-escolha { flex-wrap: nowrap; gap: 4px; }
+  .idioma-escolha button { flex: 0 1 auto; min-width: 0; padding: 6px 8px; font-size: 12px; }
+  @media (max-width: 349px) { .idioma-escolha { flex-wrap: wrap; } }
+  /* Baixar PDF e Lista de compras lado a lado: cabem numa linha no celular de 360 e 375 px */
+  .dieta-acoes .btn { font-size: 14px; padding-left: 10px; padding-right: 10px; }
+  /* o check do corpo escolhido cobria o fim do nome ("Barriga moderad✓") na tela de mês novo */
+  .phase-bf-grid .option { padding-right: 40px; }
+  .phase-bf-grid .option strong { font-size: 15px; }
+  /* tela bem estreita (320 a 349 px): foto menor pra sobrar espaço pro nome */
+  @media (max-width: 349px) {
+    .ex-thumb, .ref-foto { width: 52px; height: 52px; }
+    .dieta-acoes .btn { font-size: 12px; padding-left: 6px; padding-right: 6px; }
+  }
+  /* v110 (GH 17/11/2026): o vídeo do cartão da consultoria passou a ser o "Do Shape pro Método GH", deitado (16:9) */
+  .vsl-video { max-width: none; aspect-ratio: 16 / 9; }
 </style>
 </head>
 <body>
@@ -2735,7 +2824,7 @@
   </div>
   <div class="result-card">
     <h3>APARÊNCIA</h3>
-    <div class="unidade-escolha tema-escolha" style="margin:10px 0 0;" translate="no"><button type="button" id="tema-claro" onclick="poeTema('claro')">Claro</button><button type="button" id="tema-escuro" onclick="poeTema('escuro')">Escuro</button></div>
+    <div class="unidade-escolha tema-escolha" style="margin:10px 0 0;" translate="no"><button type="button" id="tema-escuro" onclick="poeTema('escuro')">Escuro</button><button type="button" id="tema-claro" onclick="poeTema('claro')">Claro</button></div>
   </div>
   <button type="button" class="btn" onclick="showScreen('dash-screen')">← Voltar pro treino</button>
   <a class="btn secondary" style="text-decoration:none;text-align:center;" data-suporte href="https://api.whatsapp.com/send?phone=5555999717530&text=Ol%C3%A1%2C%20sou%20aluno%20do%20Shape%20de%20Elite%20e%20preciso%20de%20suporte." target="_blank" rel="noopener">💬 Falar com o suporte no WhatsApp</a>
@@ -2774,7 +2863,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '109';
+const APP_V = '110';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -6250,10 +6339,12 @@ function renderTreino() {
       : nome;
     const done = isExerciseDone(state.currentDay, idx);
     const rest = restDisplay(ex.intervalo);
+    const thumb = exThumbHtml(url, ex.exercicio);
     return `
-      <div class="exercise${done ? ' done' : ''}${idx === aberto ? '' : ' recolhido'}" id="ex-card-${idx}" data-idx="${idx}" onclick="exCardToque(event, ${idx})">
+      <div class="exercise${done ? ' done' : ''}${idx === aberto ? '' : ' recolhido'}${thumb ? ' tem-thumb' : ''}" id="ex-card-${idx}" data-idx="${idx}" onclick="exCardToque(event, ${idx})">
         <div class="exercise-head">
           <button type="button" class="ex-check${done ? ' on' : ''}" onclick="toggleExerciseCheck(${state.currentDay}, ${idx})" aria-label="Marcar como feito: ${nome}" aria-pressed="${done ? 'true' : 'false'}">${done ? '✓' : ''}</button>
+          ${thumb}
           <div class="exercise-name">${nameHtml}</div>
           <button type="button" class="ex-fold" onclick="event.stopPropagation(); exFold(${idx})" aria-label="Abrir ou recolher: ${nome}" aria-expanded="${idx === aberto ? 'true' : 'false'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
         </div>
@@ -6873,12 +6964,16 @@ function achSave() {
 // FLOAT MENU + INSTALL MODAL
 // ═══════════════════════════════════════════════════════════
 function appInstalado() { try { return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch (e) { return false; } }
-// v101: folha "Mais" da barra de baixo e tema claro/escuro (claro é o padrão; a escolha fica em shape-tema, só neste aparelho)
+// v101: folha "Mais" da barra de baixo e tema claro/escuro (a escolha fica em shape-tema, só neste aparelho).
+// v110 (GH 15/11/2026, "padrão no shape é preto"): o padrão voltou a ser o ESCURO; claro só pra quem escolheu.
 function abreMais() {
   const inst = document.getElementById('mais-install');
   if (inst) inst.classList.toggle('hidden', typeof appInstalado === 'function' && appInstalado());
   document.getElementById('maisOverlay').classList.add('open');
   document.getElementById('bn-mais').classList.add('active');
+  // v110: com número ímpar de opções na grade (5 no Brasil), a última ocupa a linha inteira em vez de sobrar meia linha vazia
+  const vis = [...document.querySelectorAll('.mais-grade .mais-opt')].filter(o => o.offsetParent !== null);
+  vis.forEach((o, i) => o.classList.toggle('larga', i === vis.length - 1 && vis.length % 2 === 1));
 }
 function fechaMais() {
   document.getElementById('maisOverlay').classList.remove('open');
@@ -7222,6 +7317,73 @@ function escapeAttr(s) {
   return escapeHtml(String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\r?\n/g, ' '));
 }
 
+// v110 (GH 15/11, "nos exercícios coloca as thumbs e nas refs também"): miniatura do exercício, a mesma do app do
+// Método GH (um quadro do vídeo de execução, assets/thumbs/<id do vídeo>.jpg, 192 px). Tocar nela abre o vídeo, igual ao
+// nome. Exercício sem vídeo ou miniatura que não carrega fica sem foto e o cartão volta ao desenho antigo.
+function exThumbHtml(url, nome) {
+  const id = url && extractYoutubeId(url);
+  if (!id) return '';
+  return `<button type="button" class="ex-thumb" tabindex="-1" aria-hidden="true" onclick="openVideo('${escapeAttr(url)}', '${escapeAttr(nome)}')"><img src="assets/thumbs/${id}.jpg" alt="" loading="lazy" decoding="async" onerror="exThumbFalta(this)"></button>`;
+}
+function exThumbFalta(img) {
+  const b = img.closest('.ex-thumb'), c = img.closest('.exercise');
+  if (b) b.remove();
+  if (c) c.classList.remove('tem-thumb');
+}
+// Foto do prato na refeição (banco de 27 pratos do app do Método GH, assets/refs/<chave>.jpg). A foto sai da COMIDA
+// escrita na dieta, não do nome da refeição: o nome da opção manda primeiro ("Crepioca de frango" é tapioca) e, no prato
+// de almoço e jantar, vale o primeiro item de cada lista "Frango | Carne | Peixe". Lê sempre o texto em português do
+// dietas.json, então a foto é a mesma em qualquer idioma.
+function refFotoKey(refNome, opNome, alims) {
+  const n = s => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const nome = n(refNome);
+  const generico = /^(proteina|carboidrato)$/;
+  const t = n(opNome) + ' ; ' + (alims || []).map(a => {
+    const al = n(a && a.alimento);
+    return generico.test(al.trim()) ? n(String((a && a.obs) || '').split('|')[0]) : al.split('(')[0];
+  }).join(' ; ');
+  const tem = re => re.test(t);
+  const opn = n(opNome).replace(/^opcao\s*\d+[.:)\s-]*/, '');
+  if (/shake|batido|vitamina|^whey/.test(opn)) return 'shake';
+  if (/mingau/.test(opn)) return 'mingau';
+  if (/^iogurte/.test(opn)) return 'iogurte';
+  if (/crepioca|tapioca/.test(opn)) return 'tapioca';
+  if (/panqueca/.test(opn)) return 'panqueca';
+  if (/sanduiche/.test(opn)) return 'sanduiche';
+  if (/rap ?10|wrap/.test(opn)) return 'wrap';
+  if (/cuscuz/.test(opn)) return 'cuscuz';
+  if (/amendoim/.test(opn)) return 'pao_amendoim';
+  if (/ovos? cozidos?/.test(opn)) return 'ovos_cozidos';
+  if (tem(/mingau/)) return 'mingau';
+  if (tem(/cuscuz/)) return 'cuscuz';
+  if (tem(/macarr|massa|espaguete/) && !tem(/arroz/)) return 'massa';
+  const carbo = tem(/arroz/) ? 'arroz' : tem(/mandioca|aipim|macaxeira/) ? 'mandioca' : tem(/batata|inhame|abobora/) ? 'batata' : tem(/feij/) ? 'arroz' : '';
+  const prot = tem(/salm/) ? 'salmao' : tem(/peixe|tilapia|atum/) ? 'peixe' : tem(/suin|lombo|porco/) ? 'suino' : tem(/carne|patinho|bovin/) ? 'carne' : tem(/frango|\bperu\b/) ? 'frango' : '';
+  const pao = tem(/\bpao\b|torrada|sanduiche/);
+  const prato = (pr, c) => pr === 'salmao' ? 'salmao' : pr === 'peixe' ? (c === 'batata' ? 'salmao' : 'peixe_arroz') : pr === 'suino' ? 'suino'
+    : c === 'mandioca' ? 'mandioca' : pr === 'carne' ? (c === 'arroz' ? 'carne_arroz' : c === 'batata' ? 'carne_batata' : 'carne_legumes')
+    : (c === 'arroz' ? 'frango_arroz' : c === 'batata' ? 'frango_batata' : 'frango_legumes');
+  if (prot && !pao && !tem(/tapioca|rap ?10|wrap/) && (carbo || tem(/salada|legume|verdura/))) return prato(prot, carbo);
+  if (tem(/\bovos?\b|omelete|claras?\b/)) {
+    if (tem(/tapioca/)) return 'tapioca';
+    if (tem(/rap ?10|wrap/)) return 'wrap';
+    if (pao) return 'ovos_pao';
+    if (/lanche|ceia/.test(nome)) return 'ovos_cozidos';
+    return 'omelete';
+  }
+  if (tem(/tapioca/)) return 'tapioca';
+  if (tem(/rap ?10|wrap/)) return 'wrap';
+  if (pao) return (prot || tem(/queijo|requeij/)) ? 'sanduiche' : 'pretreino';
+  if (tem(/iogurte/)) return 'iogurte';
+  if (tem(/whey|shake|\bleite\b/)) return 'shake';
+  if (prot) return prato(prot, carbo);
+  if (tem(/banana|fruta/)) return 'frutas';
+  return '';
+}
+function refFotoHtml(chave, classe) {
+  return chave ? `<img class="${classe}" src="assets/refs/${chave}.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : '';
+}
+
 // Os vídeos dos exercícios são Shorts (youtube.com/shorts/ID). Sem "shorts/" aqui, nenhum abria no app:
 // o toque no nome do exercício jogava o aluno pro YouTube no meio do treino.
 function extractYoutubeId(url) {
@@ -7363,13 +7525,14 @@ function renderDieta() {
   const feitas = refFeitasHoje(key).filter(i => i < d.refeicoes.length), vista = refVista(key), daHora = refDaHora(d.refeicoes, feitas);
   const refsHtml = d.refeicoes.map((ref, ri) => {
     const obsHtml = (ref.obs || []).map(o => `<div class="meal-obs">${o}</div>`).join('');
-    const opcoesHtml = ref.opcoes.map(opc => {
+    const fotos = ref.opcoes.map(opc => refFotoKey(ref.nome, opc.nome, opc.alimentos));
+    const opcoesHtml = ref.opcoes.map((opc, oi) => {
       const foodsHtml = opc.alimentos.map(f =>
         `<div class="food"><div class="food-name">${f.alimento}</div><div class="food-qty">${f.quantidade || ''}</div>${semObs(f.obs) ? '' : `<div class="food-obs">${f.obs}</div>`}</div>`
       ).join('');
       return `
         <div class="opcao">
-          ${opc.nome && opc.nome !== 'Padrão' ? `<div class="opcao-name">${opc.nome}</div>` : ''}
+          ${opc.nome && opc.nome !== 'Padrão' ? `<div class="opcao-name${ref.opcoes.length > 1 && fotos[oi] ? ' tem-foto' : ''}">${ref.opcoes.length > 1 ? refFotoHtml(fotos[oi], 'op-foto') : ''}<span>${opc.nome}</span></div>` : ''}
           ${foodsHtml}
         </div>
       `;
@@ -7384,6 +7547,7 @@ function renderDieta() {
       <div class="meal ref${feita ? ' ref-feita' : ''}${agora ? ' ref-agora' : ''}${aberta ? '' : ' ref-fechada'}" id="ref-${ri}">
         <div class="ref-top" role="button" tabindex="0" aria-expanded="${aberta ? 'true' : 'false'}" onclick="refToque(${ri})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();refToque(${ri})}">
           <span class="ref-check" aria-hidden="true">${feita ? '✓' : ''}</span>
+          ${refFotoHtml(fotos[0], 'ref-foto')}
           <div class="ref-tit">
             <div class="meal-name">${ref.nome}</div>
             <div class="ref-sub">${feita ? '<span class="ref-ok">feita</span>' : (agora ? '<span class="ref-selo">AGORA</span>' : '')}${kcal ? `<span translate="no">${kcal} kcal</span>` : ''}</div>
@@ -7455,7 +7619,7 @@ function renderDieta() {
   c.innerHTML = `
     <h2>${escapeHtml(p.diet)}</h2>
     <p class="hint">${tot ? `${tot.kcal} kcal por dia · proteína ${tot.p} g · carboidrato ${tot.c} g · gordura ${tot.g} g` : `cerca de ${DIET_KCAL[key.replace(/_\dR$/, '')] || p.target} kcal por dia`} · ${refsLabel} · cardápio ${letraDoCardapio(p)} deste mês</p>
-    <div style="display:flex;gap:8px;margin-bottom:14px;">
+    <div class="dieta-acoes" style="display:flex;gap:8px;margin-bottom:14px;">
       <button type="button" class="btn secondary so-brasil" onclick="abrePdf('dieta')" style="margin-top:0;flex:1;">📥 Baixar PDF</button>
       <button type="button" class="btn secondary" onclick="openShoppingList()" style="margin-top:0;flex:1;">🛒 Lista de compras</button>
     </div>
