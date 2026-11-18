@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '110';
+  window.APP_LANG_V = '111';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2863,7 +2863,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '110';
+const APP_V = '111';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -4538,23 +4538,26 @@ function renderAulas() {
   if (!a) { c.innerHTML = '<div class="empty"><p>Carregando aulas...</p></div>'; return; }
 
   // Stats globais
+  // v111 (GH 18/11/2026): as 6 aulas novas. A 6 fala da consultoria, que não é vendida fora do Brasil: módulo com "soBrasil" some
+  // pra quem usa o app em outro idioma, e a contagem acompanha.
+  const mods = a.modulos.filter(m => !m.soBrasil || soBrasil());
   let totalAulas = 0, doneAulas = 0;
-  a.modulos.forEach(m => {
+  mods.forEach(m => {
     totalAulas += m.aulas.length;
     m.aulas.forEach(au => { if (isAulaDone(au.id)) doneAulas++; });
   });
   const progressPct = totalAulas ? Math.round((doneAulas / totalAulas) * 100) : 0;
 
 
-  // Injeta o card Método GH no meio da lista (depois do 5º módulo)
-  const modBlocks = a.modulos.map(m => renderModuloHtml(m));
-  const insertAfter = Math.min(5, modBlocks.length);
-  modBlocks.splice(insertAfter, 0, buildMghCard());
+  // O cartão do Método GH vem DEPOIS da última aula: a aula 6 termina dizendo "o cartão do Método GH vai estar aqui na aba AULAS".
+  const modBlocks = mods.map(m => renderModuloHtml(m));
+  modBlocks.push(buildMghCard());
   const modulosComUpsell = modBlocks.join('');
 
   c.innerHTML = `
     <h2>📚 Aulas do Shape de Elite</h2>
-    <p class="hint">${a.modulos.length} módulos · ${totalAulas} aulas no total</p>
+    <p class="hint">${mods.length} módulos · ${totalAulas} aulas no total</p>
+    ${soBrasil() ? '' : '<p class="hint">As aulas foram gravadas em português e têm legenda no teu idioma.</p>'}
 
     <div class="aulas-progress-bar">
       <div class="aulas-progress-info">

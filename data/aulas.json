@@ -2,31 +2,29 @@
   "modulos": [
     {
       "id": 1,
-      "titulo": "Bem-vindo",
+      "titulo": "Comece por aqui",
       "icone": "👋",
-      "desc": "Entende em 30 segundos como o Shape de Elite funciona.",
+      "desc": "O que o Shape faz por ti, os 4 passos do primeiro dia e onde tirar dúvida.",
       "aulas": [
         {
-          "id": "1.1",
-          "titulo": "Apresentação",
-          "youtube": "lHSIQ1eiCvU",
-          "duracao": "0:30",
-          "desc": "4 treinos novos no ano e alteração todo mês, calculadora que monta teu protocolo e treinos que evoluem contigo."
+          "id": "n1",
+          "titulo": "Como o Shape funciona e o teu primeiro dia",
+          "youtube": "EiwLttgsmOY",
+          "duracao": "2:11"
         }
       ]
     },
     {
       "id": 2,
-      "titulo": "Calculadora",
-      "icone": "🧮",
-      "desc": "Como usar a calculadora avulsa (só recalcula, não altera teu protocolo oficial).",
+      "titulo": "Treino",
+      "icone": "💪",
+      "desc": "As séries que valem, anotar e subir a carga. O app te diz quanto tentar hoje.",
       "aulas": [
         {
-          "id": "2.1",
-          "titulo": "Como usar",
-          "youtube": "UbicM_I6BNo",
-          "duracao": "0:28",
-          "desc": "Calculadora avulsa: preenche teus dados em 1 minuto e ela te mostra qual dieta e treino seriam pro perfil novo. ⚠️ Ela não altera teu protocolo dentro do app. Pra recalcular o oficial, vai na aba CALCULADORA e toca em Recalcular protocolo."
+          "id": "n2",
+          "titulo": "Treino: o que faz o músculo crescer",
+          "youtube": "W1c5-UV07MA",
+          "duracao": "2:43"
         }
       ]
     },
@@ -34,119 +32,58 @@
       "id": 3,
       "titulo": "Dieta",
       "icone": "🍽️",
-      "desc": "Como aplicar tua dieta no dia a dia.",
+      "desc": "Pesar pronto, opção inteira, refeição livre, bebida zero e fim de semana.",
       "aulas": [
         {
-          "id": "3.1",
-          "titulo": "Ler, trocar e ajustar",
-          "youtube": "EVK2E1UKfNY",
-          "duracao": "0:55",
-          "desc": "Como ler tua dieta, fazer trocas de alimentos (igualadas em caloria), seguir a ordem do prato e ajustar toda semana pelo peso e pela cintura."
+          "id": "n3",
+          "titulo": "Dieta: os 5 detalhes onde o resultado se perde",
+          "youtube": "wEawcV3VtMg",
+          "duracao": "2:08"
         }
       ]
     },
     {
       "id": 4,
-      "titulo": "Treino",
-      "icone": "💪",
-      "desc": "Como executar e progredir teu treino. PDFs do treino estão na aba TREINO.",
+      "titulo": "Cardio, sono e suplemento",
+      "icone": "💊",
+      "desc": "O cardio do teu objetivo, água, sono e o básico da suplementação.",
       "aulas": [
         {
-          "id": "4.1",
-          "titulo": "Execução e progressão",
-          "youtube": "13ZHD-AEfOs",
-          "duracao": "1:18",
-          "desc": "Cadência 1s subindo / 2-3s controlando a descida, padrão de séries, aquecimento inteligente e a regra sagrada: anota a carga da última série, porque ela é a meta da próxima semana."
+          "id": "n4",
+          "titulo": "Cardio, sono e suplemento: o que faz a base render",
+          "youtube": "9caPzQqwF9g",
+          "duracao": "1:41"
         }
       ]
     },
     {
       "id": 5,
-      "titulo": "Suplementos",
-      "icone": "💊",
-      "desc": "O que tomar, dose e horário.",
+      "titulo": "Progresso",
+      "icone": "📈",
+      "desc": "Peso, cintura e foto na aba Progresso, a virada do mês e o que conferir se o peso parar.",
       "aulas": [
         {
-          "id": "5.1",
-          "titulo": "Suplementação",
-          "youtube": "k-qSqukxV8U",
-          "duracao": "0:40",
-          "desc": "Multivitamínico, enzimas digestivas (por objetivo), ômega 3, magnésio, cafeína e creatina. Dose exata, horário certo e a regra do \"compra isolado, nunca em combo\"."
+          "id": "n5",
+          "titulo": "Como saber se tá funcionando",
+          "youtube": "PzwSRyPwXiI",
+          "duracao": "2:31"
         }
       ]
     },
     {
       "id": 6,
-      "titulo": "Progresso",
-      "icone": "📈",
-      "desc": "Como medir e acompanhar tua evolução.",
+      "titulo": "Próximo nível",
+      "icone": "🚀",
+      "desc": "A diferença entre personalizado e individualizado, e pra quem a consultoria faz sentido.",
       "aulas": [
         {
-          "id": "6.1",
-          "titulo": "Como medir a evolução",
-          "youtube": "Ykc55rcVKNo",
-          "duracao": "0:42",
-          "desc": "Os 3 termômetros de verdade (balança, fita métrica e foto) e os 5 checks obrigatórios antes de cortar caloria."
+          "id": "n6",
+          "titulo": "O próximo nível: um protocolo só teu",
+          "youtube": "jlDrrpXHet8",
+          "duracao": "1:43"
         }
-      ]
-    },
-    {
-      "id": 7,
-      "titulo": "Trocas e platôs",
-      "icone": "🔄",
-      "desc": "O que fazer quando travar a evolução.",
-      "aulas": [
-        {
-          "id": "7.1",
-          "titulo": "Treino novo a cada 3 meses",
-          "youtube": "Ped0WA8e5m0",
-          "duracao": "0:26",
-          "desc": "A regra sagrada: a cada 3 meses tu começa um treino novo, da versão 1.0 até a 4.0. Entre um e outro, todo mês o treino muda a forma de treinar e a dieta troca de cardápio, recalculada pelo teu peso."
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "titulo": "Suporte",
-      "icone": "💬",
-      "desc": "Como falar comigo e tirar dúvidas.",
-      "aulas": [
-        {
-          "id": "8.1",
-          "titulo": "Dúvida? Chama no Whats!",
-          "youtube": "tJY3_dE_3kw",
-          "desc": "Travou em alguma parte do método? Tem ajuste de quantidade pra fazer? Chama no WhatsApp do Shape: um WhatsApp inteligente, que responde na hora."
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "titulo": "Resultados",
-      "icone": "🏆",
-      "desc": "Último vídeo e o próximo passo.",
-      "aulas": [
-        {
-          "id": "9.1",
-          "titulo": "Te espero do outro lado!",
-          "youtube": "4gyUDCwWVSQ",
-          "desc": "Último vídeo do curso. Onde a história continua.",
-          "complemento": {
-            "titulo": "Quer ir além? A consultoria individual é o próximo nível:",
-            "items": [
-              "Suporte direto comigo",
-              "Protocolo 100% personalizado",
-              "Plataforma de treino e dieta",
-              "Vídeos instrutivos com um toque",
-              "Espaço pra registro de carga e evolução",
-              "Interpretação de exames e suplementação 100% individualizada",
-              "Ajustes finos sempre que necessário",
-              "Atualizações a cada 30 dias, com anamnese pra reajuste e feedback"
-            ],
-            "cta_label": "Ficou interessado? Chama aqui",
-            "cta_link": "https://wa.me/555520130783?text=E%20a%C3%AD%20GH%2C%20vim%20do%20Shape%20de%20Elite%20e%20quero%20saber%20mais%20sobre%20a%20consultoria%20individual."
-          }
-        }
-      ]
+      ],
+      "soBrasil": true
     }
   ]
 }
