@@ -12,8 +12,12 @@
   PDF do aluno (revisão 11/2026). Os PDFs fixos não davam conta do mês do bloco, do nível e das trocas de exercício:
   o app manda aqui, no endereço (#...), o que está na tela dele, e esta página monta as folhas com a mesma cara dos
   PDFs antigos (app-tools/gen_treinos_html.mjs, gen_dietas_html.mjs, gen_suplementos_html.mjs). "Salvar em PDF"
-  abre a impressão do aparelho, que salva em PDF. Só em português, como os PDFs antigos (botões so-brasil no app).
-    #{"tipo":"treino", titulo, sub, aviso, dias:[{nome, resumo, exercicios:[{exercicio, series, reps, intervalo, obs, video_url, original}]}], extras}
+  abre a impressão do aparelho, que salva em PDF.
+  Idioma (v112, GH 18/11/2026: "PDFs em inglês"): o app manda "lang" junto; fora do português esta página carrega o MESMO
+  dicionário do app (i18n/<lang>.js) e troca o texto das folhas, pedaço por pedaço, como o tradutor do app faz na tela.
+  Frase nova aqui = linha em app-tools/i18n/telas.txt (e de/telas.txt). Em português o tradutor nem liga.
+  SEP (comentário vazio) separa pedaços que são traduzidos sozinhos; translate="no" = não traduz (marca, D1).
+    #{"tipo":"treino", lang, titulo, sub, aviso, dias:[{nome, resumo, exercicios:[{exercicio, series, reps, intervalo, obs, video_url, original}]}], extras}
     #{"tipo":"dieta", key, nome, objetivo, whey}       lê data/dietas.json
     #{"tipo":"supl", objetivo, sexo, idade}            lê data/suplementos.json, filtra como a aba do app
 -->
@@ -135,13 +139,14 @@
 <div class="folhas" id="folhas"></div>
 <script>
 'use strict';
-var V = '111';
+var V = '112';
 var esc = function (t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
 var semTraco = function (t) { return String(t == null ? '' : t).replace(/\s*[\u2014\u2013]\s*/g, ', '); };
-var brand = '<div class="brand"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>';
+var SEP = '<!---->'; // corta o texto em pedaços que o tradutor troca um por um
+var brand = '<div class="brand" translate="no"><span>SHAPE DE <b>ELITE</b></span><span>MÉTODO GH · @gh.scheuermann</span></div>';
 var folha = function (miolo) { return '<div class="page">' + miolo + brand + '</div>'; };
 function volta() { if (history.length > 1) history.back(); else { try { window.close(); } catch (e) {} location.href = './'; } }
-function erro(msg) { document.getElementById('folhas').innerHTML = '<div class="erro">' + esc(msg) + '</div>'; }
+function erro(msg) { document.getElementById('folhas').innerHTML = '<div class="erro">' + esc(msg) + '</div>'; traduz(); }
 
 // texto com linhas "•" vira lista, linha MAIÚSCULA curta vira subtítulo (igual aos PDFs antigos)
 function corpo(txt) {
@@ -156,7 +161,14 @@ function corpo(txt) {
 }
 // blocos separados por linha em branco, o primeiro de cada um como título (orientações da dieta)
 function caixas(txt) {
-  return String(txt || '').split(/\n\s*\n/).map(function (b) {
+  // título sozinho seguido de bloco só de itens ("Ordem de comer o prato:" + linha em branco + lista) é uma caixa só
+  var blocos = [];
+  String(txt || '').split(/\n\s*\n/).forEach(function (b) {
+    var ant = blocos[blocos.length - 1];
+    if (ant && ant.trim().indexOf('\n') < 0 && ant.trim().charAt(0) !== '•' && b.trim().charAt(0) === '•') blocos[blocos.length - 1] = ant.trim() + '\n' + b;
+    else blocos.push(b);
+  });
+  return blocos.map(function (b) {
     var linhas = b.trim().split('\n'); if (!linhas[0]) return '';
     var titulo = linhas[0].trim().charAt(0) !== '•' ? linhas.shift().trim().replace(/:$/, '') : '';
     return '<div class="box">' + (titulo ? '<div class="bt">' + esc(titulo) + '</div>' : '') + corpo(linhas.join('\n')) + '</div>';
@@ -173,16 +185,16 @@ function treino(d) {
     + '<p class="sub">Roda os dias na ordem, anota a carga da última série de cada exercício e respeita os descansos. O treino muda a cada 30 dias: no 2º mês do bloco mais pesado, no 3º mais volume, e a cada 3 meses um treino novo.</p>'
     + (d.aviso ? '<div class="semana"><div class="t">Este mês</div><div class="sem-nota" style="margin-top:0;color:var(--tx);font-size:10.5pt;">' + esc(semTraco(d.aviso)) + '</div></div>' : '')
     + '<div class="semana"><div class="t">Ordem da semana</div>'
-    + dias.map(function (x, i) { return '<div class="sem-row"><div class="sem-d">D' + (i + 1) + '</div><div>' + esc(x.resumo || x.nome) + '</div></div>'; }).join('')
+    + dias.map(function (x, i) { return '<div class="sem-row"><div class="sem-d" translate="no">D' + (i + 1) + '</div><div>' + esc(x.resumo || x.nome) + '</div></div>'; }).join('')
     + '<div class="sem-nota">Toca no nome de qualquer exercício pra abrir o vídeo de execução.</div></div>';
   var paginas = [folha(capa)];
   dias.forEach(function (x, i) {
     var exs = x.exercicios || [], temObs = exs.some(function (e) { return e.obs; });
     var partes = exs.length > 9 ? [exs.slice(0, Math.ceil(exs.length / 2)), exs.slice(Math.ceil(exs.length / 2))] : [exs];
     partes.forEach(function (lista, pi) {
-      paginas.push(folha('<div class="dia-kick">' + esc(d.titulo) + ' · ' + esc(d.sub) + '</div>'
-        + '<h2>' + esc(x.nome) + (x.resumo ? '<span> · ' + esc(x.resumo) + '</span>' : '') + (partes.length > 1 ? ' <span>(' + (pi + 1) + '/2)</span>' : '') + '</h2>'
-        + '<div class="dia-sub">' + exs.length + ' exercícios · toca no nome do exercício pra abrir o vídeo</div>'
+      paginas.push(folha('<div class="dia-kick">' + esc(d.titulo) + SEP + ' · ' + SEP + esc(d.sub) + '</div>'
+        + '<h2>' + esc(x.nome) + (x.resumo ? '<span> · ' + SEP + esc(x.resumo) + '</span>' : '') + (partes.length > 1 ? ' <span>(' + (pi + 1) + '/2)</span>' : '') + '</h2>'
+        + '<div class="dia-sub">' + exs.length + ' exercícios' + SEP + ' · ' + SEP + 'toca no nome do exercício pra abrir o vídeo</div>'
         + '<div class="tbl"><table><tr><th>Exercício</th><th class="c">Séries</th><th>Repetições</th><th>Descanso</th>' + (temObs ? '<th>Como fazer</th>' : '') + '</tr>'
         + lista.map(function (e) {
           var nome = esc(e.exercicio), url = e.video_url;
@@ -195,10 +207,10 @@ function treino(d) {
     });
   });
   if (d.extras && d.extras.length) {
-    paginas.push(folha('<div class="dia-kick">Leitura obrigatória</div><h2>Como executar <span>cada série</span></h2><div class="dia-sub"></div>'
+    paginas.push(folha('<div class="dia-kick">Leitura obrigatória</div><h2 data-t="Como executar cada série">Como executar <span>cada série</span></h2><div class="dia-sub"></div>'
       + d.extras.map(function (x) { return '<div class="box"><div class="bt">' + esc(x.titulo) + '</div>' + corpo(x.conteudo) + '</div>'; }).join('')));
   }
-  document.title = d.titulo + ' · ' + d.sub + ' · Shape de Elite';
+  document.title = T(d.titulo) + ' · ' + T(d.sub) + ' · Shape de Elite';
   return paginas.join('');
 }
 
@@ -227,10 +239,10 @@ function dieta(p, D) {
   var letra = d.cardapio || 'A', cardio = d.cardio && p.objetivo ? d.cardio[p.objetivo] : null;
   var capa = '<div class="kick">Shape de Elite · Protocolo Alimentar</div>'
     + '<h1>' + esc(p.nome || 'Dieta') + '</h1>'
-    + '<div class="fase">Cardápio ' + esc(letra) + ' · ' + nRef + '</div><div class="rule"></div>'
+    + '<div class="fase">Cardápio ' + esc(letra) + SEP + ' · ' + SEP + nRef + '</div><div class="rule"></div>'
     + '<p class="sub">' + esc(d.kcal) + ' kcal por dia em ' + nRef + '. Escolhe entre as opções de cada refeição: elas têm as mesmas calorias. Hidratação: 3 a 5 litros de água por dia. Todo mês o cardápio troca e as calorias são recalculadas pelo teu peso.</p>'
-    + '<div style="margin-top:8mm;"><div class="box"><div class="bt">Regras gerais</div>' + corpo(d.regras_gerais) + '</div>'
-    + (cardio ? '<div class="box"><div class="bt">Cardio · ' + esc(cardio.frequencia) + ' · ' + esc(cardio.duracao) + '</div><p>' + esc(cardio.detalhe) + '</p></div>' : '')
+    + '<div class="grupo" style="margin-top:8mm;"><div class="box"><div class="bt">Regras gerais</div>' + corpo(d.regras_gerais) + '</div>'
+    + (cardio ? '<div class="box"><div class="bt">Cardio' + SEP + ' · ' + SEP + esc(cardio.frequencia) + SEP + ' · ' + SEP + esc(cardio.duracao) + '</div><p>' + esc(cardio.detalhe) + '</p></div>' : '')
     + (p.whey ? '<div class="box"><div class="bt">Whey a mais</div><p>Pro teu peso, a proteína desta dieta fica um pouco curta. Toma 1 dose de whey (30 g) a mais por dia, num lanche ou depois do treino, além do que já está no cardápio.</p></div>' : '')
     + '</div>';
   var paginas = [folha(capa)];
@@ -246,9 +258,9 @@ function dieta(p, D) {
       + (mac ? '<div class="ref-macros"><div class="ref-macros-t">' + (r.opcoes.length > 1 ? 'Macros da refeição, em qualquer opção' : 'Macros da refeição') + '</div>' + barra(mac) + '</div>' : '')
       + (ultima && tot ? '<div class="total"><div class="t">Total do dia</div>' + barra(tot) + '</div>' : '')));
   });
-  if (d.estilo_vida) paginas.push(folha('<div class="ref-kick">Pra dieta render</div><h2>Orientações de <span>estilo de vida</span></h2><div class="ref-note"></div>' + caixas(d.estilo_vida)));
-  if (d.alimentares) paginas.push(folha('<div class="ref-kick">Pra dieta render</div><h2>Orientações <span>alimentares</span></h2><div class="ref-note"></div>' + caixas(d.alimentares)));
-  document.title = (p.nome || 'Dieta') + ' · Cardápio ' + letra + ' · Shape de Elite';
+  if (d.estilo_vida) paginas.push(folha('<div class="ref-kick">Pra dieta render</div><h2 data-t="Orientações de estilo de vida">Orientações de <span>estilo de vida</span></h2><div class="ref-note"></div>' + caixas(d.estilo_vida)));
+  if (d.alimentares) paginas.push(folha('<div class="ref-kick">Pra dieta render</div><h2 data-t="Orientações alimentares">Orientações <span>alimentares</span></h2><div class="ref-note"></div>' + caixas(d.alimentares)));
+  document.title = T(p.nome || 'Dieta') + ' · ' + T('Cardápio ' + letra) + ' · Shape de Elite';
   return paginas.join('');
 }
 
@@ -262,11 +274,11 @@ function supl(p, S) {
     return true;
   });
   var capa = '<div class="kick">Shape de Elite · Material Oficial</div>'
-    + '<h1>Manual de <span>Suplementação</span></h1><div class="rule"></div>'
+    + '<h1 data-t="Manual de Suplementação">Manual de <span>Suplementação</span></h1><div class="rule"></div>'
     + '<p class="sub">' + esc(S.subtitulo) + '</p>'
     + '<div class="semana"><div class="t">Antes de abrir o primeiro pote</div><div class="sem-nota" style="margin-top:0;color:var(--tx);font-size:11pt;">' + esc(semTraco(S.intro)) + '</div></div>'
     + '<div class="semana"><div class="t">Os teus ' + potes.length + ' suplementos</div>'
-    + potes.map(function (x) { return '<div class="sem-row"><div class="sem-d">' + x.icone + '</div><div>' + esc(x.nome) + ' · ' + esc(x.dose) + '</div></div>'; }).join('') + '</div>';
+    + potes.map(function (x) { return '<div class="sem-row"><div class="sem-d">' + x.icone + '</div><div>' + esc(x.nome) + SEP + ' · ' + SEP + esc(x.dose) + '</div></div>'; }).join('') + '</div>';
   var paginas = [folha(capa)];
   for (var i = 0; i < potes.length; i += 3) {
     paginas.push(folha(potes.slice(i, i + 3).map(function (x) {
@@ -277,23 +289,156 @@ function supl(p, S) {
         + (x.cuidados ? '<div class="sec warn"><div class="sec-k">Cuidados</div><div class="sec-v">' + esc(semTraco(x.cuidados)) + '</div></div>' : '') + '</div>';
     }).join('')));
   }
-  if (S.rodape) paginas.push(folha('<h2>A regra <span>de ouro</span></h2><div class="ref-note"></div><div class="box"><div class="bt">Como comprar</div><p>' + esc(semTraco(S.rodape)) + '</p></div>'
+  if (S.rodape) paginas.push(folha('<h2 data-t="A regra de ouro">A regra <span>de ouro</span></h2><div class="ref-note"></div><div class="box"><div class="bt">Como comprar</div><p>' + esc(semTraco(S.rodape)) + '</p></div>'
     + '<div class="box"><div class="bt">Como usar este manual</div><p>Suplemento é acelerador, não fundação. A base do teu resultado é a dieta e o treino do app. Segue as doses daqui, nos horários daqui, e deixa o resto do trabalho com o protocolo.</p></div>'));
-  document.title = 'Manual de Suplementação · Shape de Elite';
+  document.title = T('Manual de Suplementação') + ' · Shape de Elite';
   return paginas.join('');
 }
 
-(function () {
-  var p;
-  try { p = JSON.parse(decodeURIComponent(location.hash.slice(1))); } catch (e) { p = null; }
+// ─── IDIOMA ───
+// Mesmo tradutor do app (index.html, T): frase exata, sem diferenciar maiúscula, linha a linha, depois regra.
+var I18N = { on: false, ex: {}, exi: {}, rx: [], faltas: [] };
+function i18nLiga(dic) {
+  if (!dic) return;
+  for (var k in dic.exato || {}) { var c = k.replace(/\s+/g, ' ').trim(); I18N.ex[c] = dic.exato[k]; if (!(c.toLowerCase() in I18N.exi)) I18N.exi[c.toLowerCase()] = dic.exato[k]; }
+  I18N.rx = (dic.regras || []).map(function (r) {
+    var para = r[1];
+    return [new RegExp('^' + r[0] + '$', 'u'), function () { var m = arguments; return para.replace(/\{(\d)\}|\$(\d)/g, function (_, t, c) { return t ? T(m[+t] || '') : (m[+c] || ''); }); }];
+  });
+  I18N.on = true;
+}
+function T(s) {
+  if (!I18N.on || s == null) return s;
+  var str = String(s), m = /^(\s*)([\s\S]*?)(\s*)$/.exec(str), miolo = m[2];
+  if (!miolo || !/\p{L}/u.test(miolo)) return str;
+  var chave = miolo.replace(/[ \t\r\f\v ]+/g, ' ').replace(/ ?\n ?/g, '\n'), plana = chave.replace(/\s+/g, ' ');
+  var t = Object.prototype.hasOwnProperty.call(I18N.ex, plana) ? I18N.ex[plana] : undefined;
+  if (t === undefined && Object.prototype.hasOwnProperty.call(I18N.exi, plana.toLowerCase())) { var ti = I18N.exi[plana.toLowerCase()]; t = plana === plana.toUpperCase() ? ti.toUpperCase() : ti; }
+  // linha de lista: aqui o "•" vira bolinha do <li>, e no dicionário a frase está guardada com ele na frente
+  if (t === undefined && Object.prototype.hasOwnProperty.call(I18N.ex, '• ' + plana)) t = I18N.ex['• ' + plana].replace(/^•\s*/, '');
+  // título de caixa: aqui ele perde os dois-pontos do fim, e no dicionário está guardado com eles
+  if (t === undefined && Object.prototype.hasOwnProperty.call(I18N.ex, plana + ':')) t = I18N.ex[plana + ':'].replace(/:$/, '');
+  if (t === undefined && /\n/.test(chave)) t = chave.split('\n').map(function (l) { return T(l); }).join('\n');
+  if (t === undefined) for (var i = 0; i < I18N.rx.length; i++) { if (I18N.rx[i][0].test(chave)) { t = chave.replace(I18N.rx[i][0], I18N.rx[i][1]); break; } }
+  if (t === undefined) { if (I18N.faltas.indexOf(chave) < 0) I18N.faltas.push(chave); return str; }
+  return m[1] + t + m[3];
+}
+// troca o texto de tudo que está na página (barra, folhas, aviso de erro); o que tem translate="no" fica
+function traduz(raiz) {
+  if (!I18N.on) return;
+  // título com destaque (data-t = a frase inteira): traduz a frase toda e põe a última palavra em destaque
+  (raiz || document.body).querySelectorAll('[data-t]').forEach(function (el) {
+    var t = String(T(el.getAttribute('data-t'))), i = t.lastIndexOf(' ');
+    el.innerHTML = i > 0 ? esc(t.slice(0, i)) + ' <span>' + esc(t.slice(i + 1)) + '</span>' : esc(t);
+    el.setAttribute('translate', 'no'); el.removeAttribute('data-t');
+  });
+  var w = document.createTreeWalker(raiz || document.body, NodeFilter.SHOW_TEXT), n, lista = [];
+  while ((n = w.nextNode())) lista.push(n);
+  lista.forEach(function (x) {
+    var pai = x.parentNode;
+    if (!pai || pai.nodeName === 'SCRIPT' || pai.nodeName === 'STYLE' || (pai.closest && pai.closest('[translate="no"]'))) return;
+    var t = T(x.nodeValue); if (t !== x.nodeValue) x.nodeValue = t;
+  });
+}
+
+// ─── PAGINAÇÃO ───
+// A folha tem altura fixa e corta o que passa do rodapé: texto longo (o "Leitura obrigatória" do treino, 3 suplementos
+// com dose comprida, refeição com 3 opções, qualquer idioma mais comprido que o português) sumia do PDF. Depois de montar
+// e traduzir, cada folha é medida. Faltou pouco: o miolo encolhe até 10%. Faltou mais: os blocos de baixo descem pra
+// folha seguinte (suplemento vai pra folha de suplementos que vem depois; o resto ganha folha nova), e bloco maior que
+// a folha é dividido pelas linhas dele. Conferência: app-tools/testa_pdf_idiomas.mjs mede toda folha de todo PDF.
+var BLOCO = /(^| )(box|pote|opt|total|ref-macros|grid2|semana|tbl|grupo|video-hint)( |$)/;
+function divide(el, lim) {
+  var ehTbl = /(^| )tbl( |$)/.test(el.className), cont = ehTbl ? el.querySelector('tbody') : el;
+  if (!cont) return null;
+  var nova = el.cloneNode(false), contN = nova;
+  if (ehTbl) { nova = el.cloneNode(true); contN = nova.querySelector('tbody'); while (contN.children.length > 1) contN.removeChild(contN.lastChild); }
+  var titulo = cont.firstElementChild && /(^| )(bt|t)( |$)/.test(cont.firstElementChild.className);
+  var min = ehTbl || titulo ? 2 : 1, moveu = false; // o que fica na folha: o título (ou o cabeçalho da tabela) e mais um
+  var passa = function () { return el.getBoundingClientRect().bottom > lim; };
+  var desce = function (x) { contN.insertBefore(x, ehTbl ? (contN.children[1] || null) : contN.firstChild); moveu = true; };
+  while (cont.children.length > min && passa()) {
+    var u = cont.lastElementChild;
+    if (u.tagName === 'UL' && u.children.length > 1) { // lista: desce item por item
+      var ulN = document.createElement('ul');
+      while (u.children.length > 1 && passa()) ulN.insertBefore(u.lastElementChild, ulN.firstChild);
+      desce(ulN);
+      if (!passa()) break;
+      ulN.insertBefore(u.lastElementChild, ulN.firstChild); cont.removeChild(u); continue;
+    }
+    desce(u);
+  }
+  // subtítulo não fica sozinho no pé da folha
+  if (moveu && cont.children.length > min && /(^| )sh( |$)/.test(cont.lastElementChild.className)) desce(cont.lastElementChild);
+  return moveu ? nova : null;
+}
+function ajusta(raiz) {
+  var pgs = [].slice.call((raiz || document).querySelectorAll('.page'));
+  var cls = function (c, re) { return re.test(c.className || ''); };
+  for (var i = 0; i < pgs.length && i < 300; i++) {
+    var pg = pgs[i], rod = pg.querySelector('.brand');
+    if (!rod) continue;
+    var lim = rod.getBoundingClientRect().top - 10;
+    var itens = [].filter.call(pg.children, function (c) { return c !== rod; });
+    if (!itens.length) continue;
+    var fim = function () { return itens[itens.length - 1].getBoundingClientRect().bottom; };
+    if (fim() <= lim) continue;
+    var topo = itens[0].getBoundingClientRect().top, razao = (lim - topo) / (fim() - topo);
+    if (razao >= 0.9) { // faltou pouco: encolhe o miolo
+      for (var t = 0, z = razao; t < 5 && fim() > lim; t++, z -= 0.015) itens.forEach(function (c) { c.style.zoom = z.toFixed(3); });
+      if (fim() <= lim) continue;
+      itens.forEach(function (c) { c.style.zoom = ''; });
+    }
+    var sobra = [];
+    while (itens.length > 1 && fim() > lim) {
+      var u = itens[itens.length - 1];
+      if (!cls(u, BLOCO)) break;
+      if (itens.slice(0, -1).some(function (c) { return cls(c, BLOCO); })) { sobra.unshift(u); pg.removeChild(u); itens.pop(); continue; }
+      var resto = divide(u, lim); // é o único bloco da folha e não cabe
+      if (resto) sobra.unshift(resto);
+      break;
+    }
+    if (!sobra.length) continue;
+    var POTE = /(^| )pote( |$)/, prox = pgs[i + 1], destino, antesDe;
+    if (sobra.every(function (c) { return cls(c, POTE); }) && prox && [].every.call(prox.children, function (c) { return cls(c, /(^| )(pote|brand)( |$)/); })) { destino = prox; antesDe = prox.firstChild; }
+    else {
+      destino = document.createElement('div'); destino.className = 'page'; destino.innerHTML = brand;
+      antesDe = destino.firstChild;
+      var cab = pg.querySelector('.dia-kick, .ref-kick'); if (cab) destino.insertBefore(cab.cloneNode(true), antesDe);
+      pg.parentNode.insertBefore(destino, pg.nextSibling); pgs.splice(i + 1, 0, destino);
+    }
+    sobra.forEach(function (c) { destino.insertBefore(c, antesDe); });
+  }
+}
+// põe as folhas na página: traduz, pagina, e pagina de novo quando a fonte termina de carregar (a largura do texto muda)
+function mostra(h) {
+  document.getElementById('folhas').innerHTML = h;
+  traduz(); ajusta();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ajusta(); });
+}
+
+function monta(p) {
   if (!p || !p.tipo) { erro('Abre o PDF pelo app do Shape de Elite: o botão de baixar fica no treino, na dieta e nos suplementos.'); return; }
-  var el = document.getElementById('folhas');
-  if (p.tipo === 'treino') { el.innerHTML = treino(p); return; }
+  if (p.tipo === 'treino') { mostra(treino(p)); return; }
   var arq = p.tipo === 'dieta' ? 'dietas' : 'suplementos';
   fetch('data/' + arq + '.json?v=' + V).then(function (r) { return r.json(); }).then(function (D) {
     var h = p.tipo === 'dieta' ? dieta(p, D) : supl(p, D);
-    if (!h) erro('Não achei essa dieta. Volta pro app e toca de novo em baixar.'); else el.innerHTML = h;
+    if (!h) erro('Não achei essa dieta. Volta pro app e toca de novo em baixar.'); else mostra(h);
   }).catch(function () { erro('Sem conexão pra montar o PDF agora. Tenta de novo com internet.'); });
+}
+(function () {
+  var p;
+  try { p = JSON.parse(decodeURIComponent(location.hash.slice(1))); } catch (e) { p = null; }
+  // idioma: o que o app mandou; sem isso, a escolha guardada no aparelho (a mesma chave do app)
+  var L = p && p.lang;
+  if (!L) { try { L = localStorage.getItem('shape_lang'); } catch (e) {} }
+  if (['en', 'es', 'de'].indexOf(L) < 0) { monta(p); return; }
+  document.documentElement.lang = L;
+  var s = document.createElement('script');
+  s.src = 'i18n/' + L + '.js?v=' + V;
+  s.onload = function () { i18nLiga(window.I18N_DIC); monta(p); };
+  s.onerror = function () { monta(p); }; // sem o dicionário sai em português, melhor que não sair
+  document.head.appendChild(s);
 })();
 </script>
 </body>
