@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '112';
+  window.APP_LANG_V = '113';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2161,6 +2161,22 @@
   .prog-faixa .pf-txt .pt { opacity: .5; margin: 0 5px; }
   .prog-faixa .pf-txt em { display: block; font-style: normal; font-weight: 700; color: var(--red-text); margin-top: 1px; }
   .prog-faixa .pf-seta { font-size: 22px; color: var(--text-muted); line-height: 1; }
+  /* v113: explicação geral das séries (aquecimento, ajuste e válidas). Intensidade pelo preenchimento: vazado apagado, vazado vermelho, cheio */
+  .series-faixa .sf-ic { font-size: 20px; line-height: 1; flex-shrink: 0; }
+  .series-faixa .pf-txt span { display: block; }
+  .series-faixa .sf-novo { width: 9px; height: 9px; border-radius: 50%; background: var(--red-text); flex-shrink: 0; }
+  .st-tipo { padding: 13px 0; border-top: 1px solid var(--glass-line, var(--border)); }
+  .st-topo { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .st-chip { display: inline-block; padding: 4px 11px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; border: 1.5px solid var(--text-muted); color: var(--text-dim); white-space: nowrap; }
+  .st-chip.aj { border-color: var(--red-text); color: var(--red-text); }
+  .st-chip.val { border-color: var(--red); background: var(--red); color: #fff; }
+  .st-carga { font-size: 12px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+  .st-tipo p, .st-sec p { font-size: 13.5px; line-height: 1.5; color: var(--text-dim); margin: 0; }
+  .st-sec { padding: 13px 0 0; border-top: 1px solid var(--glass-line, var(--border)); margin-top: 13px; }
+  .st-sec-t { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .st-ex { display: grid; grid-template-columns: 22px auto 1fr; gap: 8px 10px; align-items: center; margin-bottom: 10px; }
+  .st-ex .n { font-size: 12px; font-weight: 800; color: var(--text-muted); text-align: center; }
+  .st-ex .c { font-size: 12.5px; color: var(--text-dim); text-align: right; }
   .prog-dots { display: inline-flex; gap: 4px; flex-shrink: 0; }
   .prog-dots i { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 10px; font-weight: 800; color: var(--text-muted); background: var(--poco, var(--bg)); border: 1px solid var(--glass-line, var(--border)); }
   .prog-dots i.on { background: var(--red); border-color: var(--red); color: #fff; }
@@ -2673,6 +2689,45 @@
   </div>
 </div>
 
+<!-- Explicação geral das séries: aquecimento, ajuste e válidas (GH 18/11/2026). Cada parágrafo é um texto só, sem negrito no meio, pra tradução casar a frase inteira -->
+<div class="install-modal" id="series-modal" style="z-index:90;" onclick="if(event.target.id==='series-modal')fechaSeries()">
+  <div class="install-modal-box" style="max-width:520px;max-height:88vh;overflow-y:auto;" onclick="event.stopPropagation()">
+    <h3>Como funcionam as séries</h3>
+    <p class="hint" style="margin-bottom:12px;">4 séries não são 4 vezes a mesma coisa. Cada série tem um papel: as primeiras preparam, as últimas fazem o músculo crescer.</p>
+    <div class="st-tipo">
+      <div class="st-topo"><span class="st-chip aq">Aquecimento</span><span class="st-carga">carga leve</span></div>
+      <p>Prepara a articulação e o movimento pro peso que vem depois. Não é pra cansar: tem que terminar fácil.</p>
+    </div>
+    <div class="st-tipo">
+      <div class="st-topo"><span class="st-chip aj">Ajuste</span><span class="st-carga">carga média</span></div>
+      <p>É pra tu sentir o peso e deixar o corpo pronto pra carga pesada, sem gastar energia. Também termina fácil, de propósito.</p>
+    </div>
+    <div class="st-tipo">
+      <div class="st-topo"><span class="st-chip val">Válidas</span><span class="st-carga">carga pesada</span></div>
+      <p>São as que valem. Vai até quase não conseguir fazer mais nenhuma repetição, dentro da faixa do exercício. É nelas que o músculo cresce.</p>
+    </div>
+    <div class="st-sec">
+      <div class="st-sec-t">Exemplo: 4X de 8 a 12</div>
+      <div class="st-ex">
+        <span class="n">1</span><span class="st-chip aq">Aquecimento</span><span class="c">carga leve</span>
+        <span class="n">2</span><span class="st-chip aj">Ajuste</span><span class="c">carga média</span>
+        <span class="n">3</span><span class="st-chip val">Válida</span><span class="c">carga pesada</span>
+        <span class="n">4</span><span class="st-chip val">Válida</span><span class="c">carga pesada</span>
+      </div>
+      <p>A carga sobe de uma série pra outra. As repetições ficam dentro da faixa.</p>
+    </div>
+    <div class="st-sec">
+      <div class="st-sec-t">O músculo já trabalhou hoje?</div>
+      <p>No primeiro exercício de um músculo no dia, a 1ª série é sempre leve. Se o músculo já trabalhou hoje, pula a leve e começa na carga média.</p>
+    </div>
+    <div class="st-sec">
+      <div class="st-sec-t">O que anotar</div>
+      <p>Anota a carga e as repetições de todas as séries. A que mede a tua evolução é a válida: a carga da última série é a meta pra bater no próximo treino.</p>
+    </div>
+    <button class="btn" onclick="fechaSeries()" style="margin-top:16px;">Entendi</button>
+  </div>
+</div>
+
 <!-- Timer modal, cronômetro de descanso entre séries -->
 <div class="timer-modal" id="timerModal" onclick="timerOnBg(event)">
   <div class="timer-modal-body" role="dialog" aria-modal="true" aria-label="Cronômetro de descanso" onclick="event.stopPropagation()">
@@ -2863,7 +2918,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '112';
+const APP_V = '113';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -5606,6 +5661,28 @@ function pernasSeguidasTexto(t, run) {
   return lista.charAt(0).toUpperCase() + lista.slice(1) + ' são treinos de perna. Se eles caírem em dias seguidos na tua semana, '
     + (run.length === 2 ? 'põe teu dia de descanso entre os dois.' : 'põe teus dias de descanso entre eles.');
 }
+// v113: explicação geral das séries (GH 18/11/2026: "tem que ter uma explicação geral sobre séries de aquecimento, de ajuste
+// e válidas"). O texto já existia, mas só no fim do treino, dentro do Material extra. A faixa fica antes dos exercícios, em
+// todo dia de treino, com um ponto vermelho até a primeira leitura (guardado só no aparelho: é conveniência, não dado do aluno).
+function seriesLido() { try { return localStorage.getItem('shape_series_lido') === '1'; } catch (e) { return true; } }
+function seriesFaixaHtml() {
+  return `<button type="button" class="prog-faixa series-faixa" onclick="abreSeries()" aria-label="Abrir a explicação das séries">
+      <span class="sf-ic" aria-hidden="true">📖</span>
+      <span class="pf-txt"><strong>Como funcionam as séries</strong><span>aquecimento, ajuste e válidas</span></span>
+      ${seriesLido() ? '' : '<span class="sf-novo" aria-hidden="true"></span>'}
+      <span class="pf-seta" aria-hidden="true">›</span>
+    </button>`;
+}
+function abreSeries() {
+  const m = document.getElementById('series-modal'); if (!m) return;
+  m.classList.add('show');
+  const b = m.querySelector('.install-modal-box'); if (b) b.scrollTop = 0;
+}
+function fechaSeries() {
+  const m = document.getElementById('series-modal'); if (m) m.classList.remove('show');
+  try { localStorage.setItem('shape_series_lido', '1'); } catch (e) {}
+  document.querySelectorAll('.series-slot').forEach(el => { el.innerHTML = seriesFaixaHtml(); });
+}
 function fastBarHtml() {
   const on = fastModeOn();
   return `<div class="wk-bar" style="margin-bottom:10px;">
@@ -6453,6 +6530,7 @@ function renderTreino() {
     ${fastBarHtml()}
     ${fastNoteHtml}
     ${pernaNoteHtml}
+    <div class="series-slot">${seriesFaixaHtml()}</div>
     <div class="conclude-bar conclude-slot">${concludeInner()}</div>
     <div class="guardiao-slot" data-de="primeiro-treino">${guardiaoHtml('primeiro-treino')}</div>
     ${exHtml}
@@ -6985,7 +7063,7 @@ function fechaMais() {
   const tab = aberta ? aberta.id.replace('tab-', '') : 'treino';
   document.getElementById('bn-mais').classList.toggle('active', !document.querySelector('.bn-item[data-tab="' + tab + '"]'));
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { try { fechaMais(); } catch (_) {} } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { try { fechaMais(); const m = document.getElementById('series-modal'); if (m && m.classList.contains('show')) fechaSeries(); } catch (_) {} } });
 function poeTema(t) {
   try {
     if (t === 'escuro') { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('shape-tema', 'escuro'); }
