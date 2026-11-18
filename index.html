@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '113';
+  window.APP_LANG_V = '114';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2209,6 +2209,19 @@
   .med-lista { margin-top: 12px; border-top: 1px solid var(--glass-line, var(--border)); }
   .med-l { display: grid; grid-template-columns: 52px 1fr 1fr 40px; align-items: center; gap: 6px; font-size: 13px; color: var(--text); border-bottom: 1px solid var(--glass-line, var(--border)); }
   .med-l > span:first-child { color: var(--text-dim); }
+  /* v114: evolução de carga por exercício na aba Progresso (GH 18/11/2026, decisão 1b) */
+  .evo-l { padding: 11px 0; border-top: 1px solid var(--glass-line, var(--border)); }
+  .evo-l:first-of-type { border-top: 0; padding-top: 2px; }
+  .evo-topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .evo-nome { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .evo-dif { flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 3px 9px; border-radius: 999px; white-space: nowrap; border: 1px solid var(--glass-line, var(--border)); color: var(--text-dim); }
+  .evo-dif.sobe { background: var(--red); border-color: var(--red); color: #fff; }
+  .evo-dif.reps { border-color: var(--red-text); color: var(--red-text); }
+  .evo-de { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; margin-top: 5px; font-size: 12.5px; color: var(--text-dim); }
+  .evo-de b { color: var(--text); font-weight: 800; }
+  .evo-de .seta { color: var(--text-muted); }
+  .evo-de .sem { color: var(--text-muted); }
+  .evo-mais { display: block; width: 100%; margin-top: 8px; background: transparent; border: 1px solid var(--glass-line, var(--border)); color: var(--text-dim); border-radius: 999px; padding: 9px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
   .prog-foto-rot { font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; color: var(--text-muted); margin: 0 0 4px; }
   .prog-foto-par { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
   .prog-foto { margin: 0; }
@@ -2918,7 +2931,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '113';
+const APP_V = '114';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -5192,6 +5205,79 @@ async function hydrateProgFotos() {
 }
 function progVaiPrasFotos() { showTab('treino'); setTimeout(() => { const c = document.getElementById('foto-card'); if (c) c.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 120); }
 
+// ─── v114: evolução de carga (GH 18/11/2026, decisão 1b) ───
+// Só LÊ o que o aluno já anotou (as mesmas chaves da grade, que voltam do servidor no login). Nada é gravado aqui.
+// Por exercício (pelo nome, juntando os dias e os treinos em que ele aparece): a série mais pesada da primeira semana
+// anotada e a da última. Ordem do tempo: fase do treino (1.0, 2.0...) e depois a semana dentro dela. Carga em kg (ou lb,
+// como o aluno digita); quem só anota placa compara placa com placa. Mesmo peso com mais repetições também é evolução.
+let _evoTodos = false;
+function evoNomes() {
+  const m = new Map(), poe = n => { const k = exSlug(n); if (k && !m.has(k)) m.set(k, n); };
+  try { for (const k in state.treinoData || {}) for (const d of state.treinoData[k].dias || []) for (const e of d.exercicios || []) poe(e.exercicio); } catch (e) {}
+  try { for (const k in state.trocasData || {}) { poe(k); for (const o of (state.trocasData[k].opcoes || [])) poe(o.exercicio); } } catch (e) {}
+  return m;
+}
+function evoMelhor(arr, campo) {
+  let b = null;
+  for (const x of arr || []) { const c = x && numDigitado(x[campo]); if (!c) continue; const r = parseInt(x.reps, 10) || 0; if (!b || c > b.c || (c === b.c && r > b.r)) b = { c, r }; }
+  return b;
+}
+function evoDados() {
+  const prefix = setsPrefix(), porEx = new Map();
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const lk = localStorage.key(i);
+      if (!lk || !lk.startsWith(prefix)) continue;
+      const m = SETS_NAME_RE.exec(lk.slice(prefix.length));
+      if (!m) continue;
+      const arr = lerSets(lk);
+      if (!arr) continue;
+      const fm = /_(\d\.\d)_d\d+$/.exec(m[1]), fase = fm ? Math.max(0, PHASES_TREINO.indexOf(blocoDe(fm[1]))) : 0;
+      const ordem = fase * 1000 + (+m[2]);
+      if (!porEx.has(m[3])) porEx.set(m[3], new Map());
+      const sem = porEx.get(m[3]);
+      sem.set(ordem, (sem.get(ordem) || []).concat(arr));
+    }
+  } catch (e) {}
+  const nomes = evoNomes(), out = [];
+  for (const [slug, sem] of porEx) {
+    const ord = [...sem.keys()].sort((a, b) => a - b);
+    const tudo = ord.flatMap(o => sem.get(o));
+    const campo = tudo.some(x => x && numDigitado(x.kg)) ? 'kg' : (tudo.some(x => x && numDigitado(x.pl)) ? 'pl' : null);
+    if (!campo) continue;
+    const pts = ord.map(o => evoMelhor(sem.get(o), campo)).filter(Boolean);
+    if (pts.length < 2) continue;
+    const ini = pts[0], fim = pts[pts.length - 1], dif = Math.round((fim.c - ini.c) * 10) / 10;
+    out.push({ nome: nomes.get(slug) || slug.replace(/-/g, ' '), campo, ini, fim, dif, pct: ini.c ? Math.round(dif / ini.c * 100) : 0, reps: dif === 0 ? fim.r - ini.r : 0, semanas: pts.length });
+  }
+  return out.sort((a, b) => (b.pct - a.pct) || (b.reps - a.reps) || a.nome.localeCompare(b.nome));
+}
+function evoValor(p, campo) {
+  const reps = p.r ? ` <span class="pt">×</span> <b translate="no">${p.r}</b>` : '';
+  return campo === 'kg' ? `<b translate="no">${numTela(p.c)} ${unCarga()}</b>${reps}` : `<span>placa</span> <b translate="no">${numTela(p.c)}</b>${reps}`;
+}
+function evoCardHtml() {
+  const lista = evoDados();
+  const corpo = !lista.length
+    ? '<div class="foto-sec-sub" style="margin:0;">Anota a carga das séries por 2 semanas que a tua evolução aparece aqui, exercício por exercício.</div>'
+    : (_evoTodos ? lista : lista.slice(0, 6)).map(x => {
+        const un = x.campo === 'kg' ? ' ' + unCarga() : '';
+        // placa: o número da placa não é peso, então sai em placas e sem porcentagem
+        const dif = x.dif > 0 ? (x.campo === 'kg' ? `<span class="evo-dif sobe" translate="no">+${numTela(x.dif)}${un}${x.pct ? ' · +' + x.pct + '%' : ''}</span>` : `<span class="evo-dif sobe"><span translate="no">+${numTela(x.dif)}</span> ${Math.abs(x.dif) === 1 ? 'placa' : 'placas'}</span>`)
+          : x.dif < 0 ? (x.campo === 'kg' ? `<span class="evo-dif" translate="no">${numTela(x.dif)}${un}</span>` : `<span class="evo-dif"><span translate="no">${numTela(x.dif)}</span> ${Math.abs(x.dif) === 1 ? 'placa' : 'placas'}</span>`)
+          : x.reps > 0 ? `<span class="evo-dif reps"><span translate="no">+${x.reps}</span> reps</span>`
+          : '<span class="evo-dif">mesma carga</span>';
+        return `<div class="evo-l">
+          <div class="evo-topo"><div class="evo-nome">${escapeHtml(x.nome)}</div>${dif}</div>
+          <div class="evo-de"><span>${evoValor(x.ini, x.campo)}</span><span class="seta" aria-hidden="true">→</span><span>${evoValor(x.fim, x.campo)}</span><span class="sem"><span translate="no">${x.semanas}</span> semanas anotadas</span></div>
+        </div>`;
+      }).join('') + (lista.length > 6 ? `<button type="button" class="evo-mais" onclick="_evoTodos = !_evoTodos; renderProg()">${_evoTodos ? 'Ver menos' : 'Ver todos os exercícios'}</button>` : '');
+  return `<div class="result-card prog-card">
+      <div class="prog-tit">🏋️ Evolução de carga</div>
+      ${corpo}
+      ${lista.length ? '<div class="foto-sec-sub" style="margin:10px 0 0;">A série mais pesada de cada exercício: a da primeira semana que tu anotou e a da última vez. Mesmo peso com mais repetições também é evolução.</div>' : ''}
+    </div>`;
+}
 function renderProg() {
   const c = document.getElementById('tab-prog');
   if (!c || !state.protocol) return;
@@ -5213,6 +5299,7 @@ function renderProg() {
       <div class="prog-hist">${semanas.map(x => `<div class="prog-hist-l"><span translate="no">${diaCurto(diaLocalDe(x.seg))}</span>${progDotsHtml(x.s, 'mini')}<span translate="no">${x.s.n}/${meta}</span></div>`).join('')}</div>
       <div class="foto-sec-sub" style="margin:10px 0 0;">Conta como treino o dia em que tu marca um exercício como feito ou anota a carga.</div>
     </div>
+    ${evoCardHtml()}
     <div class="result-card prog-card">
       <div class="prog-tit">⚖️ Peso e cintura</div>
       <div class="med-form">
