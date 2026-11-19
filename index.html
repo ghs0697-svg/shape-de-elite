@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '114';
+  window.APP_LANG_V = '115';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -2931,7 +2931,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '114';
+const APP_V = '115';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -4770,10 +4770,29 @@ function copiarCupom(codigo, btn) {
   } catch (e) { try { prompt('Copia o cupom:', codigo); } catch (e2) {} }
 }
 
+// v115 (CRM, Sala #4897, 19/11/2026): o Renato (Arte e Ciência) vai pelo link de indicação da CRM, que gera o código
+// por clique e conta o toque. O WhatsApp direto chegava na farmácia sem código e sumia da comissão do GH.
+// s = 12 primeiros hex do sha256 do e-mail (minúsculo, sem espaço), igual ao Peitão (v164): nunca nome, telefone
+// ou e-mail em claro. Sem e-mail lido, o link sai sem s.
+const RENATO_LINK = 'https://links.metodogh.com.br/renato?de=shape';
+let _renatoS = { email: null, s: '' };
+async function renatoS() {
+  const em = String(state.user?.email || '').trim().toLowerCase();
+  if (!em) return '';
+  if (_renatoS.email === em) return _renatoS.s;
+  try {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(em));
+    const s = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 12);
+    _renatoS = { email: em, s };
+    return s;
+  } catch (e) { return ''; }
+}
+function renatoHref(s) { return RENATO_LINK + (s ? '&s=' + s : ''); }
 function renderParceiros() {
   const c = document.getElementById('tab-parc');
-  const nomeAluno = (state.user?.name || '').trim();
-  const msgRenato = `Olá, sou ${nomeAluno || '(teu nome)'}. Vim por indicação do GH.`;
+  const emAgora = String(state.user?.email || '').trim().toLowerCase();
+  const sPronto = _renatoS.email === emAgora ? _renatoS.s : '';
+  if (!sPronto) renatoS().then(s => { const a = document.getElementById('link-renato'); if (a && s) a.href = renatoHref(s); });
   c.innerHTML = `
     <h2>🤝 Parceiros do Método</h2>
     <p class="hint">Descontos de aluno, com os parceiros do GH.</p>
@@ -4804,8 +4823,8 @@ function renderParceiros() {
         <span class="partner-discount">DESCONTO</span>
       </div>
       <div class="partner-desc">Farmácia de manipulação. Eu uso há mais de 7 anos.</div>
-      <div class="partner-msg-tip">Ao clicar, abre o WhatsApp com a mensagem já pronta e com teu nome, só revisa e envia.</div>
-      <a class="partner-link whatsapp" href="https://api.whatsapp.com/send?phone=5516997693445&text=${encodeURIComponent(msgRenato)}" target="_blank" rel="noopener">Falar no WhatsApp →</a>
+      <div class="partner-msg-tip">Ao clicar, abre o WhatsApp com a mensagem já pronta, só revisa e envia.</div>
+      <a class="partner-link whatsapp" id="link-renato" href="${renatoHref(sPronto)}" target="_blank" rel="noopener">Falar no WhatsApp →</a>
     </div>
 
     <div class="partner-group-title">💊 Suplementos (FTW · Loja oficial)</div>
