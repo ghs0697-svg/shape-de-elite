@@ -27,7 +27,7 @@
     else { var s = localStorage.getItem('shape_lang'); if (IDIOMAS_APP.indexOf(s) >= 0) L = s; }
   } catch (e) {}
   window.APP_LANG = L;
-  window.APP_LANG_V = '115';
+  window.APP_LANG_V = '116';
   if (L !== 'pt') {
     document.documentElement.lang = L;
     document.write('<script src="i18n/' + L + '.js?v=' + window.APP_LANG_V + '"><\/script>');
@@ -1520,6 +1520,9 @@
 
   /* ════════ Avaliação corporal pelo GH (cartão na aba TREINO e formulário) ════════ */
   .aval-slot:empty { display: none; }
+  .bonus-slot:empty { display: none; }
+  .bonus-btn { display: block; margin-top: 12px; padding: 12px; border-radius: 12px; background: var(--red, #b41e1e); color: #fff; font-weight: 800; text-align: center; text-decoration: none; }
+  .bonus-ok { display: block; width: 100%; margin-top: 8px; padding: 8px; background: none; border: 0; color: var(--text-dim); font-family: inherit; font-size: 12px; text-decoration: underline; cursor: pointer; }
   .qualif-slot:empty { display: none; }
   .qualif-acoes { display: flex; gap: 8px; margin-top: 12px; }
   .qualif-acoes button { font: inherit; font-size: 13.5px; font-weight: 800; border-radius: 10px; padding: 10px 14px; cursor: pointer; }
@@ -2931,7 +2934,7 @@
 const API_BASE = 'https://shape-de-elite-api.vercel.app';
 // Versão dos dados: MESMO número do sw.js (CACHE_NAME e V). Vai no endereço dos JSON pra página nova nunca
 // rodar com catálogo velho guardado pelo navegador.
-const APP_V = '115';
+const APP_V = '116';
 const STORAGE_KEY = 'shapedeelite_v1';
 const CALC_URL = 'https://shapedeelite.com.br/calculadora/'; // calc avulsa externa (casa canônica, com prioridade)
 
@@ -4177,6 +4180,7 @@ async function initDashboard() {
   restoreSetsFromServer(); // backup de cargas da conta (não bloqueia o load)
   flushFotoUploads();      // sobe fotos pendentes pro Drive (se backend configurado)
   avalAoEntrar();          // avaliação corporal: o servidor diz se este aluno tem o bônus e em que pé está
+  bonusAoEntrar();         // v116: 30 dias de consultoria dos 25 primeiros do lançamento de 19/11
   medSync();               // peso, cintura e dias de treino da conta (aba Progresso e faixa da semana)
 }
 
@@ -5367,6 +5371,7 @@ const avalDiaMes = ms => { const d = new Date(ms); return String(d.getDate()).pa
 function avalSoltaBlobs() { for (const u of _avalBlobs) { try { URL.revokeObjectURL(u); } catch (e) {} } _avalBlobs = []; }
 // troca de conta ou saída: nada da avaliação de um aluno pode sobrar pra outro no mesmo aparelho
 function avalZera() {
+  _bonusConsult = null;
   _avalStatus = null; _avalVerEnvio = false; _avalAudioDe = null; _avalBuscando = false;
   if (_avalAudioEl) { try { _avalAudioEl.pause(); _avalAudioEl.removeAttribute('src'); _avalAudioEl.load(); } catch (e) {} }
   avalSoltaBlobs();
@@ -5607,6 +5612,48 @@ async function enviarAval() {
   finally { if (bt) bt.disabled = false; }
 }
 // ═══ fim da avaliação corporal ═══
+// v116: BÔNUS DO LANÇAMENTO de 19/11/2026. Os 25 primeiros compradores ganham 30 dias da consultoria (GH: "o aviso vai
+// só no app do Shape, não no whats"). Quem ganhou é o servidor que diz (GET /api/bonus, lista congelada no banco).
+// "Já preenchi" esconde o cartão só neste aparelho (conveniência, não dado do aluno).
+const BONUS_ANAMNESE = 'https://forms.gle/kmVK8cvtqN1mu9qFA';
+let _bonusConsult = null;
+function bonusEscondido() { try { return localStorage.getItem('shape_bonus_consult_ok_' + (state.user?.email || '')) === '1'; } catch (e) { return false; } }
+function bonusCardHtml() {
+  if (!state.user || !soBrasil() || !_bonusConsult) return '';
+  // GH 19/11: os 30 dias só liberam depois dos 7 dias de arrependimento (data vem do servidor). O texto fala em organizar
+  // a entrada, sem citar o prazo (GH: "não deixa escancarado, tem que parecer que é pra organização"). Até lá, nada de anamnese.
+  const libera = Number(_bonusConsult.liberaEm) || 0;
+  if (!libera || Date.now() < libera) {
+    const d = new Date(libera);
+    const dia = libera ? String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') : '';
+    return `<div class="aval-card convite bonus-card" id="bonusCard" translate="no">
+      <div class="aval-tag">🎁 BÔNUS DE LANÇAMENTO</div>
+      <div class="aval-main">Tu foi um dos 25 primeiros a entrar no Shape de Elite e ganhou <b>30 dias da Consultoria Método GH</b>, com treino e dieta montados só pra ti.</div>
+      <div class="aval-sub">Pra organizar a entrada de cada um, teu bônus libera a partir do dia${dia ? ` <b>${dia}</b>` : ' marcado'}. Nesse dia aparece aqui o botão pra começar.</div>
+    </div>`;
+  }
+  if (bonusEscondido()) return '';
+  return `<div class="aval-card convite bonus-card" id="bonusCard" translate="no">
+      <div class="aval-tag">🎁 BÔNUS DE LANÇAMENTO</div>
+      <div class="aval-main">Teu bônus está liberado: <b>30 dias da Consultoria Método GH</b>, com treino e dieta montados só pra ti.</div>
+      <div class="aval-sub">Pra começar, preenche a anamnese. É com ela que o teu protocolo individual é montado.</div>
+      <a class="bonus-btn" href="${BONUS_ANAMNESE}" target="_blank" rel="noopener">Preencher a anamnese →</a>
+      <button type="button" class="bonus-ok" onclick="bonusJaPreenchi()">Já preenchi</button>
+    </div>`;
+}
+function bonusRedesenha() { document.querySelectorAll('.bonus-slot').forEach(s => { s.innerHTML = bonusCardHtml(); }); }
+function bonusJaPreenchi() {
+  try { localStorage.setItem('shape_bonus_consult_ok_' + (state.user?.email || ''), '1'); } catch (e) {}
+  bonusRedesenha();
+}
+async function bonusAoEntrar() {
+  if (!soBrasil() || !state.user || !state.user.token) return;
+  const email = state.user.email;
+  try {
+    const r = await api('/api/bonus');
+    if (r && r.ok && state.user && state.user.email === email) { _bonusConsult = r.consultoria || null; bonusRedesenha(); }
+  } catch (e) {}
+}
 
 // ═══════════════════════════════════════════════════════════
 // PROGRESSÃO DE CARGA (grade de séries kg/placa/reps, igual Peitão)
@@ -6626,6 +6673,7 @@ function renderTreino() {
     ${desvioHtml}
     ${mesTopoHtml}
     ${avisoMesHtml}
+    <div class="bonus-slot">${bonusCardHtml()}</div>
     <div class="qualif-slot">${qualifCardHtml()}</div>
     <div class="grupo-slot">${grupoFaixaHtml()}</div>
     <div class="aval-slot">${avalCardHtml()}</div>
